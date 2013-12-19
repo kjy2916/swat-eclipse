@@ -172,8 +172,9 @@
 		   shear_stress = 0.22 * ycoeff + 0.06 * 10 ** (-7.7 * ycoeff)
 
 		   !! critical grain Froude number
-		   fr_gc = 4.596 * shear_stress ** 0.5293 * ch_s(2,jrch) ** (-0.1405) 
-     &               * sig_g ** (-0.1606)
+		   fr_gc = 4.596 * shear_stress ** 0.5293
+		   fr_gc = fr_gc * ch_s(2,jrch) ** (-0.1405)
+		   fr_gc = fr_gc * sig_g ** (-0.1606)
 
 		   !! grain Froude number
 		   fr_g = vc / sqrt((particle_specific_gravity - 1.) * 
@@ -191,8 +192,9 @@
 		 case (2)
 		   !!Yang Model
 		   !! particle fall velocity
-		   vfall = 9.81 * channel_d50 ** 2 * (particle_specific_gravity - 1.)
-     &		    / (18.* visco_h2o)
+		   vfall = 9.81 * channel_d50 ** 2
+		   vfall = vfall * (particle_specific_gravity - 1.);
+		   vfall = vfall / (18.* visco_h2o)
 		   
 		   !! shear velocity
 		   vshear = sqrt(9.81 * rhy(ii) * ch_s(2,jrch))
