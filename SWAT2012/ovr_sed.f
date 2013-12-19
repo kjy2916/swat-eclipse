@@ -150,8 +150,8 @@
      &	  ke_leaf)
 
 	!! total soil detachment by raindrop impact
-	  sedspl = erod_k * ke_total * exp(-eros_spl * hhqday(k) / 1000.) * 
-     &	  hru_km(j) ! tons
+	  sedspl = erod_k * ke_total * exp(-eros_spl * hhqday(k) / 1000.)
+      sedspl = sedspl * hru_km(j) ! tons
 
 	!! Impervious area of HRU
 	  if(urblu(j)>0) sedspl = sedspl * (1.- fimp(urblu(j)))

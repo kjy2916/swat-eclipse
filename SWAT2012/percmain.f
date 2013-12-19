@@ -126,11 +126,13 @@
         sol_st(j1,j) = sol_st(j1,j) + sepday
         
  	  !! septic tank inflow to biozone layer  J.Jeong
-	  ! STE added to the biozone layer if soil temp is above zero. 
-	  if(j1==i_sep(j).and.sol_tmp(j1,j) > 0. .and. isep_opt(j) /= 0) then
-		  sol_st(j1,j) = sol_st(j1,j) + qstemm(j)  ! in mm
-	    qvol = qstemm(j) * hru_ha(j) * 10.
-		  xx = qvol / hru_ha(j) / 1000.
+	  ! STE added to the biozone layer if soil temp is above zero.
+	  if(j1==i_sep(j)) then
+        if(sol_tmp(j1,j) > 0.) then
+            if (isep_opt(j) /= 0) then
+          sol_st(j1,j) = sol_st(j1,j) + qstemm(j)  ! in mm
+          qvol = qstemm(j) * hru_ha(j) * 10.
+          xx = qvol / hru_ha(j) / 1000.
           sol_no3(j1,j) = sol_no3(j1,j) + xx *(sptno3concs(isp) 
      &                    + sptno2concs(isp))  
           sol_nh3(j1,j) = sol_nh3(j1,j) + xx * sptnh4concs(isp) 
@@ -138,8 +140,11 @@
           sol_fon(j1,j) = sol_fon(j1,j) + xx * sptorgnconcs(isp) * 0.5
           sol_orgp(j1,j) = sol_orgp(j1,j) + xx * sptorgps(isp) * 0.5
           sol_fop(j1,j) = sol_fop(j1,j) + xx * sptorgps(isp) * 0.5
-          sol_solp(j1,j) = sol_solp(j1,j) + xx * sptminps(isp)  
+          sol_solp(j1,j) = sol_solp(j1,j) + xx * sptminps(isp)
+            end if
         end if
+      end if
+
 
        !! determine gravity drained water in layer
         sw_excess = 0.
