@@ -128,7 +128,7 @@
 !! method is used to calculate surface runoff. The curve number methods
 !! take canopy effects into account in the equations. For either of the
 !! CN methods, canstor will always equal zero.
-      pet = pet - canev
+      pet = pet - canstor(j)
       if (pet < 0.) then
         canstor(j) = -pet
         canev = pet_day
@@ -170,13 +170,16 @@
 !        if (pot_vol(j) > 1.e-4) es_max = 0.
 
         !! make sure maximum plant and soil ET doesn't exceed potential ET
-        if (pet_day < es_max + ep_max) then
-          es_max = pet_day - ep_max
+        !!if (pet_day < es_max + ep_max) then
+          !!es_max = pet_day - ep_max
           if (pet < es_max + ep_max) then
             es_max = pet * es_max / (es_max + ep_max)
             ep_max = pet * ep_max / (es_max + ep_max)
           end if
-        end if
+          if (pet < es_max + ep_max) then
+            es_max = pet - ep_max - 1.0e-6
+          end if
+        !!end if
 
         !! initialize soil evaporation variables
         esleft = 0.
