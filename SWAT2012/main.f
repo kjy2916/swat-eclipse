@@ -1,4 +1,4 @@
-      !!include 'modparm.f'
+      include 'modparm.f'
       program main
 !!    this is the main program that reads input, calls the main simulation
 !!    model, and writes output.
@@ -52,11 +52,11 @@
 
       use parm
       implicit none
-      prog = "SWAT Dec 6 2013    VER 2012/Rev 613"
+      prog = "SWAT Jan 7 2014    VER 2012/Rev 614"
 
       write (*,1000)
  1000 format(1x,"               SWAT2012               ",/,             
-     &          "               Rev. 613               ",/,             
+     &          "               Rev. 614               ",/,             
      &          "      Soil & Water Assessment Tool    ",/,             
      &          "               PC Version             ",/,             
      &          " Program reading from file.cio . . . executing",/)
