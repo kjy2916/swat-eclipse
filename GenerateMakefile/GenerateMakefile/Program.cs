@@ -83,8 +83,11 @@ namespace GenerateMakefile
                 f_prefix = "../";
             }
 
-            string debugFlag = " -O0 -g";
-            if (!isDebug) debugFlag = " -O3";
+            //-ffpe-trap=invalid,zero,overflow,underflow will make program stop when these errors happen
+            //-fbacktrace:  Specifies that if the program crashes, a backtrace should be produced if possible, showing what functions or subroutines were being called at the time of the error.
+            string commonFlag = " -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow";
+            string debugFlag = " -O0 -g -fbounds-check -Wextra" + commonFlag;
+            if (!isDebug) debugFlag = " -O3" + commonFlag;
 
             StringBuilder makefilesb = new StringBuilder();
             StringBuilder objfilesb = new StringBuilder();
@@ -149,11 +152,13 @@ namespace GenerateMakefile
                 //    echo Clean done
                 //The leading minus sign tells make to consider the clean rule to be successful even if the del command returns failure. 
                 //This may be acceptable since the del command will fail if the specified files to be deleted do not exist yet (or anymore).
+                //The rm command is located in C:\MinGW\msys\1.0\bin. Need to install mingw-developer-toolkit and msys-base package.
                 writer.WriteLine(makefilesb.ToString());
                 writer.WriteLine("clean:");
-                writer.WriteLine("\t-del ${NAME}.exe");
-                writer.WriteLine("\t-del *.o");
-                writer.WriteLine("\t-del *.mod");
+                writer.WriteLine("\trm -f ${NAME} $");
+                writer.WriteLine("\trm -f *.o");
+                writer.WriteLine("\trm -f *.mod");
+                writer.WriteLine("\trm -f *~");
             }
 
             Console.WriteLine("Write " + makefile + " successfully!");
