@@ -138,14 +138,22 @@ namespace GenerateMakefile
                 writer.WriteLine("");
                 writer.WriteLine("${NAME}: ${OBJECTS}");
                 writer.WriteLine("\t${FC} ${OBJECTS} -static -o ${NAME}");//reomve static library dependency
-                writer.WriteLine("");              
+                writer.WriteLine("");
 
+                //http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.cdt.doc.user%2Fconcepts%2Fcdt_c_makefile.htm
+                //This means that mingw32-make was unable to find the utility "rm". Unfortunately, MinGW does not come with "rm". 
+                //To correct this, replace the clean rule in your Makefile with:
+
+                //clean : 
+                //    -del $(REBUILDABLES)
+                //    echo Clean done
+                //The leading minus sign tells make to consider the clean rule to be successful even if the del command returns failure. 
+                //This may be acceptable since the del command will fail if the specified files to be deleted do not exist yet (or anymore).
                 writer.WriteLine(makefilesb.ToString());
-                writer.WriteLine("Clean:");
-                writer.WriteLine("\trm -f ${NAME} $");
-                writer.WriteLine("\trm -f *.o");
-                writer.WriteLine("\trm -f *.mod");
-                writer.WriteLine("\trm -f *~");
+                writer.WriteLine("clean:");
+                writer.WriteLine("\t-del ${NAME}.exe");
+                writer.WriteLine("\t-del *.o");
+                writer.WriteLine("\t-del *.mod");
             }
 
             Console.WriteLine("Write " + makefile + " successfully!");
