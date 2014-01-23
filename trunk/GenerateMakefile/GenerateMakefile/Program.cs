@@ -14,16 +14,42 @@ namespace GenerateMakefile
 
         static void Main(string[] args)
         {
-            createSWATMakefile(@"C:\Users\yuz\Downloads\rev615_source");
+            string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            createSWATMakefile(path);
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadLine();
         }
 
-        private static void createSWATMakefile(string swatFolder, bool inSameFolder = false, bool isDebug = true)
+        private static void createSWATMakefile(string swatFolder, bool inSameFolder = false)
         {
-            if (!Directory.Exists(swatFolder)) return;
+            if (!Directory.Exists(swatFolder))
+            {
+                Console.WriteLine(swatFolder + " doesn't exist.");
+                return;
+            }
 
+            Console.WriteLine("Debug or release version? (d/r)");
+            string version = Console.ReadLine().ToLower();
+
+            bool isDebug = true;
+            if (version.Equals("d") || version.Equals("debug"))
+                isDebug = true;
+            else if (version.Equals("r") || version.Equals("release"))
+                isDebug = false;
+            else
+            {
+                Console.WriteLine("Wrong input.");
+                return;
+            }
+
+            Console.WriteLine("Looking for fortran source codes in " + swatFolder);
             DirectoryInfo info = new DirectoryInfo(swatFolder);
             FileInfo[] files = info.GetFiles("*.f*");
-            if (files == null || files.Length == 0) return;
+            if (files == null || files.Length == 0)
+            {
+                Console.WriteLine("Don't find any fortran codes in " + swatFolder);
+                return;
+            }
 
             //get the file path
             string makefile = info.FullName + "\\Makefile";
@@ -121,6 +147,8 @@ namespace GenerateMakefile
                 writer.WriteLine("\trm -f *.mod");
                 writer.WriteLine("\trm -f *~");
             }
+
+            Console.WriteLine("Write " + makefile + " successfully!");
         }
     }
 }
