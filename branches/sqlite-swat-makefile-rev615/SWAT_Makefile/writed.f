@@ -173,6 +173,10 @@
       wpstmono = wpstmono + wpstdayo
       hrupstm = hrupstm + hrupstd
 
+!YU>
+      !!for point source
+      recmono = recmono + recdayo
+!YU<
 
       return
 !5000  format(i5,1x,a5,a4,1x,500e12.4)

@@ -204,5 +204,16 @@
         end do
       end if
 
+!YU>
+      recdayo(1,inum1) = floday
+      recdayo(2,inum1) = sedday
+      recdayo(3,inum1) = orgpday !!PP
+      recdayo(4,inum1) = minpday !!DP
+      recdayo(5,inum1) = orgpday + minpday !!TP
+      recdayo(6,inum1) = orgnday !!PN
+      recdayo(7,inum1) = no3day + nh3day + no2day   !!DN
+      recdayo(8,inum1) = orgnday + no3day + nh3day + no2day   !!TN
+!YU<
+
       return
       end

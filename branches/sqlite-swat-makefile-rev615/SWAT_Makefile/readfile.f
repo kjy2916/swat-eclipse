@@ -302,6 +302,25 @@
       read (101,5101) titldum
       read (101,*) (ipdvar(ii),ii=1,20)
 
+!YU>
+      !!reach output columns
+      ipdvar(1) = 2
+      ipdvar(2) = 3
+      ipdvar(3) = 4
+      ipdvar(4) = 6
+      ipdvar(5) = 7
+      ipdvar(6) = 9
+      ipdvar(7) = 11
+      ipdvar(8) = 13
+      ipdvar(9) = 15
+      ipdvar(10) = 17
+      ipdvar(11) = 19
+
+      do ii = 12,mrcho
+        ipdvar(11) = 0
+      end do
+!YU<
+
       !!IPDVAR  - Output variables to output.rch file
              !![   1] Streamflow into reach (cms)
              !![   2] Streamflow out of reach (cms)
@@ -358,6 +377,17 @@
       read (101,5101) titldum
       read (101,*) (ipdvab(ii),ii=1,15)
 
+!YU>
+      !!output fist 18 results
+      do ii = 1,18
+        ipdvab(ii) = ii
+      end do
+
+      do ii = 19,msubo
+        ipdvab(ii) = 0
+      end do
+!YU<
+
       !!IPDVAB  - Output variables to output.sub file
              !![   1] Total precipitation falling on subbasin (mm)
              !![   2] Snow melt in subbasin (mm)
@@ -379,6 +409,31 @@
 
       read (101,5101) titldum
       read (101,*) (ipdvas(ii),ii=1,20)
+
+!YU<
+      ipdvas(1) = 1
+      ipdvas(2) = 3
+      ipdvas(3) = 5
+      ipdvas(4) = 6
+      ipdvas(5) = 8
+      ipdvas(6) = 9
+      ipdvas(7) = 18
+      ipdvas(8) = 21
+      ipdvas(9) = 22
+      ipdvas(10) = 29
+      ipdvas(11) = 51
+      ipdvas(12) = 52
+      ipdvas(13) = 54
+      ipdvas(14) = 58
+      ipdvas(15) = 53
+      ipdvas(16) = 20
+      ipdvas(17) = 55
+      ipdvas(18) = 57
+
+      do ii = 19,mhruo
+        ipdvas(ii) = 0
+      end do
+!YU<
 
       !!IPDVAS  - Output variables to output.hru file
              !![   1] Total precipitation falling on HRU (mm)
@@ -463,6 +518,30 @@
 
       read (101,5101) titldum
       read (101,*) (ipdhru(ii),ii=1,20)
+
+!YU>
+      do ii=1,20
+        ipdhru(ii) = 0
+      end do
+
+      do ii=1,41
+        ipdvareservoir(ii) = 0
+      end do
+      ipdvareservoir(1) = 1
+      ipdvareservoir(2) = 3
+      ipdvareservoir(3) = 4
+      ipdvareservoir(4) = 5
+      ipdvareservoir(5) = 6
+      ipdvareservoir(6) = 8
+      ipdvareservoir(7) = 11
+      ipdvareservoir(8) = 14
+      ipdvareservoir(9) = 17
+      ipdvareservoir(10) = 20
+      ipdvareservoir(11) = 23
+      ipdvareservoir(12) = 26
+
+      itotreservoir = 12
+!YU<
 
       !! Atmospheric deposition file (Kannan/Santhi input file)
       do
@@ -602,20 +681,26 @@
       open (24,file="input.std")
       open (26,file="output.std")
 
-      open (28,file="output.hru",recl=1500)
-      if (ia_b == 1) then 
-        open (33333,file="outputb.hru",form='unformatted')
-      end if
-      open (30,file="output.pst",recl=600)
-      open (31,file="output.sub",recl=600)
-      if (ia_b == 1) then
-        open (66666,file = "outputb.sub", form = 'unformatted')
-      end if
-      open (7,file="output.rch",recl=800)
-      open (8,file="output.rsv",recl=800)
-      if (ia_b == 1) then
-        open (77777,file = "outputb.rch", form = 'unformatted')
-      end if
+!YU>
+      !!Open result database
+      filename = "result.db3"
+      call open_database(filename_overlay, sqliteHandle)
+
+!      open (28,file="output.hru",recl=1500)
+!      if (ia_b == 1) then
+!        open (33333,file="outputb.hru",form='unformatted')
+!      end if
+!      open (30,file="output.pst",recl=600)
+!      open (31,file="output.sub",recl=600)
+!      if (ia_b == 1) then
+!        open (66666,file = "outputb.sub", form = 'unformatted')
+!      end if
+!      open (7,file="output.rch",recl=800)
+!      open (8,file="output.rsv",recl=800)
+!      if (ia_b == 1) then
+!        open (77777,file = "outputb.rch", form = 'unformatted')
+!      end if
+!YU<
       
 !!    sediment routing output file
       open (84,file="output.sed",recl=800)

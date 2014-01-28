@@ -198,30 +198,33 @@
           do ii = 1, itotr
             pdvr(ii) = pdvar(ipdvar(ii))
           end do
+!YU>
+          call rchcommandSQLite(j,mo_chk,pdvar,pdvr)
 
-          if (iscen == 1 .and. isproj == 0) then
-          write (7,5000) j, subgis(j), mo_chk, rch_dakm(j),           
-     &                                    (pdvr(ii), ii = 1, itotr), j
-          else if (isproj == 1) then
-          write (20,5000) j, subgis(j), mo_chk, rch_dakm(j),            
-     &                                    (pdvr(ii), ii = 1, itotr), j
-          else if (iscen == 1 .and. isproj == 2) then 
-          write (7,6000) j, subgis(j), mo_chk, rch_dakm(j),             
-     &                              (pdvr(ii), ii = 1, itotr),iyr  
-          endif
-        else
- !  increase to 44 in loops below from 42 gsm 10/17/2011      
-          if (iscen == 1 .and. isproj == 0) then
-          write (7,5000) j, subgis(j), mo_chk, rch_dakm(j),             
-     &                                (pdvar(ii), ii = 1, 44), j    
-          else if (isproj == 1) then
-          write (20,5000) j, subgis(j), mo_chk, rch_dakm(j),            
-     &                                (pdvar(ii), ii = 1, 44), j    
-          else if (iscen == 1 .and. isproj == 2) then
-          write (7,6000) j, subgis(j), mo_chk, rch_dakm(j),             
-     &                              (pdvar(ii), ii = 1, 44), iyr     
-
-          endif
+!          if (iscen == 1 .and. isproj == 0) then
+!          write (7,5000) j, subgis(j), mo_chk, rch_dakm(j),
+!     &                                    (pdvr(ii), ii = 1, itotr), j
+!          else if (isproj == 1) then
+!          write (20,5000) j, subgis(j), mo_chk, rch_dakm(j),
+!     &                                    (pdvr(ii), ii = 1, itotr), j
+!          else if (iscen == 1 .and. isproj == 2) then
+!          write (7,6000) j, subgis(j), mo_chk, rch_dakm(j),
+!     &                              (pdvr(ii), ii = 1, itotr),iyr
+!          endif
+!        else
+! !  increase to 44 in loops below from 42 gsm 10/17/2011
+!          if (iscen == 1 .and. isproj == 0) then
+!          write (7,5000) j, subgis(j), mo_chk, rch_dakm(j),
+!     &                                (pdvar(ii), ii = 1, 44), j
+!          else if (isproj == 1) then
+!          write (20,5000) j, subgis(j), mo_chk, rch_dakm(j),
+!     &                                (pdvar(ii), ii = 1, 44), j
+!          else if (iscen == 1 .and. isproj == 2) then
+!          write (7,6000) j, subgis(j), mo_chk, rch_dakm(j),
+!     &                              (pdvar(ii), ii = 1, 44), iyr
+!
+!          endif
+!YU<
         end if
       end do
 

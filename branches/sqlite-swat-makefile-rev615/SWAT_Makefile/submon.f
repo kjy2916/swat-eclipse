@@ -88,11 +88,15 @@
           do ii = 1, itotb
             pdvb(ii) = pdvab(ipdvab(ii))
           end do
-          write (31,1000) sb, subgis(sb), mo_chk, sub_km(sb),           
-     &                                    (pdvb(ii), ii = 1, itotb), sb
-        else
-          write (31,1000) sb, subgis(sb), mo_chk, sub_km(sb),           
-     &                                    (pdvab(ii), ii = 1, msubo), sb
+!YU>
+          call subcommandSQLite(sb,mo_chk,pdvab,pdvb)
+
+!          write (31,1000) sb, subgis(sb), mo_chk, sub_km(sb),
+!     &                                    (pdvb(ii), ii = 1, itotb), sb
+!        else
+!          write (31,1000) sb, subgis(sb), mo_chk, sub_km(sb),
+!     &                                    (pdvab(ii), ii = 1, msubo), sb
+!YU<
         end if
       end do
 

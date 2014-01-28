@@ -53,47 +53,60 @@
       real, dimension (msubo) :: pdvab, pdvb
 
       do sb = 1, subtot
-
-        pdvab = 0.
-        pdvb = 0.
-  
-        pdvab(1) = subyro(1,sb)
-        pdvab(2) = subyro(2,sb)
-        pdvab(3) = subyro(5,sb)
-        pdvab(4) = subyro(6,sb)
-        pdvab(5) = sub_sw(sb)
-        pdvab(6) = subyro(13,sb)
-        pdvab(7) = subyro(3,sb)
-        pdvab(8) = subyro(12,sb)
-        pdvab(9) = subyro(4,sb)
-        pdvab(10) = subyro(7,sb)
-        pdvab(11) = subyro(8,sb)
-        pdvab(12) = subyro(9,sb)
-        pdvab(13) = subyro(10,sb)
-        pdvab(14) = subyro(11,sb)
-        pdvab(15) = subyro(14,sb)
-        pdvab(16) = subyro(15,sb)
-        pdvab(17) = subyro(16,sb)
-        pdvab(18) = subyro(17,sb)
-!!      chl_a, cbodu and doxq were all written out in daily
-!!      output code.  not set up for monthly/yearly
-!!      all values will be zero for all codes except daily
-!!      added for jennifer b.
-        pdvab(19) = 0.0
-        pdvab(20) = 0.0
-        pdvab(21) = 0.0
-        pdvab(22) = subyro(18,sb)    !!tile_no3
-
+!YU>
         if (ipdvab(1) > 0) then
-          do ii = 1, itotb
-            pdvb(ii) = pdvab(ipdvab(ii))
-          end do
-          write (31,1000) sb, subgis(sb), iyr, sub_km(sb),              
-     &                                    (pdvb(ii), ii = 1, itotb), sb
-        else
-          write (31,1000) sb, subgis(sb), iyr, sub_km(sb),              
-     &                                    (pdvab(ii), ii = 1, msubo), sb
+        call commoncommandSQLite(subinsert,sb,iyr,
+     &       subyro(4,sb), !!water
+     &       subyro(7,sb), !!sediment
+     &       subyro(9,sb) + subyro(14,sb), !!PP = orgP + sedP
+     &       subyro(11,sb), !!DP: soluble P
+     &       subyro(11,sb) + subyro(9,sb) + subyro(14,sb), !!TP
+     &       subyro(8,sb), !!PN = orgN
+     &       subyro(10,sb) + subyro(16,sb) + subyro(17,sb), !!DN: no3 from surface runoff, lateral and groundwater
+     &       subyro(8,sb) +subyro(10,sb) +subyro(16,sb)+ subyro(17,sb)) !! TP
         end if
+
+!        pdvab = 0.
+!        pdvb = 0.
+!
+!        pdvab(1) = subyro(1,sb)
+!        pdvab(2) = subyro(2,sb)
+!        pdvab(3) = subyro(5,sb)
+!        pdvab(4) = subyro(6,sb)
+!        pdvab(5) = sub_sw(sb)
+!        pdvab(6) = subyro(13,sb)
+!        pdvab(7) = subyro(3,sb)
+!        pdvab(8) = subyro(12,sb)
+!        pdvab(9) = subyro(4,sb)
+!        pdvab(10) = subyro(7,sb)
+!        pdvab(11) = subyro(8,sb)
+!        pdvab(12) = subyro(9,sb)
+!        pdvab(13) = subyro(10,sb)
+!        pdvab(14) = subyro(11,sb)
+!        pdvab(15) = subyro(14,sb)
+!        pdvab(16) = subyro(15,sb)
+!        pdvab(17) = subyro(16,sb)
+!        pdvab(18) = subyro(17,sb)
+!!!      chl_a, cbodu and doxq were all written out in daily
+!!!      output code.  not set up for monthly/yearly
+!!!      all values will be zero for all codes except daily
+!!!      added for jennifer b.
+!        pdvab(19) = 0.0
+!        pdvab(20) = 0.0
+!        pdvab(21) = 0.0
+!        pdvab(22) = subyro(18,sb)    !!tile_no3
+!
+!        if (ipdvab(1) > 0) then
+!          do ii = 1, itotb
+!            pdvb(ii) = pdvab(ipdvab(ii))
+!          end do
+!          write (31,1000) sb, subgis(sb), iyr, sub_km(sb),
+!     &                                    (pdvb(ii), ii = 1, itotb), sb
+!        else
+!          write (31,1000) sb, subgis(sb), iyr, sub_km(sb),
+!     &                                    (pdvab(ii), ii = 1, msubo), sb
+!        end if
+!YU<
       end do
 
       return

@@ -894,6 +894,33 @@
       ! tillage_factor: = 1.6 in 30 days after tillage practices occur; otherwise 1.0;
 !! By Zhang for C/N cycling
 
+!YU>
+!!    for reservoir result
+      integer :: itotreservoir
+      integer, dimension (:), allocatable :: ipdvareservoir
 
+!!    write result to SQLite
+      integer :: sqliteHandle
+      integer          filename_overlay(250)
+      character*1000   filename
+      equivalence     (filename, filename_overlay(1))
+      integer          table_overlay(20)
+      character*80     table
+      equivalence     (table, table_overlay(1))
+      integer          sqlcmd_overlay(250)
+      character*1000    sqlcmd
+      equivalence     (sqlcmd, sqlcmd_overlay(1))
+      character*1000    hruinsert
+      character*1000    subinsert
+      character*1000    rchinsert
+      character*1000    rsvinsert
+      character*1000    recinsert
+
+!!    for point source
+      !!daily, monthly and yearly data of point source
+      real, dimension (:,:), allocatable :: recdayo,recmono,recyro
+      character(len=13) :: hedrec(8)
+
+!YU<
 
       end module parm

@@ -143,87 +143,99 @@
           end if
         end if
 
-        pdvar = 0. 
-        pdvr = 0.
+!YU>
+            call commoncommandSQLite(rchinsert,j,iyr,
+     &       srch_av(2), !!water
+     &       rchyro(4,j), !!sediment
+     &       rchyro(9,j), !!PP = orgP
+     &       rchyro(18,j), !!DP: soluble P
+     &       rchyro(9,j) + rchyro(18,j), !!TP
+     &       rchyro(7,j), !!PN = orgN
+     &       rchyro(16,j) + rchyro(33,j) + rchyro(35,j), !!DN: no3, nh3, no2
+     &       rchyro(7,j) + rchyro(16,j) + rchyro(33,j) + rchyro(35,j)) !! TP
 
-        !! assign yearly values
-        pdvar(1) = srch_av(1)        !!flow in (m^3/s)
-        pdvar(2) = srch_av(2)        !!flow out (m^3/s)
-        pdvar(3) = rchyro(10,j)      !!evaporation (m^3/s)
-        pdvar(4) = rchyro(11,j)      !!tloss (m^3/s)
-        pdvar(5) = rchyro(3,j)       !!sed in (metric tons)
-        pdvar(6) = rchyro(4,j)       !!sed out (met tons)
-        pdvar(7) = rchyro(5,j)       !!sed conc (mg/L)
-        pdvar(8) = rchyro(6,j)       !!orgN in (kg N)
-        pdvar(9) = rchyro(7,j)       !!orgN out (kg N)
-        pdvar(10) = rchyro(8,j)      !!orgP in (kg P)
-        pdvar(11) = rchyro(9,j)      !!orgP out (kg P)
-        pdvar(12) = rchyro(15,j)     !!NO3 in (kg N)
-        pdvar(13) = rchyro(16,j)     !!NO3 out (kg N)
-        pdvar(14) = rchyro(32,j)     !!NH4 in (kg)
-        pdvar(15) = rchyro(33,j)     !!NH4 out (kg)
-        pdvar(16) = rchyro(34,j)     !!NO2 in (kg)
-        pdvar(17) = rchyro(35,j)     !!NO2 out (kg)
-        pdvar(18) = rchyro(17,j)     !!solP in (kg P)
-        pdvar(19) = rchyro(18,j)     !!solP out (kg P)
-        pdvar(20) = rchyro(30,j)     !!algae in (kg)
-        pdvar(21) = rchyro(31,j)     !!algae out (kg)
-        pdvar(22) = rchyro(36,j)     !!CBOD in (kg)
-        pdvar(23) = rchyro(37,j)     !!CBOD out (kg)
-        pdvar(24) = rchyro(38,j)     !!dis O2 in (kg)
-        pdvar(25) = rchyro(39,j)     !!dis O2 out (kg)
-        pdvar(26) = rchyro(19,j)     !!solpst in (mg pst)
-        pdvar(27) = rchyro(20,j)     !!solpst out (mg pst)
-        pdvar(28) = rchyro(21,j)     !!srbpst in (mg pst)
-        pdvar(29) = rchyro(22,j)     !!srbpst out (mg pst)
-        pdvar(30) = rchyro(23,j)     !!reacted pst (mg pst)
-        pdvar(31) = rchyro(24,j)     !!volatilized pst (mg)
-        pdvar(32) = rchyro(25,j)     !!pst settling (mg pst)
-        pdvar(33) = rchyro(26,j)     !!pst resuspension (mg)
-        pdvar(34) = rchyro(27,j)     !!pst diffuse to sed mg
-        pdvar(35) = rchyro(28,j)     !!react pst/sed (mg)
-        pdvar(36) = rchyro(29,j)     !!pst bury (mg)
-        pdvar(37) = rchdy(37,j)      !!pst in rivbed sed mg
-        pdvar(38) = rchyro(40,j)     !!p bact out
-        pdvar(39) = rchyro(41,j)     !!lessp bact out 
-        pdvar(40) = rchyro(12,j)     !!metal #1
-        pdvar(41) = rchyro(13,j)     !!metal #2
-        pdvar(42) = rchyro(14,j)     !!metal #3
- !! added for Total N (org N + no3 + no2 + nh4 outs) to output.rch gsm 10/17/2011
-        pdvar(43) = rchyro(7,j)+ rchyro(16,j) + rchyro(35,j) + 
-     *   rchyro(33,j)                                                  !! Total N
- !! added for Total P (org P + sol p outs)to output.rch gsm 10/17/2011
-        pdvar(44) = rchyro(9,j) + rchyro(18,j)                        !! Total P
- !! added NO3 Concentration to output.rch (for daily only) gsm 10/26/2011
-        
-         if (ipdvar(1) > 0) then
-          do ii = 1, itotr
-            pdvr(ii) = pdvar(ipdvar(ii))
-          end do
-          if (iscen == 1 .and. isproj == 0) then
-          write (7,5000) j, subgis(j), iyr, rch_dakm(j),                
-     &                                    (pdvr(ii), ii = 1, itotr), j
-          else if (isproj == 1) then
-          write (20,5000) j, subgis(j), iyr, rch_dakm(j),               
-     &                                    (pdvr(ii), ii = 1, itotr), j
-          else if (iscen == 1 .and. isproj == 2) then
-          write (7,6000) j, subgis(j), iyr, rch_dakm(j),                
-     &                             (pdvr(ii), ii = 1, itotr), iyr 
-          endif
-        else
-     !!  increase to 44 in loops below from 42 gsm 10/17/2011
-          if (iscen == 1 .and. isproj == 0) then
-          write (7,5000) j, subgis(j), iyr, rch_dakm(j),                
-     &                                (pdvar(ii), ii = 1, 44), j    
-          else if (isproj == 1) then
-          write (20,5000) j, subgis(j), iyr, rch_dakm(j),               
-     &                                (pdvar(ii), ii = 1, 44), j    
-          else if (iscen == 1 .and. isproj == 2) then
-          write (7,6000) j, subgis(j), iyr, rch_dakm(j),                
-     &                             (pdvar(ii), ii = 1, 44), iyr     
-     
-          endif
-        end if
+!        pdvar = 0.
+!        pdvr = 0.
+!
+!        !! assign yearly values
+!        pdvar(1) = srch_av(1)        !!flow in (m^3/s)
+!        pdvar(2) = srch_av(2)        !!flow out (m^3/s)
+!        pdvar(3) = rchyro(10,j)      !!evaporation (m^3/s)
+!        pdvar(4) = rchyro(11,j)      !!tloss (m^3/s)
+!        pdvar(5) = rchyro(3,j)       !!sed in (metric tons)
+!        pdvar(6) = rchyro(4,j)       !!sed out (met tons)
+!        pdvar(7) = rchyro(5,j)       !!sed conc (mg/L)
+!        pdvar(8) = rchyro(6,j)       !!orgN in (kg N)
+!        pdvar(9) = rchyro(7,j)       !!orgN out (kg N)
+!        pdvar(10) = rchyro(8,j)      !!orgP in (kg P)
+!        pdvar(11) = rchyro(9,j)      !!orgP out (kg P)
+!        pdvar(12) = rchyro(15,j)     !!NO3 in (kg N)
+!        pdvar(13) = rchyro(16,j)     !!NO3 out (kg N)
+!        pdvar(14) = rchyro(32,j)     !!NH4 in (kg)
+!        pdvar(15) = rchyro(33,j)     !!NH4 out (kg)
+!        pdvar(16) = rchyro(34,j)     !!NO2 in (kg)
+!        pdvar(17) = rchyro(35,j)     !!NO2 out (kg)
+!        pdvar(18) = rchyro(17,j)     !!solP in (kg P)
+!        pdvar(19) = rchyro(18,j)     !!solP out (kg P)
+!        pdvar(20) = rchyro(30,j)     !!algae in (kg)
+!        pdvar(21) = rchyro(31,j)     !!algae out (kg)
+!        pdvar(22) = rchyro(36,j)     !!CBOD in (kg)
+!        pdvar(23) = rchyro(37,j)     !!CBOD out (kg)
+!        pdvar(24) = rchyro(38,j)     !!dis O2 in (kg)
+!        pdvar(25) = rchyro(39,j)     !!dis O2 out (kg)
+!        pdvar(26) = rchyro(19,j)     !!solpst in (mg pst)
+!        pdvar(27) = rchyro(20,j)     !!solpst out (mg pst)
+!        pdvar(28) = rchyro(21,j)     !!srbpst in (mg pst)
+!        pdvar(29) = rchyro(22,j)     !!srbpst out (mg pst)
+!        pdvar(30) = rchyro(23,j)     !!reacted pst (mg pst)
+!        pdvar(31) = rchyro(24,j)     !!volatilized pst (mg)
+!        pdvar(32) = rchyro(25,j)     !!pst settling (mg pst)
+!        pdvar(33) = rchyro(26,j)     !!pst resuspension (mg)
+!        pdvar(34) = rchyro(27,j)     !!pst diffuse to sed mg
+!        pdvar(35) = rchyro(28,j)     !!react pst/sed (mg)
+!        pdvar(36) = rchyro(29,j)     !!pst bury (mg)
+!        pdvar(37) = rchdy(37,j)      !!pst in rivbed sed mg
+!        pdvar(38) = rchyro(40,j)     !!p bact out
+!        pdvar(39) = rchyro(41,j)     !!lessp bact out
+!        pdvar(40) = rchyro(12,j)     !!metal #1
+!        pdvar(41) = rchyro(13,j)     !!metal #2
+!        pdvar(42) = rchyro(14,j)     !!metal #3
+! !! added for Total N (org N + no3 + no2 + nh4 outs) to output.rch gsm 10/17/2011
+!        pdvar(43) = rchyro(7,j)+ rchyro(16,j) + rchyro(35,j) +
+!     *   rchyro(33,j)                                                  !! Total N
+! !! added for Total P (org P + sol p outs)to output.rch gsm 10/17/2011
+!        pdvar(44) = rchyro(9,j) + rchyro(18,j)                        !! Total P
+! !! added NO3 Concentration to output.rch (for daily only) gsm 10/26/2011
+!
+!         if (ipdvar(1) > 0) then
+!          do ii = 1, itotr
+!            pdvr(ii) = pdvar(ipdvar(ii))
+!          end do
+!          if (iscen == 1 .and. isproj == 0) then
+!          write (7,5000) j, subgis(j), iyr, rch_dakm(j),
+!     &                                    (pdvr(ii), ii = 1, itotr), j
+!          else if (isproj == 1) then
+!          write (20,5000) j, subgis(j), iyr, rch_dakm(j),
+!     &                                    (pdvr(ii), ii = 1, itotr), j
+!          else if (iscen == 1 .and. isproj == 2) then
+!          write (7,6000) j, subgis(j), iyr, rch_dakm(j),
+!     &                             (pdvr(ii), ii = 1, itotr), iyr
+!          endif
+!        else
+!     !!  increase to 44 in loops below from 42 gsm 10/17/2011
+!          if (iscen == 1 .and. isproj == 0) then
+!          write (7,5000) j, subgis(j), iyr, rch_dakm(j),
+!     &                                (pdvar(ii), ii = 1, 44), j
+!          else if (isproj == 1) then
+!          write (20,5000) j, subgis(j), iyr, rch_dakm(j),
+!     &                                (pdvar(ii), ii = 1, 44), j
+!          else if (iscen == 1 .and. isproj == 2) then
+!          write (7,6000) j, subgis(j), iyr, rch_dakm(j),
+!     &                             (pdvar(ii), ii = 1, 44), iyr
+!
+!          endif
+!        end if
+!YU<
       end do
 
       return

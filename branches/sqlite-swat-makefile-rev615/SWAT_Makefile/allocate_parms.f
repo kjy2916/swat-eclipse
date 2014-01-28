@@ -1775,6 +1775,14 @@
        tillage_factor = 0.
       !! By Zhang for C/N cycling
       !! ============================
+
+!YU>
+!!    arrays which contain data related to recday input
+      allocate (recdayo(8,mrecd))
+      allocate (recmono(8,mrecd))
+      allocate (recyro(8,mrecd))
+      allocate (ipdvareservoir(41))
+!YU<
       	  
       call zero0
       call zero1

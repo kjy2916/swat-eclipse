@@ -263,45 +263,57 @@
             resouty(41,j) = resouty(41,j) / Real(idlast)
             if (iyr >= iyres(j)) then
               if (iscen == 1 .and. isproj == 0) then
-              write (8,5800) j, iyr, res_vol(j), resouty(1,j),          
-     &                       resouty(2,j), resouty(19,j), resouty(17,j),
-     &                       resouty(18,j), resouty(3,j), resouty(4,j), 
-     &                       resouty(5,j),                              
-     &                       (resouty(k,j), k = 22, 23), resouty(38,j), 
-     &                       (resouty(k,j), k = 24, 25), resouty(36,j), 
-     &                       (resouty(k,j), k = 26, 27), resouty(39,j), 
-     &                       (resouty(k,j), k = 28, 29), resouty(40,j), 
-     &                       (resouty(k,j), k = 30, 31), resouty(41,j), 
-     &                       (resouty(k,j), k = 32, 33), resouty(37,j), 
-     &                       (resouty(k,j), k = 34, 35), res_seci(j),   
-     &                       (resouty(k,j), k = 6, 16)
-              else if (isproj == 1) then
-              write (22,5800) j, iyr, res_vol(j), resouty(1,j),         
-     &                       resouty(2,j), resouty(19,j), resouty(17,j),
-     &                       resouty(18,j), resouty(3,j), resouty(4,j), 
-     &                       resouty(5,j),                              
-     &                       (resouty(k,j), k = 22, 23), resouty(38,j), 
-     &                       (resouty(k,j), k = 24, 25), resouty(36,j), 
-     &                       (resouty(k,j), k = 26, 27), resouty(39,j), 
-     &                       (resouty(k,j), k = 28, 29), resouty(40,j), 
-     &                       (resouty(k,j), k = 30, 31), resouty(41,j), 
-     &                       (resouty(k,j), k = 32, 33), resouty(37,j), 
-     &                       (resouty(k,j), k = 34, 35), res_seci(j),   
-     &                       (resouty(k,j), k = 6, 16)
-              else if (iscen == 1 .and. isproj == 2) then
-              write (8,6800) j, iyr, res_vol(j), resouty(1,j),          
-     &                       resouty(2,j), resouty(19,j), resouty(17,j),
-     &                       resouty(18,j), resouty(3,j), resouty(4,j), 
-     &                       resouty(5,j),                              
-     &                       (resouty(k,j), k = 22, 23), resouty(38,j), 
-     &                       (resouty(k,j), k = 24, 25), resouty(36,j), 
-     &                       (resouty(k,j), k = 26, 27), resouty(39,j), 
-     &                       (resouty(k,j), k = 28, 29), resouty(40,j), 
-     &                       (resouty(k,j), k = 30, 31), resouty(41,j), 
-     &                       (resouty(k,j), k = 32, 33), resouty(37,j), 
-     &                       (resouty(k,j), k = 34, 35), res_seci(j),   
-     &                       (resouty(k,j), k = 6, 16), iyr
+!YU>
+                call commoncommandSQLite(rsvinsert,j,iyr,
+     &              resouty(2,j), !!water, m^3/s
+     &              resouty(4,j), !!sediment
+     &              resouty(25,j), !!PP = orgP
+     &              resouty(33,j), !!DP: soluble P
+     &              resouty(25,j) + resouty(33,j), !!TP
+     &              resouty(23,j), !!PN = orgN
+     &              resouty(27,j) + resouty(29,j) + resouty(31,j), !!DN: nitrate, nitrite, ammonia
+     &              resouty(23,j) + resouty(27,j) + resouty(29,j) +
+     &              resouty(31,j)) !! TP
 
+!              write (8,5800) j, iyr, res_vol(j), resouty(1,j),
+!     &                       resouty(2,j), resouty(19,j), resouty(17,j),
+!     &                       resouty(18,j), resouty(3,j), resouty(4,j),
+!     &                       resouty(5,j),
+!     &                       (resouty(k,j), k = 22, 23), resouty(38,j),
+!     &                       (resouty(k,j), k = 24, 25), resouty(36,j),
+!     &                       (resouty(k,j), k = 26, 27), resouty(39,j),
+!     &                       (resouty(k,j), k = 28, 29), resouty(40,j),
+!     &                       (resouty(k,j), k = 30, 31), resouty(41,j),
+!     &                       (resouty(k,j), k = 32, 33), resouty(37,j),
+!     &                       (resouty(k,j), k = 34, 35), res_seci(j),
+!     &                       (resouty(k,j), k = 6, 16)
+!              else if (isproj == 1) then
+!              write (22,5800) j, iyr, res_vol(j), resouty(1,j),
+!     &                       resouty(2,j), resouty(19,j), resouty(17,j),
+!     &                       resouty(18,j), resouty(3,j), resouty(4,j),
+!     &                       resouty(5,j),
+!     &                       (resouty(k,j), k = 22, 23), resouty(38,j),
+!     &                       (resouty(k,j), k = 24, 25), resouty(36,j),
+!     &                       (resouty(k,j), k = 26, 27), resouty(39,j),
+!     &                       (resouty(k,j), k = 28, 29), resouty(40,j),
+!     &                       (resouty(k,j), k = 30, 31), resouty(41,j),
+!     &                       (resouty(k,j), k = 32, 33), resouty(37,j),
+!     &                       (resouty(k,j), k = 34, 35), res_seci(j),
+!     &                       (resouty(k,j), k = 6, 16)
+!              else if (iscen == 1 .and. isproj == 2) then
+!              write (8,6800) j, iyr, res_vol(j), resouty(1,j),
+!     &                       resouty(2,j), resouty(19,j), resouty(17,j),
+!     &                       resouty(18,j), resouty(3,j), resouty(4,j),
+!     &                       resouty(5,j),
+!     &                       (resouty(k,j), k = 22, 23), resouty(38,j),
+!     &                       (resouty(k,j), k = 24, 25), resouty(36,j),
+!     &                       (resouty(k,j), k = 26, 27), resouty(39,j),
+!     &                       (resouty(k,j), k = 28, 29), resouty(40,j),
+!     &                       (resouty(k,j), k = 30, 31), resouty(41,j),
+!     &                       (resouty(k,j), k = 32, 33), resouty(37,j),
+!     &                       (resouty(k,j), k = 34, 35), res_seci(j),
+!     &                       (resouty(k,j), k = 6, 16), iyr
+!YU<
               endif
             end if
           end do
@@ -333,6 +345,10 @@
         rchyro = 0.
         resouty = 0.
         hrupsty = 0.
+!YU>
+      !! for point source
+        recyro = 0.
+!YU<
 
       end if
 

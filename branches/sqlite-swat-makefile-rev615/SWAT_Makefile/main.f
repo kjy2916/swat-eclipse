@@ -82,6 +82,8 @@
       call std2
       call openwth
       call headout
+      call headoutSQLite         !!create corresponding result tables in
+                                 !!result database if neccessary
 
       !! convert integer to string for output.mgt file
       subnum = ""
@@ -125,6 +127,7 @@
         close (i)
       end do
       close(124)
+      call closeSQLite
       write (*,1001)
  1001 format (/," Execution successfully completed ")
 	

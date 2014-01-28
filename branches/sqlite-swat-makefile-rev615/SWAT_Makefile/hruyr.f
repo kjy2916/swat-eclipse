@@ -164,133 +164,145 @@
         end do
 
         if (iflag == 1) then
+!YU>
+            call commoncommandSQLite(hruinsert,j,iyr,
+     &       hruyro(10,j), !!water
+     &       hruyro(14,j), !!sediment
+     &       hruyro(36,j) + hruyro(67,j), !!PP = orgP + minP
+     &       hruyro(39,j) + hruyro(66,j), !!DP: soluble P in runoff and groundwater
+     &       hruyro(36,j) + hruyro(67,j) + hruyro(39,j) + hruyro(66,j), !!TP
+     &       hruyro(35,j), !!PN = orgN
+     &       hruyro(37,j) + hruyro(38,j) + hruyro(65,j), !!DN: no3 in runoff,lateral and groundwater
+     &       hruyro(35,j) + hruyro(37,j) + hruyro(38,j) + hruyro(65,j)) !! TP
 
-        pdvas = 0.
-        pdvs = 0.
 
-        pdvas(1) = hruyro(1,j)
-        pdvas(2) = hruyro(2,j)
-        pdvas(3) = hruyro(3,j)
-        pdvas(4) = hruyro(22,j)
-        pdvas(5) = hruyro(25,j)
-        pdvas(6) = hruyro(12,j)
-        pdvas(7) = hruyro(21,j) / Real(366 - leapyr)
-        pdvas(8) = sol_sw(j)
-        pdvas(9) = hruyro(11,j)
-        pdvas(10) = hruyro(9,j)
-        pdvas(11) = hruyro(8,j)
-        pdvas(12) = hruyro(7,j)
-        pdvas(13) = hruyro(23,j)
-        pdvas(14) = hruyro(24,j)
-        pdvas(15) = shallst(j)
-        pdvas(16) = deepst(j)
-        pdvas(17) = hruyro(19,j)
-        pdvas(18) = hruyro(4,j)
-        pdvas(19) = hruyro(13,j)
-        pdvas(20) = hruyro(5,j)
-        pdvas(21) = hruyro(6,j)
-        pdvas(22) = hruyro(10,j)
-        pdvas(23) = hruyro(20,j) / Real(366 - leapyr)
-        pdvas(24) = hruyro(57,j) / Real(366 - leapyr)
-        pdvas(25) = hruyro(55,j) / Real(366 - leapyr)
-        pdvas(26) = hruyro(56,j) / Real(366 - leapyr)
-        pdvas(27) = hruyro(30,j) / Real(366 - leapyr)
-        pdvas(28) = hruyro(58,j) / Real(366 - leapyr)
-        pdvas(29) = hruyro(14,j)
-        pdvas(30) = hruyro(61,j)
-        pdvas(31) = hruyro(45,j)
-        pdvas(32) = hruyro(46,j)
-        pdvas(33) = hruyro(28,j)
-        pdvas(34) = hruyro(29,j)
-        pdvas(35) = hruyro(26,j)
-        pdvas(36) = hruyro(27,j)
-        pdvas(37) = hruyro(17,j)
-        pdvas(38) = hruyro(18,j)
-        pdvas(39) = hruyro(54,j)
-        pdvas(40) = hruyro(47,j)
-        pdvas(41) = hruyro(52,j)
-        pdvas(42) = hruyro(49,j)
-        pdvas(43) = hruyro(50,j)
-        pdvas(44) = hruyro(53,j)
-        pdvas(45) = hruyro(51,j)
-        pdvas(46) = hruyro(43,j)
-        pdvas(47) = hruyro(44,j)
-        pdvas(48) = hruyro(48,j)
-        pdvas(49) = hruyro(40,j)
-        pdvas(50) = hruyro(42,j)
-        pdvas(51) = hruyro(35,j)
-        pdvas(52) = hruyro(36,j)
-        pdvas(53) = hruyro(67,j)
-        pdvas(54) = hruyro(37,j)
-        pdvas(55) = hruyro(38,j)
-        pdvas(56) = hruyro(41,j)
-        pdvas(57) = hruyro(65,j)
-        pdvas(58) = hruyro(39,j)
-        pdvas(59) = hruyro(66,j)
-        pdvas(60) = hruyro(31,j)
-        pdvas(61) = hruyro(32,j)
-        pdvas(62) = hruyro(33,j)
-        pdvas(63) = hruyro(34,j)
-        pdvas(64) = bio_yrms(j)
-        pdvas(65) = lai_yrmx(j)
-        pdvas(66) = yldanu(j)
-        pdvas(67) = hruyro(63,j)
-        pdvas(68) = hruyro(64,j)
-        pdvas(69) = wtab(j)  !! based on 30 day antecedent climate(mm) (prec,et)
-        pdvas(70) = wtabelo  !! based on depth from soil surface(mm)
-!!      added current snow content in the hru (not summed)
-        pdvas(71) = sno_hru(j)
-
-!!      added current soil carbon for first layer
-        pdvas(72) = cmup_kgh(j)    !! first soil layer only
-!!      added current soil carbon integrated - ggreagating all soil layers
-        pdvas(73) = cmtot_kgh(j)
-        
-!!    adding qtile to output.hru write 3/2/2010 gsm
-        pdvas(74) = hruyro(62,j)
-!!    tileno3 - output.hru
-        pdvas(75) = hruyro(68,j)
-!!    latno3 - output.hru
-        pdvas(76) = hruyro(69,j)
-!!    gwq deep
-        pdvas(77) = hruyro(70,j)
-!!    latq contribution
-        pdvas(78) = hruyro(71,j)
-
-        if (ipdvas(1) > 0) then
-          do ii = 1, itots
-            pdvs(ii) = pdvas(ipdvas(ii))
-          end do
- 
-        idplant = idplt(j)
-        if (idplant > 0) then
-          cropname = cpnm(idplant)
-        else
-          cropname = "NOCR"
-        endif
-
-          if (iscen == 1 .and. isproj == 0) then
-          write (28,1000) cropname, j, subnum(j), hruno(j), sb,         
-     &             nmgt(j), iyr, hru_km(j), (pdvs(ii), ii = 1, itots)
-          else if (isproj == 1) then
-          write (21,1000) cropname, j, subnum(j), hruno(j),             
-     &            sb, nmgt(j), iyr, hru_km(j), (pdvs(ii), ii = 1, itots)
-          else if (iscen == 1 .and. isproj == 2) then
-          write (28,2000) cropname, j, subnum(j), hruno(j), sb,         
-     &    nmgt(j), iyr, hru_km(j), (pdvs(ii), ii = 1, itots), iyr
-          endif
-        else
-          if (iscen == 1 .and. isproj == 0) then
-          write (28,1001) cropname, j, subnum(j), hruno(j), sb,         
-     &            nmgt(j), iyr, hru_km(j), (pdvas(ii), ii = 1, mhruo)
-          else if (isproj == 1) then
-          write (21,1001) cropname, j, subnum(j), hruno(j),             
-     &           sb, nmgt(j), iyr, hru_km(j), (pdvas(ii), ii = 1, mhruo)
-          else if (iscen == 1 .and. isproj == 2) then
-          write (28,1001) cropname, j, subnum(j), hruno(j), sb,         
-     &    nmgt(j), iyr, hru_km(j), (pdvas(ii), ii = 1, mhruo), iyr
-          endif
-        end if
+!        pdvas = 0.
+!        pdvs = 0.
+!
+!        pdvas(1) = hruyro(1,j)
+!        pdvas(2) = hruyro(2,j)
+!        pdvas(3) = hruyro(3,j)
+!        pdvas(4) = hruyro(22,j)
+!        pdvas(5) = hruyro(25,j)
+!        pdvas(6) = hruyro(12,j)
+!        pdvas(7) = hruyro(21,j) / Real(366 - leapyr)
+!        pdvas(8) = sol_sw(j)
+!        pdvas(9) = hruyro(11,j)
+!        pdvas(10) = hruyro(9,j)
+!        pdvas(11) = hruyro(8,j)
+!        pdvas(12) = hruyro(7,j)
+!        pdvas(13) = hruyro(23,j)
+!        pdvas(14) = hruyro(24,j)
+!        pdvas(15) = shallst(j)
+!        pdvas(16) = deepst(j)
+!        pdvas(17) = hruyro(19,j)
+!        pdvas(18) = hruyro(4,j)
+!        pdvas(19) = hruyro(13,j)
+!        pdvas(20) = hruyro(5,j)
+!        pdvas(21) = hruyro(6,j)
+!        pdvas(22) = hruyro(10,j)
+!        pdvas(23) = hruyro(20,j) / Real(366 - leapyr)
+!        pdvas(24) = hruyro(57,j) / Real(366 - leapyr)
+!        pdvas(25) = hruyro(55,j) / Real(366 - leapyr)
+!        pdvas(26) = hruyro(56,j) / Real(366 - leapyr)
+!        pdvas(27) = hruyro(30,j) / Real(366 - leapyr)
+!        pdvas(28) = hruyro(58,j) / Real(366 - leapyr)
+!        pdvas(29) = hruyro(14,j)
+!        pdvas(30) = hruyro(61,j)
+!        pdvas(31) = hruyro(45,j)
+!        pdvas(32) = hruyro(46,j)
+!        pdvas(33) = hruyro(28,j)
+!        pdvas(34) = hruyro(29,j)
+!        pdvas(35) = hruyro(26,j)
+!        pdvas(36) = hruyro(27,j)
+!        pdvas(37) = hruyro(17,j)
+!        pdvas(38) = hruyro(18,j)
+!        pdvas(39) = hruyro(54,j)
+!        pdvas(40) = hruyro(47,j)
+!        pdvas(41) = hruyro(52,j)
+!        pdvas(42) = hruyro(49,j)
+!        pdvas(43) = hruyro(50,j)
+!        pdvas(44) = hruyro(53,j)
+!        pdvas(45) = hruyro(51,j)
+!        pdvas(46) = hruyro(43,j)
+!        pdvas(47) = hruyro(44,j)
+!        pdvas(48) = hruyro(48,j)
+!        pdvas(49) = hruyro(40,j)
+!        pdvas(50) = hruyro(42,j)
+!        pdvas(51) = hruyro(35,j)
+!        pdvas(52) = hruyro(36,j)
+!        pdvas(53) = hruyro(67,j)
+!        pdvas(54) = hruyro(37,j)
+!        pdvas(55) = hruyro(38,j)
+!        pdvas(56) = hruyro(41,j)
+!        pdvas(57) = hruyro(65,j)
+!        pdvas(58) = hruyro(39,j)
+!        pdvas(59) = hruyro(66,j)
+!        pdvas(60) = hruyro(31,j)
+!        pdvas(61) = hruyro(32,j)
+!        pdvas(62) = hruyro(33,j)
+!        pdvas(63) = hruyro(34,j)
+!        pdvas(64) = bio_yrms(j)
+!        pdvas(65) = lai_yrmx(j)
+!        pdvas(66) = yldanu(j)
+!        pdvas(67) = hruyro(63,j)
+!        pdvas(68) = hruyro(64,j)
+!        pdvas(69) = wtab(j)  !! based on 30 day antecedent climate(mm) (prec,et)
+!        pdvas(70) = wtabelo  !! based on depth from soil surface(mm)
+!!!      added current snow content in the hru (not summed)
+!        pdvas(71) = sno_hru(j)
+!
+!!!      added current soil carbon for first layer
+!        pdvas(72) = cmup_kgh(j)    !! first soil layer only
+!!!      added current soil carbon integrated - ggreagating all soil layers
+!        pdvas(73) = cmtot_kgh(j)
+!
+!!!    adding qtile to output.hru write 3/2/2010 gsm
+!        pdvas(74) = hruyro(62,j)
+!!!    tileno3 - output.hru
+!        pdvas(75) = hruyro(68,j)
+!!!    latno3 - output.hru
+!        pdvas(76) = hruyro(69,j)
+!!!    gwq deep
+!        pdvas(77) = hruyro(70,j)
+!!!    latq contribution
+!        pdvas(78) = hruyro(71,j)
+!
+!        if (ipdvas(1) > 0) then
+!          do ii = 1, itots
+!            pdvs(ii) = pdvas(ipdvas(ii))
+!          end do
+!
+!        idplant = idplt(j)
+!        if (idplant > 0) then
+!          cropname = cpnm(idplant)
+!        else
+!          cropname = "NOCR"
+!        endif
+!
+!          if (iscen == 1 .and. isproj == 0) then
+!          write (28,1000) cropname, j, subnum(j), hruno(j), sb,
+!     &             nmgt(j), iyr, hru_km(j), (pdvs(ii), ii = 1, itots)
+!          else if (isproj == 1) then
+!          write (21,1000) cropname, j, subnum(j), hruno(j),
+!     &            sb, nmgt(j), iyr, hru_km(j), (pdvs(ii), ii = 1, itots)
+!          else if (iscen == 1 .and. isproj == 2) then
+!          write (28,2000) cropname, j, subnum(j), hruno(j), sb,
+!     &    nmgt(j), iyr, hru_km(j), (pdvs(ii), ii = 1, itots), iyr
+!          endif
+!        else
+!          if (iscen == 1 .and. isproj == 0) then
+!          write (28,1001) cropname, j, subnum(j), hruno(j), sb,
+!     &            nmgt(j), iyr, hru_km(j), (pdvas(ii), ii = 1, mhruo)
+!          else if (isproj == 1) then
+!          write (21,1001) cropname, j, subnum(j), hruno(j),
+!     &           sb, nmgt(j), iyr, hru_km(j), (pdvas(ii), ii = 1, mhruo)
+!          else if (iscen == 1 .and. isproj == 2) then
+!          write (28,1001) cropname, j, subnum(j), hruno(j), sb,
+!     &    nmgt(j), iyr, hru_km(j), (pdvas(ii), ii = 1, mhruo), iyr
+!          endif
+!        end if
+!YU<
         end if
       end do
 

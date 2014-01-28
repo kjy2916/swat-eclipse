@@ -1,11 +1,18 @@
+CC=gcc
 FC=gfortran
 NAME=SWAT
-OBJECTS=./modparm.o ./addh.o ./albedo.o ./allocate_parms.o ./alph.o ./anfert.o ./apex_day.o ./apply.o ./ascrv.o ./atri.o ./aunif.o ./autoirr.o ./aveval.o ./bacteria.o ./biofilm.o ./biozone.o ./bmpfixed.o ./bmpinit.o ./bmp_det_pond.o ./bmp_ri_pond.o ./bmp_sand_filter.o ./bmp_sed_pond.o ./bmp_wet_pond.o ./buffer.o ./burnop.o ./canopyint.o ./caps.o ./carbon_new.o ./carbon_zhang2.o ./cfactor.o ./chkcst.o ./clgen.o ./clicon.o ./command.o ./conapply.o ./confert.o ./crackflow.o ./crackvol.o ./curno.o ./dailycn.o ./decay.o ./depstor.o ./distrib_bmps.o ./dormant.o ./drains.o ./dstn1.o ./ee.o ./eiusle.o ./enrsb.o ./erfc.o ./estimate_ksat.o ./etact.o ./etpot.o ./expo.o ./fert.o ./filter.o ./filtw.o ./finalbal.o ./gcycl.o ./getallo.o ./grass_wway.o ./graze.o ./grow.o ./gwmod.o ./gwmod_deep.o ./gwnutr.o ./gw_no3.o ./h2omgt_init.o ./harvestop.o ./harvgrainop.o ./harvkillop.o ./header.o ./headout.o ./hhnoqual.o ./hhwatqual.o ./hmeas.o ./hruaa.o ./hruallo.o ./hruday.o ./hrumon.o ./hrupond.o ./hrupondhr.o ./hruyr.o ./hydroinit.o ./icl.o ./impndaa.o ./impndday.o ./impndmon.o ./impndyr.o ./impnd_init.o ./irrigate.o ./irrsub.o ./irr_rch.o ./irr_res.o ./jdt.o ./killop.o ./lakeq.o ./latsed.o ./layersplit.o ./lwqdef.o ./main.o ./ncsed_leach.o ./ndenit.o ./newtillmix.o ./nfix.o ./nitvol.o ./nlch.o ./nminrl.o ./noqual.o ./npup.o ./nrain.o ./nup.o ./nuts.o ./openwth.o ./operatn.o ./orgn.o ./orgncswat.o ./origtile.o ./ovr_sed.o ./percmacro.o ./percmain.o ./percmicro.o ./pestlch.o ./pestw.o ./pesty.o ./pgen.o ./pgenhr.o ./pkq.o ./plantmod.o ./plantop.o ./pmeas.o ./pminrl.o ./pminrl2.o ./pond.o ./pondhr.o ./pothole.o ./potholehr.o ./print_hyd.o ./psed.o ./qman.o ./ran1.o ./rchaa.o ./rchday.o ./rchinit.o ./rchmon.o ./rchuse.o ./rchyr.o ./reachout.o ./readatmodep.o ./readbsn.o ./readchm.o ./readcnst.o ./readfcst.o ./readfert.o ./readfig.o ./readfile.o ./readgw.o ./readhru.o ./readinpt.o ./readlup.o ./readlwq.o ./readmgt.o ./readmon.o ./readops.o ./readpest.o ./readplant.o ./readpnd.o ./readres.o ./readrte.o ./readru.o ./readsdr.o ./readsepticbz.o ./readseptwq.o ./readsno.o ./readsol.o ./readsub.o ./readswq.o ./readtill.o ./readurban.o ./readwgn.o ./readwus.o ./readwwq.o ./readyr.o ./reccnst.o ./recday.o ./rechour.o ./recmon.o ./recyear.o ./regres.o ./res.o ./resbact.o ./resetlu.o ./reshr.o ./resinit.o ./resnut.o ./rewind_init.o ./rhgen.o ./rootfr.o ./route.o ./routels.o ./routeunit.o ./routres.o ./rsedaa.o ./rseday.o ./rsedmon.o ./rsedyr.o ./rtbact.o ./rtday.o ./rteinit.o ./rthmusk.o ./rthpest.o ./rthr.o ./rthsed.o ./rtmusk.o ./rtout.o ./rtpest.o ./rtsed.o ./rtsed_bagnold.o ./rtsed_kodatie.o ./rtsed_molinas_wu.o ./rtsed_yangsand.o ./sat_excess.o ./save.o ./saveconc.o ./schedule_ops.o ./sched_mgt.o ./simulate.o ./sim_initday.o ./sim_inityr.o ./slrgen.o ./smeas.o ./snom.o ./soil_chem.o ./soil_par.o ./soil_phys.o ./soil_write.o ./solp.o ./solt.o ./std1.o ./std2.o ./std3.o ./stdaa.o ./storeinitial.o ./structure.o ./subaa.o ./subbasin.o ./subday.o ./submon.o ./substor.o ./subwq.o ./subyr.o ./sub_subbasin.o ./sumhyd.o ./sumv.o ./surface.o ./surfstor.o ./surfst_h2o.o ./surq_daycn.o ./surq_greenampt.o ./swbl.o ./sweep.o ./swu.o ./tair.o ./tgen.o ./theta.o ./tillfactor.o ./tillmix.o ./tmeas.o ./tran.o ./transfer.o ./tstr.o ./ttcoef.o ./ttcoef_wway.o ./urban.o ./urbanhr.o ./urb_bmp.o ./varinit.o ./vbl.o ./virtual.o ./volq.o ./washp.o ./watbal.o ./water_hru.o ./watqual.o ./watqual2.o ./wattable.o ./watuse.o ./weatgn.o ./wetlan.o ./wmeas.o ./wndgen.o ./writea.o ./writeaa.o ./writed.o ./writem.o ./xmon.o ./ysed.o ./zero0.o ./zero1.o ./zero2.o ./zeroini.o ./zero_urbn.o
+OBJECTS=./sqlite3.o ./sqlite_c_to_fortran_wrapper.o ./modparm.o ./addh.o ./albedo.o ./allocate_parms.o ./alph.o ./anfert.o ./apex_day.o ./apply.o ./ascrv.o ./atri.o ./aunif.o ./autoirr.o ./aveval.o ./bacteria.o ./biofilm.o ./biozone.o ./bmpfixed.o ./bmpinit.o ./bmp_det_pond.o ./bmp_ri_pond.o ./bmp_sand_filter.o ./bmp_sed_pond.o ./bmp_wet_pond.o ./buffer.o ./burnop.o ./canopyint.o ./caps.o ./carbon_new.o ./carbon_zhang2.o ./cfactor.o ./chkcst.o ./clgen.o ./clicon.o ./closesqlite.o ./command.o ./commoncommandsqlite.o ./conapply.o ./confert.o ./crackflow.o ./crackvol.o ./createsqlitetable.o ./curno.o ./dailycn.o ./decay.o ./depstor.o ./distrib_bmps.o ./dormant.o ./drains.o ./dstn1.o ./ee.o ./eiusle.o ./enrsb.o ./erfc.o ./estimate_ksat.o ./etact.o ./etpot.o ./expo.o ./fert.o ./filter.o ./filtw.o ./finalbal.o ./gcycl.o ./getallo.o ./grass_wway.o ./graze.o ./grow.o ./gwmod.o ./gwmod_deep.o ./gwnutr.o ./gw_no3.o ./h2omgt_init.o ./harvestop.o ./harvgrainop.o ./harvkillop.o ./header.o ./headout.o ./headoutsqlite.o ./hhnoqual.o ./hhwatqual.o ./hmeas.o ./hruaa.o ./hruallo.o ./hrucommandsqlite.o ./hruday.o ./hrumon.o ./hrupond.o ./hrupondhr.o ./hruyr.o ./hydroinit.o ./icl.o ./impndaa.o ./impndday.o ./impndmon.o ./impndyr.o ./impnd_init.o ./irrigate.o ./irrsub.o ./irr_rch.o ./irr_res.o ./jdt.o ./killop.o ./lakeq.o ./latsed.o ./layersplit.o ./lwqdef.o ./main.o ./ncsed_leach.o ./ndenit.o ./newtillmix.o ./nfix.o ./nitvol.o ./nlch.o ./nminrl.o ./noqual.o ./npup.o ./nrain.o ./nup.o ./nuts.o ./openwth.o ./operatn.o ./orgn.o ./orgncswat.o ./origtile.o ./ovr_sed.o ./percmacro.o ./percmain.o ./percmicro.o ./pestlch.o ./pestw.o ./pesty.o ./pgen.o ./pgenhr.o ./pkq.o ./plantmod.o ./plantop.o ./pmeas.o ./pminrl.o ./pminrl2.o ./pond.o ./pondhr.o ./pothole.o ./potholehr.o ./print_hyd.o ./psed.o ./qman.o ./ran1.o ./rchaa.o ./rchcommandsqlite.o ./rchday.o ./rchinit.o ./rchmon.o ./rchuse.o ./rchyr.o ./reachout.o ./readatmodep.o ./readbsn.o ./readchm.o ./readcnst.o ./readfcst.o ./readfert.o ./readfig.o ./readfile.o ./readgw.o ./readhru.o ./readinpt.o ./readlup.o ./readlwq.o ./readmgt.o ./readmon.o ./readops.o ./readpest.o ./readplant.o ./readpnd.o ./readres.o ./readrte.o ./readru.o ./readsdr.o ./readsepticbz.o ./readseptwq.o ./readsno.o ./readsol.o ./readsub.o ./readswq.o ./readtill.o ./readurban.o ./readwgn.o ./readwus.o ./readwwq.o ./readyr.o ./reccnst.o ./recday.o ./rechour.o ./recmon.o ./recyear.o ./regres.o ./res.o ./resbact.o ./resetlu.o ./reshr.o ./resinit.o ./resnut.o ./rewind_init.o ./rhgen.o ./rootfr.o ./route.o ./routels.o ./routeunit.o ./routres.o ./rsedaa.o ./rseday.o ./rsedmon.o ./rsedyr.o ./rsvcommandsqlite.o ./rtbact.o ./rtday.o ./rteinit.o ./rthmusk.o ./rthpest.o ./rthr.o ./rthsed.o ./rtmusk.o ./rtout.o ./rtpest.o ./rtsed.o ./rtsed_bagnold.o ./rtsed_kodatie.o ./rtsed_molinas_wu.o ./rtsed_yangsand.o ./sat_excess.o ./save.o ./saveconc.o ./schedule_ops.o ./sched_mgt.o ./simulate.o ./sim_initday.o ./sim_inityr.o ./slrgen.o ./smeas.o ./snom.o ./soil_chem.o ./soil_par.o ./soil_phys.o ./soil_write.o ./solp.o ./solt.o ./std1.o ./std2.o ./std3.o ./stdaa.o ./storeinitial.o ./structure.o ./subaa.o ./subbasin.o ./subcommandsqlite.o ./subday.o ./submon.o ./substor.o ./subwq.o ./subyr.o ./sub_subbasin.o ./sumhyd.o ./sumv.o ./surface.o ./surfstor.o ./surfst_h2o.o ./surq_daycn.o ./surq_greenampt.o ./swbl.o ./sweep.o ./swu.o ./tair.o ./tgen.o ./theta.o ./tillfactor.o ./tillmix.o ./tmeas.o ./tran.o ./transfer.o ./tstr.o ./ttcoef.o ./ttcoef_wway.o ./urban.o ./urbanhr.o ./urb_bmp.o ./varinit.o ./vbl.o ./virtual.o ./volq.o ./washp.o ./watbal.o ./water_hru.o ./watqual.o ./watqual2.o ./wattable.o ./watuse.o ./weatgn.o ./wetlan.o ./wmeas.o ./wndgen.o ./writea.o ./writeaa.o ./writed.o ./writem.o ./xmon.o ./ysed.o ./zero0.o ./zero1.o ./zero2.o ./zeroini.o ./zero_urbn.o
 
 all: ${NAME}
 
 ${NAME}: ${OBJECTS}
 	${FC} ${OBJECTS} -static -o ${NAME}
+	
+./sqlite3.o: ../sqlite3.c
+	${CC} -c -O0 -g3 -fbounds-check -Wextra -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow -ffixed-line-length-132 ../sqlite3.c -o ./sqlite3.o 
+
+./sqlite_c_to_fortran_wrapper.o: ../sqlite_c_to_fortran_wrapper.c
+	${CC} -c -O0 -g3 -fbounds-check -Wextra -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow -ffixed-line-length-132 ../sqlite_c_to_fortran_wrapper.c -o ./sqlite_c_to_fortran_wrapper.o 
 
 ./modparm.o: ../modparm.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow -ffixed-line-length-132 ../modparm.f -o ./modparm.o 
@@ -106,8 +113,14 @@ ${NAME}: ${OBJECTS}
 ./clicon.o: ../clicon.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../clicon.f -o ./clicon.o 
 
+./closesqlite.o: ../closeSQLite.f
+	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../closeSQLite.f -o ./closesqlite.o 
+
 ./command.o: ../command.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../command.f -o ./command.o 
+
+./commoncommandsqlite.o: ../commoncommandSQLite.f
+	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../commoncommandSQLite.f -o ./commoncommandsqlite.o 
 
 ./conapply.o: ../conapply.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../conapply.f -o ./conapply.o 
@@ -120,6 +133,9 @@ ${NAME}: ${OBJECTS}
 
 ./crackvol.o: ../crackvol.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../crackvol.f -o ./crackvol.o 
+
+./createsqlitetable.o: ../createSQLiteTable.f
+	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../createSQLiteTable.f -o ./createsqlitetable.o 
 
 ./curno.o: ../curno.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../curno.f -o ./curno.o 
@@ -226,6 +242,9 @@ ${NAME}: ${OBJECTS}
 ./headout.o: ../headout.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../headout.f -o ./headout.o 
 
+./headoutsqlite.o: ../headoutSQLite.f
+	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../headoutSQLite.f -o ./headoutsqlite.o 
+
 ./hhnoqual.o: ../hhnoqual.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../hhnoqual.f -o ./hhnoqual.o 
 
@@ -240,6 +259,9 @@ ${NAME}: ${OBJECTS}
 
 ./hruallo.o: ../hruallo.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../hruallo.f -o ./hruallo.o 
+
+./hrucommandsqlite.o: ../hrucommandSQLite.f
+	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../hrucommandSQLite.f -o ./hrucommandsqlite.o 
 
 ./hruday.o: ../hruday.f90
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../hruday.f90 -o ./hruday.o 
@@ -433,6 +455,9 @@ ${NAME}: ${OBJECTS}
 ./rchaa.o: ../rchaa.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../rchaa.f -o ./rchaa.o 
 
+./rchcommandsqlite.o: ../rchcommandSQLite.f
+	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../rchcommandSQLite.f -o ./rchcommandsqlite.o 
+
 ./rchday.o: ../rchday.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../rchday.f -o ./rchday.o 
 
@@ -625,6 +650,9 @@ ${NAME}: ${OBJECTS}
 ./rsedyr.o: ../rsedyr.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../rsedyr.f -o ./rsedyr.o 
 
+./rsvcommandsqlite.o: ../rsvcommandSQLite.f
+	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../rsvcommandSQLite.f -o ./rsvcommandsqlite.o 
+
 ./rtbact.o: ../rtbact.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../rtbact.f -o ./rtbact.o 
 
@@ -744,6 +772,9 @@ ${NAME}: ${OBJECTS}
 
 ./subbasin.o: ../subbasin.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../subbasin.f -o ./subbasin.o 
+
+./subcommandsqlite.o: ../subcommandSQLite.f
+	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../subcommandSQLite.f -o ./subcommandsqlite.o 
 
 ./subday.o: ../subday.f
 	${FC} -c -O0 -g -fbounds-check -Wextra -funderscoring -Wall -fmessage-length=0 -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow ../subday.f -o ./subday.o 

@@ -408,66 +408,71 @@
         do ii = 1, itots
           pdvs(ii) = pdvas(ipdvas(ii))
         end do
+!YU>
+!Write data to hru table in SQLite database
+        call hrucommandSQLite(j,iida,pdvas,pdvs)
 
-      idplant = idplt(j)
-      if (idplant > 0) then
-        cropname = cpnm(idplant)
-      else
-        cropname = "NOCR"
-      endif
-      
-      if (iscen == 1 .and. isproj == 0) then
-        if (icalen == 0) write (28,1001) cropname, j, subnum(j),        &
-     &      hruno(j), sb, nmgt(j), iida, hru_km(j),                     &
-     &       (pdvs(ii), ii = 1, itots)
-        if (icalen == 1) write (28,1002) cropname, j, subnum(j),        &
-     &      hruno(j), sb, nmgt(j), i_mo, icl(iida), iyr, hru_km(j),     &  !! nubz 11/26/13
-     &       (pdvs(ii), ii = 1, itots)
-1002  format (a4,i5,1x,a5,a4,i5,1x,i4,1x,i2,1x,i2,1x,i4,1x,e10.5,       &
-     & 66f10.3,1x,e10.5,1x,e10.5,8e10.3,2f10.3)
-      
-!!    added for binary files 3/25/09 gsm line below and write (33333
-	      if (ia_b == 1) then
-	        write (33333) j, hrugis(j), sb,                                  &
-     &               nmgt(j), iida, hru_km(j), (pdvs(ii), ii = 1, itots)
-	      endif
-        else if (isproj == 1) then
-        write (21,1000) cropname, j, subnum(j), hruno(j), sb,           &
-     &          nmgt(j), iida, hru_km(j), (pdvs(ii), ii = 1, itots)
-        else if (iscen == 1 .and. isproj == 2) then
-        if(icalen == 0)write (28,1000) cropname, j, subnum(j), hruno(j),&
-     &      sb, nmgt(j), iida, hru_km(j), (pdvs(ii), ii = 1, itots), iyr
-        if(icalen == 1)write (28,1003) cropname, j, subnum(j), hruno(j),&
-     &      sb, nmgt(j), i_mo, icl(iida), iyr, hru_km(j),               &
-     &      (pdvs(ii), ii = 1, itots), iyr
-1003  format(a4,i5,1x,a5,a4,i5,1x,i4,1x,i2,1x,i2,1x,i4,1x,e10.5,66f10.3,&
-     &1x,e10.5,1x,e10.5,8e10.3,f10.3,1x,i4)
-        end if
-      else
-        if (iscen == 1 .and. isproj == 0) then
-        if(icalen == 0)write (28,1000) cropname, j, subnum(j), hruno(j),&
-     &        sb,nmgt(j), iida, hru_km(j), (pdvas(ii), ii = 1, mhruo)
-        if(icalen == 1)write (28,1003) cropname, j, subnum(j), hruno(j),&
-     &        sb,nmgt(j), i_mo, icl(iida), iyr, hru_km(j),              &
-     &        (pdvas(ii), ii = 1, mhruo)
-!!    added for binary files 3/25/09 gsm line below and write (33333
-	    if (ia_b == 1) then
-             write (33333)  j, hrugis(j), sb,                           &
-     &              nmgt(j), iida, hru_km(j), (pdvas(ii), ii = 1, mhruo)
-	    endif
 
-        else if (isproj == 1) then
-        write (21,1000) cropname, j, subnum(j), hruno(j), sb,           &
-     &              nmgt(j), iida, hru_km(j), (pdvas(ii), ii = 1, mhruo)
-        else if (iscen == 1 .and. isproj == 2) then
-        if(icalen == 0)write (28,1000) cropname, j, subnum(j), hruno(j),& 
-     &      sb,nmgt(j), iida, hru_km(j), (pdvas(ii), ii = 1, mhruo), iyr
-         if(icalen == 1)write(28,1000) cropname, j, subnum(j), hruno(j),& 
-     &      sb,nmgt(j), i_mo, icl(iida), iyr, hru_km(j),                &
-     &      (pdvas(ii), ii = 1, mhruo), iyr
-        end if
+!      idplant = idplt(j)
+!      if (idplant > 0) then
+!        cropname = cpnm(idplant)
+!      else
+!        cropname = "NOCR"
+!      endif
+!
+!      if (iscen == 1 .and. isproj == 0) then
+!        if (icalen == 0) write (28,1001) cropname, j, subnum(j),        &
+!     &      hruno(j), sb, nmgt(j), iida, hru_km(j),                     &
+!     &       (pdvs(ii), ii = 1, itots)
+!        if (icalen == 1) write (28,1002) cropname, j, subnum(j),        &
+!     &      hruno(j), sb, nmgt(j), i_mo, icl(iida), iyr, hru_km(j),     &  !! nubz 11/26/13
+!     &       (pdvs(ii), ii = 1, itots)
+!1002  format (a4,i5,1x,a5,a4,i5,1x,i4,1x,i2,1x,i2,1x,i4,1x,e10.5,       &
+!     & 66f10.3,1x,e10.5,1x,e10.5,8e10.3,2f10.3)
+!
+!!!    added for binary files 3/25/09 gsm line below and write (33333
+!	      if (ia_b == 1) then
+!	        write (33333) j, hrugis(j), sb,                                  &
+!     &               nmgt(j), iida, hru_km(j), (pdvs(ii), ii = 1, itots)
+!	      endif
+!        else if (isproj == 1) then
+!        write (21,1000) cropname, j, subnum(j), hruno(j), sb,           &
+!     &          nmgt(j), iida, hru_km(j), (pdvs(ii), ii = 1, itots)
+!        else if (iscen == 1 .and. isproj == 2) then
+!        if(icalen == 0)write (28,1000) cropname, j, subnum(j), hruno(j),&
+!     &      sb, nmgt(j), iida, hru_km(j), (pdvs(ii), ii = 1, itots), iyr
+!        if(icalen == 1)write (28,1003) cropname, j, subnum(j), hruno(j),&
+!     &      sb, nmgt(j), i_mo, icl(iida), iyr, hru_km(j),               &
+!     &      (pdvs(ii), ii = 1, itots), iyr
+!1003  format(a4,i5,1x,a5,a4,i5,1x,i4,1x,i2,1x,i2,1x,i4,1x,e10.5,66f10.3,&
+!     &1x,e10.5,1x,e10.5,8e10.3,f10.3,1x,i4)
+!        end if
+!      else
+!        if (iscen == 1 .and. isproj == 0) then
+!        if(icalen == 0)write (28,1000) cropname, j, subnum(j), hruno(j),&
+!     &        sb,nmgt(j), iida, hru_km(j), (pdvas(ii), ii = 1, mhruo)
+!        if(icalen == 1)write (28,1003) cropname, j, subnum(j), hruno(j),&
+!     &        sb,nmgt(j), i_mo, icl(iida), iyr, hru_km(j),              &
+!     &        (pdvas(ii), ii = 1, mhruo)
+!!!    added for binary files 3/25/09 gsm line below and write (33333
+!	    if (ia_b == 1) then
+!             write (33333)  j, hrugis(j), sb,                           &
+!     &              nmgt(j), iida, hru_km(j), (pdvas(ii), ii = 1, mhruo)
+!	    endif
+!
+!        else if (isproj == 1) then
+!        write (21,1000) cropname, j, subnum(j), hruno(j), sb,           &
+!     &              nmgt(j), iida, hru_km(j), (pdvas(ii), ii = 1, mhruo)
+!        else if (iscen == 1 .and. isproj == 2) then
+!        if(icalen == 0)write (28,1000) cropname, j, subnum(j), hruno(j),&
+!     &      sb,nmgt(j), iida, hru_km(j), (pdvas(ii), ii = 1, mhruo), iyr
+!         if(icalen == 1)write(28,1000) cropname, j, subnum(j), hruno(j),&
+!     &      sb,nmgt(j), i_mo, icl(iida), iyr, hru_km(j),                &
+!     &      (pdvas(ii), ii = 1, mhruo), iyr
+!        end if
       end if
 
+!YU<
 
       !!add by zhang
       !!output carbon realted variables

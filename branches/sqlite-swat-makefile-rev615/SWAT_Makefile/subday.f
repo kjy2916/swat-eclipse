@@ -97,26 +97,30 @@
         do ii = 1, itotb
           pdvb(ii) = pdvab(ipdvab(ii))
         end do
-        if (icalen == 0) write(31,1000)sb, subgis(sb), iida, sub_km(sb),
-     &                                    (pdvb(ii), ii = 1, itotb), sb
-        if (icalen == 1) write(31,1001)sb, subgis(sb), i_mo, icl(iida), 
-     &         iyr, sub_km(sb), (pdvb(ii), ii = 1, itotb), sb
- 
-!!    added for binary files 3/25/09 gsm line below and write (66666
-	      if (ia_b == 1) then
-	        write (66666) sb, subgis(sb), iida, sub_km(sb),               
-     &                                        (pdvb(ii), ii = 1, itotb)
-	      endif
-      else
-        if (icalen == 0)write(31,1000) sb, subgis(sb), iida, sub_km(sb),
-     &                                (pdvab(ii), ii = 1, msubo), sb
-        if (icalen == 1)write(31,1001) sb, subgis(sb), i_mo, icl(iida), 
-     &         iyr, sub_km(sb), (pdvab(ii), ii = 1, msubo), sb
-!!    added for binary files 3/25/09 gsm line below and write (6666
-	        if (ia_b == 1) then
-                write(66666) sb, subgis(sb), iida, sub_km(sb),        
-     &                                        (pdvab(ii), ii = 1, msubo)
-              endif
+!YU>
+        call subcommandSQLite(sb,iida,pdvab,pdvb)
+
+!        if (icalen == 0) write(31,1000)sb, subgis(sb), iida, sub_km(sb),
+!     &                                    (pdvb(ii), ii = 1, itotb), sb
+!        if (icalen == 1) write(31,1001)sb, subgis(sb), i_mo, icl(iida),
+!     &         iyr, sub_km(sb), (pdvb(ii), ii = 1, itotb), sb
+!
+!!!    added for binary files 3/25/09 gsm line below and write (66666
+!	      if (ia_b == 1) then
+!	        write (66666) sb, subgis(sb), iida, sub_km(sb),
+!     &                                        (pdvb(ii), ii = 1, itotb)
+!	      endif
+!      else
+!        if (icalen == 0)write(31,1000) sb, subgis(sb), iida, sub_km(sb),
+!     &                                (pdvab(ii), ii = 1, msubo), sb
+!        if (icalen == 1)write(31,1001) sb, subgis(sb), i_mo, icl(iida),
+!     &         iyr, sub_km(sb), (pdvab(ii), ii = 1, msubo), sb
+!!!    added for binary files 3/25/09 gsm line below and write (6666
+!	        if (ia_b == 1) then
+!                write(66666) sb, subgis(sb), iida, sub_km(sb),
+!     &                                        (pdvab(ii), ii = 1, msubo)
+!              endif
+!YU<
         
 	end if
 

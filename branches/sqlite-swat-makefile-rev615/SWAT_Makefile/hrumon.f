@@ -290,27 +290,31 @@
           do ii = 1, ix
             pdvs(ii) = pdvas(ipdvas(ii))
           end do
- 
-          idplant = idplt(j)
-          if (idplant > 0) then
-            cropname = cpnm(idplant)
-          else
-            cropname = "NOCR"
-          endif
+ !YU>
+          call hrucommandSQLite(j,mo_chk,pdvas,pdvs)
 
-          if (iscen == 1) then                                          
-            select case (isproj)
-            case (0)
-            write (28,1000) cropname, j, subnum(j), hruno(j), sb,       
-     &         nmgt(j), mo_chk, hru_km(j), (pdvs(ii), ii = 1, ix)
-            case (1)
-            write (21,1000) cropname, j, subnum(j), hruno(j),           
-     &         sb, nmgt(j), mo_chk, hru_km(j), (pdvs(ii), ii = 1, ix)
-            case (2)
-            write (28,2000) cropname, j, subnum(j), hruno(j), sb,       
-     &         nmgt(j), mo_chk, hru_km(j),(pdvs(ii), ii = 1, ix), iyr
-            end select
-          end if
+!          idplant = idplt(j)
+!          if (idplant > 0) then
+!            cropname = cpnm(idplant)
+!          else
+!            cropname = "NOCR"
+!          endif
+!
+!          if (iscen == 1) then
+!            select case (isproj)
+!            case (0)
+!            write (28,1000) cropname, j, subnum(j), hruno(j), sb,
+!     &         nmgt(j), mo_chk, hru_km(j), (pdvs(ii), ii = 1, ix)
+!            case (1)
+!            write (21,1000) cropname, j, subnum(j), hruno(j),
+!     &         sb, nmgt(j), mo_chk, hru_km(j), (pdvs(ii), ii = 1, ix)
+!            case (2)
+!            write (28,2000) cropname, j, subnum(j), hruno(j), sb,
+!     &         nmgt(j), mo_chk, hru_km(j),(pdvs(ii), ii = 1, ix), iyr
+!            end select
+!          end if
+!YU<
+
 !     else
 !! write with different format for hrus greater than 9999
 !        select case (isproj)
