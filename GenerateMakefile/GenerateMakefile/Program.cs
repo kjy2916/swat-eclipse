@@ -61,7 +61,7 @@ namespace GenerateMakefile
             //-ffpe-trap=invalid,zero,overflow,underflow will make program stop when these errors happen
             //-fbacktrace:  Specifies that if the program crashes, a backtrace should be produced if possible, showing what functions or subroutines were being called at the time of the error.
             string commonFlag = " -Wall -fmessage-length=0";
-            if (type == CODE_TYPE.FORTRAN) commonFlag = " -funderscoring -fbacktrace -ffpe-trap=invalid,zero,overflow,underflow" + commonFlag;
+            if (type == CODE_TYPE.FORTRAN) commonFlag = " -funderscoring -fbacktrace -ffpe-trap=invalid,zero,overflow" + commonFlag;//remove underflow
             string debugFlag = " -O0 -g -fbounds-check -Wextra" + commonFlag;
             if (!isDebug) debugFlag = " -O3" + commonFlag;
             string compiler = "FC";
