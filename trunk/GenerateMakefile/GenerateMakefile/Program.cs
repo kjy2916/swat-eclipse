@@ -9,7 +9,7 @@ namespace GenerateMakefile
 {
     class Program
     {
-        private static string[] LONG_F_NAMES = { "bmpinit.f", "ovr_sed.f", "percmain.f", "rthsed.f", "modparm.f","biozone.f" };
+        private static string[] LONG_F_NAMES = { "bmpinit.f", "ovr_sed.f", "percmain.f", "rthsed.f", "main.f","biozone.f" };
         private static string[] LONG_F90_NAMES = { "carbon_zhang2.f90" };
 
         private static string NAME_C_FLAG = "CFLAG";
@@ -107,19 +107,20 @@ namespace GenerateMakefile
 
                 //flags
                 sb.AppendLine("");
-                sb.AppendLine("#C Flag");
+                sb.AppendLine("#C Flag, remove -Wall if don't want all the warning information");
                 sb.AppendLine(NAME_C_FLAG + "=-c -Wall -fmessage-length=0");
-                sb.AppendLine("#Fortran Flag");
+                sb.AppendLine("#Fortran Flag, remove -Wall if don't want all the warning information");
                 sb.AppendLine(NAME_FORTRAN_FLAG + "=-c -Wall -fmessage-length=0 -funderscoring -fbacktrace -ffpe-trap=invalid,zero,overflow");
                 sb.AppendLine("#Dedug Flag");
                 sb.AppendLine(NAME_DEBUG_FLAG + "=-O0 -g -fbounds-check -Wextra");
                 sb.AppendLine("#Release Flag");
                 sb.AppendLine(NAME_RELEASE_FLAG + "=-O3");
-                sb.AppendLine("#Flag for long fix fortran codes");
+                sb.AppendLine("#Flag for long fix fortran codes, used for some special fortran files");
                 sb.AppendLine(NAME_LONG_FIX_FORMAT + "=-ffixed-line-length-132");
-                sb.AppendLine("#Flag for long free fortran codes");
+                sb.AppendLine("#Flag for long free fortran codes, used for some special fortran files");
                 sb.AppendLine(NAME_LONG_FREE_FORMAT + "=-ffree-line-length-200");
-                sb.AppendLine("#Flag for target machine architecture");
+                sb.AppendLine("#Flag for target machine architecture.");
+                sb.AppendLine("#Note: MinGW doesn't support 64-bit architecture. Replace -m64 with empty string instead.");
                 sb.AppendLine(NAME_ARCHITECTURE_32 + "=-m32");
                 sb.AppendLine(NAME_ARCHITECTURE_64 + "=-m64");
                 sb.AppendLine("");
@@ -275,6 +276,7 @@ namespace GenerateMakefile
             foreach (FileInfo f in files)
             {
                 Console.WriteLine(f.Name);
+                if (f.Name.Equals("modparm.f")) continue;
 
                 string longFortranflag = "";
                 string o_file = "";
@@ -298,24 +300,29 @@ namespace GenerateMakefile
 
                 string f_file = f_prefix + f.Name;
 
-                StringBuilder compilerForOneFile = new StringBuilder();
-                compilerForOneFile.AppendLine("");
-                compilerForOneFile.AppendLine(o_file + ": " + f_file);
-                compilerForOneFile.AppendLine(string.Format("\t{0} {6} {1} {2} {3} {4} -o {5}{7}{8}", 
-                    compiler,commonFlag,debugFlag, longFortranflag, f_file,o_file,architecture,
-                    (inSameFolder && f.Name.Equals("modparm.f") ? " -J " + modLocation : ""),                      //specify the location of mod file
-                    (inSameFolder && !f.Name.Equals("modparm.f") ? " -I " + modLocation : "")));   //specify the location of mod file
 
-                if (f.Name.Equals("modparm.f")) //insert into the first to generate parm.mod before other files are compiled
-                {   
-                    makefilesb.Insert(0, compilerForOneFile.ToString());
-                    objfilesb.Insert(0, o_file);
-                }
-                else
-                {
-                    makefilesb.Append(compilerForOneFile.ToString());
-                    objfilesb.Append(" " + o_file);
-                }
+                //geneate the line for the rule
+                string line_rule = o_file + ": " + f_file;
+                //Add dependency modparm.f to main.f to recompile main.f when moadparm.f is changed
+                //Add dependency main.o to other files to recompile main.f when moadparm.f is changed
+                if (type == CODE_TYPE.FORTRAN)
+                    line_rule += f.Name.Equals("main.f") ? " " + f_prefix + "modparm.f" : " " + o_prefix + "main.o";
+
+                //generate the line for compile
+                string line_compile = string.Format("\t{0} {6} {1} {2} {3} {4} -o {5}",
+                    compiler, commonFlag, debugFlag, longFortranflag, f_file, o_file, architecture);                
+                
+                //As gfortran will try to search for the mod file in the same folder as Makefile, there is need
+                //to specify the location of the mod file.
+                //-J specify the location where the mod file will be saved, only used by main.f
+                //-I specify the location where the mod file will be search for, used by other files except main.f
+                if (type == CODE_TYPE.FORTRAN && inSameFolder)
+                    line_compile += (f.Name.Equals("main.f") ? " -J " : " -I ") + modLocation;
+
+                makefilesb.AppendLine("");
+                makefilesb.AppendLine(line_rule);
+                makefilesb.AppendLine(line_compile);
+                objfilesb.Append(" " + o_file);                
             }
 
             objs = objfilesb.ToString();
