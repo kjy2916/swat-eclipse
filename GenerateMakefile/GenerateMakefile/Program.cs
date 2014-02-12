@@ -101,15 +101,17 @@ namespace GenerateMakefile
                 sb.AppendLine("");
 
                 //define compiler
-                sb.AppendLine("#Define compiler");
+                sb.AppendLine("#Define compiler, change it if using other compiler");
                 sb.AppendLine("CC=gcc");
                 sb.AppendLine("FC=gfortran");
 
                 //flags
                 sb.AppendLine("");
-                sb.AppendLine("#C Flag, remove -Wall if don't want all the warning information");
+                sb.AppendLine("#C Flag");
                 sb.AppendLine(NAME_C_FLAG + "=-c -Wall -fmessage-length=0");
-                sb.AppendLine("#Fortran Flag, remove -Wall if don't want all the warning information");
+                sb.AppendLine("#Fortran Flag");
+                sb.AppendLine("#Remove -Wall if don't want all the warning information");
+                sb.AppendLine("#Remove invalid, zero or overflow if don't want SWAT stop running when these floating point exception happens");
                 sb.AppendLine(NAME_FORTRAN_FLAG + "=-c -Wall -fmessage-length=0 -funderscoring -fbacktrace -ffpe-trap=invalid,zero,overflow");
                 sb.AppendLine("#Dedug Flag");
                 sb.AppendLine(NAME_DEBUG_FLAG + "=-O0 -g -fbounds-check -Wextra");
@@ -275,30 +277,31 @@ namespace GenerateMakefile
 
             foreach (FileInfo f in files)
             {
-                Console.WriteLine(f.Name);
-                if (f.Name.Equals("modparm.f")) continue;
+                string sourceName = f.Name.ToLower(); //BIOZONE.F is upper case, need to convert to lowercase
+                if (sourceName.Equals("modparm.f")) continue;
+                if (sourceName.Equals("readmgtsave.f")) continue; //for rev435, double define readmgt in readmgt.f and readmgtsave.f
 
                 string longFortranflag = "";
                 string o_file = "";
 
-                if (f.Name.Contains(".f90"))
+                if (sourceName.Contains(".f90"))
                 {
-                    o_file = o_prefix + f.Name.ToLower().Replace(".f90", ".o");
-                    if (System.Array.IndexOf(LONG_F90_NAMES, f.Name) > -1)
+                    o_file = o_prefix + sourceName.Replace(".f90", ".o");
+                    if (System.Array.IndexOf(LONG_F90_NAMES, sourceName) > -1)
                         longFortranflag = "${" +NAME_LONG_FREE_FORMAT+ "}";
                 }
-                else if (f.Name.Contains(".f"))
+                else if (sourceName.Contains(".f"))
                 {
-                    o_file = o_prefix + f.Name.ToLower().Replace(".f", ".o");
-                    if (System.Array.IndexOf(LONG_F_NAMES, f.Name) > -1)
+                    o_file = o_prefix + sourceName.Replace(".f", ".o");
+                    if (System.Array.IndexOf(LONG_F_NAMES, sourceName) > -1)
                         longFortranflag = "${" + NAME_LONG_FIX_FORMAT + "}";
                 }
-                else if (f.Name.Contains(".c"))
+                else if (sourceName.Contains(".c"))
                 {
-                    o_file = o_prefix + f.Name.ToLower().Replace(".c", ".o");
+                    o_file = o_prefix + sourceName.Replace(".c", ".o");
                 }
 
-                string f_file = f_prefix + f.Name;
+                string f_file = f_prefix + sourceName;
 
 
                 //geneate the line for the rule
@@ -306,7 +309,7 @@ namespace GenerateMakefile
                 //Add dependency modparm.f to main.f to recompile main.f when moadparm.f is changed
                 //Add dependency main.o to other files to recompile main.f when moadparm.f is changed
                 if (type == CODE_TYPE.FORTRAN)
-                    line_rule += f.Name.Equals("main.f") ? " " + f_prefix + "modparm.f" : " " + o_prefix + "main.o";
+                    line_rule += sourceName.Equals("main.f") ? " " + f_prefix + "modparm.f" : " " + o_prefix + "main.o";
 
                 //generate the line for compile
                 string line_compile = string.Format("\t{0} {6} {1} {2} {3} {4} -o {5}",
@@ -317,7 +320,7 @@ namespace GenerateMakefile
                 //-J specify the location where the mod file will be saved, only used by main.f
                 //-I specify the location where the mod file will be search for, used by other files except main.f
                 if (type == CODE_TYPE.FORTRAN && inSameFolder)
-                    line_compile += (f.Name.Equals("main.f") ? " -J " : " -I ") + modLocation;
+                    line_compile += (sourceName.Equals("main.f") ? " -J " : " -I ") + modLocation;
 
                 makefilesb.AppendLine("");
                 makefilesb.AppendLine(line_rule);
