@@ -730,7 +730,8 @@
 !! bmp modeling by jaehak jeong
       character(len=4), dimension(:), allocatable:: lu_nodrain
       integer, dimension(:), allocatable:: bmpdrain
-      real, dimension(:), allocatable :: sub_cn2, sub_ha_urb
+      real, dimension(:), allocatable :: sub_cn2, sub_ha_urb,
+     & bmp_recharge 
       !sed-fil
       real, dimension(:), allocatable:: sub_ha_imp,subdr_km,subdr_ickm
       real, dimension(:,:), allocatable:: sf_im,sf_iy,sp_sa,
