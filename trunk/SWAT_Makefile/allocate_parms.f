@@ -1573,7 +1573,7 @@
       allocate (snam(mhru),hydgrp(mhru),kirr(mhru))
 	allocate (dratio(msub),init_abstrc(mhru))
 	allocate (sub_subp_dt(msub,nstep),sub_hhsedy(msub,nstep))
-	allocate (sub_atmp(msub,nstep))
+	allocate (sub_atmp(msub,nstep),bmp_recharge(msub))
 	allocate (rchhr(mrcho,mch,nstep),hrtevp(nstep),hrttlc(nstep))
 	allocate (hhresflwi(nstep), hhresflwo(nstep),hhressedi(nstep),
      &	 hhressedo(nstep))

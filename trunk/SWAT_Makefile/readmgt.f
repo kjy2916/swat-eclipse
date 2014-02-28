@@ -337,9 +337,10 @@
       read (109,*) tdrain(ihru)
       read (109,*) gdrain(ihru)
       read (109,5000) titldum
-!!      read (109,*) nrot(ihru)
+ !!     read (109,*) nrot(ihru)
+      read (109,5000) titldum 
       read (109,5000) titldum
-      read (109,5000) titldum
+
 
 !!    set pothole trigger
 !    if (ipot(ihru) == ihru) then

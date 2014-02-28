@@ -493,7 +493,7 @@
       read (103,*,iostat=eof) res_stlr_co
       if (eof < 0) exit
 !     following reads moved to end of .bsn file
-!     read (103,*,iostat=eof) sol_p_model  !! if = 1 use new soil P model
+!     read (103,*,iostat=eof) sol_p_model  !! if = 0 use new soil P model
 !     if (eof < 0) exit
 	read (103,*,iostat=eof) bf_flg
  	if (eof < 0) exit
@@ -547,7 +547,7 @@
       if (eof < 0) exit
 	read (103,*,iostat=eof) iwtdn
       if (eof < 0) exit
-      read (103,*,iostat=eof) sol_p_model  !! if = 1 use new soil P model
+      read (103,*,iostat=eof) sol_p_model  !! if = 0  use new soil P model
       if (eof < 0) exit
  	read (103,*,iostat=eof) iabstr
  	if (eof < 0) exit

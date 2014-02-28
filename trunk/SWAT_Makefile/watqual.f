@@ -459,16 +459,16 @@
          xx = Theta(rk4(jrch),thrk4,wtmp) / (rchdep * 1000.)
          yy = ai5 * Theta(bc1mod,thbc1,wtmp) * nh3con
          zz = ai6 * Theta(bc2mod,thbc2,wtmp) * no2con
-         rch_dox(jrch) = 0.
          rch_dox(jrch) = o2con + (uu + vv - ww - xx - yy - zz) * tday
+         rch_dox(jrch) = amin1(0.1, rch_dox(jrch))
          
          !algea O2 production minus respiration
-         if (vv > 0.) then
+         !if (vv > 0.) then
            doxrch = soxy
-         else
-           coef = exp(-0.03 * vv)
-           doxrch = coef * soxy
-         end if
+         !else
+         !  coef = exp(-0.03 * vv)
+         !  doxrch = coef * soxy
+         !end if
          
          !cbod deoxygenation
          coef = exp(-0.1 * ww)
