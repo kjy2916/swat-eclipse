@@ -134,6 +134,15 @@
       if (iresco(jres) /= 5) then 
        res_vol(jres) = res_vol(jres) + respcp + resflwi - resev - ressep
       endif
+      
+!! subtract consumptive water use from reservoir storage
+        xx = 0.
+        xx = wuresn(i_mo,jres)
+        res_vol(jres) = res_vol(jres) - xx
+        if (res_vol(jres) < 0.) then
+          xx = xx + res_vol(jres)
+          res_vol(jres) = 0.
+        end if
 
 !! if reservoir volume is greater than zero
 
@@ -143,10 +152,6 @@
             vvr = 0.
             if (res_vol(jres) > res_pvol(jres)) then
               vvr = res_vol(jres) - res_pvol(jres)
-              if (res_vol(jres) > res_evol(jres)) then
-                resflwo = res_vol(jres) - res_evol(jres)
-                vvr = res_evol(jres) - res_pvol(jres)
-              endif
               if (res_rr(jres) > vvr) then
                 resflwo = resflwo + vvr
               else
@@ -266,14 +271,6 @@
           end if
         end if  
 
-        !! subtract consumptive water use from reservoir storage
-        xx = 0.
-        xx = wuresn(i_mo,jres)
-        res_vol(jres) = res_vol(jres) - xx
-        if (res_vol(jres) < 0.) then
-          xx = xx + res_vol(jres)
-          res_vol(jres) = 0.
-        end if
         !! add spillage from consumptive water use to reservoir outflow
         resflwo = resflwo + xx * wurtnf(jres)
 
