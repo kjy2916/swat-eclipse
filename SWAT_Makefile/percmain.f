@@ -25,7 +25,7 @@
 !!    ismax       |none          |maximum depressional storage selection flag/code
 !!                               |1 dynamic stmaxd computed as a function of random roughness and rain intensity 
 !!                               |by depstor.f
-!!                               |0 static stmaxd read from .bsn for the global value or .sdr for specific hrus                        
+!!                               |0 static stmaxd read from .bsn for the global value or .sdr for specific hrus                 
 !!    drainmod tile equations   01/2006
 !!    sol_fc(:,:) |mm H2O        |amount of water available to plants in soil
 !!                               |layer at field capacity (fc - wp)

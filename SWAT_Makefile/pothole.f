@@ -609,12 +609,12 @@
       endif
 !     !!! output.pot and output.wtr turned on by same code named IWTR in file.cio
       if (iwtr == 1) then
-        write (125,2000) hruno(j), subnum(j), i, iyr, potvol_ini,       
+        write (125,2000) subnum(j), hruno(j), i, iyr, potvol_ini,       
      &       potsa_ini, spillo, potsep, potev, sol_sw(j), tileo,        
      &       pot_vol(j), potsa(j)
       endif
- 2000 format (a5,1x,a4,2i5,9f10.2)
- 
+  
       return
 1000  format (1x,i4,2x,9(f8.2,2x))
+2000  format (a5,a4,1x,2i5,9f10.2)
       end    
