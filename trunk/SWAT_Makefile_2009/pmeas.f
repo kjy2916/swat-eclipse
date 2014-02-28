@@ -86,12 +86,12 @@
       integer :: ihour, imin, flag
       real :: rbsb
       real, dimension (mrg) :: rmeas
-      real, dimension (:,:), allocatable :: rainsb,hrmeas
+      real, dimension (:,:), allocatable :: rainsb
 !     real, dimension (:), allocatable :: rhrbsb, rstpbsb
       if (nstep > 0) then
         allocate (rainsb(mrg,nstep))
 !       allocate (rstpbsb(nstep))
-        allocate (hrmeas(mrg,25))
+!        allocate (hrmeas(mrg,25))
 !       allocate (rhrbsb(24))
       end if
 
@@ -99,7 +99,7 @@
       rmeas = 0.
       if (nstep > 0) then
         rainsb = 0.
-        hrmeas = 0.
+!       hrmeas = 0.
       end if
       
 
@@ -127,13 +127,16 @@
                 iyp = 0
                 idap = 0
                 read (100+k,5100) iyp, idap, (rmeas(l), l = kk1, kk2)
+5000  format (7x,1800f5.1)
+5100  format (i4,i3,1800f5.1)
                 if (iyp + idap <= 0) exit
                 if (iyp == iyr .and. idap == id1) exit
               end do
             end if
           end do
 
-          !! assign precipitation data to HRUs
+          !! assign precipitation data to HRUsoutput.std
+          
           inum3sprev = 0
           do k = 1, nhru
             subp(k) = rmeas(irgage(hru_sub(k)))
@@ -158,8 +161,8 @@
                 inum3sprev = hru_sub(k)
                 rbsb = subp(k)
                 if (ievent == 1) then
-                  rhrbsb = 0.
-                  rstpbsb = 0.
+                  rhrbsb(:) = 0.
+                  rstpbsb(:) = 0.
                   do l = 1, 24
                     rhrbsb(l) = hhsubp(k,l)
                   end do
@@ -199,15 +202,13 @@
                   a = ""
                   read (100+k,5200) iyp, idap, ihour, imin,             &
      &                                      (rainsb(l,ii), l = kk1, kk2)
-	
-                  if (iyp /= iyr .or. idap /= i) flag = 1
+				   if (iyp /= iyr .or. idap /= i) flag = 1
                   if (flag == 1) then
                     write (24,5400) iyr, i
-                    stop
+      !!              stop
                   end if
                   do l = kk1, kk2
                     rmeas(l) = rmeas(l) + rainsb(l,ii)
-                    hrmeas(l,ihour+1) = hrmeas(l,ihour+1) + rainsb(l,ii)
                   end do
                 end do
               else                                 !no precip on day
@@ -215,16 +216,13 @@
                   if (iyp /= iyr .or. idap /= i) flag = 1
                   if (flag == 1) then
                     write (24,5400) iyr, i
-                    stop
+     !!               stop
                   end if
                 do l = kk1, kk2
                   do ii = 1, nstep
                     rainsb(l,ii) = 0.
                   end do
                   rmeas(l) = 0.
-                  do ii = 1, 24
-                    hrmeas(l,ii) = 0.
-                  end do
                 end do
               end if
             else
@@ -240,7 +238,6 @@
                   if (a /= " ") then
                     do l = kk1, kk2
                       rmeas(l) = rmeas(l) + rainsb(l,1)
-                      hrmeas(l,1) = hrmeas(l,1) + rainsb(l,1)
                     end do
                     do ii = 2, nstep
                       ihour = 0
@@ -249,8 +246,6 @@
      &                                      (rainsb(l,ii), l = kk1, kk2)
                       do l = kk1, kk2
                         rmeas(l) = rmeas(l) + rainsb(l,ii)
-                        hrmeas(l,ihour+1) = hrmeas(l,ihour+1) +         &
-     &                                                      rainsb(l,ii)
                       end do
                     end do
                   else
@@ -258,9 +253,6 @@
                       rmeas(l) = rainsb(l,1)
                       do ii = 1, nstep
                         rainsb(l,ii) = 0.
-                      end do
-                      do ii = 1, 24
-                        hrmeas(l,ii) = 0.
                       end do
                     end do
                   end if
@@ -278,18 +270,12 @@
             do ii = 1, nstep
               rainsub(k,ii) = rainsb(irgage(hru_sub(k)),ii)
             end do
-            do ii = 1, 24
-              hhsubp(k,ii) = hrmeas(irgage(hru_sub(k)),ii)
-            end do
             !! generate data to replace missing values
             if (subp(k) < -97.) then
               !! use same generated data for all HRUs in a subbasin
               if (hru_sub(k) == inum3sprev .and. hru_sub(k) /= 0) then
                 subp(k) = rbsb
                 if (ievent == 1) then
-                  do l = 1, 24
-                    hhsubp(k,l) = rhrbsb(l)
-                  end do
                   do l = 1, nstep
                     rainsub(k,l) = rstpbsb(l)
                   end do
@@ -301,11 +287,7 @@
                 rbsb = 0.
                 inum3sprev = hru_sub(k)
                 rbsb = subp(k)
-                rhrbsb = 0.
-                rstpbsb = 0.
-                do l = 1, 24
-                  rhrbsb(l) = hhsubp(k,l)
-                end do
+                rstpbsb(:) = 0.
                 do l = 1, nstep
                   rstpbsb(l) = rainsub(k,l)
                 end do
@@ -317,18 +299,15 @@
 
       if (nstep > 0) then
         deallocate (rainsb)
-        deallocate (hrmeas)
-!       deallocate (rhrbsb)
-!       deallocate (rstpbsb)
       end if
 
 
       return
- 5000 format (7x,300f5.1)
- 5100 format (i4,i3,300f5.1)
- 5200 format (i4,i3,i2,1x,i2,300f5.1)
+! 5000 format (7x,300f5.1)                 !! -------------------------------test
+! 5100 format (i4,i3,300f5.1)              !! -------------------------------test
+ 5200 format (i4,i3,i2,1x,i2,300f6.2)
  5201 format (i4,i3,5x,300f5.1)
- 5202 format (i4,i3,i2,a1,i2,300f5.1)
+ 5202 format (i4,i3,i2,a1,i2,300f6.2)
  5300 format (9x,a1)
  5400 format (10x,"ERROR: Precipitation data dates do not match for",   &
      &       " simulation year: ",i4," and julian date: ",i3)

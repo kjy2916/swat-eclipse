@@ -147,7 +147,8 @@
         iflag = 0
         if (pnd_fr(j) >= 0.01) iflag = 1
         if (wet_fr(j) >= 0.01) iflag = 1
-        if (ipot(j) == j) iflag = 1
+    !!    if (ipot(j) == j) iflag = 1
+        if (pot_fr(j) > 0.) iflag = 1
 
         if (iflag == 1) then
 
@@ -224,14 +225,16 @@
           pdvas(39) = hruyro(15,j)
           pdvas(40) = hruyro(16,j)
 
-      if (idplt(nro(j),icr(j),j) > 0) then
-        cropname = cpnm(idplt(nro(j),icr(j),j))
+      if (idplt(j) > 0) then
+        cropname = cpnm(idplt(j))
       else
         cropname = 'BARR'
       end if
 
+      if (iwtr == 1) then
           write (29,1000) cropname, j, hrugis(j), sb,                   &
      &               nmgt(j), iyr, hru_km(j), (pdvas(ii), ii = 1, 40)
+      end if
         end if
       end do
 
