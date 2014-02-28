@@ -87,12 +87,19 @@
    
       jrch = 0
       jrch = inum1
+      
+!! add transfer amounts
+      do ii = 2, mvaro
+        varoute(ii,inum2) = varoute(ii,inum2) + vartran(ii,jrch)
+        vartran(ii,jrch) = 0.
+      end do
+      
 
 !! zero flow out variables
       do ii = 1, mvaro
         varoute(ii,ihout) = 0.
         if (ievent > 2) then
-          do kk = 1, 24
+          do kk = 1, nstep ! changed from 24 to nstep for urban modeling by J.Jeong 4/16/2008
             hhvaroute(ii,ihout,kk) = 0.
           end do
         end if  

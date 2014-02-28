@@ -78,6 +78,13 @@
    
       jres = 0
       jres = inum1
+      
+!! add transfer amounts
+      do ii = 2, mvaro
+        varoute(ii,inum2) = varoute(ii,inum2) + vartran(ii,jres)
+        vartran(ii,jres) = 0.
+      end do
+      
 
 !! zero flow out variables
       do ii = 1, mvaro
@@ -94,7 +101,12 @@
       reschlao = 0.
       resev = 0.
       resflwi = 0.
-      resflwi = varoute(2,inum2)
+      if(ievent<3) then		!!urban modeling by J.Jeong
+	  resflwi = varoute(2,inum2)
+	else
+	  resflwi = hhvaroute(2,inum2,1)
+	endif
+ !!     resflwi = varoute(2,inum2)
       resflwo = 0.
       respcp = 0.
       resnh3o = 0.
@@ -116,6 +128,11 @@
 	  resgrai = varoute(28,inum2)
 
       if (varoute(3,inum2) < 1.e-6) varoute(3,inum2) = 0.0
+      if(ievent<3) then		!!urban modeling by J.Jeong
+	  ressedi = varoute(3,inum2)
+	else
+	  ressedi = hhvaroute(3,inum2,1)
+	endif
       ressedo = 0.
 
       ressano = 0.

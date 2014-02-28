@@ -1,5 +1,5 @@
 #Generated using GenerateMakefile by Zhiqiang Yu, hawklorry@gmail.com
-#Friday, February 28, 2014 4:34:43 PM
+#Friday, February 28, 2014 5:24:48 PM
 
 #Define compiler, change it if using other compiler
 CC=gcc
@@ -24,12 +24,8 @@ LONGFREE=-ffree-line-length-200
 ARCH32=-m32
 ARCH64=-m64
 
-#The default make target for all is debug32. You could also use rel32, debug64 and rel64
-all: debug32
-clean: debug32_clean
 
-
-OBJECTS_DEBUG32=  debug32/addh.o debug32/albedo.o debug32/allocate_parms.o debug32/alph.o debug32/analyse.o debug32/anfert.o debug32/apex_day.o debug32/apply.o debug32/ascrv.o debug32/atri.o debug32/aunif.o debug32/autocal.o debug32/autoirr.o debug32/automet.o debug32/aveval.o debug32/bacteria.o debug32/batchin.o debug32/batchmain.o debug32/bayes.o debug32/biozone.o debug32/buffer.o debug32/burnop.o debug32/calresidu.o debug32/canopyint.o debug32/caps.o debug32/carbon_new.o debug32/changepar.o debug32/chkcst.o debug32/clgen.o debug32/clicon.o debug32/command.o debug32/conapply.o debug32/confert.o debug32/copyfile.o debug32/countobs.o debug32/crackflow.o debug32/crackvol.o debug32/curno.o debug32/dailycn.o debug32/decay.o debug32/dormant.o debug32/dstn1.o debug32/ee.o debug32/eiusle.o debug32/enrsb.o debug32/erfc.o debug32/estimate_ksat.o debug32/etact.o debug32/etpot.o debug32/expo.o debug32/fert.o debug32/filter.o debug32/filtw.o debug32/finalbal.o debug32/functn.o debug32/gasdev.o debug32/gcycl.o debug32/getallo.o debug32/getallo2.o debug32/getpnt.o debug32/getpnt2.o debug32/goc.o debug32/grass_wway.o debug32/graze.o debug32/grow.o debug32/gwmod.o debug32/gwnutr.o debug32/gw_no3.o debug32/h2omgt_init.o debug32/harvestop.o debug32/harvgrainop.o debug32/harvkillop.o debug32/header.o debug32/headout.o debug32/hhnoqual.o debug32/hhwatqual.o debug32/hmeas.o debug32/hruaa.o debug32/hruallo.o debug32/hruday.o debug32/hrumon.o debug32/hrupond.o debug32/hruyr.o debug32/hydroinit.o debug32/impndaa.o debug32/impndday.o debug32/impndmon.o debug32/impndyr.o debug32/impnd_init.o debug32/indexx.o debug32/irrigate.o debug32/irrsub.o debug32/irr_rch.o debug32/irr_res.o debug32/jdt.o debug32/killop.o debug32/lakeq.o debug32/latsed.o debug32/layersplit.o debug32/lwqdef.o debug32/main.o debug32/ndenit.o debug32/newtillmix.o debug32/nfix.o debug32/nitvol.o debug32/nlch.o debug32/nminrl.o debug32/noqual.o debug32/npup.o debug32/nrain.o debug32/nup.o debug32/nuts.o debug32/oat.o debug32/objfunctn.o debug32/openwth.o debug32/operatn.o debug32/orgn.o debug32/orgncswat.o debug32/parasol.o debug32/parasolc.o debug32/parasoli.o debug32/parasolo.o debug32/parasolu.o debug32/parstt2.o debug32/percmacro.o debug32/percmain.o debug32/percmicro.o debug32/pestlch.o debug32/pestw.o debug32/pesty.o debug32/pgen.o debug32/pgenhr.o debug32/pkq.o debug32/plantmod.o debug32/plantop.o debug32/pmeas.o debug32/pminrl.o debug32/pond.o debug32/pothole.o debug32/print_hyd.o debug32/psed.o debug32/qman.o debug32/ran1.o debug32/ranked.o debug32/rchaa.o debug32/rchday.o debug32/rchinit.o debug32/rchmon.o debug32/rchuse.o debug32/rchyr.o debug32/reachout.o debug32/readatmodep.o debug32/readbsn.o debug32/readchan.o debug32/readchm.o debug32/readcnst.o debug32/readfcst.o debug32/readfert.o debug32/readfig.o debug32/readfile.o debug32/readgw.o debug32/readhru.o debug32/readinpt.o debug32/readlup.o debug32/readlwq.o debug32/readmetf.o debug32/readmgt.o debug32/readmon.o debug32/readops.o debug32/readparmfile.o debug32/readpest.o debug32/readplant.o debug32/readpnd.o debug32/readres.o debug32/readrte.o debug32/readsepticbz.o debug32/readseptwq.o debug32/readsno.o debug32/readsol.o debug32/readsub.o debug32/readswq.o debug32/readtill.o debug32/readurban.o debug32/readwgn.o debug32/readwus.o debug32/readwwq.o debug32/readyr.o debug32/reccnst.o debug32/recday.o debug32/rechour.o debug32/recmon.o debug32/recyear.o debug32/regres.o debug32/rerun.o debug32/rerunfile.o debug32/rerunps.o debug32/res.o debug32/resbact.o debug32/resetlu.o debug32/resinit.o debug32/resnut.o debug32/response.o debug32/rewind_init.o debug32/rhgen.o debug32/rootfr.o debug32/route.o debug32/routres.o debug32/rsedaa.o debug32/rseday.o debug32/rsedmon.o debug32/rsedyr.o debug32/rtbact.o debug32/rtday.o debug32/rteinit.o debug32/rthmusk.o debug32/rthourly.o debug32/rthpest.o debug32/rthsed.o debug32/rtmusk.o debug32/rtout.o debug32/rtover.o debug32/rtpest.o debug32/rtsed.o debug32/rtsed_bagnold.o debug32/rtsed_kodatie.o debug32/rtsed_molinas_wu.o debug32/rtsed_yangsand.o debug32/sample.o debug32/sample1.o debug32/sat_excess.o debug32/save.o debug32/saveconc.o debug32/scestat.o debug32/schedule_ops.o debug32/sensin.o debug32/sensmain.o debug32/simulate.o debug32/sim_initday.o debug32/sim_inityr.o debug32/slrgen.o debug32/smeas.o debug32/snom.o debug32/soil_chem.o debug32/soil_par.o debug32/soil_phys.o debug32/soil_write.o debug32/solp.o debug32/solt.o debug32/sort1.o debug32/sort3.o debug32/sorteer.o debug32/sorteer2.o debug32/sorteer3.o debug32/sorteer4.o debug32/sorteer5.o debug32/sorteer6.o debug32/std1.o debug32/std2.o debug32/std3.o debug32/stdaa.o debug32/storeinitial.o debug32/structure.o debug32/subaa.o debug32/subbasin.o debug32/subday.o debug32/submon.o debug32/substor.o debug32/subwq.o debug32/subyr.o debug32/sumhyd.o debug32/sumv.o debug32/sunglasr.o debug32/sunglass.o debug32/sunglasu.o debug32/surface.o debug32/surfstor.o debug32/surfst_h2o.o debug32/surq_daycn.o debug32/surq_greenampt.o debug32/swbl.o debug32/sweep.o debug32/swu.o debug32/tair.o debug32/telobjre.o debug32/telobs.o debug32/telpar.o debug32/tgen.o debug32/theta.o debug32/tillfactor.o debug32/tillmix.o debug32/tmeas.o debug32/tran.o debug32/transfer.o debug32/tstr.o debug32/ttcoef.o debug32/urban.o debug32/urb_bmp.o debug32/varinit.o debug32/vbl.o debug32/virtual.o debug32/volq.o debug32/vrval.o debug32/washp.o debug32/watbal.o debug32/watqual.o debug32/watqual2.o debug32/wattable.o debug32/watuse.o debug32/weatgn.o debug32/wetlan.o debug32/wmeas.o debug32/wndgen.o debug32/writea.o debug32/writeaa.o debug32/writed.o debug32/writem.o debug32/writeswatfile.o debug32/writeswatmain.o debug32/xisquare.o debug32/xiunc.o debug32/xmon.o debug32/ysed.o debug32/zero0.o debug32/zero1.o debug32/zero2.o debug32/zeroini.o
+OBJECTS_DEBUG32=  debug32/addh.o debug32/albedo.o debug32/allocate_parms.o debug32/alph.o debug32/anfert.o debug32/apex_day.o debug32/apply.o debug32/ascrv.o debug32/atri.o debug32/aunif.o debug32/autoirr.o debug32/aveval.o debug32/bacteria.o debug32/biofilm.o debug32/biozone.o debug32/bmpfixed.o debug32/bmpinit.o debug32/bmp_det_pond.o debug32/bmp_ri_pond.o debug32/bmp_sand_filter.o debug32/bmp_sed_pond.o debug32/bmp_wet_pond.o debug32/buffer.o debug32/burnop.o debug32/canopyint.o debug32/caps.o debug32/carbon_new.o debug32/chkcst.o debug32/clgen.o debug32/clicon.o debug32/command.o debug32/conapply.o debug32/confert.o debug32/crackflow.o debug32/crackvol.o debug32/curno.o debug32/dailycn.o debug32/decay.o debug32/depstor.o debug32/distrib_bmps.o debug32/dormant.o debug32/drains.o debug32/dstn1.o debug32/ee.o debug32/eiusle.o debug32/enrsb.o debug32/erfc.o debug32/estimate_ksat.o debug32/etact.o debug32/etpot.o debug32/expo.o debug32/fert.o debug32/filter.o debug32/filtw.o debug32/finalbal.o debug32/gcycl.o debug32/getallo.o debug32/getallo2.o debug32/grass_wway.o debug32/graze.o debug32/grow.o debug32/gwmod.o debug32/gwnutr.o debug32/gw_no3.o debug32/h2omgt_init.o debug32/harvestop.o debug32/harvgrainop.o debug32/harvkillop.o debug32/header.o debug32/headout.o debug32/hhnoqual.o debug32/hhwatqual.o debug32/hmeas.o debug32/hruaa.o debug32/hruallo.o debug32/hruday.o debug32/hrumon.o debug32/hrupond.o debug32/hrupondhr.o debug32/hruyr.o debug32/hydroinit.o debug32/icl.o debug32/impndaa.o debug32/impndday.o debug32/impndmon.o debug32/impndyr.o debug32/impnd_init.o debug32/irrigate.o debug32/irrsub.o debug32/irr_rch.o debug32/irr_res.o debug32/jdt.o debug32/killop.o debug32/lakeq.o debug32/latsed.o debug32/layersplit.o debug32/lwqdef.o debug32/main.o debug32/ndenit.o debug32/newtillmix.o debug32/nfix.o debug32/nitvol.o debug32/nlch.o debug32/nminrl.o debug32/noqual.o debug32/npup.o debug32/nrain.o debug32/nup.o debug32/nuts.o debug32/openwth.o debug32/operatn.o debug32/orgn.o debug32/orgncswat.o debug32/origtile.o debug32/ovr_sed.o debug32/percmacro.o debug32/percmain.o debug32/percmicro.o debug32/pestlch.o debug32/pestw.o debug32/pesty.o debug32/pgen.o debug32/pgenhr.o debug32/pkq.o debug32/plantmod.o debug32/plantop.o debug32/pmeas.o debug32/pminrl.o debug32/pminrl2.o debug32/pond.o debug32/pondhr.o debug32/pothole.o debug32/potholehr.o debug32/print_hyd.o debug32/psed.o debug32/qman.o debug32/ran1.o debug32/rchaa.o debug32/rchday.o debug32/rchinit.o debug32/rchmon.o debug32/rchuse.o debug32/rchyr.o debug32/reachout.o debug32/readatmodep.o debug32/readbsn.o debug32/readchm.o debug32/readcnst.o debug32/readfcst.o debug32/readfert.o debug32/readfig.o debug32/readfile.o debug32/readgw.o debug32/readhru.o debug32/readinpt.o debug32/readlup.o debug32/readlwq.o debug32/readmgt.o debug32/readmon.o debug32/readops.o debug32/readparmfile.o debug32/readpest.o debug32/readplant.o debug32/readpnd.o debug32/readres.o debug32/readrte.o debug32/readru.o debug32/readsdr.o debug32/readsepticbz.o debug32/readseptwq.o debug32/readsno.o debug32/readsol.o debug32/readsub.o debug32/readswq.o debug32/readtill.o debug32/readurban.o debug32/readwgn.o debug32/readwus.o debug32/readwwq.o debug32/readyr.o debug32/reccnst.o debug32/recday.o debug32/rechour.o debug32/recmon.o debug32/recyear.o debug32/regres.o debug32/res.o debug32/resbact.o debug32/resetlu.o debug32/reshr.o debug32/resinit.o debug32/resnut.o debug32/rewind_init.o debug32/rhgen.o debug32/rootfr.o debug32/route.o debug32/routels.o debug32/routeunit.o debug32/routres.o debug32/rsedaa.o debug32/rseday.o debug32/rsedmon.o debug32/rsedyr.o debug32/rtbact.o debug32/rtday.o debug32/rteinit.o debug32/rthmusk.o debug32/rthpest.o debug32/rthr.o debug32/rthsed.o debug32/rtmusk.o debug32/rtout.o debug32/rtpest.o debug32/rtsed.o debug32/rtsed_bagnold.o debug32/rtsed_kodatie.o debug32/rtsed_molinas_wu.o debug32/rtsed_yangsand.o debug32/ruallo.o debug32/sat_excess.o debug32/save.o debug32/saveconc.o debug32/schedule_ops.o debug32/sched_mgt.o debug32/simulate.o debug32/sim_initday.o debug32/sim_inityr.o debug32/slrgen.o debug32/smeas.o debug32/snom.o debug32/soil_chem.o debug32/soil_par.o debug32/soil_phys.o debug32/soil_write.o debug32/solp.o debug32/solt.o debug32/std1.o debug32/std2.o debug32/std3.o debug32/stdaa.o debug32/storeinitial.o debug32/structure.o debug32/subaa.o debug32/subbasin.o debug32/subday.o debug32/submon.o debug32/substor.o debug32/subwq.o debug32/subyr.o debug32/sub_subbasin.o debug32/sumhyd.o debug32/sumv.o debug32/surface.o debug32/surfstor.o debug32/surfst_h2o.o debug32/surq_daycn.o debug32/surq_greenampt.o debug32/swbl.o debug32/sweep.o debug32/swu.o debug32/tair.o debug32/tgen.o debug32/theta.o debug32/tillfactor.o debug32/tillmix.o debug32/tmeas.o debug32/tran.o debug32/transfer.o debug32/tstr.o debug32/ttcoef.o debug32/ttcoef_wway.o debug32/urban.o debug32/urbanhr.o debug32/urb_bmp.o debug32/varinit.o debug32/vbl.o debug32/virtual.o debug32/volq.o debug32/washp.o debug32/watbal.o debug32/water_hru.o debug32/watqual.o debug32/watqual2.o debug32/wattable.o debug32/watuse.o debug32/weatgn.o debug32/wetlan.o debug32/wmeas.o debug32/wndgen.o debug32/writea.o debug32/writeaa.o debug32/writed.o debug32/writem.o debug32/xmon.o debug32/ysed.o debug32/zero0.o debug32/zero1.o debug32/zero2.o debug32/zeroini.o debug32/zero_urbn.o
 
 NAMEDEBUG32=swat_debug32
 debug32:debug32_mkdir ${NAMEDEBUG32}
@@ -53,9 +49,6 @@ debug32/allocate_parms.o: allocate_parms.f debug32/main.o
 debug32/alph.o: alph.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  alph.f -o debug32/alph.o -I debug32
 
-debug32/analyse.o: analyse.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  analyse.f -o debug32/analyse.o -I debug32
-
 debug32/anfert.o: anfert.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  anfert.f -o debug32/anfert.o -I debug32
 
@@ -74,14 +67,8 @@ debug32/atri.o: atri.f debug32/main.o
 debug32/aunif.o: aunif.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  aunif.f -o debug32/aunif.o -I debug32
 
-debug32/autocal.o: autocal.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  autocal.f -o debug32/autocal.o -I debug32
-
 debug32/autoirr.o: autoirr.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  autoirr.f -o debug32/autoirr.o -I debug32
-
-debug32/automet.o: automet.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  automet.f -o debug32/automet.o -I debug32
 
 debug32/aveval.o: aveval.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  aveval.f -o debug32/aveval.o -I debug32
@@ -89,26 +76,38 @@ debug32/aveval.o: aveval.f debug32/main.o
 debug32/bacteria.o: bacteria.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  bacteria.f -o debug32/bacteria.o -I debug32
 
-debug32/batchin.o: batchin.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  batchin.f -o debug32/batchin.o -I debug32
-
-debug32/batchmain.o: batchmain.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  batchmain.f -o debug32/batchmain.o -I debug32
-
-debug32/bayes.o: bayes.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  bayes.f -o debug32/bayes.o -I debug32
+debug32/biofilm.o: biofilm.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  biofilm.f -o debug32/biofilm.o -I debug32
 
 debug32/biozone.o: biozone.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG} biozone.f -o debug32/biozone.o -I debug32
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  biozone.f -o debug32/biozone.o -I debug32
+
+debug32/bmpfixed.o: bmpfixed.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  bmpfixed.f -o debug32/bmpfixed.o -I debug32
+
+debug32/bmpinit.o: bmpinit.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG} ${LONGFIX} bmpinit.f -o debug32/bmpinit.o -I debug32
+
+debug32/bmp_det_pond.o: bmp_det_pond.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG} ${LONGFIX} bmp_det_pond.f -o debug32/bmp_det_pond.o -I debug32
+
+debug32/bmp_ri_pond.o: bmp_ri_pond.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  bmp_ri_pond.f -o debug32/bmp_ri_pond.o -I debug32
+
+debug32/bmp_sand_filter.o: bmp_sand_filter.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  bmp_sand_filter.f -o debug32/bmp_sand_filter.o -I debug32
+
+debug32/bmp_sed_pond.o: bmp_sed_pond.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  bmp_sed_pond.f -o debug32/bmp_sed_pond.o -I debug32
+
+debug32/bmp_wet_pond.o: bmp_wet_pond.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  bmp_wet_pond.f -o debug32/bmp_wet_pond.o -I debug32
 
 debug32/buffer.o: buffer.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  buffer.f -o debug32/buffer.o -I debug32
 
 debug32/burnop.o: burnop.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  burnop.f -o debug32/burnop.o -I debug32
-
-debug32/calresidu.o: calresidu.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  calresidu.f -o debug32/calresidu.o -I debug32
 
 debug32/canopyint.o: canopyint.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  canopyint.f -o debug32/canopyint.o -I debug32
@@ -118,9 +117,6 @@ debug32/caps.o: caps.f debug32/main.o
 
 debug32/carbon_new.o: carbon_new.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  carbon_new.f -o debug32/carbon_new.o -I debug32
-
-debug32/changepar.o: changepar.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  changepar.f -o debug32/changepar.o -I debug32
 
 debug32/chkcst.o: chkcst.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  chkcst.f -o debug32/chkcst.o -I debug32
@@ -140,12 +136,6 @@ debug32/conapply.o: conapply.f debug32/main.o
 debug32/confert.o: confert.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  confert.f -o debug32/confert.o -I debug32
 
-debug32/copyfile.o: copyfile.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  copyfile.f -o debug32/copyfile.o -I debug32
-
-debug32/countobs.o: countobs.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  countobs.f -o debug32/countobs.o -I debug32
-
 debug32/crackflow.o: crackflow.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  crackflow.f -o debug32/crackflow.o -I debug32
 
@@ -161,8 +151,17 @@ debug32/dailycn.o: dailycn.f debug32/main.o
 debug32/decay.o: decay.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  decay.f -o debug32/decay.o -I debug32
 
+debug32/depstor.o: depstor.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  depstor.f -o debug32/depstor.o -I debug32
+
+debug32/distrib_bmps.o: distrib_bmps.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  distrib_bmps.f -o debug32/distrib_bmps.o -I debug32
+
 debug32/dormant.o: dormant.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  dormant.f -o debug32/dormant.o -I debug32
+
+debug32/drains.o: drains.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  drains.f -o debug32/drains.o -I debug32
 
 debug32/dstn1.o: dstn1.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  dstn1.f -o debug32/dstn1.o -I debug32
@@ -203,12 +202,6 @@ debug32/filtw.o: filtw.f debug32/main.o
 debug32/finalbal.o: finalbal.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  finalbal.f -o debug32/finalbal.o -I debug32
 
-debug32/functn.o: functn.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  functn.f -o debug32/functn.o -I debug32
-
-debug32/gasdev.o: gasdev.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  gasdev.f -o debug32/gasdev.o -I debug32
-
 debug32/gcycl.o: gcycl.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  gcycl.f -o debug32/gcycl.o -I debug32
 
@@ -217,15 +210,6 @@ debug32/getallo.o: getallo.f debug32/main.o
 
 debug32/getallo2.o: getallo2.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  getallo2.f -o debug32/getallo2.o -I debug32
-
-debug32/getpnt.o: getpnt.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  getpnt.f -o debug32/getpnt.o -I debug32
-
-debug32/getpnt2.o: getpnt2.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  getpnt2.f -o debug32/getpnt2.o -I debug32
-
-debug32/goc.o: goc.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  goc.f -o debug32/goc.o -I debug32
 
 debug32/grass_wway.o: grass_wway.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  grass_wway.f -o debug32/grass_wway.o -I debug32
@@ -287,11 +271,17 @@ debug32/hrumon.o: hrumon.f debug32/main.o
 debug32/hrupond.o: hrupond.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  hrupond.f -o debug32/hrupond.o -I debug32
 
+debug32/hrupondhr.o: hrupondhr.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  hrupondhr.f -o debug32/hrupondhr.o -I debug32
+
 debug32/hruyr.o: hruyr.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  hruyr.f -o debug32/hruyr.o -I debug32
 
 debug32/hydroinit.o: hydroinit.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  hydroinit.f -o debug32/hydroinit.o -I debug32
+
+debug32/icl.o: icl.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  icl.f -o debug32/icl.o -I debug32
 
 debug32/impndaa.o: impndaa.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  impndaa.f -o debug32/impndaa.o -I debug32
@@ -307,9 +297,6 @@ debug32/impndyr.o: impndyr.f debug32/main.o
 
 debug32/impnd_init.o: impnd_init.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  impnd_init.f -o debug32/impnd_init.o -I debug32
-
-debug32/indexx.o: indexx.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  indexx.f -o debug32/indexx.o -I debug32
 
 debug32/irrigate.o: irrigate.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  irrigate.f -o debug32/irrigate.o -I debug32
@@ -342,7 +329,7 @@ debug32/lwqdef.o: lwqdef.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  lwqdef.f -o debug32/lwqdef.o -I debug32
 
 debug32/main.o: main.f modparm.f
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG} main.f -o debug32/main.o -J debug32
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  main.f -o debug32/main.o -J debug32
 
 debug32/ndenit.o: ndenit.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  ndenit.f -o debug32/ndenit.o -I debug32
@@ -377,12 +364,6 @@ debug32/nup.o: nup.f debug32/main.o
 debug32/nuts.o: nuts.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  nuts.f -o debug32/nuts.o -I debug32
 
-debug32/oat.o: oat.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  oat.f -o debug32/oat.o -I debug32
-
-debug32/objfunctn.o: objfunctn.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  objfunctn.f -o debug32/objfunctn.o -I debug32
-
 debug32/openwth.o: openwth.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  openwth.f -o debug32/openwth.o -I debug32
 
@@ -395,23 +376,11 @@ debug32/orgn.o: orgn.f debug32/main.o
 debug32/orgncswat.o: orgncswat.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  orgncswat.f -o debug32/orgncswat.o -I debug32
 
-debug32/parasol.o: parasol.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  parasol.f -o debug32/parasol.o -I debug32
+debug32/origtile.o: origtile.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  origtile.f -o debug32/origtile.o -I debug32
 
-debug32/parasolc.o: parasolc.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  parasolc.f -o debug32/parasolc.o -I debug32
-
-debug32/parasoli.o: parasoli.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  parasoli.f -o debug32/parasoli.o -I debug32
-
-debug32/parasolo.o: parasolo.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  parasolo.f -o debug32/parasolo.o -I debug32
-
-debug32/parasolu.o: parasolu.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  parasolu.f -o debug32/parasolu.o -I debug32
-
-debug32/parstt2.o: parstt2.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  parstt2.f -o debug32/parstt2.o -I debug32
+debug32/ovr_sed.o: ovr_sed.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG} ${LONGFIX} ovr_sed.f -o debug32/ovr_sed.o -I debug32
 
 debug32/percmacro.o: percmacro.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  percmacro.f -o debug32/percmacro.o -I debug32
@@ -452,11 +421,20 @@ debug32/pmeas.o: pmeas.f debug32/main.o
 debug32/pminrl.o: pminrl.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  pminrl.f -o debug32/pminrl.o -I debug32
 
+debug32/pminrl2.o: pminrl2.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  pminrl2.f -o debug32/pminrl2.o -I debug32
+
 debug32/pond.o: pond.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  pond.f -o debug32/pond.o -I debug32
 
+debug32/pondhr.o: pondhr.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  pondhr.f -o debug32/pondhr.o -I debug32
+
 debug32/pothole.o: pothole.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  pothole.f -o debug32/pothole.o -I debug32
+
+debug32/potholehr.o: potholehr.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  potholehr.f -o debug32/potholehr.o -I debug32
 
 debug32/print_hyd.o: print_hyd.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  print_hyd.f -o debug32/print_hyd.o -I debug32
@@ -469,9 +447,6 @@ debug32/qman.o: qman.f debug32/main.o
 
 debug32/ran1.o: ran1.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  ran1.f -o debug32/ran1.o -I debug32
-
-debug32/ranked.o: ranked.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  ranked.f -o debug32/ranked.o -I debug32
 
 debug32/rchaa.o: rchaa.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rchaa.f -o debug32/rchaa.o -I debug32
@@ -499,9 +474,6 @@ debug32/readatmodep.o: readatmodep.f debug32/main.o
 
 debug32/readbsn.o: readbsn.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readbsn.f -o debug32/readbsn.o -I debug32
-
-debug32/readchan.o: readchan.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readchan.f -o debug32/readchan.o -I debug32
 
 debug32/readchm.o: readchm.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readchm.f -o debug32/readchm.o -I debug32
@@ -536,9 +508,6 @@ debug32/readlup.o: readlup.f debug32/main.o
 debug32/readlwq.o: readlwq.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readlwq.f -o debug32/readlwq.o -I debug32
 
-debug32/readmetf.o: readmetf.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readmetf.f -o debug32/readmetf.o -I debug32
-
 debug32/readmgt.o: readmgt.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readmgt.f -o debug32/readmgt.o -I debug32
 
@@ -565,6 +534,12 @@ debug32/readres.o: readres.f debug32/main.o
 
 debug32/readrte.o: readrte.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readrte.f -o debug32/readrte.o -I debug32
+
+debug32/readru.o: readru.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readru.f -o debug32/readru.o -I debug32
+
+debug32/readsdr.o: readsdr.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readsdr.f -o debug32/readsdr.o -I debug32
 
 debug32/readsepticbz.o: readsepticbz.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  readsepticbz.f -o debug32/readsepticbz.o -I debug32
@@ -620,15 +595,6 @@ debug32/recyear.o: recyear.f debug32/main.o
 debug32/regres.o: regres.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  regres.f -o debug32/regres.o -I debug32
 
-debug32/rerun.o: rerun.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rerun.f -o debug32/rerun.o -I debug32
-
-debug32/rerunfile.o: rerunfile.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rerunfile.f -o debug32/rerunfile.o -I debug32
-
-debug32/rerunps.o: rerunps.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rerunps.f -o debug32/rerunps.o -I debug32
-
 debug32/res.o: res.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  res.f -o debug32/res.o -I debug32
 
@@ -638,14 +604,14 @@ debug32/resbact.o: resbact.f debug32/main.o
 debug32/resetlu.o: resetlu.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  resetlu.f -o debug32/resetlu.o -I debug32
 
+debug32/reshr.o: reshr.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  reshr.f -o debug32/reshr.o -I debug32
+
 debug32/resinit.o: resinit.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  resinit.f -o debug32/resinit.o -I debug32
 
 debug32/resnut.o: resnut.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  resnut.f -o debug32/resnut.o -I debug32
-
-debug32/response.o: response.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  response.f -o debug32/response.o -I debug32
 
 debug32/rewind_init.o: rewind_init.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rewind_init.f -o debug32/rewind_init.o -I debug32
@@ -658,6 +624,12 @@ debug32/rootfr.o: rootfr.f debug32/main.o
 
 debug32/route.o: route.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  route.f -o debug32/route.o -I debug32
+
+debug32/routels.o: routels.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  routels.f -o debug32/routels.o -I debug32
+
+debug32/routeunit.o: routeunit.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  routeunit.f -o debug32/routeunit.o -I debug32
 
 debug32/routres.o: routres.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  routres.f -o debug32/routres.o -I debug32
@@ -686,11 +658,11 @@ debug32/rteinit.o: rteinit.f debug32/main.o
 debug32/rthmusk.o: rthmusk.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rthmusk.f -o debug32/rthmusk.o -I debug32
 
-debug32/rthourly.o: rthourly.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rthourly.f -o debug32/rthourly.o -I debug32
-
 debug32/rthpest.o: rthpest.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rthpest.f -o debug32/rthpest.o -I debug32
+
+debug32/rthr.o: rthr.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rthr.f -o debug32/rthr.o -I debug32
 
 debug32/rthsed.o: rthsed.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG} ${LONGFIX} rthsed.f -o debug32/rthsed.o -I debug32
@@ -700,9 +672,6 @@ debug32/rtmusk.o: rtmusk.f debug32/main.o
 
 debug32/rtout.o: rtout.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rtout.f -o debug32/rtout.o -I debug32
-
-debug32/rtover.o: rtover.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rtover.f -o debug32/rtover.o -I debug32
 
 debug32/rtpest.o: rtpest.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rtpest.f -o debug32/rtpest.o -I debug32
@@ -722,11 +691,8 @@ debug32/rtsed_molinas_wu.o: rtsed_molinas_wu.f debug32/main.o
 debug32/rtsed_yangsand.o: rtsed_yangsand.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  rtsed_yangsand.f -o debug32/rtsed_yangsand.o -I debug32
 
-debug32/sample.o: sample.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sample.f -o debug32/sample.o -I debug32
-
-debug32/sample1.o: sample1.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sample1.f -o debug32/sample1.o -I debug32
+debug32/ruallo.o: ruallo.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  ruallo.f -o debug32/ruallo.o -I debug32
 
 debug32/sat_excess.o: sat_excess.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sat_excess.f -o debug32/sat_excess.o -I debug32
@@ -737,17 +703,11 @@ debug32/save.o: save.f debug32/main.o
 debug32/saveconc.o: saveconc.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  saveconc.f -o debug32/saveconc.o -I debug32
 
-debug32/scestat.o: scestat.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  scestat.f -o debug32/scestat.o -I debug32
-
 debug32/schedule_ops.o: schedule_ops.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  schedule_ops.f -o debug32/schedule_ops.o -I debug32
 
-debug32/sensin.o: sensin.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sensin.f -o debug32/sensin.o -I debug32
-
-debug32/sensmain.o: sensmain.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sensmain.f -o debug32/sensmain.o -I debug32
+debug32/sched_mgt.o: sched_mgt.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sched_mgt.f -o debug32/sched_mgt.o -I debug32
 
 debug32/simulate.o: simulate.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  simulate.f -o debug32/simulate.o -I debug32
@@ -784,30 +744,6 @@ debug32/solp.o: solp.f debug32/main.o
 
 debug32/solt.o: solt.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  solt.f -o debug32/solt.o -I debug32
-
-debug32/sort1.o: sort1.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sort1.f -o debug32/sort1.o -I debug32
-
-debug32/sort3.o: sort3.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sort3.f -o debug32/sort3.o -I debug32
-
-debug32/sorteer.o: sorteer.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sorteer.f -o debug32/sorteer.o -I debug32
-
-debug32/sorteer2.o: sorteer2.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sorteer2.f -o debug32/sorteer2.o -I debug32
-
-debug32/sorteer3.o: sorteer3.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sorteer3.f -o debug32/sorteer3.o -I debug32
-
-debug32/sorteer4.o: sorteer4.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sorteer4.f -o debug32/sorteer4.o -I debug32
-
-debug32/sorteer5.o: sorteer5.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sorteer5.f -o debug32/sorteer5.o -I debug32
-
-debug32/sorteer6.o: sorteer6.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sorteer6.f -o debug32/sorteer6.o -I debug32
 
 debug32/std1.o: std1.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  std1.f -o debug32/std1.o -I debug32
@@ -848,20 +784,14 @@ debug32/subwq.o: subwq.f debug32/main.o
 debug32/subyr.o: subyr.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  subyr.f -o debug32/subyr.o -I debug32
 
+debug32/sub_subbasin.o: sub_subbasin.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sub_subbasin.f -o debug32/sub_subbasin.o -I debug32
+
 debug32/sumhyd.o: sumhyd.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sumhyd.f -o debug32/sumhyd.o -I debug32
 
 debug32/sumv.o: sumv.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sumv.f -o debug32/sumv.o -I debug32
-
-debug32/sunglasr.o: sunglasr.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sunglasr.f -o debug32/sunglasr.o -I debug32
-
-debug32/sunglass.o: sunglass.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sunglass.f -o debug32/sunglass.o -I debug32
-
-debug32/sunglasu.o: sunglasu.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sunglasu.f -o debug32/sunglasu.o -I debug32
 
 debug32/surface.o: surface.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  surface.f -o debug32/surface.o -I debug32
@@ -890,15 +820,6 @@ debug32/swu.o: swu.f debug32/main.o
 debug32/tair.o: tair.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  tair.f -o debug32/tair.o -I debug32
 
-debug32/telobjre.o: telobjre.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  telobjre.f -o debug32/telobjre.o -I debug32
-
-debug32/telobs.o: telobs.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  telobs.f -o debug32/telobs.o -I debug32
-
-debug32/telpar.o: telpar.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  telpar.f -o debug32/telpar.o -I debug32
-
 debug32/tgen.o: tgen.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  tgen.f -o debug32/tgen.o -I debug32
 
@@ -926,8 +847,14 @@ debug32/tstr.o: tstr.f debug32/main.o
 debug32/ttcoef.o: ttcoef.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  ttcoef.f -o debug32/ttcoef.o -I debug32
 
+debug32/ttcoef_wway.o: ttcoef_wway.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  ttcoef_wway.f -o debug32/ttcoef_wway.o -I debug32
+
 debug32/urban.o: urban.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  urban.f -o debug32/urban.o -I debug32
+
+debug32/urbanhr.o: urbanhr.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  urbanhr.f -o debug32/urbanhr.o -I debug32
 
 debug32/urb_bmp.o: urb_bmp.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  urb_bmp.f -o debug32/urb_bmp.o -I debug32
@@ -944,14 +871,14 @@ debug32/virtual.o: virtual.f debug32/main.o
 debug32/volq.o: volq.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  volq.f -o debug32/volq.o -I debug32
 
-debug32/vrval.o: vrval.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  vrval.f -o debug32/vrval.o -I debug32
-
 debug32/washp.o: washp.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  washp.f -o debug32/washp.o -I debug32
 
 debug32/watbal.o: watbal.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  watbal.f -o debug32/watbal.o -I debug32
+
+debug32/water_hru.o: water_hru.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  water_hru.f -o debug32/water_hru.o -I debug32
 
 debug32/watqual.o: watqual.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  watqual.f -o debug32/watqual.o -I debug32
@@ -989,18 +916,6 @@ debug32/writed.o: writed.f debug32/main.o
 debug32/writem.o: writem.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  writem.f -o debug32/writem.o -I debug32
 
-debug32/writeswatfile.o: writeswatfile.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  writeswatfile.f -o debug32/writeswatfile.o -I debug32
-
-debug32/writeswatmain.o: writeswatmain.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  writeswatmain.f -o debug32/writeswatmain.o -I debug32
-
-debug32/xisquare.o: xisquare.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  xisquare.f -o debug32/xisquare.o -I debug32
-
-debug32/xiunc.o: xiunc.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  xiunc.f -o debug32/xiunc.o -I debug32
-
 debug32/xmon.o: xmon.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  xmon.f -o debug32/xmon.o -I debug32
 
@@ -1019,13 +934,16 @@ debug32/zero2.o: zero2.f debug32/main.o
 debug32/zeroini.o: zeroini.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  zeroini.f -o debug32/zeroini.o -I debug32
 
+debug32/zero_urbn.o: zero_urbn.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  zero_urbn.f -o debug32/zero_urbn.o -I debug32
+
 debug32_clean:
 	rm -f ${NAMEDEBUG32}.exe
 	rm -f debug32/*.o
 	rm -f debug32/*.mod
 	rm -f debug32/*~
 
-OBJECTS_DEBUG64=  debug64/addh.o debug64/albedo.o debug64/allocate_parms.o debug64/alph.o debug64/analyse.o debug64/anfert.o debug64/apex_day.o debug64/apply.o debug64/ascrv.o debug64/atri.o debug64/aunif.o debug64/autocal.o debug64/autoirr.o debug64/automet.o debug64/aveval.o debug64/bacteria.o debug64/batchin.o debug64/batchmain.o debug64/bayes.o debug64/biozone.o debug64/buffer.o debug64/burnop.o debug64/calresidu.o debug64/canopyint.o debug64/caps.o debug64/carbon_new.o debug64/changepar.o debug64/chkcst.o debug64/clgen.o debug64/clicon.o debug64/command.o debug64/conapply.o debug64/confert.o debug64/copyfile.o debug64/countobs.o debug64/crackflow.o debug64/crackvol.o debug64/curno.o debug64/dailycn.o debug64/decay.o debug64/dormant.o debug64/dstn1.o debug64/ee.o debug64/eiusle.o debug64/enrsb.o debug64/erfc.o debug64/estimate_ksat.o debug64/etact.o debug64/etpot.o debug64/expo.o debug64/fert.o debug64/filter.o debug64/filtw.o debug64/finalbal.o debug64/functn.o debug64/gasdev.o debug64/gcycl.o debug64/getallo.o debug64/getallo2.o debug64/getpnt.o debug64/getpnt2.o debug64/goc.o debug64/grass_wway.o debug64/graze.o debug64/grow.o debug64/gwmod.o debug64/gwnutr.o debug64/gw_no3.o debug64/h2omgt_init.o debug64/harvestop.o debug64/harvgrainop.o debug64/harvkillop.o debug64/header.o debug64/headout.o debug64/hhnoqual.o debug64/hhwatqual.o debug64/hmeas.o debug64/hruaa.o debug64/hruallo.o debug64/hruday.o debug64/hrumon.o debug64/hrupond.o debug64/hruyr.o debug64/hydroinit.o debug64/impndaa.o debug64/impndday.o debug64/impndmon.o debug64/impndyr.o debug64/impnd_init.o debug64/indexx.o debug64/irrigate.o debug64/irrsub.o debug64/irr_rch.o debug64/irr_res.o debug64/jdt.o debug64/killop.o debug64/lakeq.o debug64/latsed.o debug64/layersplit.o debug64/lwqdef.o debug64/main.o debug64/ndenit.o debug64/newtillmix.o debug64/nfix.o debug64/nitvol.o debug64/nlch.o debug64/nminrl.o debug64/noqual.o debug64/npup.o debug64/nrain.o debug64/nup.o debug64/nuts.o debug64/oat.o debug64/objfunctn.o debug64/openwth.o debug64/operatn.o debug64/orgn.o debug64/orgncswat.o debug64/parasol.o debug64/parasolc.o debug64/parasoli.o debug64/parasolo.o debug64/parasolu.o debug64/parstt2.o debug64/percmacro.o debug64/percmain.o debug64/percmicro.o debug64/pestlch.o debug64/pestw.o debug64/pesty.o debug64/pgen.o debug64/pgenhr.o debug64/pkq.o debug64/plantmod.o debug64/plantop.o debug64/pmeas.o debug64/pminrl.o debug64/pond.o debug64/pothole.o debug64/print_hyd.o debug64/psed.o debug64/qman.o debug64/ran1.o debug64/ranked.o debug64/rchaa.o debug64/rchday.o debug64/rchinit.o debug64/rchmon.o debug64/rchuse.o debug64/rchyr.o debug64/reachout.o debug64/readatmodep.o debug64/readbsn.o debug64/readchan.o debug64/readchm.o debug64/readcnst.o debug64/readfcst.o debug64/readfert.o debug64/readfig.o debug64/readfile.o debug64/readgw.o debug64/readhru.o debug64/readinpt.o debug64/readlup.o debug64/readlwq.o debug64/readmetf.o debug64/readmgt.o debug64/readmon.o debug64/readops.o debug64/readparmfile.o debug64/readpest.o debug64/readplant.o debug64/readpnd.o debug64/readres.o debug64/readrte.o debug64/readsepticbz.o debug64/readseptwq.o debug64/readsno.o debug64/readsol.o debug64/readsub.o debug64/readswq.o debug64/readtill.o debug64/readurban.o debug64/readwgn.o debug64/readwus.o debug64/readwwq.o debug64/readyr.o debug64/reccnst.o debug64/recday.o debug64/rechour.o debug64/recmon.o debug64/recyear.o debug64/regres.o debug64/rerun.o debug64/rerunfile.o debug64/rerunps.o debug64/res.o debug64/resbact.o debug64/resetlu.o debug64/resinit.o debug64/resnut.o debug64/response.o debug64/rewind_init.o debug64/rhgen.o debug64/rootfr.o debug64/route.o debug64/routres.o debug64/rsedaa.o debug64/rseday.o debug64/rsedmon.o debug64/rsedyr.o debug64/rtbact.o debug64/rtday.o debug64/rteinit.o debug64/rthmusk.o debug64/rthourly.o debug64/rthpest.o debug64/rthsed.o debug64/rtmusk.o debug64/rtout.o debug64/rtover.o debug64/rtpest.o debug64/rtsed.o debug64/rtsed_bagnold.o debug64/rtsed_kodatie.o debug64/rtsed_molinas_wu.o debug64/rtsed_yangsand.o debug64/sample.o debug64/sample1.o debug64/sat_excess.o debug64/save.o debug64/saveconc.o debug64/scestat.o debug64/schedule_ops.o debug64/sensin.o debug64/sensmain.o debug64/simulate.o debug64/sim_initday.o debug64/sim_inityr.o debug64/slrgen.o debug64/smeas.o debug64/snom.o debug64/soil_chem.o debug64/soil_par.o debug64/soil_phys.o debug64/soil_write.o debug64/solp.o debug64/solt.o debug64/sort1.o debug64/sort3.o debug64/sorteer.o debug64/sorteer2.o debug64/sorteer3.o debug64/sorteer4.o debug64/sorteer5.o debug64/sorteer6.o debug64/std1.o debug64/std2.o debug64/std3.o debug64/stdaa.o debug64/storeinitial.o debug64/structure.o debug64/subaa.o debug64/subbasin.o debug64/subday.o debug64/submon.o debug64/substor.o debug64/subwq.o debug64/subyr.o debug64/sumhyd.o debug64/sumv.o debug64/sunglasr.o debug64/sunglass.o debug64/sunglasu.o debug64/surface.o debug64/surfstor.o debug64/surfst_h2o.o debug64/surq_daycn.o debug64/surq_greenampt.o debug64/swbl.o debug64/sweep.o debug64/swu.o debug64/tair.o debug64/telobjre.o debug64/telobs.o debug64/telpar.o debug64/tgen.o debug64/theta.o debug64/tillfactor.o debug64/tillmix.o debug64/tmeas.o debug64/tran.o debug64/transfer.o debug64/tstr.o debug64/ttcoef.o debug64/urban.o debug64/urb_bmp.o debug64/varinit.o debug64/vbl.o debug64/virtual.o debug64/volq.o debug64/vrval.o debug64/washp.o debug64/watbal.o debug64/watqual.o debug64/watqual2.o debug64/wattable.o debug64/watuse.o debug64/weatgn.o debug64/wetlan.o debug64/wmeas.o debug64/wndgen.o debug64/writea.o debug64/writeaa.o debug64/writed.o debug64/writem.o debug64/writeswatfile.o debug64/writeswatmain.o debug64/xisquare.o debug64/xiunc.o debug64/xmon.o debug64/ysed.o debug64/zero0.o debug64/zero1.o debug64/zero2.o debug64/zeroini.o
+OBJECTS_DEBUG64=  debug64/addh.o debug64/albedo.o debug64/allocate_parms.o debug64/alph.o debug64/anfert.o debug64/apex_day.o debug64/apply.o debug64/ascrv.o debug64/atri.o debug64/aunif.o debug64/autoirr.o debug64/aveval.o debug64/bacteria.o debug64/biofilm.o debug64/biozone.o debug64/bmpfixed.o debug64/bmpinit.o debug64/bmp_det_pond.o debug64/bmp_ri_pond.o debug64/bmp_sand_filter.o debug64/bmp_sed_pond.o debug64/bmp_wet_pond.o debug64/buffer.o debug64/burnop.o debug64/canopyint.o debug64/caps.o debug64/carbon_new.o debug64/chkcst.o debug64/clgen.o debug64/clicon.o debug64/command.o debug64/conapply.o debug64/confert.o debug64/crackflow.o debug64/crackvol.o debug64/curno.o debug64/dailycn.o debug64/decay.o debug64/depstor.o debug64/distrib_bmps.o debug64/dormant.o debug64/drains.o debug64/dstn1.o debug64/ee.o debug64/eiusle.o debug64/enrsb.o debug64/erfc.o debug64/estimate_ksat.o debug64/etact.o debug64/etpot.o debug64/expo.o debug64/fert.o debug64/filter.o debug64/filtw.o debug64/finalbal.o debug64/gcycl.o debug64/getallo.o debug64/getallo2.o debug64/grass_wway.o debug64/graze.o debug64/grow.o debug64/gwmod.o debug64/gwnutr.o debug64/gw_no3.o debug64/h2omgt_init.o debug64/harvestop.o debug64/harvgrainop.o debug64/harvkillop.o debug64/header.o debug64/headout.o debug64/hhnoqual.o debug64/hhwatqual.o debug64/hmeas.o debug64/hruaa.o debug64/hruallo.o debug64/hruday.o debug64/hrumon.o debug64/hrupond.o debug64/hrupondhr.o debug64/hruyr.o debug64/hydroinit.o debug64/icl.o debug64/impndaa.o debug64/impndday.o debug64/impndmon.o debug64/impndyr.o debug64/impnd_init.o debug64/irrigate.o debug64/irrsub.o debug64/irr_rch.o debug64/irr_res.o debug64/jdt.o debug64/killop.o debug64/lakeq.o debug64/latsed.o debug64/layersplit.o debug64/lwqdef.o debug64/main.o debug64/ndenit.o debug64/newtillmix.o debug64/nfix.o debug64/nitvol.o debug64/nlch.o debug64/nminrl.o debug64/noqual.o debug64/npup.o debug64/nrain.o debug64/nup.o debug64/nuts.o debug64/openwth.o debug64/operatn.o debug64/orgn.o debug64/orgncswat.o debug64/origtile.o debug64/ovr_sed.o debug64/percmacro.o debug64/percmain.o debug64/percmicro.o debug64/pestlch.o debug64/pestw.o debug64/pesty.o debug64/pgen.o debug64/pgenhr.o debug64/pkq.o debug64/plantmod.o debug64/plantop.o debug64/pmeas.o debug64/pminrl.o debug64/pminrl2.o debug64/pond.o debug64/pondhr.o debug64/pothole.o debug64/potholehr.o debug64/print_hyd.o debug64/psed.o debug64/qman.o debug64/ran1.o debug64/rchaa.o debug64/rchday.o debug64/rchinit.o debug64/rchmon.o debug64/rchuse.o debug64/rchyr.o debug64/reachout.o debug64/readatmodep.o debug64/readbsn.o debug64/readchm.o debug64/readcnst.o debug64/readfcst.o debug64/readfert.o debug64/readfig.o debug64/readfile.o debug64/readgw.o debug64/readhru.o debug64/readinpt.o debug64/readlup.o debug64/readlwq.o debug64/readmgt.o debug64/readmon.o debug64/readops.o debug64/readparmfile.o debug64/readpest.o debug64/readplant.o debug64/readpnd.o debug64/readres.o debug64/readrte.o debug64/readru.o debug64/readsdr.o debug64/readsepticbz.o debug64/readseptwq.o debug64/readsno.o debug64/readsol.o debug64/readsub.o debug64/readswq.o debug64/readtill.o debug64/readurban.o debug64/readwgn.o debug64/readwus.o debug64/readwwq.o debug64/readyr.o debug64/reccnst.o debug64/recday.o debug64/rechour.o debug64/recmon.o debug64/recyear.o debug64/regres.o debug64/res.o debug64/resbact.o debug64/resetlu.o debug64/reshr.o debug64/resinit.o debug64/resnut.o debug64/rewind_init.o debug64/rhgen.o debug64/rootfr.o debug64/route.o debug64/routels.o debug64/routeunit.o debug64/routres.o debug64/rsedaa.o debug64/rseday.o debug64/rsedmon.o debug64/rsedyr.o debug64/rtbact.o debug64/rtday.o debug64/rteinit.o debug64/rthmusk.o debug64/rthpest.o debug64/rthr.o debug64/rthsed.o debug64/rtmusk.o debug64/rtout.o debug64/rtpest.o debug64/rtsed.o debug64/rtsed_bagnold.o debug64/rtsed_kodatie.o debug64/rtsed_molinas_wu.o debug64/rtsed_yangsand.o debug64/ruallo.o debug64/sat_excess.o debug64/save.o debug64/saveconc.o debug64/schedule_ops.o debug64/sched_mgt.o debug64/simulate.o debug64/sim_initday.o debug64/sim_inityr.o debug64/slrgen.o debug64/smeas.o debug64/snom.o debug64/soil_chem.o debug64/soil_par.o debug64/soil_phys.o debug64/soil_write.o debug64/solp.o debug64/solt.o debug64/std1.o debug64/std2.o debug64/std3.o debug64/stdaa.o debug64/storeinitial.o debug64/structure.o debug64/subaa.o debug64/subbasin.o debug64/subday.o debug64/submon.o debug64/substor.o debug64/subwq.o debug64/subyr.o debug64/sub_subbasin.o debug64/sumhyd.o debug64/sumv.o debug64/surface.o debug64/surfstor.o debug64/surfst_h2o.o debug64/surq_daycn.o debug64/surq_greenampt.o debug64/swbl.o debug64/sweep.o debug64/swu.o debug64/tair.o debug64/tgen.o debug64/theta.o debug64/tillfactor.o debug64/tillmix.o debug64/tmeas.o debug64/tran.o debug64/transfer.o debug64/tstr.o debug64/ttcoef.o debug64/ttcoef_wway.o debug64/urban.o debug64/urbanhr.o debug64/urb_bmp.o debug64/varinit.o debug64/vbl.o debug64/virtual.o debug64/volq.o debug64/washp.o debug64/watbal.o debug64/water_hru.o debug64/watqual.o debug64/watqual2.o debug64/wattable.o debug64/watuse.o debug64/weatgn.o debug64/wetlan.o debug64/wmeas.o debug64/wndgen.o debug64/writea.o debug64/writeaa.o debug64/writed.o debug64/writem.o debug64/xmon.o debug64/ysed.o debug64/zero0.o debug64/zero1.o debug64/zero2.o debug64/zeroini.o debug64/zero_urbn.o
 
 NAMEDEBUG64=swat_debug64
 debug64:debug64_mkdir ${NAMEDEBUG64}
@@ -1049,9 +967,6 @@ debug64/allocate_parms.o: allocate_parms.f debug64/main.o
 debug64/alph.o: alph.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  alph.f -o debug64/alph.o -I debug64
 
-debug64/analyse.o: analyse.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  analyse.f -o debug64/analyse.o -I debug64
-
 debug64/anfert.o: anfert.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  anfert.f -o debug64/anfert.o -I debug64
 
@@ -1070,14 +985,8 @@ debug64/atri.o: atri.f debug64/main.o
 debug64/aunif.o: aunif.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  aunif.f -o debug64/aunif.o -I debug64
 
-debug64/autocal.o: autocal.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  autocal.f -o debug64/autocal.o -I debug64
-
 debug64/autoirr.o: autoirr.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  autoirr.f -o debug64/autoirr.o -I debug64
-
-debug64/automet.o: automet.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  automet.f -o debug64/automet.o -I debug64
 
 debug64/aveval.o: aveval.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  aveval.f -o debug64/aveval.o -I debug64
@@ -1085,26 +994,38 @@ debug64/aveval.o: aveval.f debug64/main.o
 debug64/bacteria.o: bacteria.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  bacteria.f -o debug64/bacteria.o -I debug64
 
-debug64/batchin.o: batchin.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  batchin.f -o debug64/batchin.o -I debug64
-
-debug64/batchmain.o: batchmain.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  batchmain.f -o debug64/batchmain.o -I debug64
-
-debug64/bayes.o: bayes.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  bayes.f -o debug64/bayes.o -I debug64
+debug64/biofilm.o: biofilm.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  biofilm.f -o debug64/biofilm.o -I debug64
 
 debug64/biozone.o: biozone.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG} biozone.f -o debug64/biozone.o -I debug64
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  biozone.f -o debug64/biozone.o -I debug64
+
+debug64/bmpfixed.o: bmpfixed.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  bmpfixed.f -o debug64/bmpfixed.o -I debug64
+
+debug64/bmpinit.o: bmpinit.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG} ${LONGFIX} bmpinit.f -o debug64/bmpinit.o -I debug64
+
+debug64/bmp_det_pond.o: bmp_det_pond.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG} ${LONGFIX} bmp_det_pond.f -o debug64/bmp_det_pond.o -I debug64
+
+debug64/bmp_ri_pond.o: bmp_ri_pond.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  bmp_ri_pond.f -o debug64/bmp_ri_pond.o -I debug64
+
+debug64/bmp_sand_filter.o: bmp_sand_filter.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  bmp_sand_filter.f -o debug64/bmp_sand_filter.o -I debug64
+
+debug64/bmp_sed_pond.o: bmp_sed_pond.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  bmp_sed_pond.f -o debug64/bmp_sed_pond.o -I debug64
+
+debug64/bmp_wet_pond.o: bmp_wet_pond.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  bmp_wet_pond.f -o debug64/bmp_wet_pond.o -I debug64
 
 debug64/buffer.o: buffer.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  buffer.f -o debug64/buffer.o -I debug64
 
 debug64/burnop.o: burnop.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  burnop.f -o debug64/burnop.o -I debug64
-
-debug64/calresidu.o: calresidu.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  calresidu.f -o debug64/calresidu.o -I debug64
 
 debug64/canopyint.o: canopyint.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  canopyint.f -o debug64/canopyint.o -I debug64
@@ -1114,9 +1035,6 @@ debug64/caps.o: caps.f debug64/main.o
 
 debug64/carbon_new.o: carbon_new.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  carbon_new.f -o debug64/carbon_new.o -I debug64
-
-debug64/changepar.o: changepar.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  changepar.f -o debug64/changepar.o -I debug64
 
 debug64/chkcst.o: chkcst.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  chkcst.f -o debug64/chkcst.o -I debug64
@@ -1136,12 +1054,6 @@ debug64/conapply.o: conapply.f debug64/main.o
 debug64/confert.o: confert.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  confert.f -o debug64/confert.o -I debug64
 
-debug64/copyfile.o: copyfile.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  copyfile.f -o debug64/copyfile.o -I debug64
-
-debug64/countobs.o: countobs.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  countobs.f -o debug64/countobs.o -I debug64
-
 debug64/crackflow.o: crackflow.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  crackflow.f -o debug64/crackflow.o -I debug64
 
@@ -1157,8 +1069,17 @@ debug64/dailycn.o: dailycn.f debug64/main.o
 debug64/decay.o: decay.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  decay.f -o debug64/decay.o -I debug64
 
+debug64/depstor.o: depstor.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  depstor.f -o debug64/depstor.o -I debug64
+
+debug64/distrib_bmps.o: distrib_bmps.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  distrib_bmps.f -o debug64/distrib_bmps.o -I debug64
+
 debug64/dormant.o: dormant.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  dormant.f -o debug64/dormant.o -I debug64
+
+debug64/drains.o: drains.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  drains.f -o debug64/drains.o -I debug64
 
 debug64/dstn1.o: dstn1.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  dstn1.f -o debug64/dstn1.o -I debug64
@@ -1199,12 +1120,6 @@ debug64/filtw.o: filtw.f debug64/main.o
 debug64/finalbal.o: finalbal.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  finalbal.f -o debug64/finalbal.o -I debug64
 
-debug64/functn.o: functn.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  functn.f -o debug64/functn.o -I debug64
-
-debug64/gasdev.o: gasdev.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  gasdev.f -o debug64/gasdev.o -I debug64
-
 debug64/gcycl.o: gcycl.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  gcycl.f -o debug64/gcycl.o -I debug64
 
@@ -1213,15 +1128,6 @@ debug64/getallo.o: getallo.f debug64/main.o
 
 debug64/getallo2.o: getallo2.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  getallo2.f -o debug64/getallo2.o -I debug64
-
-debug64/getpnt.o: getpnt.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  getpnt.f -o debug64/getpnt.o -I debug64
-
-debug64/getpnt2.o: getpnt2.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  getpnt2.f -o debug64/getpnt2.o -I debug64
-
-debug64/goc.o: goc.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  goc.f -o debug64/goc.o -I debug64
 
 debug64/grass_wway.o: grass_wway.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  grass_wway.f -o debug64/grass_wway.o -I debug64
@@ -1283,11 +1189,17 @@ debug64/hrumon.o: hrumon.f debug64/main.o
 debug64/hrupond.o: hrupond.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hrupond.f -o debug64/hrupond.o -I debug64
 
+debug64/hrupondhr.o: hrupondhr.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hrupondhr.f -o debug64/hrupondhr.o -I debug64
+
 debug64/hruyr.o: hruyr.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hruyr.f -o debug64/hruyr.o -I debug64
 
 debug64/hydroinit.o: hydroinit.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hydroinit.f -o debug64/hydroinit.o -I debug64
+
+debug64/icl.o: icl.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  icl.f -o debug64/icl.o -I debug64
 
 debug64/impndaa.o: impndaa.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  impndaa.f -o debug64/impndaa.o -I debug64
@@ -1303,9 +1215,6 @@ debug64/impndyr.o: impndyr.f debug64/main.o
 
 debug64/impnd_init.o: impnd_init.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  impnd_init.f -o debug64/impnd_init.o -I debug64
-
-debug64/indexx.o: indexx.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  indexx.f -o debug64/indexx.o -I debug64
 
 debug64/irrigate.o: irrigate.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  irrigate.f -o debug64/irrigate.o -I debug64
@@ -1338,7 +1247,7 @@ debug64/lwqdef.o: lwqdef.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  lwqdef.f -o debug64/lwqdef.o -I debug64
 
 debug64/main.o: main.f modparm.f
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG} main.f -o debug64/main.o -J debug64
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  main.f -o debug64/main.o -J debug64
 
 debug64/ndenit.o: ndenit.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  ndenit.f -o debug64/ndenit.o -I debug64
@@ -1373,12 +1282,6 @@ debug64/nup.o: nup.f debug64/main.o
 debug64/nuts.o: nuts.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  nuts.f -o debug64/nuts.o -I debug64
 
-debug64/oat.o: oat.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  oat.f -o debug64/oat.o -I debug64
-
-debug64/objfunctn.o: objfunctn.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  objfunctn.f -o debug64/objfunctn.o -I debug64
-
 debug64/openwth.o: openwth.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  openwth.f -o debug64/openwth.o -I debug64
 
@@ -1391,23 +1294,11 @@ debug64/orgn.o: orgn.f debug64/main.o
 debug64/orgncswat.o: orgncswat.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  orgncswat.f -o debug64/orgncswat.o -I debug64
 
-debug64/parasol.o: parasol.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  parasol.f -o debug64/parasol.o -I debug64
+debug64/origtile.o: origtile.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  origtile.f -o debug64/origtile.o -I debug64
 
-debug64/parasolc.o: parasolc.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  parasolc.f -o debug64/parasolc.o -I debug64
-
-debug64/parasoli.o: parasoli.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  parasoli.f -o debug64/parasoli.o -I debug64
-
-debug64/parasolo.o: parasolo.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  parasolo.f -o debug64/parasolo.o -I debug64
-
-debug64/parasolu.o: parasolu.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  parasolu.f -o debug64/parasolu.o -I debug64
-
-debug64/parstt2.o: parstt2.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  parstt2.f -o debug64/parstt2.o -I debug64
+debug64/ovr_sed.o: ovr_sed.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG} ${LONGFIX} ovr_sed.f -o debug64/ovr_sed.o -I debug64
 
 debug64/percmacro.o: percmacro.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  percmacro.f -o debug64/percmacro.o -I debug64
@@ -1448,11 +1339,20 @@ debug64/pmeas.o: pmeas.f debug64/main.o
 debug64/pminrl.o: pminrl.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  pminrl.f -o debug64/pminrl.o -I debug64
 
+debug64/pminrl2.o: pminrl2.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  pminrl2.f -o debug64/pminrl2.o -I debug64
+
 debug64/pond.o: pond.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  pond.f -o debug64/pond.o -I debug64
 
+debug64/pondhr.o: pondhr.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  pondhr.f -o debug64/pondhr.o -I debug64
+
 debug64/pothole.o: pothole.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  pothole.f -o debug64/pothole.o -I debug64
+
+debug64/potholehr.o: potholehr.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  potholehr.f -o debug64/potholehr.o -I debug64
 
 debug64/print_hyd.o: print_hyd.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  print_hyd.f -o debug64/print_hyd.o -I debug64
@@ -1465,9 +1365,6 @@ debug64/qman.o: qman.f debug64/main.o
 
 debug64/ran1.o: ran1.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  ran1.f -o debug64/ran1.o -I debug64
-
-debug64/ranked.o: ranked.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  ranked.f -o debug64/ranked.o -I debug64
 
 debug64/rchaa.o: rchaa.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rchaa.f -o debug64/rchaa.o -I debug64
@@ -1495,9 +1392,6 @@ debug64/readatmodep.o: readatmodep.f debug64/main.o
 
 debug64/readbsn.o: readbsn.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readbsn.f -o debug64/readbsn.o -I debug64
-
-debug64/readchan.o: readchan.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readchan.f -o debug64/readchan.o -I debug64
 
 debug64/readchm.o: readchm.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readchm.f -o debug64/readchm.o -I debug64
@@ -1532,9 +1426,6 @@ debug64/readlup.o: readlup.f debug64/main.o
 debug64/readlwq.o: readlwq.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readlwq.f -o debug64/readlwq.o -I debug64
 
-debug64/readmetf.o: readmetf.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readmetf.f -o debug64/readmetf.o -I debug64
-
 debug64/readmgt.o: readmgt.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readmgt.f -o debug64/readmgt.o -I debug64
 
@@ -1561,6 +1452,12 @@ debug64/readres.o: readres.f debug64/main.o
 
 debug64/readrte.o: readrte.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readrte.f -o debug64/readrte.o -I debug64
+
+debug64/readru.o: readru.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readru.f -o debug64/readru.o -I debug64
+
+debug64/readsdr.o: readsdr.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readsdr.f -o debug64/readsdr.o -I debug64
 
 debug64/readsepticbz.o: readsepticbz.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  readsepticbz.f -o debug64/readsepticbz.o -I debug64
@@ -1616,15 +1513,6 @@ debug64/recyear.o: recyear.f debug64/main.o
 debug64/regres.o: regres.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  regres.f -o debug64/regres.o -I debug64
 
-debug64/rerun.o: rerun.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rerun.f -o debug64/rerun.o -I debug64
-
-debug64/rerunfile.o: rerunfile.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rerunfile.f -o debug64/rerunfile.o -I debug64
-
-debug64/rerunps.o: rerunps.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rerunps.f -o debug64/rerunps.o -I debug64
-
 debug64/res.o: res.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  res.f -o debug64/res.o -I debug64
 
@@ -1634,14 +1522,14 @@ debug64/resbact.o: resbact.f debug64/main.o
 debug64/resetlu.o: resetlu.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  resetlu.f -o debug64/resetlu.o -I debug64
 
+debug64/reshr.o: reshr.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  reshr.f -o debug64/reshr.o -I debug64
+
 debug64/resinit.o: resinit.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  resinit.f -o debug64/resinit.o -I debug64
 
 debug64/resnut.o: resnut.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  resnut.f -o debug64/resnut.o -I debug64
-
-debug64/response.o: response.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  response.f -o debug64/response.o -I debug64
 
 debug64/rewind_init.o: rewind_init.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rewind_init.f -o debug64/rewind_init.o -I debug64
@@ -1654,6 +1542,12 @@ debug64/rootfr.o: rootfr.f debug64/main.o
 
 debug64/route.o: route.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  route.f -o debug64/route.o -I debug64
+
+debug64/routels.o: routels.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  routels.f -o debug64/routels.o -I debug64
+
+debug64/routeunit.o: routeunit.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  routeunit.f -o debug64/routeunit.o -I debug64
 
 debug64/routres.o: routres.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  routres.f -o debug64/routres.o -I debug64
@@ -1682,11 +1576,11 @@ debug64/rteinit.o: rteinit.f debug64/main.o
 debug64/rthmusk.o: rthmusk.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rthmusk.f -o debug64/rthmusk.o -I debug64
 
-debug64/rthourly.o: rthourly.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rthourly.f -o debug64/rthourly.o -I debug64
-
 debug64/rthpest.o: rthpest.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rthpest.f -o debug64/rthpest.o -I debug64
+
+debug64/rthr.o: rthr.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rthr.f -o debug64/rthr.o -I debug64
 
 debug64/rthsed.o: rthsed.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG} ${LONGFIX} rthsed.f -o debug64/rthsed.o -I debug64
@@ -1696,9 +1590,6 @@ debug64/rtmusk.o: rtmusk.f debug64/main.o
 
 debug64/rtout.o: rtout.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rtout.f -o debug64/rtout.o -I debug64
-
-debug64/rtover.o: rtover.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rtover.f -o debug64/rtover.o -I debug64
 
 debug64/rtpest.o: rtpest.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rtpest.f -o debug64/rtpest.o -I debug64
@@ -1718,11 +1609,8 @@ debug64/rtsed_molinas_wu.o: rtsed_molinas_wu.f debug64/main.o
 debug64/rtsed_yangsand.o: rtsed_yangsand.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rtsed_yangsand.f -o debug64/rtsed_yangsand.o -I debug64
 
-debug64/sample.o: sample.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sample.f -o debug64/sample.o -I debug64
-
-debug64/sample1.o: sample1.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sample1.f -o debug64/sample1.o -I debug64
+debug64/ruallo.o: ruallo.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  ruallo.f -o debug64/ruallo.o -I debug64
 
 debug64/sat_excess.o: sat_excess.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sat_excess.f -o debug64/sat_excess.o -I debug64
@@ -1733,17 +1621,11 @@ debug64/save.o: save.f debug64/main.o
 debug64/saveconc.o: saveconc.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  saveconc.f -o debug64/saveconc.o -I debug64
 
-debug64/scestat.o: scestat.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  scestat.f -o debug64/scestat.o -I debug64
-
 debug64/schedule_ops.o: schedule_ops.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  schedule_ops.f -o debug64/schedule_ops.o -I debug64
 
-debug64/sensin.o: sensin.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sensin.f -o debug64/sensin.o -I debug64
-
-debug64/sensmain.o: sensmain.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sensmain.f -o debug64/sensmain.o -I debug64
+debug64/sched_mgt.o: sched_mgt.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sched_mgt.f -o debug64/sched_mgt.o -I debug64
 
 debug64/simulate.o: simulate.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  simulate.f -o debug64/simulate.o -I debug64
@@ -1780,30 +1662,6 @@ debug64/solp.o: solp.f debug64/main.o
 
 debug64/solt.o: solt.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  solt.f -o debug64/solt.o -I debug64
-
-debug64/sort1.o: sort1.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sort1.f -o debug64/sort1.o -I debug64
-
-debug64/sort3.o: sort3.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sort3.f -o debug64/sort3.o -I debug64
-
-debug64/sorteer.o: sorteer.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sorteer.f -o debug64/sorteer.o -I debug64
-
-debug64/sorteer2.o: sorteer2.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sorteer2.f -o debug64/sorteer2.o -I debug64
-
-debug64/sorteer3.o: sorteer3.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sorteer3.f -o debug64/sorteer3.o -I debug64
-
-debug64/sorteer4.o: sorteer4.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sorteer4.f -o debug64/sorteer4.o -I debug64
-
-debug64/sorteer5.o: sorteer5.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sorteer5.f -o debug64/sorteer5.o -I debug64
-
-debug64/sorteer6.o: sorteer6.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sorteer6.f -o debug64/sorteer6.o -I debug64
 
 debug64/std1.o: std1.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  std1.f -o debug64/std1.o -I debug64
@@ -1844,20 +1702,14 @@ debug64/subwq.o: subwq.f debug64/main.o
 debug64/subyr.o: subyr.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  subyr.f -o debug64/subyr.o -I debug64
 
+debug64/sub_subbasin.o: sub_subbasin.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sub_subbasin.f -o debug64/sub_subbasin.o -I debug64
+
 debug64/sumhyd.o: sumhyd.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sumhyd.f -o debug64/sumhyd.o -I debug64
 
 debug64/sumv.o: sumv.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sumv.f -o debug64/sumv.o -I debug64
-
-debug64/sunglasr.o: sunglasr.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sunglasr.f -o debug64/sunglasr.o -I debug64
-
-debug64/sunglass.o: sunglass.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sunglass.f -o debug64/sunglass.o -I debug64
-
-debug64/sunglasu.o: sunglasu.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sunglasu.f -o debug64/sunglasu.o -I debug64
 
 debug64/surface.o: surface.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  surface.f -o debug64/surface.o -I debug64
@@ -1886,15 +1738,6 @@ debug64/swu.o: swu.f debug64/main.o
 debug64/tair.o: tair.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  tair.f -o debug64/tair.o -I debug64
 
-debug64/telobjre.o: telobjre.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  telobjre.f -o debug64/telobjre.o -I debug64
-
-debug64/telobs.o: telobs.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  telobs.f -o debug64/telobs.o -I debug64
-
-debug64/telpar.o: telpar.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  telpar.f -o debug64/telpar.o -I debug64
-
 debug64/tgen.o: tgen.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  tgen.f -o debug64/tgen.o -I debug64
 
@@ -1922,8 +1765,14 @@ debug64/tstr.o: tstr.f debug64/main.o
 debug64/ttcoef.o: ttcoef.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  ttcoef.f -o debug64/ttcoef.o -I debug64
 
+debug64/ttcoef_wway.o: ttcoef_wway.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  ttcoef_wway.f -o debug64/ttcoef_wway.o -I debug64
+
 debug64/urban.o: urban.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  urban.f -o debug64/urban.o -I debug64
+
+debug64/urbanhr.o: urbanhr.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  urbanhr.f -o debug64/urbanhr.o -I debug64
 
 debug64/urb_bmp.o: urb_bmp.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  urb_bmp.f -o debug64/urb_bmp.o -I debug64
@@ -1940,14 +1789,14 @@ debug64/virtual.o: virtual.f debug64/main.o
 debug64/volq.o: volq.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  volq.f -o debug64/volq.o -I debug64
 
-debug64/vrval.o: vrval.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  vrval.f -o debug64/vrval.o -I debug64
-
 debug64/washp.o: washp.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  washp.f -o debug64/washp.o -I debug64
 
 debug64/watbal.o: watbal.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  watbal.f -o debug64/watbal.o -I debug64
+
+debug64/water_hru.o: water_hru.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  water_hru.f -o debug64/water_hru.o -I debug64
 
 debug64/watqual.o: watqual.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  watqual.f -o debug64/watqual.o -I debug64
@@ -1985,18 +1834,6 @@ debug64/writed.o: writed.f debug64/main.o
 debug64/writem.o: writem.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  writem.f -o debug64/writem.o -I debug64
 
-debug64/writeswatfile.o: writeswatfile.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  writeswatfile.f -o debug64/writeswatfile.o -I debug64
-
-debug64/writeswatmain.o: writeswatmain.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  writeswatmain.f -o debug64/writeswatmain.o -I debug64
-
-debug64/xisquare.o: xisquare.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  xisquare.f -o debug64/xisquare.o -I debug64
-
-debug64/xiunc.o: xiunc.f debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  xiunc.f -o debug64/xiunc.o -I debug64
-
 debug64/xmon.o: xmon.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  xmon.f -o debug64/xmon.o -I debug64
 
@@ -2015,13 +1852,16 @@ debug64/zero2.o: zero2.f debug64/main.o
 debug64/zeroini.o: zeroini.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  zeroini.f -o debug64/zeroini.o -I debug64
 
+debug64/zero_urbn.o: zero_urbn.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  zero_urbn.f -o debug64/zero_urbn.o -I debug64
+
 debug64_clean:
 	rm -f ${NAMEDEBUG64}.exe
 	rm -f debug64/*.o
 	rm -f debug64/*.mod
 	rm -f debug64/*~
 
-OBJECTS_REL32=  rel32/addh.o rel32/albedo.o rel32/allocate_parms.o rel32/alph.o rel32/analyse.o rel32/anfert.o rel32/apex_day.o rel32/apply.o rel32/ascrv.o rel32/atri.o rel32/aunif.o rel32/autocal.o rel32/autoirr.o rel32/automet.o rel32/aveval.o rel32/bacteria.o rel32/batchin.o rel32/batchmain.o rel32/bayes.o rel32/biozone.o rel32/buffer.o rel32/burnop.o rel32/calresidu.o rel32/canopyint.o rel32/caps.o rel32/carbon_new.o rel32/changepar.o rel32/chkcst.o rel32/clgen.o rel32/clicon.o rel32/command.o rel32/conapply.o rel32/confert.o rel32/copyfile.o rel32/countobs.o rel32/crackflow.o rel32/crackvol.o rel32/curno.o rel32/dailycn.o rel32/decay.o rel32/dormant.o rel32/dstn1.o rel32/ee.o rel32/eiusle.o rel32/enrsb.o rel32/erfc.o rel32/estimate_ksat.o rel32/etact.o rel32/etpot.o rel32/expo.o rel32/fert.o rel32/filter.o rel32/filtw.o rel32/finalbal.o rel32/functn.o rel32/gasdev.o rel32/gcycl.o rel32/getallo.o rel32/getallo2.o rel32/getpnt.o rel32/getpnt2.o rel32/goc.o rel32/grass_wway.o rel32/graze.o rel32/grow.o rel32/gwmod.o rel32/gwnutr.o rel32/gw_no3.o rel32/h2omgt_init.o rel32/harvestop.o rel32/harvgrainop.o rel32/harvkillop.o rel32/header.o rel32/headout.o rel32/hhnoqual.o rel32/hhwatqual.o rel32/hmeas.o rel32/hruaa.o rel32/hruallo.o rel32/hruday.o rel32/hrumon.o rel32/hrupond.o rel32/hruyr.o rel32/hydroinit.o rel32/impndaa.o rel32/impndday.o rel32/impndmon.o rel32/impndyr.o rel32/impnd_init.o rel32/indexx.o rel32/irrigate.o rel32/irrsub.o rel32/irr_rch.o rel32/irr_res.o rel32/jdt.o rel32/killop.o rel32/lakeq.o rel32/latsed.o rel32/layersplit.o rel32/lwqdef.o rel32/main.o rel32/ndenit.o rel32/newtillmix.o rel32/nfix.o rel32/nitvol.o rel32/nlch.o rel32/nminrl.o rel32/noqual.o rel32/npup.o rel32/nrain.o rel32/nup.o rel32/nuts.o rel32/oat.o rel32/objfunctn.o rel32/openwth.o rel32/operatn.o rel32/orgn.o rel32/orgncswat.o rel32/parasol.o rel32/parasolc.o rel32/parasoli.o rel32/parasolo.o rel32/parasolu.o rel32/parstt2.o rel32/percmacro.o rel32/percmain.o rel32/percmicro.o rel32/pestlch.o rel32/pestw.o rel32/pesty.o rel32/pgen.o rel32/pgenhr.o rel32/pkq.o rel32/plantmod.o rel32/plantop.o rel32/pmeas.o rel32/pminrl.o rel32/pond.o rel32/pothole.o rel32/print_hyd.o rel32/psed.o rel32/qman.o rel32/ran1.o rel32/ranked.o rel32/rchaa.o rel32/rchday.o rel32/rchinit.o rel32/rchmon.o rel32/rchuse.o rel32/rchyr.o rel32/reachout.o rel32/readatmodep.o rel32/readbsn.o rel32/readchan.o rel32/readchm.o rel32/readcnst.o rel32/readfcst.o rel32/readfert.o rel32/readfig.o rel32/readfile.o rel32/readgw.o rel32/readhru.o rel32/readinpt.o rel32/readlup.o rel32/readlwq.o rel32/readmetf.o rel32/readmgt.o rel32/readmon.o rel32/readops.o rel32/readparmfile.o rel32/readpest.o rel32/readplant.o rel32/readpnd.o rel32/readres.o rel32/readrte.o rel32/readsepticbz.o rel32/readseptwq.o rel32/readsno.o rel32/readsol.o rel32/readsub.o rel32/readswq.o rel32/readtill.o rel32/readurban.o rel32/readwgn.o rel32/readwus.o rel32/readwwq.o rel32/readyr.o rel32/reccnst.o rel32/recday.o rel32/rechour.o rel32/recmon.o rel32/recyear.o rel32/regres.o rel32/rerun.o rel32/rerunfile.o rel32/rerunps.o rel32/res.o rel32/resbact.o rel32/resetlu.o rel32/resinit.o rel32/resnut.o rel32/response.o rel32/rewind_init.o rel32/rhgen.o rel32/rootfr.o rel32/route.o rel32/routres.o rel32/rsedaa.o rel32/rseday.o rel32/rsedmon.o rel32/rsedyr.o rel32/rtbact.o rel32/rtday.o rel32/rteinit.o rel32/rthmusk.o rel32/rthourly.o rel32/rthpest.o rel32/rthsed.o rel32/rtmusk.o rel32/rtout.o rel32/rtover.o rel32/rtpest.o rel32/rtsed.o rel32/rtsed_bagnold.o rel32/rtsed_kodatie.o rel32/rtsed_molinas_wu.o rel32/rtsed_yangsand.o rel32/sample.o rel32/sample1.o rel32/sat_excess.o rel32/save.o rel32/saveconc.o rel32/scestat.o rel32/schedule_ops.o rel32/sensin.o rel32/sensmain.o rel32/simulate.o rel32/sim_initday.o rel32/sim_inityr.o rel32/slrgen.o rel32/smeas.o rel32/snom.o rel32/soil_chem.o rel32/soil_par.o rel32/soil_phys.o rel32/soil_write.o rel32/solp.o rel32/solt.o rel32/sort1.o rel32/sort3.o rel32/sorteer.o rel32/sorteer2.o rel32/sorteer3.o rel32/sorteer4.o rel32/sorteer5.o rel32/sorteer6.o rel32/std1.o rel32/std2.o rel32/std3.o rel32/stdaa.o rel32/storeinitial.o rel32/structure.o rel32/subaa.o rel32/subbasin.o rel32/subday.o rel32/submon.o rel32/substor.o rel32/subwq.o rel32/subyr.o rel32/sumhyd.o rel32/sumv.o rel32/sunglasr.o rel32/sunglass.o rel32/sunglasu.o rel32/surface.o rel32/surfstor.o rel32/surfst_h2o.o rel32/surq_daycn.o rel32/surq_greenampt.o rel32/swbl.o rel32/sweep.o rel32/swu.o rel32/tair.o rel32/telobjre.o rel32/telobs.o rel32/telpar.o rel32/tgen.o rel32/theta.o rel32/tillfactor.o rel32/tillmix.o rel32/tmeas.o rel32/tran.o rel32/transfer.o rel32/tstr.o rel32/ttcoef.o rel32/urban.o rel32/urb_bmp.o rel32/varinit.o rel32/vbl.o rel32/virtual.o rel32/volq.o rel32/vrval.o rel32/washp.o rel32/watbal.o rel32/watqual.o rel32/watqual2.o rel32/wattable.o rel32/watuse.o rel32/weatgn.o rel32/wetlan.o rel32/wmeas.o rel32/wndgen.o rel32/writea.o rel32/writeaa.o rel32/writed.o rel32/writem.o rel32/writeswatfile.o rel32/writeswatmain.o rel32/xisquare.o rel32/xiunc.o rel32/xmon.o rel32/ysed.o rel32/zero0.o rel32/zero1.o rel32/zero2.o rel32/zeroini.o
+OBJECTS_REL32=  rel32/addh.o rel32/albedo.o rel32/allocate_parms.o rel32/alph.o rel32/anfert.o rel32/apex_day.o rel32/apply.o rel32/ascrv.o rel32/atri.o rel32/aunif.o rel32/autoirr.o rel32/aveval.o rel32/bacteria.o rel32/biofilm.o rel32/biozone.o rel32/bmpfixed.o rel32/bmpinit.o rel32/bmp_det_pond.o rel32/bmp_ri_pond.o rel32/bmp_sand_filter.o rel32/bmp_sed_pond.o rel32/bmp_wet_pond.o rel32/buffer.o rel32/burnop.o rel32/canopyint.o rel32/caps.o rel32/carbon_new.o rel32/chkcst.o rel32/clgen.o rel32/clicon.o rel32/command.o rel32/conapply.o rel32/confert.o rel32/crackflow.o rel32/crackvol.o rel32/curno.o rel32/dailycn.o rel32/decay.o rel32/depstor.o rel32/distrib_bmps.o rel32/dormant.o rel32/drains.o rel32/dstn1.o rel32/ee.o rel32/eiusle.o rel32/enrsb.o rel32/erfc.o rel32/estimate_ksat.o rel32/etact.o rel32/etpot.o rel32/expo.o rel32/fert.o rel32/filter.o rel32/filtw.o rel32/finalbal.o rel32/gcycl.o rel32/getallo.o rel32/getallo2.o rel32/grass_wway.o rel32/graze.o rel32/grow.o rel32/gwmod.o rel32/gwnutr.o rel32/gw_no3.o rel32/h2omgt_init.o rel32/harvestop.o rel32/harvgrainop.o rel32/harvkillop.o rel32/header.o rel32/headout.o rel32/hhnoqual.o rel32/hhwatqual.o rel32/hmeas.o rel32/hruaa.o rel32/hruallo.o rel32/hruday.o rel32/hrumon.o rel32/hrupond.o rel32/hrupondhr.o rel32/hruyr.o rel32/hydroinit.o rel32/icl.o rel32/impndaa.o rel32/impndday.o rel32/impndmon.o rel32/impndyr.o rel32/impnd_init.o rel32/irrigate.o rel32/irrsub.o rel32/irr_rch.o rel32/irr_res.o rel32/jdt.o rel32/killop.o rel32/lakeq.o rel32/latsed.o rel32/layersplit.o rel32/lwqdef.o rel32/main.o rel32/ndenit.o rel32/newtillmix.o rel32/nfix.o rel32/nitvol.o rel32/nlch.o rel32/nminrl.o rel32/noqual.o rel32/npup.o rel32/nrain.o rel32/nup.o rel32/nuts.o rel32/openwth.o rel32/operatn.o rel32/orgn.o rel32/orgncswat.o rel32/origtile.o rel32/ovr_sed.o rel32/percmacro.o rel32/percmain.o rel32/percmicro.o rel32/pestlch.o rel32/pestw.o rel32/pesty.o rel32/pgen.o rel32/pgenhr.o rel32/pkq.o rel32/plantmod.o rel32/plantop.o rel32/pmeas.o rel32/pminrl.o rel32/pminrl2.o rel32/pond.o rel32/pondhr.o rel32/pothole.o rel32/potholehr.o rel32/print_hyd.o rel32/psed.o rel32/qman.o rel32/ran1.o rel32/rchaa.o rel32/rchday.o rel32/rchinit.o rel32/rchmon.o rel32/rchuse.o rel32/rchyr.o rel32/reachout.o rel32/readatmodep.o rel32/readbsn.o rel32/readchm.o rel32/readcnst.o rel32/readfcst.o rel32/readfert.o rel32/readfig.o rel32/readfile.o rel32/readgw.o rel32/readhru.o rel32/readinpt.o rel32/readlup.o rel32/readlwq.o rel32/readmgt.o rel32/readmon.o rel32/readops.o rel32/readparmfile.o rel32/readpest.o rel32/readplant.o rel32/readpnd.o rel32/readres.o rel32/readrte.o rel32/readru.o rel32/readsdr.o rel32/readsepticbz.o rel32/readseptwq.o rel32/readsno.o rel32/readsol.o rel32/readsub.o rel32/readswq.o rel32/readtill.o rel32/readurban.o rel32/readwgn.o rel32/readwus.o rel32/readwwq.o rel32/readyr.o rel32/reccnst.o rel32/recday.o rel32/rechour.o rel32/recmon.o rel32/recyear.o rel32/regres.o rel32/res.o rel32/resbact.o rel32/resetlu.o rel32/reshr.o rel32/resinit.o rel32/resnut.o rel32/rewind_init.o rel32/rhgen.o rel32/rootfr.o rel32/route.o rel32/routels.o rel32/routeunit.o rel32/routres.o rel32/rsedaa.o rel32/rseday.o rel32/rsedmon.o rel32/rsedyr.o rel32/rtbact.o rel32/rtday.o rel32/rteinit.o rel32/rthmusk.o rel32/rthpest.o rel32/rthr.o rel32/rthsed.o rel32/rtmusk.o rel32/rtout.o rel32/rtpest.o rel32/rtsed.o rel32/rtsed_bagnold.o rel32/rtsed_kodatie.o rel32/rtsed_molinas_wu.o rel32/rtsed_yangsand.o rel32/ruallo.o rel32/sat_excess.o rel32/save.o rel32/saveconc.o rel32/schedule_ops.o rel32/sched_mgt.o rel32/simulate.o rel32/sim_initday.o rel32/sim_inityr.o rel32/slrgen.o rel32/smeas.o rel32/snom.o rel32/soil_chem.o rel32/soil_par.o rel32/soil_phys.o rel32/soil_write.o rel32/solp.o rel32/solt.o rel32/std1.o rel32/std2.o rel32/std3.o rel32/stdaa.o rel32/storeinitial.o rel32/structure.o rel32/subaa.o rel32/subbasin.o rel32/subday.o rel32/submon.o rel32/substor.o rel32/subwq.o rel32/subyr.o rel32/sub_subbasin.o rel32/sumhyd.o rel32/sumv.o rel32/surface.o rel32/surfstor.o rel32/surfst_h2o.o rel32/surq_daycn.o rel32/surq_greenampt.o rel32/swbl.o rel32/sweep.o rel32/swu.o rel32/tair.o rel32/tgen.o rel32/theta.o rel32/tillfactor.o rel32/tillmix.o rel32/tmeas.o rel32/tran.o rel32/transfer.o rel32/tstr.o rel32/ttcoef.o rel32/ttcoef_wway.o rel32/urban.o rel32/urbanhr.o rel32/urb_bmp.o rel32/varinit.o rel32/vbl.o rel32/virtual.o rel32/volq.o rel32/washp.o rel32/watbal.o rel32/water_hru.o rel32/watqual.o rel32/watqual2.o rel32/wattable.o rel32/watuse.o rel32/weatgn.o rel32/wetlan.o rel32/wmeas.o rel32/wndgen.o rel32/writea.o rel32/writeaa.o rel32/writed.o rel32/writem.o rel32/xmon.o rel32/ysed.o rel32/zero0.o rel32/zero1.o rel32/zero2.o rel32/zeroini.o rel32/zero_urbn.o
 
 NAMEREL32=swat_rel32
 rel32:rel32_mkdir ${NAMEREL32}
@@ -2045,9 +1885,6 @@ rel32/allocate_parms.o: allocate_parms.f rel32/main.o
 rel32/alph.o: alph.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  alph.f -o rel32/alph.o -I rel32
 
-rel32/analyse.o: analyse.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  analyse.f -o rel32/analyse.o -I rel32
-
 rel32/anfert.o: anfert.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  anfert.f -o rel32/anfert.o -I rel32
 
@@ -2066,14 +1903,8 @@ rel32/atri.o: atri.f rel32/main.o
 rel32/aunif.o: aunif.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  aunif.f -o rel32/aunif.o -I rel32
 
-rel32/autocal.o: autocal.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  autocal.f -o rel32/autocal.o -I rel32
-
 rel32/autoirr.o: autoirr.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  autoirr.f -o rel32/autoirr.o -I rel32
-
-rel32/automet.o: automet.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  automet.f -o rel32/automet.o -I rel32
 
 rel32/aveval.o: aveval.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  aveval.f -o rel32/aveval.o -I rel32
@@ -2081,26 +1912,38 @@ rel32/aveval.o: aveval.f rel32/main.o
 rel32/bacteria.o: bacteria.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  bacteria.f -o rel32/bacteria.o -I rel32
 
-rel32/batchin.o: batchin.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  batchin.f -o rel32/batchin.o -I rel32
-
-rel32/batchmain.o: batchmain.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  batchmain.f -o rel32/batchmain.o -I rel32
-
-rel32/bayes.o: bayes.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  bayes.f -o rel32/bayes.o -I rel32
+rel32/biofilm.o: biofilm.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  biofilm.f -o rel32/biofilm.o -I rel32
 
 rel32/biozone.o: biozone.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG} biozone.f -o rel32/biozone.o -I rel32
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  biozone.f -o rel32/biozone.o -I rel32
+
+rel32/bmpfixed.o: bmpfixed.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  bmpfixed.f -o rel32/bmpfixed.o -I rel32
+
+rel32/bmpinit.o: bmpinit.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG} ${LONGFIX} bmpinit.f -o rel32/bmpinit.o -I rel32
+
+rel32/bmp_det_pond.o: bmp_det_pond.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG} ${LONGFIX} bmp_det_pond.f -o rel32/bmp_det_pond.o -I rel32
+
+rel32/bmp_ri_pond.o: bmp_ri_pond.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  bmp_ri_pond.f -o rel32/bmp_ri_pond.o -I rel32
+
+rel32/bmp_sand_filter.o: bmp_sand_filter.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  bmp_sand_filter.f -o rel32/bmp_sand_filter.o -I rel32
+
+rel32/bmp_sed_pond.o: bmp_sed_pond.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  bmp_sed_pond.f -o rel32/bmp_sed_pond.o -I rel32
+
+rel32/bmp_wet_pond.o: bmp_wet_pond.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  bmp_wet_pond.f -o rel32/bmp_wet_pond.o -I rel32
 
 rel32/buffer.o: buffer.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  buffer.f -o rel32/buffer.o -I rel32
 
 rel32/burnop.o: burnop.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  burnop.f -o rel32/burnop.o -I rel32
-
-rel32/calresidu.o: calresidu.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  calresidu.f -o rel32/calresidu.o -I rel32
 
 rel32/canopyint.o: canopyint.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  canopyint.f -o rel32/canopyint.o -I rel32
@@ -2110,9 +1953,6 @@ rel32/caps.o: caps.f rel32/main.o
 
 rel32/carbon_new.o: carbon_new.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  carbon_new.f -o rel32/carbon_new.o -I rel32
-
-rel32/changepar.o: changepar.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  changepar.f -o rel32/changepar.o -I rel32
 
 rel32/chkcst.o: chkcst.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  chkcst.f -o rel32/chkcst.o -I rel32
@@ -2132,12 +1972,6 @@ rel32/conapply.o: conapply.f rel32/main.o
 rel32/confert.o: confert.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  confert.f -o rel32/confert.o -I rel32
 
-rel32/copyfile.o: copyfile.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  copyfile.f -o rel32/copyfile.o -I rel32
-
-rel32/countobs.o: countobs.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  countobs.f -o rel32/countobs.o -I rel32
-
 rel32/crackflow.o: crackflow.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  crackflow.f -o rel32/crackflow.o -I rel32
 
@@ -2153,8 +1987,17 @@ rel32/dailycn.o: dailycn.f rel32/main.o
 rel32/decay.o: decay.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  decay.f -o rel32/decay.o -I rel32
 
+rel32/depstor.o: depstor.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  depstor.f -o rel32/depstor.o -I rel32
+
+rel32/distrib_bmps.o: distrib_bmps.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  distrib_bmps.f -o rel32/distrib_bmps.o -I rel32
+
 rel32/dormant.o: dormant.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  dormant.f -o rel32/dormant.o -I rel32
+
+rel32/drains.o: drains.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  drains.f -o rel32/drains.o -I rel32
 
 rel32/dstn1.o: dstn1.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  dstn1.f -o rel32/dstn1.o -I rel32
@@ -2195,12 +2038,6 @@ rel32/filtw.o: filtw.f rel32/main.o
 rel32/finalbal.o: finalbal.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  finalbal.f -o rel32/finalbal.o -I rel32
 
-rel32/functn.o: functn.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  functn.f -o rel32/functn.o -I rel32
-
-rel32/gasdev.o: gasdev.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  gasdev.f -o rel32/gasdev.o -I rel32
-
 rel32/gcycl.o: gcycl.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  gcycl.f -o rel32/gcycl.o -I rel32
 
@@ -2209,15 +2046,6 @@ rel32/getallo.o: getallo.f rel32/main.o
 
 rel32/getallo2.o: getallo2.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  getallo2.f -o rel32/getallo2.o -I rel32
-
-rel32/getpnt.o: getpnt.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  getpnt.f -o rel32/getpnt.o -I rel32
-
-rel32/getpnt2.o: getpnt2.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  getpnt2.f -o rel32/getpnt2.o -I rel32
-
-rel32/goc.o: goc.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  goc.f -o rel32/goc.o -I rel32
 
 rel32/grass_wway.o: grass_wway.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  grass_wway.f -o rel32/grass_wway.o -I rel32
@@ -2279,11 +2107,17 @@ rel32/hrumon.o: hrumon.f rel32/main.o
 rel32/hrupond.o: hrupond.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hrupond.f -o rel32/hrupond.o -I rel32
 
+rel32/hrupondhr.o: hrupondhr.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hrupondhr.f -o rel32/hrupondhr.o -I rel32
+
 rel32/hruyr.o: hruyr.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hruyr.f -o rel32/hruyr.o -I rel32
 
 rel32/hydroinit.o: hydroinit.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hydroinit.f -o rel32/hydroinit.o -I rel32
+
+rel32/icl.o: icl.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  icl.f -o rel32/icl.o -I rel32
 
 rel32/impndaa.o: impndaa.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  impndaa.f -o rel32/impndaa.o -I rel32
@@ -2299,9 +2133,6 @@ rel32/impndyr.o: impndyr.f rel32/main.o
 
 rel32/impnd_init.o: impnd_init.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  impnd_init.f -o rel32/impnd_init.o -I rel32
-
-rel32/indexx.o: indexx.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  indexx.f -o rel32/indexx.o -I rel32
 
 rel32/irrigate.o: irrigate.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  irrigate.f -o rel32/irrigate.o -I rel32
@@ -2334,7 +2165,7 @@ rel32/lwqdef.o: lwqdef.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  lwqdef.f -o rel32/lwqdef.o -I rel32
 
 rel32/main.o: main.f modparm.f
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG} main.f -o rel32/main.o -J rel32
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  main.f -o rel32/main.o -J rel32
 
 rel32/ndenit.o: ndenit.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  ndenit.f -o rel32/ndenit.o -I rel32
@@ -2369,12 +2200,6 @@ rel32/nup.o: nup.f rel32/main.o
 rel32/nuts.o: nuts.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  nuts.f -o rel32/nuts.o -I rel32
 
-rel32/oat.o: oat.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  oat.f -o rel32/oat.o -I rel32
-
-rel32/objfunctn.o: objfunctn.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  objfunctn.f -o rel32/objfunctn.o -I rel32
-
 rel32/openwth.o: openwth.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  openwth.f -o rel32/openwth.o -I rel32
 
@@ -2387,23 +2212,11 @@ rel32/orgn.o: orgn.f rel32/main.o
 rel32/orgncswat.o: orgncswat.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  orgncswat.f -o rel32/orgncswat.o -I rel32
 
-rel32/parasol.o: parasol.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  parasol.f -o rel32/parasol.o -I rel32
+rel32/origtile.o: origtile.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  origtile.f -o rel32/origtile.o -I rel32
 
-rel32/parasolc.o: parasolc.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  parasolc.f -o rel32/parasolc.o -I rel32
-
-rel32/parasoli.o: parasoli.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  parasoli.f -o rel32/parasoli.o -I rel32
-
-rel32/parasolo.o: parasolo.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  parasolo.f -o rel32/parasolo.o -I rel32
-
-rel32/parasolu.o: parasolu.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  parasolu.f -o rel32/parasolu.o -I rel32
-
-rel32/parstt2.o: parstt2.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  parstt2.f -o rel32/parstt2.o -I rel32
+rel32/ovr_sed.o: ovr_sed.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG} ${LONGFIX} ovr_sed.f -o rel32/ovr_sed.o -I rel32
 
 rel32/percmacro.o: percmacro.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  percmacro.f -o rel32/percmacro.o -I rel32
@@ -2444,11 +2257,20 @@ rel32/pmeas.o: pmeas.f rel32/main.o
 rel32/pminrl.o: pminrl.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  pminrl.f -o rel32/pminrl.o -I rel32
 
+rel32/pminrl2.o: pminrl2.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  pminrl2.f -o rel32/pminrl2.o -I rel32
+
 rel32/pond.o: pond.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  pond.f -o rel32/pond.o -I rel32
 
+rel32/pondhr.o: pondhr.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  pondhr.f -o rel32/pondhr.o -I rel32
+
 rel32/pothole.o: pothole.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  pothole.f -o rel32/pothole.o -I rel32
+
+rel32/potholehr.o: potholehr.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  potholehr.f -o rel32/potholehr.o -I rel32
 
 rel32/print_hyd.o: print_hyd.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  print_hyd.f -o rel32/print_hyd.o -I rel32
@@ -2461,9 +2283,6 @@ rel32/qman.o: qman.f rel32/main.o
 
 rel32/ran1.o: ran1.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  ran1.f -o rel32/ran1.o -I rel32
-
-rel32/ranked.o: ranked.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  ranked.f -o rel32/ranked.o -I rel32
 
 rel32/rchaa.o: rchaa.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rchaa.f -o rel32/rchaa.o -I rel32
@@ -2491,9 +2310,6 @@ rel32/readatmodep.o: readatmodep.f rel32/main.o
 
 rel32/readbsn.o: readbsn.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readbsn.f -o rel32/readbsn.o -I rel32
-
-rel32/readchan.o: readchan.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readchan.f -o rel32/readchan.o -I rel32
 
 rel32/readchm.o: readchm.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readchm.f -o rel32/readchm.o -I rel32
@@ -2528,9 +2344,6 @@ rel32/readlup.o: readlup.f rel32/main.o
 rel32/readlwq.o: readlwq.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readlwq.f -o rel32/readlwq.o -I rel32
 
-rel32/readmetf.o: readmetf.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readmetf.f -o rel32/readmetf.o -I rel32
-
 rel32/readmgt.o: readmgt.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readmgt.f -o rel32/readmgt.o -I rel32
 
@@ -2557,6 +2370,12 @@ rel32/readres.o: readres.f rel32/main.o
 
 rel32/readrte.o: readrte.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readrte.f -o rel32/readrte.o -I rel32
+
+rel32/readru.o: readru.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readru.f -o rel32/readru.o -I rel32
+
+rel32/readsdr.o: readsdr.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readsdr.f -o rel32/readsdr.o -I rel32
 
 rel32/readsepticbz.o: readsepticbz.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  readsepticbz.f -o rel32/readsepticbz.o -I rel32
@@ -2612,15 +2431,6 @@ rel32/recyear.o: recyear.f rel32/main.o
 rel32/regres.o: regres.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  regres.f -o rel32/regres.o -I rel32
 
-rel32/rerun.o: rerun.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rerun.f -o rel32/rerun.o -I rel32
-
-rel32/rerunfile.o: rerunfile.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rerunfile.f -o rel32/rerunfile.o -I rel32
-
-rel32/rerunps.o: rerunps.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rerunps.f -o rel32/rerunps.o -I rel32
-
 rel32/res.o: res.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  res.f -o rel32/res.o -I rel32
 
@@ -2630,14 +2440,14 @@ rel32/resbact.o: resbact.f rel32/main.o
 rel32/resetlu.o: resetlu.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  resetlu.f -o rel32/resetlu.o -I rel32
 
+rel32/reshr.o: reshr.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  reshr.f -o rel32/reshr.o -I rel32
+
 rel32/resinit.o: resinit.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  resinit.f -o rel32/resinit.o -I rel32
 
 rel32/resnut.o: resnut.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  resnut.f -o rel32/resnut.o -I rel32
-
-rel32/response.o: response.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  response.f -o rel32/response.o -I rel32
 
 rel32/rewind_init.o: rewind_init.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rewind_init.f -o rel32/rewind_init.o -I rel32
@@ -2650,6 +2460,12 @@ rel32/rootfr.o: rootfr.f rel32/main.o
 
 rel32/route.o: route.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  route.f -o rel32/route.o -I rel32
+
+rel32/routels.o: routels.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  routels.f -o rel32/routels.o -I rel32
+
+rel32/routeunit.o: routeunit.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  routeunit.f -o rel32/routeunit.o -I rel32
 
 rel32/routres.o: routres.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  routres.f -o rel32/routres.o -I rel32
@@ -2678,11 +2494,11 @@ rel32/rteinit.o: rteinit.f rel32/main.o
 rel32/rthmusk.o: rthmusk.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rthmusk.f -o rel32/rthmusk.o -I rel32
 
-rel32/rthourly.o: rthourly.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rthourly.f -o rel32/rthourly.o -I rel32
-
 rel32/rthpest.o: rthpest.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rthpest.f -o rel32/rthpest.o -I rel32
+
+rel32/rthr.o: rthr.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rthr.f -o rel32/rthr.o -I rel32
 
 rel32/rthsed.o: rthsed.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG} ${LONGFIX} rthsed.f -o rel32/rthsed.o -I rel32
@@ -2692,9 +2508,6 @@ rel32/rtmusk.o: rtmusk.f rel32/main.o
 
 rel32/rtout.o: rtout.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rtout.f -o rel32/rtout.o -I rel32
-
-rel32/rtover.o: rtover.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rtover.f -o rel32/rtover.o -I rel32
 
 rel32/rtpest.o: rtpest.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rtpest.f -o rel32/rtpest.o -I rel32
@@ -2714,11 +2527,8 @@ rel32/rtsed_molinas_wu.o: rtsed_molinas_wu.f rel32/main.o
 rel32/rtsed_yangsand.o: rtsed_yangsand.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rtsed_yangsand.f -o rel32/rtsed_yangsand.o -I rel32
 
-rel32/sample.o: sample.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sample.f -o rel32/sample.o -I rel32
-
-rel32/sample1.o: sample1.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sample1.f -o rel32/sample1.o -I rel32
+rel32/ruallo.o: ruallo.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  ruallo.f -o rel32/ruallo.o -I rel32
 
 rel32/sat_excess.o: sat_excess.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sat_excess.f -o rel32/sat_excess.o -I rel32
@@ -2729,17 +2539,11 @@ rel32/save.o: save.f rel32/main.o
 rel32/saveconc.o: saveconc.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  saveconc.f -o rel32/saveconc.o -I rel32
 
-rel32/scestat.o: scestat.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  scestat.f -o rel32/scestat.o -I rel32
-
 rel32/schedule_ops.o: schedule_ops.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  schedule_ops.f -o rel32/schedule_ops.o -I rel32
 
-rel32/sensin.o: sensin.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sensin.f -o rel32/sensin.o -I rel32
-
-rel32/sensmain.o: sensmain.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sensmain.f -o rel32/sensmain.o -I rel32
+rel32/sched_mgt.o: sched_mgt.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sched_mgt.f -o rel32/sched_mgt.o -I rel32
 
 rel32/simulate.o: simulate.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  simulate.f -o rel32/simulate.o -I rel32
@@ -2776,30 +2580,6 @@ rel32/solp.o: solp.f rel32/main.o
 
 rel32/solt.o: solt.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  solt.f -o rel32/solt.o -I rel32
-
-rel32/sort1.o: sort1.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sort1.f -o rel32/sort1.o -I rel32
-
-rel32/sort3.o: sort3.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sort3.f -o rel32/sort3.o -I rel32
-
-rel32/sorteer.o: sorteer.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sorteer.f -o rel32/sorteer.o -I rel32
-
-rel32/sorteer2.o: sorteer2.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sorteer2.f -o rel32/sorteer2.o -I rel32
-
-rel32/sorteer3.o: sorteer3.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sorteer3.f -o rel32/sorteer3.o -I rel32
-
-rel32/sorteer4.o: sorteer4.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sorteer4.f -o rel32/sorteer4.o -I rel32
-
-rel32/sorteer5.o: sorteer5.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sorteer5.f -o rel32/sorteer5.o -I rel32
-
-rel32/sorteer6.o: sorteer6.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sorteer6.f -o rel32/sorteer6.o -I rel32
 
 rel32/std1.o: std1.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  std1.f -o rel32/std1.o -I rel32
@@ -2840,20 +2620,14 @@ rel32/subwq.o: subwq.f rel32/main.o
 rel32/subyr.o: subyr.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  subyr.f -o rel32/subyr.o -I rel32
 
+rel32/sub_subbasin.o: sub_subbasin.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sub_subbasin.f -o rel32/sub_subbasin.o -I rel32
+
 rel32/sumhyd.o: sumhyd.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sumhyd.f -o rel32/sumhyd.o -I rel32
 
 rel32/sumv.o: sumv.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sumv.f -o rel32/sumv.o -I rel32
-
-rel32/sunglasr.o: sunglasr.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sunglasr.f -o rel32/sunglasr.o -I rel32
-
-rel32/sunglass.o: sunglass.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sunglass.f -o rel32/sunglass.o -I rel32
-
-rel32/sunglasu.o: sunglasu.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sunglasu.f -o rel32/sunglasu.o -I rel32
 
 rel32/surface.o: surface.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  surface.f -o rel32/surface.o -I rel32
@@ -2882,15 +2656,6 @@ rel32/swu.o: swu.f rel32/main.o
 rel32/tair.o: tair.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  tair.f -o rel32/tair.o -I rel32
 
-rel32/telobjre.o: telobjre.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  telobjre.f -o rel32/telobjre.o -I rel32
-
-rel32/telobs.o: telobs.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  telobs.f -o rel32/telobs.o -I rel32
-
-rel32/telpar.o: telpar.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  telpar.f -o rel32/telpar.o -I rel32
-
 rel32/tgen.o: tgen.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  tgen.f -o rel32/tgen.o -I rel32
 
@@ -2918,8 +2683,14 @@ rel32/tstr.o: tstr.f rel32/main.o
 rel32/ttcoef.o: ttcoef.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  ttcoef.f -o rel32/ttcoef.o -I rel32
 
+rel32/ttcoef_wway.o: ttcoef_wway.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  ttcoef_wway.f -o rel32/ttcoef_wway.o -I rel32
+
 rel32/urban.o: urban.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  urban.f -o rel32/urban.o -I rel32
+
+rel32/urbanhr.o: urbanhr.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  urbanhr.f -o rel32/urbanhr.o -I rel32
 
 rel32/urb_bmp.o: urb_bmp.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  urb_bmp.f -o rel32/urb_bmp.o -I rel32
@@ -2936,14 +2707,14 @@ rel32/virtual.o: virtual.f rel32/main.o
 rel32/volq.o: volq.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  volq.f -o rel32/volq.o -I rel32
 
-rel32/vrval.o: vrval.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  vrval.f -o rel32/vrval.o -I rel32
-
 rel32/washp.o: washp.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  washp.f -o rel32/washp.o -I rel32
 
 rel32/watbal.o: watbal.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  watbal.f -o rel32/watbal.o -I rel32
+
+rel32/water_hru.o: water_hru.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  water_hru.f -o rel32/water_hru.o -I rel32
 
 rel32/watqual.o: watqual.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  watqual.f -o rel32/watqual.o -I rel32
@@ -2981,18 +2752,6 @@ rel32/writed.o: writed.f rel32/main.o
 rel32/writem.o: writem.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  writem.f -o rel32/writem.o -I rel32
 
-rel32/writeswatfile.o: writeswatfile.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  writeswatfile.f -o rel32/writeswatfile.o -I rel32
-
-rel32/writeswatmain.o: writeswatmain.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  writeswatmain.f -o rel32/writeswatmain.o -I rel32
-
-rel32/xisquare.o: xisquare.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  xisquare.f -o rel32/xisquare.o -I rel32
-
-rel32/xiunc.o: xiunc.f rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  xiunc.f -o rel32/xiunc.o -I rel32
-
 rel32/xmon.o: xmon.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  xmon.f -o rel32/xmon.o -I rel32
 
@@ -3011,13 +2770,16 @@ rel32/zero2.o: zero2.f rel32/main.o
 rel32/zeroini.o: zeroini.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  zeroini.f -o rel32/zeroini.o -I rel32
 
+rel32/zero_urbn.o: zero_urbn.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  zero_urbn.f -o rel32/zero_urbn.o -I rel32
+
 rel32_clean:
 	rm -f ${NAMEREL32}.exe
 	rm -f rel32/*.o
 	rm -f rel32/*.mod
 	rm -f rel32/*~
 
-OBJECTS_REL64=  rel64/addh.o rel64/albedo.o rel64/allocate_parms.o rel64/alph.o rel64/analyse.o rel64/anfert.o rel64/apex_day.o rel64/apply.o rel64/ascrv.o rel64/atri.o rel64/aunif.o rel64/autocal.o rel64/autoirr.o rel64/automet.o rel64/aveval.o rel64/bacteria.o rel64/batchin.o rel64/batchmain.o rel64/bayes.o rel64/biozone.o rel64/buffer.o rel64/burnop.o rel64/calresidu.o rel64/canopyint.o rel64/caps.o rel64/carbon_new.o rel64/changepar.o rel64/chkcst.o rel64/clgen.o rel64/clicon.o rel64/command.o rel64/conapply.o rel64/confert.o rel64/copyfile.o rel64/countobs.o rel64/crackflow.o rel64/crackvol.o rel64/curno.o rel64/dailycn.o rel64/decay.o rel64/dormant.o rel64/dstn1.o rel64/ee.o rel64/eiusle.o rel64/enrsb.o rel64/erfc.o rel64/estimate_ksat.o rel64/etact.o rel64/etpot.o rel64/expo.o rel64/fert.o rel64/filter.o rel64/filtw.o rel64/finalbal.o rel64/functn.o rel64/gasdev.o rel64/gcycl.o rel64/getallo.o rel64/getallo2.o rel64/getpnt.o rel64/getpnt2.o rel64/goc.o rel64/grass_wway.o rel64/graze.o rel64/grow.o rel64/gwmod.o rel64/gwnutr.o rel64/gw_no3.o rel64/h2omgt_init.o rel64/harvestop.o rel64/harvgrainop.o rel64/harvkillop.o rel64/header.o rel64/headout.o rel64/hhnoqual.o rel64/hhwatqual.o rel64/hmeas.o rel64/hruaa.o rel64/hruallo.o rel64/hruday.o rel64/hrumon.o rel64/hrupond.o rel64/hruyr.o rel64/hydroinit.o rel64/impndaa.o rel64/impndday.o rel64/impndmon.o rel64/impndyr.o rel64/impnd_init.o rel64/indexx.o rel64/irrigate.o rel64/irrsub.o rel64/irr_rch.o rel64/irr_res.o rel64/jdt.o rel64/killop.o rel64/lakeq.o rel64/latsed.o rel64/layersplit.o rel64/lwqdef.o rel64/main.o rel64/ndenit.o rel64/newtillmix.o rel64/nfix.o rel64/nitvol.o rel64/nlch.o rel64/nminrl.o rel64/noqual.o rel64/npup.o rel64/nrain.o rel64/nup.o rel64/nuts.o rel64/oat.o rel64/objfunctn.o rel64/openwth.o rel64/operatn.o rel64/orgn.o rel64/orgncswat.o rel64/parasol.o rel64/parasolc.o rel64/parasoli.o rel64/parasolo.o rel64/parasolu.o rel64/parstt2.o rel64/percmacro.o rel64/percmain.o rel64/percmicro.o rel64/pestlch.o rel64/pestw.o rel64/pesty.o rel64/pgen.o rel64/pgenhr.o rel64/pkq.o rel64/plantmod.o rel64/plantop.o rel64/pmeas.o rel64/pminrl.o rel64/pond.o rel64/pothole.o rel64/print_hyd.o rel64/psed.o rel64/qman.o rel64/ran1.o rel64/ranked.o rel64/rchaa.o rel64/rchday.o rel64/rchinit.o rel64/rchmon.o rel64/rchuse.o rel64/rchyr.o rel64/reachout.o rel64/readatmodep.o rel64/readbsn.o rel64/readchan.o rel64/readchm.o rel64/readcnst.o rel64/readfcst.o rel64/readfert.o rel64/readfig.o rel64/readfile.o rel64/readgw.o rel64/readhru.o rel64/readinpt.o rel64/readlup.o rel64/readlwq.o rel64/readmetf.o rel64/readmgt.o rel64/readmon.o rel64/readops.o rel64/readparmfile.o rel64/readpest.o rel64/readplant.o rel64/readpnd.o rel64/readres.o rel64/readrte.o rel64/readsepticbz.o rel64/readseptwq.o rel64/readsno.o rel64/readsol.o rel64/readsub.o rel64/readswq.o rel64/readtill.o rel64/readurban.o rel64/readwgn.o rel64/readwus.o rel64/readwwq.o rel64/readyr.o rel64/reccnst.o rel64/recday.o rel64/rechour.o rel64/recmon.o rel64/recyear.o rel64/regres.o rel64/rerun.o rel64/rerunfile.o rel64/rerunps.o rel64/res.o rel64/resbact.o rel64/resetlu.o rel64/resinit.o rel64/resnut.o rel64/response.o rel64/rewind_init.o rel64/rhgen.o rel64/rootfr.o rel64/route.o rel64/routres.o rel64/rsedaa.o rel64/rseday.o rel64/rsedmon.o rel64/rsedyr.o rel64/rtbact.o rel64/rtday.o rel64/rteinit.o rel64/rthmusk.o rel64/rthourly.o rel64/rthpest.o rel64/rthsed.o rel64/rtmusk.o rel64/rtout.o rel64/rtover.o rel64/rtpest.o rel64/rtsed.o rel64/rtsed_bagnold.o rel64/rtsed_kodatie.o rel64/rtsed_molinas_wu.o rel64/rtsed_yangsand.o rel64/sample.o rel64/sample1.o rel64/sat_excess.o rel64/save.o rel64/saveconc.o rel64/scestat.o rel64/schedule_ops.o rel64/sensin.o rel64/sensmain.o rel64/simulate.o rel64/sim_initday.o rel64/sim_inityr.o rel64/slrgen.o rel64/smeas.o rel64/snom.o rel64/soil_chem.o rel64/soil_par.o rel64/soil_phys.o rel64/soil_write.o rel64/solp.o rel64/solt.o rel64/sort1.o rel64/sort3.o rel64/sorteer.o rel64/sorteer2.o rel64/sorteer3.o rel64/sorteer4.o rel64/sorteer5.o rel64/sorteer6.o rel64/std1.o rel64/std2.o rel64/std3.o rel64/stdaa.o rel64/storeinitial.o rel64/structure.o rel64/subaa.o rel64/subbasin.o rel64/subday.o rel64/submon.o rel64/substor.o rel64/subwq.o rel64/subyr.o rel64/sumhyd.o rel64/sumv.o rel64/sunglasr.o rel64/sunglass.o rel64/sunglasu.o rel64/surface.o rel64/surfstor.o rel64/surfst_h2o.o rel64/surq_daycn.o rel64/surq_greenampt.o rel64/swbl.o rel64/sweep.o rel64/swu.o rel64/tair.o rel64/telobjre.o rel64/telobs.o rel64/telpar.o rel64/tgen.o rel64/theta.o rel64/tillfactor.o rel64/tillmix.o rel64/tmeas.o rel64/tran.o rel64/transfer.o rel64/tstr.o rel64/ttcoef.o rel64/urban.o rel64/urb_bmp.o rel64/varinit.o rel64/vbl.o rel64/virtual.o rel64/volq.o rel64/vrval.o rel64/washp.o rel64/watbal.o rel64/watqual.o rel64/watqual2.o rel64/wattable.o rel64/watuse.o rel64/weatgn.o rel64/wetlan.o rel64/wmeas.o rel64/wndgen.o rel64/writea.o rel64/writeaa.o rel64/writed.o rel64/writem.o rel64/writeswatfile.o rel64/writeswatmain.o rel64/xisquare.o rel64/xiunc.o rel64/xmon.o rel64/ysed.o rel64/zero0.o rel64/zero1.o rel64/zero2.o rel64/zeroini.o
+OBJECTS_REL64=  rel64/addh.o rel64/albedo.o rel64/allocate_parms.o rel64/alph.o rel64/anfert.o rel64/apex_day.o rel64/apply.o rel64/ascrv.o rel64/atri.o rel64/aunif.o rel64/autoirr.o rel64/aveval.o rel64/bacteria.o rel64/biofilm.o rel64/biozone.o rel64/bmpfixed.o rel64/bmpinit.o rel64/bmp_det_pond.o rel64/bmp_ri_pond.o rel64/bmp_sand_filter.o rel64/bmp_sed_pond.o rel64/bmp_wet_pond.o rel64/buffer.o rel64/burnop.o rel64/canopyint.o rel64/caps.o rel64/carbon_new.o rel64/chkcst.o rel64/clgen.o rel64/clicon.o rel64/command.o rel64/conapply.o rel64/confert.o rel64/crackflow.o rel64/crackvol.o rel64/curno.o rel64/dailycn.o rel64/decay.o rel64/depstor.o rel64/distrib_bmps.o rel64/dormant.o rel64/drains.o rel64/dstn1.o rel64/ee.o rel64/eiusle.o rel64/enrsb.o rel64/erfc.o rel64/estimate_ksat.o rel64/etact.o rel64/etpot.o rel64/expo.o rel64/fert.o rel64/filter.o rel64/filtw.o rel64/finalbal.o rel64/gcycl.o rel64/getallo.o rel64/getallo2.o rel64/grass_wway.o rel64/graze.o rel64/grow.o rel64/gwmod.o rel64/gwnutr.o rel64/gw_no3.o rel64/h2omgt_init.o rel64/harvestop.o rel64/harvgrainop.o rel64/harvkillop.o rel64/header.o rel64/headout.o rel64/hhnoqual.o rel64/hhwatqual.o rel64/hmeas.o rel64/hruaa.o rel64/hruallo.o rel64/hruday.o rel64/hrumon.o rel64/hrupond.o rel64/hrupondhr.o rel64/hruyr.o rel64/hydroinit.o rel64/icl.o rel64/impndaa.o rel64/impndday.o rel64/impndmon.o rel64/impndyr.o rel64/impnd_init.o rel64/irrigate.o rel64/irrsub.o rel64/irr_rch.o rel64/irr_res.o rel64/jdt.o rel64/killop.o rel64/lakeq.o rel64/latsed.o rel64/layersplit.o rel64/lwqdef.o rel64/main.o rel64/ndenit.o rel64/newtillmix.o rel64/nfix.o rel64/nitvol.o rel64/nlch.o rel64/nminrl.o rel64/noqual.o rel64/npup.o rel64/nrain.o rel64/nup.o rel64/nuts.o rel64/openwth.o rel64/operatn.o rel64/orgn.o rel64/orgncswat.o rel64/origtile.o rel64/ovr_sed.o rel64/percmacro.o rel64/percmain.o rel64/percmicro.o rel64/pestlch.o rel64/pestw.o rel64/pesty.o rel64/pgen.o rel64/pgenhr.o rel64/pkq.o rel64/plantmod.o rel64/plantop.o rel64/pmeas.o rel64/pminrl.o rel64/pminrl2.o rel64/pond.o rel64/pondhr.o rel64/pothole.o rel64/potholehr.o rel64/print_hyd.o rel64/psed.o rel64/qman.o rel64/ran1.o rel64/rchaa.o rel64/rchday.o rel64/rchinit.o rel64/rchmon.o rel64/rchuse.o rel64/rchyr.o rel64/reachout.o rel64/readatmodep.o rel64/readbsn.o rel64/readchm.o rel64/readcnst.o rel64/readfcst.o rel64/readfert.o rel64/readfig.o rel64/readfile.o rel64/readgw.o rel64/readhru.o rel64/readinpt.o rel64/readlup.o rel64/readlwq.o rel64/readmgt.o rel64/readmon.o rel64/readops.o rel64/readparmfile.o rel64/readpest.o rel64/readplant.o rel64/readpnd.o rel64/readres.o rel64/readrte.o rel64/readru.o rel64/readsdr.o rel64/readsepticbz.o rel64/readseptwq.o rel64/readsno.o rel64/readsol.o rel64/readsub.o rel64/readswq.o rel64/readtill.o rel64/readurban.o rel64/readwgn.o rel64/readwus.o rel64/readwwq.o rel64/readyr.o rel64/reccnst.o rel64/recday.o rel64/rechour.o rel64/recmon.o rel64/recyear.o rel64/regres.o rel64/res.o rel64/resbact.o rel64/resetlu.o rel64/reshr.o rel64/resinit.o rel64/resnut.o rel64/rewind_init.o rel64/rhgen.o rel64/rootfr.o rel64/route.o rel64/routels.o rel64/routeunit.o rel64/routres.o rel64/rsedaa.o rel64/rseday.o rel64/rsedmon.o rel64/rsedyr.o rel64/rtbact.o rel64/rtday.o rel64/rteinit.o rel64/rthmusk.o rel64/rthpest.o rel64/rthr.o rel64/rthsed.o rel64/rtmusk.o rel64/rtout.o rel64/rtpest.o rel64/rtsed.o rel64/rtsed_bagnold.o rel64/rtsed_kodatie.o rel64/rtsed_molinas_wu.o rel64/rtsed_yangsand.o rel64/ruallo.o rel64/sat_excess.o rel64/save.o rel64/saveconc.o rel64/schedule_ops.o rel64/sched_mgt.o rel64/simulate.o rel64/sim_initday.o rel64/sim_inityr.o rel64/slrgen.o rel64/smeas.o rel64/snom.o rel64/soil_chem.o rel64/soil_par.o rel64/soil_phys.o rel64/soil_write.o rel64/solp.o rel64/solt.o rel64/std1.o rel64/std2.o rel64/std3.o rel64/stdaa.o rel64/storeinitial.o rel64/structure.o rel64/subaa.o rel64/subbasin.o rel64/subday.o rel64/submon.o rel64/substor.o rel64/subwq.o rel64/subyr.o rel64/sub_subbasin.o rel64/sumhyd.o rel64/sumv.o rel64/surface.o rel64/surfstor.o rel64/surfst_h2o.o rel64/surq_daycn.o rel64/surq_greenampt.o rel64/swbl.o rel64/sweep.o rel64/swu.o rel64/tair.o rel64/tgen.o rel64/theta.o rel64/tillfactor.o rel64/tillmix.o rel64/tmeas.o rel64/tran.o rel64/transfer.o rel64/tstr.o rel64/ttcoef.o rel64/ttcoef_wway.o rel64/urban.o rel64/urbanhr.o rel64/urb_bmp.o rel64/varinit.o rel64/vbl.o rel64/virtual.o rel64/volq.o rel64/washp.o rel64/watbal.o rel64/water_hru.o rel64/watqual.o rel64/watqual2.o rel64/wattable.o rel64/watuse.o rel64/weatgn.o rel64/wetlan.o rel64/wmeas.o rel64/wndgen.o rel64/writea.o rel64/writeaa.o rel64/writed.o rel64/writem.o rel64/xmon.o rel64/ysed.o rel64/zero0.o rel64/zero1.o rel64/zero2.o rel64/zeroini.o rel64/zero_urbn.o
 
 NAMEREL64=swat_rel64
 rel64:rel64_mkdir ${NAMEREL64}
@@ -3041,9 +2803,6 @@ rel64/allocate_parms.o: allocate_parms.f rel64/main.o
 rel64/alph.o: alph.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  alph.f -o rel64/alph.o -I rel64
 
-rel64/analyse.o: analyse.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  analyse.f -o rel64/analyse.o -I rel64
-
 rel64/anfert.o: anfert.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  anfert.f -o rel64/anfert.o -I rel64
 
@@ -3062,14 +2821,8 @@ rel64/atri.o: atri.f rel64/main.o
 rel64/aunif.o: aunif.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  aunif.f -o rel64/aunif.o -I rel64
 
-rel64/autocal.o: autocal.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  autocal.f -o rel64/autocal.o -I rel64
-
 rel64/autoirr.o: autoirr.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  autoirr.f -o rel64/autoirr.o -I rel64
-
-rel64/automet.o: automet.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  automet.f -o rel64/automet.o -I rel64
 
 rel64/aveval.o: aveval.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  aveval.f -o rel64/aveval.o -I rel64
@@ -3077,26 +2830,38 @@ rel64/aveval.o: aveval.f rel64/main.o
 rel64/bacteria.o: bacteria.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  bacteria.f -o rel64/bacteria.o -I rel64
 
-rel64/batchin.o: batchin.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  batchin.f -o rel64/batchin.o -I rel64
-
-rel64/batchmain.o: batchmain.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  batchmain.f -o rel64/batchmain.o -I rel64
-
-rel64/bayes.o: bayes.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  bayes.f -o rel64/bayes.o -I rel64
+rel64/biofilm.o: biofilm.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  biofilm.f -o rel64/biofilm.o -I rel64
 
 rel64/biozone.o: biozone.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG} biozone.f -o rel64/biozone.o -I rel64
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  biozone.f -o rel64/biozone.o -I rel64
+
+rel64/bmpfixed.o: bmpfixed.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  bmpfixed.f -o rel64/bmpfixed.o -I rel64
+
+rel64/bmpinit.o: bmpinit.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG} ${LONGFIX} bmpinit.f -o rel64/bmpinit.o -I rel64
+
+rel64/bmp_det_pond.o: bmp_det_pond.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG} ${LONGFIX} bmp_det_pond.f -o rel64/bmp_det_pond.o -I rel64
+
+rel64/bmp_ri_pond.o: bmp_ri_pond.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  bmp_ri_pond.f -o rel64/bmp_ri_pond.o -I rel64
+
+rel64/bmp_sand_filter.o: bmp_sand_filter.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  bmp_sand_filter.f -o rel64/bmp_sand_filter.o -I rel64
+
+rel64/bmp_sed_pond.o: bmp_sed_pond.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  bmp_sed_pond.f -o rel64/bmp_sed_pond.o -I rel64
+
+rel64/bmp_wet_pond.o: bmp_wet_pond.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  bmp_wet_pond.f -o rel64/bmp_wet_pond.o -I rel64
 
 rel64/buffer.o: buffer.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  buffer.f -o rel64/buffer.o -I rel64
 
 rel64/burnop.o: burnop.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  burnop.f -o rel64/burnop.o -I rel64
-
-rel64/calresidu.o: calresidu.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  calresidu.f -o rel64/calresidu.o -I rel64
 
 rel64/canopyint.o: canopyint.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  canopyint.f -o rel64/canopyint.o -I rel64
@@ -3106,9 +2871,6 @@ rel64/caps.o: caps.f rel64/main.o
 
 rel64/carbon_new.o: carbon_new.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  carbon_new.f -o rel64/carbon_new.o -I rel64
-
-rel64/changepar.o: changepar.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  changepar.f -o rel64/changepar.o -I rel64
 
 rel64/chkcst.o: chkcst.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  chkcst.f -o rel64/chkcst.o -I rel64
@@ -3128,12 +2890,6 @@ rel64/conapply.o: conapply.f rel64/main.o
 rel64/confert.o: confert.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  confert.f -o rel64/confert.o -I rel64
 
-rel64/copyfile.o: copyfile.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  copyfile.f -o rel64/copyfile.o -I rel64
-
-rel64/countobs.o: countobs.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  countobs.f -o rel64/countobs.o -I rel64
-
 rel64/crackflow.o: crackflow.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  crackflow.f -o rel64/crackflow.o -I rel64
 
@@ -3149,8 +2905,17 @@ rel64/dailycn.o: dailycn.f rel64/main.o
 rel64/decay.o: decay.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  decay.f -o rel64/decay.o -I rel64
 
+rel64/depstor.o: depstor.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  depstor.f -o rel64/depstor.o -I rel64
+
+rel64/distrib_bmps.o: distrib_bmps.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  distrib_bmps.f -o rel64/distrib_bmps.o -I rel64
+
 rel64/dormant.o: dormant.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  dormant.f -o rel64/dormant.o -I rel64
+
+rel64/drains.o: drains.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  drains.f -o rel64/drains.o -I rel64
 
 rel64/dstn1.o: dstn1.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  dstn1.f -o rel64/dstn1.o -I rel64
@@ -3191,12 +2956,6 @@ rel64/filtw.o: filtw.f rel64/main.o
 rel64/finalbal.o: finalbal.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  finalbal.f -o rel64/finalbal.o -I rel64
 
-rel64/functn.o: functn.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  functn.f -o rel64/functn.o -I rel64
-
-rel64/gasdev.o: gasdev.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  gasdev.f -o rel64/gasdev.o -I rel64
-
 rel64/gcycl.o: gcycl.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  gcycl.f -o rel64/gcycl.o -I rel64
 
@@ -3205,15 +2964,6 @@ rel64/getallo.o: getallo.f rel64/main.o
 
 rel64/getallo2.o: getallo2.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  getallo2.f -o rel64/getallo2.o -I rel64
-
-rel64/getpnt.o: getpnt.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  getpnt.f -o rel64/getpnt.o -I rel64
-
-rel64/getpnt2.o: getpnt2.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  getpnt2.f -o rel64/getpnt2.o -I rel64
-
-rel64/goc.o: goc.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  goc.f -o rel64/goc.o -I rel64
 
 rel64/grass_wway.o: grass_wway.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  grass_wway.f -o rel64/grass_wway.o -I rel64
@@ -3275,11 +3025,17 @@ rel64/hrumon.o: hrumon.f rel64/main.o
 rel64/hrupond.o: hrupond.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hrupond.f -o rel64/hrupond.o -I rel64
 
+rel64/hrupondhr.o: hrupondhr.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hrupondhr.f -o rel64/hrupondhr.o -I rel64
+
 rel64/hruyr.o: hruyr.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hruyr.f -o rel64/hruyr.o -I rel64
 
 rel64/hydroinit.o: hydroinit.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hydroinit.f -o rel64/hydroinit.o -I rel64
+
+rel64/icl.o: icl.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  icl.f -o rel64/icl.o -I rel64
 
 rel64/impndaa.o: impndaa.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  impndaa.f -o rel64/impndaa.o -I rel64
@@ -3295,9 +3051,6 @@ rel64/impndyr.o: impndyr.f rel64/main.o
 
 rel64/impnd_init.o: impnd_init.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  impnd_init.f -o rel64/impnd_init.o -I rel64
-
-rel64/indexx.o: indexx.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  indexx.f -o rel64/indexx.o -I rel64
 
 rel64/irrigate.o: irrigate.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  irrigate.f -o rel64/irrigate.o -I rel64
@@ -3330,7 +3083,7 @@ rel64/lwqdef.o: lwqdef.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  lwqdef.f -o rel64/lwqdef.o -I rel64
 
 rel64/main.o: main.f modparm.f
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG} main.f -o rel64/main.o -J rel64
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  main.f -o rel64/main.o -J rel64
 
 rel64/ndenit.o: ndenit.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  ndenit.f -o rel64/ndenit.o -I rel64
@@ -3365,12 +3118,6 @@ rel64/nup.o: nup.f rel64/main.o
 rel64/nuts.o: nuts.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  nuts.f -o rel64/nuts.o -I rel64
 
-rel64/oat.o: oat.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  oat.f -o rel64/oat.o -I rel64
-
-rel64/objfunctn.o: objfunctn.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  objfunctn.f -o rel64/objfunctn.o -I rel64
-
 rel64/openwth.o: openwth.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  openwth.f -o rel64/openwth.o -I rel64
 
@@ -3383,23 +3130,11 @@ rel64/orgn.o: orgn.f rel64/main.o
 rel64/orgncswat.o: orgncswat.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  orgncswat.f -o rel64/orgncswat.o -I rel64
 
-rel64/parasol.o: parasol.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  parasol.f -o rel64/parasol.o -I rel64
+rel64/origtile.o: origtile.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  origtile.f -o rel64/origtile.o -I rel64
 
-rel64/parasolc.o: parasolc.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  parasolc.f -o rel64/parasolc.o -I rel64
-
-rel64/parasoli.o: parasoli.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  parasoli.f -o rel64/parasoli.o -I rel64
-
-rel64/parasolo.o: parasolo.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  parasolo.f -o rel64/parasolo.o -I rel64
-
-rel64/parasolu.o: parasolu.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  parasolu.f -o rel64/parasolu.o -I rel64
-
-rel64/parstt2.o: parstt2.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  parstt2.f -o rel64/parstt2.o -I rel64
+rel64/ovr_sed.o: ovr_sed.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG} ${LONGFIX} ovr_sed.f -o rel64/ovr_sed.o -I rel64
 
 rel64/percmacro.o: percmacro.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  percmacro.f -o rel64/percmacro.o -I rel64
@@ -3440,11 +3175,20 @@ rel64/pmeas.o: pmeas.f rel64/main.o
 rel64/pminrl.o: pminrl.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  pminrl.f -o rel64/pminrl.o -I rel64
 
+rel64/pminrl2.o: pminrl2.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  pminrl2.f -o rel64/pminrl2.o -I rel64
+
 rel64/pond.o: pond.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  pond.f -o rel64/pond.o -I rel64
 
+rel64/pondhr.o: pondhr.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  pondhr.f -o rel64/pondhr.o -I rel64
+
 rel64/pothole.o: pothole.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  pothole.f -o rel64/pothole.o -I rel64
+
+rel64/potholehr.o: potholehr.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  potholehr.f -o rel64/potholehr.o -I rel64
 
 rel64/print_hyd.o: print_hyd.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  print_hyd.f -o rel64/print_hyd.o -I rel64
@@ -3457,9 +3201,6 @@ rel64/qman.o: qman.f rel64/main.o
 
 rel64/ran1.o: ran1.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  ran1.f -o rel64/ran1.o -I rel64
-
-rel64/ranked.o: ranked.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  ranked.f -o rel64/ranked.o -I rel64
 
 rel64/rchaa.o: rchaa.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rchaa.f -o rel64/rchaa.o -I rel64
@@ -3487,9 +3228,6 @@ rel64/readatmodep.o: readatmodep.f rel64/main.o
 
 rel64/readbsn.o: readbsn.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readbsn.f -o rel64/readbsn.o -I rel64
-
-rel64/readchan.o: readchan.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readchan.f -o rel64/readchan.o -I rel64
 
 rel64/readchm.o: readchm.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readchm.f -o rel64/readchm.o -I rel64
@@ -3524,9 +3262,6 @@ rel64/readlup.o: readlup.f rel64/main.o
 rel64/readlwq.o: readlwq.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readlwq.f -o rel64/readlwq.o -I rel64
 
-rel64/readmetf.o: readmetf.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readmetf.f -o rel64/readmetf.o -I rel64
-
 rel64/readmgt.o: readmgt.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readmgt.f -o rel64/readmgt.o -I rel64
 
@@ -3553,6 +3288,12 @@ rel64/readres.o: readres.f rel64/main.o
 
 rel64/readrte.o: readrte.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readrte.f -o rel64/readrte.o -I rel64
+
+rel64/readru.o: readru.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readru.f -o rel64/readru.o -I rel64
+
+rel64/readsdr.o: readsdr.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readsdr.f -o rel64/readsdr.o -I rel64
 
 rel64/readsepticbz.o: readsepticbz.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  readsepticbz.f -o rel64/readsepticbz.o -I rel64
@@ -3608,15 +3349,6 @@ rel64/recyear.o: recyear.f rel64/main.o
 rel64/regres.o: regres.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  regres.f -o rel64/regres.o -I rel64
 
-rel64/rerun.o: rerun.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rerun.f -o rel64/rerun.o -I rel64
-
-rel64/rerunfile.o: rerunfile.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rerunfile.f -o rel64/rerunfile.o -I rel64
-
-rel64/rerunps.o: rerunps.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rerunps.f -o rel64/rerunps.o -I rel64
-
 rel64/res.o: res.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  res.f -o rel64/res.o -I rel64
 
@@ -3626,14 +3358,14 @@ rel64/resbact.o: resbact.f rel64/main.o
 rel64/resetlu.o: resetlu.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  resetlu.f -o rel64/resetlu.o -I rel64
 
+rel64/reshr.o: reshr.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  reshr.f -o rel64/reshr.o -I rel64
+
 rel64/resinit.o: resinit.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  resinit.f -o rel64/resinit.o -I rel64
 
 rel64/resnut.o: resnut.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  resnut.f -o rel64/resnut.o -I rel64
-
-rel64/response.o: response.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  response.f -o rel64/response.o -I rel64
 
 rel64/rewind_init.o: rewind_init.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rewind_init.f -o rel64/rewind_init.o -I rel64
@@ -3646,6 +3378,12 @@ rel64/rootfr.o: rootfr.f rel64/main.o
 
 rel64/route.o: route.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  route.f -o rel64/route.o -I rel64
+
+rel64/routels.o: routels.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  routels.f -o rel64/routels.o -I rel64
+
+rel64/routeunit.o: routeunit.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  routeunit.f -o rel64/routeunit.o -I rel64
 
 rel64/routres.o: routres.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  routres.f -o rel64/routres.o -I rel64
@@ -3674,11 +3412,11 @@ rel64/rteinit.o: rteinit.f rel64/main.o
 rel64/rthmusk.o: rthmusk.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rthmusk.f -o rel64/rthmusk.o -I rel64
 
-rel64/rthourly.o: rthourly.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rthourly.f -o rel64/rthourly.o -I rel64
-
 rel64/rthpest.o: rthpest.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rthpest.f -o rel64/rthpest.o -I rel64
+
+rel64/rthr.o: rthr.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rthr.f -o rel64/rthr.o -I rel64
 
 rel64/rthsed.o: rthsed.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG} ${LONGFIX} rthsed.f -o rel64/rthsed.o -I rel64
@@ -3688,9 +3426,6 @@ rel64/rtmusk.o: rtmusk.f rel64/main.o
 
 rel64/rtout.o: rtout.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rtout.f -o rel64/rtout.o -I rel64
-
-rel64/rtover.o: rtover.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rtover.f -o rel64/rtover.o -I rel64
 
 rel64/rtpest.o: rtpest.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rtpest.f -o rel64/rtpest.o -I rel64
@@ -3710,11 +3445,8 @@ rel64/rtsed_molinas_wu.o: rtsed_molinas_wu.f rel64/main.o
 rel64/rtsed_yangsand.o: rtsed_yangsand.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rtsed_yangsand.f -o rel64/rtsed_yangsand.o -I rel64
 
-rel64/sample.o: sample.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sample.f -o rel64/sample.o -I rel64
-
-rel64/sample1.o: sample1.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sample1.f -o rel64/sample1.o -I rel64
+rel64/ruallo.o: ruallo.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  ruallo.f -o rel64/ruallo.o -I rel64
 
 rel64/sat_excess.o: sat_excess.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sat_excess.f -o rel64/sat_excess.o -I rel64
@@ -3725,17 +3457,11 @@ rel64/save.o: save.f rel64/main.o
 rel64/saveconc.o: saveconc.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  saveconc.f -o rel64/saveconc.o -I rel64
 
-rel64/scestat.o: scestat.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  scestat.f -o rel64/scestat.o -I rel64
-
 rel64/schedule_ops.o: schedule_ops.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  schedule_ops.f -o rel64/schedule_ops.o -I rel64
 
-rel64/sensin.o: sensin.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sensin.f -o rel64/sensin.o -I rel64
-
-rel64/sensmain.o: sensmain.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sensmain.f -o rel64/sensmain.o -I rel64
+rel64/sched_mgt.o: sched_mgt.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sched_mgt.f -o rel64/sched_mgt.o -I rel64
 
 rel64/simulate.o: simulate.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  simulate.f -o rel64/simulate.o -I rel64
@@ -3772,30 +3498,6 @@ rel64/solp.o: solp.f rel64/main.o
 
 rel64/solt.o: solt.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  solt.f -o rel64/solt.o -I rel64
-
-rel64/sort1.o: sort1.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sort1.f -o rel64/sort1.o -I rel64
-
-rel64/sort3.o: sort3.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sort3.f -o rel64/sort3.o -I rel64
-
-rel64/sorteer.o: sorteer.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sorteer.f -o rel64/sorteer.o -I rel64
-
-rel64/sorteer2.o: sorteer2.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sorteer2.f -o rel64/sorteer2.o -I rel64
-
-rel64/sorteer3.o: sorteer3.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sorteer3.f -o rel64/sorteer3.o -I rel64
-
-rel64/sorteer4.o: sorteer4.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sorteer4.f -o rel64/sorteer4.o -I rel64
-
-rel64/sorteer5.o: sorteer5.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sorteer5.f -o rel64/sorteer5.o -I rel64
-
-rel64/sorteer6.o: sorteer6.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sorteer6.f -o rel64/sorteer6.o -I rel64
 
 rel64/std1.o: std1.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  std1.f -o rel64/std1.o -I rel64
@@ -3836,20 +3538,14 @@ rel64/subwq.o: subwq.f rel64/main.o
 rel64/subyr.o: subyr.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  subyr.f -o rel64/subyr.o -I rel64
 
+rel64/sub_subbasin.o: sub_subbasin.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sub_subbasin.f -o rel64/sub_subbasin.o -I rel64
+
 rel64/sumhyd.o: sumhyd.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sumhyd.f -o rel64/sumhyd.o -I rel64
 
 rel64/sumv.o: sumv.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sumv.f -o rel64/sumv.o -I rel64
-
-rel64/sunglasr.o: sunglasr.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sunglasr.f -o rel64/sunglasr.o -I rel64
-
-rel64/sunglass.o: sunglass.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sunglass.f -o rel64/sunglass.o -I rel64
-
-rel64/sunglasu.o: sunglasu.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sunglasu.f -o rel64/sunglasu.o -I rel64
 
 rel64/surface.o: surface.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  surface.f -o rel64/surface.o -I rel64
@@ -3878,15 +3574,6 @@ rel64/swu.o: swu.f rel64/main.o
 rel64/tair.o: tair.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  tair.f -o rel64/tair.o -I rel64
 
-rel64/telobjre.o: telobjre.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  telobjre.f -o rel64/telobjre.o -I rel64
-
-rel64/telobs.o: telobs.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  telobs.f -o rel64/telobs.o -I rel64
-
-rel64/telpar.o: telpar.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  telpar.f -o rel64/telpar.o -I rel64
-
 rel64/tgen.o: tgen.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  tgen.f -o rel64/tgen.o -I rel64
 
@@ -3914,8 +3601,14 @@ rel64/tstr.o: tstr.f rel64/main.o
 rel64/ttcoef.o: ttcoef.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  ttcoef.f -o rel64/ttcoef.o -I rel64
 
+rel64/ttcoef_wway.o: ttcoef_wway.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  ttcoef_wway.f -o rel64/ttcoef_wway.o -I rel64
+
 rel64/urban.o: urban.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  urban.f -o rel64/urban.o -I rel64
+
+rel64/urbanhr.o: urbanhr.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  urbanhr.f -o rel64/urbanhr.o -I rel64
 
 rel64/urb_bmp.o: urb_bmp.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  urb_bmp.f -o rel64/urb_bmp.o -I rel64
@@ -3932,14 +3625,14 @@ rel64/virtual.o: virtual.f rel64/main.o
 rel64/volq.o: volq.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  volq.f -o rel64/volq.o -I rel64
 
-rel64/vrval.o: vrval.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  vrval.f -o rel64/vrval.o -I rel64
-
 rel64/washp.o: washp.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  washp.f -o rel64/washp.o -I rel64
 
 rel64/watbal.o: watbal.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  watbal.f -o rel64/watbal.o -I rel64
+
+rel64/water_hru.o: water_hru.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  water_hru.f -o rel64/water_hru.o -I rel64
 
 rel64/watqual.o: watqual.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  watqual.f -o rel64/watqual.o -I rel64
@@ -3977,18 +3670,6 @@ rel64/writed.o: writed.f rel64/main.o
 rel64/writem.o: writem.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  writem.f -o rel64/writem.o -I rel64
 
-rel64/writeswatfile.o: writeswatfile.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  writeswatfile.f -o rel64/writeswatfile.o -I rel64
-
-rel64/writeswatmain.o: writeswatmain.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  writeswatmain.f -o rel64/writeswatmain.o -I rel64
-
-rel64/xisquare.o: xisquare.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  xisquare.f -o rel64/xisquare.o -I rel64
-
-rel64/xiunc.o: xiunc.f rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  xiunc.f -o rel64/xiunc.o -I rel64
-
 rel64/xmon.o: xmon.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  xmon.f -o rel64/xmon.o -I rel64
 
@@ -4006,6 +3687,9 @@ rel64/zero2.o: zero2.f rel64/main.o
 
 rel64/zeroini.o: zeroini.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  zeroini.f -o rel64/zeroini.o -I rel64
+
+rel64/zero_urbn.o: zero_urbn.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  zero_urbn.f -o rel64/zero_urbn.o -I rel64
 
 rel64_clean:
 	rm -f ${NAMEREL64}.exe

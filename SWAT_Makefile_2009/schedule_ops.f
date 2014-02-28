@@ -137,27 +137,40 @@
 		b = grwat_w(ihru) - 2. * grwat_d(ihru) * 8
 !! Depth and Width not possible with 8:1 sideslope and trapazoidal channel assume b =.25*width
 	    if (b <= 0.) grwat_d(ihru) = 3. / 64. * grwat_w(ihru)
-!! copy a few variables so that ttcoef can find them
-           ch_n(2,msub+1) = grwat_n(ihru)
-           ch_l2(msub+1) = grwat_l(ihru)
-           ch_w(2,msub+1) = grwat_w(ihru)
-           ch_d(msub+1) = grwat_d(ihru)
-           ch_s(2,msub+1) = grwat_s(ihru)
-           call ttcoef(msub+1)
+
+           call ttcoef_wway
 		      
-!! get data from ttcoef and store different array for waterways one place per hru
-		  do zz = 1, 13
-             wat_phi(zz,ihru) = phi(zz,msub+1)
-            end do
-		
-
-
-
         case (8)
            plant_no = cropno_upd(iops,ihru)
            blai(plant_no) = laimx_upd(iops,ihru)
            hvsti(plant_no) = hi_upd(iops,ihru)
 
+	 case (9)
+	!! Implement Residue Management MJW
+		if (so_res_flag(iops,ihru) == 1)  then
+		  min_res(ihru) = so_res(iops,ihru)
+	    else
+	      min_res(ihru) = 0.
+	    end if
+
+	case (10) !! User defined Upland CP removal MJW
+		if (ro_bmp_flag (iops,ihru) == 1) then
+		  bmp_flag(ihru) = 1
+		  bmp_sed(ihru) = ro_bmp_sed(iops,ihru)  !! Sediment
+		  bmp_pp(ihru) = ro_bmp_pp(iops,ihru) !! Particulate P
+		  bmp_sp(ihru) = ro_bmp_sp(iops,ihru)  !! Soluble P
+		  bmp_pn(ihru) =  ro_bmp_pn(iops,ihru)  !! Particulate N
+		  bmp_sn(ihru) = ro_bmp_sn(iops,ihru)  !! Soluble N
+		  bmp_bac(ihru) = ro_bmp_bac(iops,ihru)  !! Bacteria
+		else
+		  bmp_flag(ihru) = 0
+		  bmp_sed(ihru) = 0.  !! Sediment
+		  bmp_pp(ihru) = 0. !! Particulate P
+		  bmp_sp(ihru) = 0.  !! Soluble P
+		  bmp_pn(ihru) =  0.  !! Particulate N
+		  bmp_sn(ihru) = 0.  !! Soluble N
+		  bmp_bac(ihru) = 0.  !! Bacteria
+	    end if
 
 	   end select
 

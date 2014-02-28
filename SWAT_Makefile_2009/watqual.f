@@ -241,7 +241,7 @@
        wtrin = 0.
        wtrin = varoute(2,inum2) * (1. - rnum1)
 
-       if (rtwtr / 86400. > 0.01 .and. wtrin > 1.e-4) then
+       if (wtrin > 1.e-4) then
 !! concentrations
          !! initialize inflow concentrations
          chlin = 0.
@@ -265,7 +265,7 @@
          orgpin = 1000. * varoute(5,inum2) * (1. - rnum1) / wtrin
          dispin = 1000. * varoute(7,inum2) * (1. - rnum1) / wtrin
          cbodin = 1000. * varoute(16,inum2) * (1. - rnum1) / wtrin
-         disoxin= 1000. * varoute(17,inum2) * (1. - rnum1) / wtrin
+         disoxin = 1000. * varoute(17,inum2) * (1. - rnum1) / wtrin
          end if
 
          !! initialize concentration of nutrient in reach
@@ -429,6 +429,16 @@
          zz = Theta(rk3(jrch),thrk3,wtmp) * cbodcon
          rch_cbod(jrch) = 0.
          rch_cbod(jrch) = cbodcon - (yy + zz) * tday
+         
+         !!deoxygenation rate
+         rk1(jrch) = .5
+         coef = exp(-Theta(rk1(jrch),thrk1,wtmp) * tday)
+         cbodrch = coef * cbodcon
+         !!cbod rate loss due to settling
+         coef = exp(-Theta(rk3(jrch),thrk3,wtmp) * tday)
+         cbodrch = coef * cbodrch
+         
+         rch_cbod(jrch) = cbodrch
          if (rch_cbod(jrch) < 1.e-6) rch_cbod(jrch) = 0.
 	   if (rch_cbod(jrch) > dcoef * cbodcon) rch_cbod(jrch) = dcoef * 
      &	   cbodcon
@@ -441,6 +451,8 @@
          xx = 0.
          yy = 0.
          zz = 0.
+         rhoq = 1.0
+         rk2(jrch) = 1.0
          uu = Theta(rk2(jrch),thrk2,wtmp) * (soxy - o2con)
          vv = (ai3 * Theta(gra,thgra,wtmp) - ai4 *                      &
      &                                  Theta(rhoq,thrho,wtmp)) * algcon
@@ -450,8 +462,38 @@
          zz = ai6 * Theta(bc2mod,thbc2,wtmp) * no2con
          rch_dox(jrch) = 0.
          rch_dox(jrch) = o2con + (uu + vv - ww - xx - yy - zz) * tday
+         
+         !algea O2 production minus respiration
+         if (vv > 0.) then
+           doxrch = soxy
+         else
+           coef = exp(-0.03 * vv)
+           doxrch = coef * soxy
+         end if
+         
+         !cbod deoxygenation
+         coef = exp(-0.1 * ww)
+         doxrch = coef * doxrch
+         
+         !benthic sediment oxidation
+         coef = 1. - (Theta(rk4(jrch),thrk4,wtmp) / 100.)
+         doxrch = coef * doxrch
+         
+         !ammonia oxydation
+         coef = exp(-0.05 * yy)
+         doxrch = coef * doxrch
+         
+         !nitrite oxydation
+         coef = exp(-0.05 * zz)
+         doxrch = coef * doxrch
+         
+         !reaeration
+         uu = Theta(rk2(jrch),thrk2,wtmp) / 100. * (soxy - doxrch)
+         rch_dox(jrch) = doxrch + uu
+         
          if (rch_dox(jrch) < 1.e-6) rch_dox(jrch) = 0.
-	     if (rch_dox(jrch) > dcoef * o2con) rch_dox(jrch) = dcoef * o2con
+         if (rch_dox(jrch) > soxy) rch_dox(jrch) = soxy
+         if (rch_dox(jrch) > dcoef * o2con) rch_dox(jrch)= dcoef * o2con
 !! end oxygen calculations
 
 !! nitrogen calculations

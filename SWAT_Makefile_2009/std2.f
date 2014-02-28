@@ -127,8 +127,8 @@
           else
             kwet = " "
           end if
-          write (24,1001) j, sub_lat(j), sub_elev(j), hrutot(j), kpnd,  &
-     &                   kbnd, kwet
+          write (24,1001)j, sub_lat(hru_sub(j)), sub_elev(j), hrutot(j), 
+     *         kpnd, kbnd, kwet
 
         end do
 
@@ -139,7 +139,8 @@
           kdrn = " "
           kpot = " "
           if (iurban(j) > 0) kubn = "x"
-          if (ipot(j) == j) kpot = "x"
+     !!     if (ipot(j) == j) kpot = "x"
+          if (pot_fr(j) > 0.) kpot = "x"    
           if (ddrain(j) > 0.) kdrn = "x"
           write (24,1021)hru_sub(j),j,hru_ha(j),hru_slp(j),slsubbsn(j), &
      &          ov_n(j),cn2(j),tconc(j),esco(j),epco(j)
@@ -147,11 +148,9 @@
         
         write (24,1028)
         do j = 1, nhru
-	if (idplt(nro(j),icr(j),j) > 0) then
-         write (24,1029) hru_sub(j), j, hru_ha(j),                      &
-     &                      cpnm(idplt(nro(j),icr(j),j)), snam(j), 
-     &                      cn1(j), cn2(j), cn3(j), sol_sumwp(j),       &
-     &                      sol_sumfc(j), sol_sumul(j)
+	if (idplt(j) > 0) then
+       write (24,1029) hru_sub(j), j, hru_ha(j),cpnm(idplt(j)),snam(j), &
+     &  cn1(j), cn2(j), cn3(j), sol_sumwp(j),sol_sumfc(j), sol_sumul(j)
       else
         write (24,1030)hru_sub(j),j,hru_ha(j), snam(j), cn1(j), cn2(j), &
      &   cn3(j), sol_sumwp(j), sol_sumfc(j), sol_sumul(j)
@@ -172,7 +171,8 @@
           kpst = " "
           ksep = "   "
           if (iurban(j) > 0) kubn = "x"
-          if (ipot(j) == j) kpot = "x"
+       !!   if (ipot(j) == j) kpot = "x"
+          if (pot_fr(j) > 0.) kpot = "x"
           if (ddrain(j) > 0.) kdrn = "x"
           if (hrupest(j) > 0.) kpst = "x"
           if (isep_hru(j) == 1) ksep = "x"
