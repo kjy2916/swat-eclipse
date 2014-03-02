@@ -583,7 +583,8 @@
       integer, dimension (:), allocatable :: nro,nrot,nfert,npest
       integer, dimension (:), allocatable :: igro,nair,ipnd1,ipnd2
       integer, dimension (:), allocatable :: nirr,iflod1,iflod2,ndtarg
-      integer, dimension (:), allocatable :: phu_plt, iafrttyp, nstress
+      integer, dimension (:), allocatable :: iafrttyp, nstress
+      real, dimension (:), allocatable :: phu_plt
       integer, dimension (:), allocatable :: igrotree
       !! burn
       integer, dimension (:), allocatable :: i_burn, grz_days

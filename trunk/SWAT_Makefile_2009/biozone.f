@@ -166,7 +166,9 @@
 	if (isep_opt(j)==2) then
 	  
 	  ! increment the number of failing days
-	  if(sep_tsincefail(j)>0) sep_tsincefail(j) = sep_tsincefail(j) + 1
+	  if(sep_tsincefail(j)>0) then
+	    sep_tsincefail(j) = sep_tsincefail(j) + 1
+	  end if
 
       ! convert the failing system into an active system if duration of failing ends
 	  if (sep_tsincefail(j) >= isep_tfail(j)) then
