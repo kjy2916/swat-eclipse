@@ -611,7 +611,11 @@
       if (ia_b == 1) then
         open (66666,file = "outputb.sub", form = 'unformatted')
       end if
-      open (7,file="output.rch",recl=800)
+      if(ioutput == 0) then
+        open (7,file="output.rch",recl=800)
+      else
+        call sqlite3_open( 'result.db', db )
+      end if
       open (8,file="output.rsv",recl=800)
       if (ia_b == 1) then
         open (77777,file = "outputb.rch", form = 'unformatted')
