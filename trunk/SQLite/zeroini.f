@@ -237,5 +237,8 @@
 !     septic database file
       septdb = ""
 
+      !!SQLite Output
+      ioutput = 1 !!default is SQLite output, used to test
+
       return
       end

@@ -1,4 +1,5 @@
       module parm
+      use sqlite
       integer icalen
       
       real, dimension (:), allocatable :: alph_e
@@ -895,6 +896,16 @@
       ! tillage_factor: = 1.6 in 30 days after tillage practices occur; otherwise 1.0;
 !! By Zhang for C/N cycling
 
+      !!SQLite output
+        integer :: ioutput  !!output format
+                            !!0 = regular file format
+                            !!1 = SQLite format
 
+        type(SQLITE_DATABASE) :: db !!database
+        type(SQLITE_COLUMN), dimension(:), pointer :: colreach
+        type(SQLITE_COLUMN), dimension(:), pointer :: colhru
+        type(SQLITE_COLUMN), dimension(:), pointer :: colsub
+        type(SQLITE_COLUMN), dimension(:), pointer :: colrsv
+        type(SQLITE_COLUMN), dimension(:), pointer :: colwtr
 
       end module parm

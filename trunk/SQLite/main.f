@@ -82,7 +82,7 @@
       call std1
       call std2
       call openwth
-      call headout
+      call headoutsqlite
 
       !! convert integer to string for output.mgt file
       subnum = ""
