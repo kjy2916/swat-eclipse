@@ -65,7 +65,11 @@
       !!The number of common columns
       tblhru_num = 0
       if (icalen == 0) then
-        tblhru_num = 6
+        if(iprint == 2) then    !!yearly output
+            tblhru_num = 5
+        else                    !!daily or monthly output
+            tblhru_num = 6
+        end if
       else if (icalen == 1) then
         tblhru_num = 7
       end if
@@ -86,7 +90,9 @@
       call sqlite3_column_props( colhru(4), "MGT", SQLITE_INT)
       if(icalen == 0) then
         call sqlite3_column_props( colhru(5), "YR", SQLITE_INT)
-        call sqlite3_column_props( colhru(6), "MON", SQLITE_INT)
+        if(iprint < 2) then
+            call sqlite3_column_props( colhru(6), "MON", SQLITE_INT)
+        end if
       else if(icalen == 1) then
         call sqlite3_column_props( colhru(5), "YR", SQLITE_INT)
         call sqlite3_column_props( colhru(6), "MO", SQLITE_INT)

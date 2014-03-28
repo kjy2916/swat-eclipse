@@ -234,18 +234,33 @@
             end if
           end do
 
-          !! annual write--HRU output (output.hru)
-          call hruyr
-          call impndyr
+          if(ioutput == 1) then
+              !! annual write--HRU output (output.hru)
+              call hruyr_sqlite
+              call impndyr
 
-          !! annual write--subbasin output (output.sub)
-          call subyr
+              !! annual write--subbasin output (output.sub)
+              call subyr_sqlite
 
-          !! annual write--reach output (.rch)
-          call rchyr
+              !! annual write--reach output (.rch)
+              call rchyr_sqlite
 
-!         !! annual write--sediment routing (.sed)
-          call rsedyr
+    !         !! annual write--sediment routing (.sed)
+              call rsedyr
+          else
+              !! annual write--HRU output (output.hru)
+              call hruyr
+              call impndyr
+
+              !! annual write--subbasin output (output.sub)
+              call subyr
+
+              !! annual write--reach output (.rch)
+              call rchyr
+
+    !         !! annual write--sediment routing (.sed)
+              call rsedyr
+          end if
 
           idlast = 0
           idlast = i - (id1 - 1)

@@ -345,19 +345,35 @@
      
             end do
 
-            !! monthly write--HRU output (output.hru)
-            call hrumon
+            if(ioutput == 1) then
+                 !! monthly write--HRU output (output.hru)
+                call hrumon_sqlite
 
-            call impndmon
+                call impndmon
 
-            !! monthly write--subbasin output (output.sub)
-            call submon
+                !! monthly write--subbasin output (output.sub)
+                call submon_sqlite
 
-            !! monthly write--reach output (.rch)
-            if (idlast > 0) call rchmon(idlast)
+                !! monthly write--reach output (.rch)
+                if (idlast > 0) call rchmon_sqlite(idlast)
 
-            !! monthly write--sediment routing output (.sed)
-            if (idlast > 0) call rsedmon(idlast)
+                !! monthly write--sediment routing output (.sed)
+                if (idlast > 0) call rsedmon(idlast)
+            else
+                !! monthly write--HRU output (output.hru)
+                call hrumon
+
+                call impndmon
+
+                !! monthly write--subbasin output (output.sub)
+                call submon
+
+                !! monthly write--reach output (.rch)
+                if (idlast > 0) call rchmon(idlast)
+
+                !! monthly write--sediment routing output (.sed)
+                if (idlast > 0) call rsedmon(idlast)
+            end if
 
           end if
 
