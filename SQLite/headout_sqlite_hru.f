@@ -54,48 +54,64 @@
       use parm
 
       integer :: j
-      integer :: colhrunum,colnum
+      integer :: colhrunum
+
+      tblhru = 'hru'
+
+      !!delete any existing table
+      call sqlite3_delete_table( db, tblhru)
 
       !!hru table
       !!The number of common columns
-      colnum = 0
+      tblhru_num = 0
       if (icalen == 0) then
-        colnum = 4
+        tblhru_num = 6
       else if (icalen == 1) then
-        colnum = 6
+        tblhru_num = 7
       end if
 
       !!get number of columns of hru
       colhrunum = 0
       if (ipdvas(1) > 0) then
-        colhrunum = colnum + itots
+        colhrunum = tblhru_num + itots
       else
-        colhrunum = colnum + mhruo
+        colhrunum = tblhru_num + mhruo
       end if
 
       !!create table hru
-      allocate( colreach(colhrunum) )
-      call sqlite3_column_props( colhru(1), "HRU", SQLITE_INT)
-      call sqlite3_column_props( colhru(2), "SUB", SQLITE_INT)
-      call sqlite3_column_props( colhru(3), "MGT", SQLITE_INT)
+      allocate( colhru(colhrunum) )
+      call sqlite3_column_props( colhru(1), "LULC", SQLITE_CHAR,4)
+      call sqlite3_column_props( colhru(2), "HRU", SQLITE_INT)
+      call sqlite3_column_props( colhru(3), "SUB", SQLITE_INT)
+      call sqlite3_column_props( colhru(4), "MGT", SQLITE_INT)
       if(icalen == 0) then
-        call sqlite3_column_props( colhru(4), "MON", SQLITE_INT)
+        call sqlite3_column_props( colhru(5), "YR", SQLITE_INT)
+        call sqlite3_column_props( colhru(6), "MON", SQLITE_INT)
       else if(icalen == 1) then
-        call sqlite3_column_props( colhru(4), "YR", SQLITE_INT)
-        call sqlite3_column_props( colhru(5), "MO", SQLITE_INT)
-        call sqlite3_column_props( colhru(6), "DA", SQLITE_INT)
+        call sqlite3_column_props( colhru(5), "YR", SQLITE_INT)
+        call sqlite3_column_props( colhru(6), "MO", SQLITE_INT)
+        call sqlite3_column_props( colhru(7), "DA", SQLITE_INT)
       end if
       if (ipdvas(1) > 0) then
         do j = 1, itots
-           call sqlite3_column_props(colhru(colnum+j),heds(ipdvas(j)),
+         call sqlite3_column_props(colhru(tblhru_num+j),heds(ipdvas(j)),
      &                                                      SQLITE_REAL)
         end do
       else
         do j = 1, mhruo
-            call sqlite3_column_props(colhru(colnum+j), heds(j),
+            call sqlite3_column_props(colhru(tblhru_num+j), heds(j),
      &                                                      SQLITE_REAL)
         end do
       end if
-      call sqlite3_delete_table( db, "hru")
-      call sqlite3_create_table( db, "hru", colhru )
+      call sqlite3_create_table( db, tblhru, colhru )
+
+      !create index
+      if(icalen == 0) then
+        call sqlite3_create_index( db, "hru_index", tblhru,
+     &                                                 "HRU,SUB,YR,MON")
+      else if(icalen == 1) then
+         call sqlite3_create_index( db, "hru_index", tblhru,
+     &                                               "HRU,SUB,YR,MO,DA")
+      end if
+
       end

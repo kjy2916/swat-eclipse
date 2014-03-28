@@ -272,7 +272,14 @@
       cnv = hru_ha(j) * 10.
 
 !! write daily HRU output
-      if ((iprint==1.or.iprint==3) .and. curyr > nyskip) call hruday
+      if ((iprint==1.or.iprint==3) .and. curyr > nyskip) then
+        if(ioutput == 1) then
+            call hruday_sqlite
+        else
+            call hruday
+        end if
+      end if
+
       if ((iprint==1.or.iprint==3) .and. curyr > nyskip) call impndday
 
 !! sum HRU results for subbasin 
@@ -658,7 +665,14 @@
          submono(17,sb) = submono(17,sb) + sub_gwno3(sb)
          submono(18,sb) = submono(18,sb) + sub_tileno3(sb)
 
-          if (iprint == 1) call subday
+          if (iprint == 1) then
+            if(ioutput == 1) then
+                call subday_sqlite
+            else
+                call subday
+            end if
+          end if
+
         end if
       endif
 

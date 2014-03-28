@@ -740,6 +740,7 @@
 !     code for writing out calendar day or julian day to output.rch, .sub, .hru files
 !     icalen = 0 (print julian day) 1 (print month/day/year) 
       read (101,*, iostat=eof) icalen
+      icalen = 1
 !!!!! if icalen == 1 (print month/day/year) - force iprint to be daily  <--nubz asked srin 06/11/2012
       if (icalen == 1) iprint = 1
       

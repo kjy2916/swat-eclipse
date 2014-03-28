@@ -516,9 +516,9 @@ subroutine sqlite3_delete_table( db, tablename )
    type(SQLITE_DATABASE) :: db
    character(len=*)      :: tablename
 
-   character(len=20+len(tablename)) :: command
+   character(len=25+len(tablename)) :: command
 
-   write( command, "(2A)" ) "DELETE TABLE ", tablename
+   write( command, * ) "DROP TABLE IF EXISTS ", tablename
    call sqlite3_do( db, command )
 
 end subroutine sqlite3_delete_table
@@ -551,7 +551,6 @@ subroutine sqlite3_create_table( db, tablename, columns, primary )
    endif
 
    ncols = size(columns)
-   write(*,*) len(command)
    write( command, * ) 'create table ', tablename, ' (', &
       ( trim(columns(i)%name), ' ', trim(typename(columns(i), primary_)), ', ', &
            i = 1,ncols-1 ), &
@@ -559,6 +558,27 @@ subroutine sqlite3_create_table( db, tablename, columns, primary )
 
    call sqlite3_do( db, command )
 end subroutine sqlite3_create_table
+
+! sqlite3_create_index --
+!    Create index on a table
+! Arguments:
+!    db            Structure for the database
+!    indexname     Name of the index to be created
+!    tablename     Name of the table
+!    columns       Index columns
+!
+subroutine sqlite3_create_index( db, indexname, tablename, columns )
+   type(SQLITE_DATABASE) :: db
+   character(len=*)      :: indexname
+   character(len=*)      :: tablename
+   character(len=*)      :: columns
+
+   character(len=40+len(tablename)+len(indexname)+len(columns)) :: command
+
+   write( command, * ) "CREATE INDEX IF NOT EXISTS ", indexname , " ON ", tablename, "(", columns , ")"
+   call sqlite3_do( db, command )
+
+end subroutine sqlite3_create_index
 
 
 ! sqlite3_prepare_select --
