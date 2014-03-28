@@ -310,6 +310,7 @@
                   do ii = 1, ix
                     call sqlite3_set_column( colhru(6 + ii), pdvs(ii))
                   end do
+                  call sqlite3_insert( db, tblhru, colhru )
              end if
 !            select case (isproj)
 !            case (0)

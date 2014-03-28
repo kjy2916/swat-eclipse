@@ -60,9 +60,11 @@
       !!create table rsv
       allocate( colrsv(43) )
       call sqlite3_column_props( colrsv(1), "RES", SQLITE_INT)
-      call sqlite3_column_props( colrsv(2), "MON", SQLITE_INT)
+      call sqlite3_column_props( colrsv(2), "YR", SQLITE_INT)
+      if(iprint < 2)
+        call sqlite3_column_props( colrsv(3), "MON", SQLITE_INT)
       do j = 1, 41
-         call sqlite3_column_props(colrsv(2+j),hedrsv(j),SQLITE_REAL)
+         call sqlite3_column_props(colrsv(3+j),hedrsv(j),SQLITE_REAL)
       end do
       call sqlite3_delete_table( db, tblrsv)
       call sqlite3_create_table( db, tblrsv, colrsv )

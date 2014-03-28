@@ -313,6 +313,7 @@
           endif
         end if
         end if
+        call sqlite3_insert( db, tblhru, colhru )
       end do
 
       return

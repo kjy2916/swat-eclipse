@@ -272,6 +272,61 @@
               if (iyr > iyres(j) .or.                                   
      &                  (mo_chk >= mores(j) .and. iyr == iyres(j))) then
                 if (iscen == 1 .and. isproj == 0) then
+                    if(ioutput == 1) then
+                    !!~~~ SQLite ~~~
+                call sqlite3_set_column( colrsv(1), j )
+                call sqlite3_set_column( colrsv(2), iyr )
+                call sqlite3_set_column( colrsv(3), mo_chk )
+
+                call sqlite3_set_column( colrsv(4), res_vol(j) )
+                call sqlite3_set_column( colrsv(5),
+     &                                  resoutm(1,j) / Real(idlast) )
+                call sqlite3_set_column( colrsv(6),
+     &                                  resoutm(2,j) / Real(idlast) )
+                call sqlite3_set_column( colrsv(7), resoutm(19,j) )
+                call sqlite3_set_column( colrsv(8), resoutm(17,j) )
+                call sqlite3_set_column( colrsv(9), resoutm(18,j) )
+                call sqlite3_set_column( colrsv(10), resoutm(3,j) )
+                call sqlite3_set_column( colrsv(11), resoutm(4,j) )
+                call sqlite3_set_column( colrsv(12),
+     &                                 resoutm(5,j) / Real(idlast))
+                call sqlite3_set_column( colrsv(13), resoutm(22,j) )
+                call sqlite3_set_column( colrsv(14), resoutm(23,j) )
+                call sqlite3_set_column( colrsv(15),
+     &                                 resoutm(38,j) / Real(idlast))
+                call sqlite3_set_column( colrsv(16), resoutm(24,j) )
+                call sqlite3_set_column( colrsv(17), resoutm(25,j) )
+                call sqlite3_set_column( colrsv(18),
+     &                                 resoutm(36,j) / Real(idlast))
+                call sqlite3_set_column( colrsv(19), resoutm(26,j) )
+                call sqlite3_set_column( colrsv(20), resoutm(27,j) )
+                call sqlite3_set_column( colrsv(21),
+     &                                 resoutm(39,j) / Real(idlast))
+                call sqlite3_set_column( colrsv(22), resoutm(28,j) )
+                call sqlite3_set_column( colrsv(23), resoutm(29,j) )
+                call sqlite3_set_column( colrsv(24),
+     &                                 resoutm(40,j) / Real(idlast))
+                call sqlite3_set_column( colrsv(25), resoutm(30,j) )
+                call sqlite3_set_column( colrsv(26), resoutm(31,j) )
+                call sqlite3_set_column( colrsv(27),
+     &                                 resoutm(41,j) / Real(idlast))
+                call sqlite3_set_column( colrsv(28), resoutm(32,j) )
+                call sqlite3_set_column( colrsv(29), resoutm(33,j) )
+                call sqlite3_set_column( colrsv(30),
+     &                                 resoutm(37,j) / Real(idlast))
+                call sqlite3_set_column( colrsv(31), resoutm(34,j) )
+                call sqlite3_set_column( colrsv(32), resoutm(35,j) )
+                call sqlite3_set_column( colrsv(33), res_seci(j) )
+                do k=6,14
+                    call sqlite3_set_column( colrsv(28+k), resouty(k,j))
+                end do
+                call sqlite3_set_column( colrsv(43),
+     &                                 resoutm(15,j) / Real(idlast) )
+                call sqlite3_set_column( colrsv(44),
+     &                                 resoutm(16,j) / Real(idlast) )
+                call sqlite3_insert( db, tblrsv, colrsv )
+                !!~~~ SQLite ~~~
+                    else
                 write (8,5800) j, mo_chk, res_vol(j),                   
      &                      resoutm(1,j) / Real(idlast),                
      &                      resoutm(2,j) / Real(idlast),                
@@ -294,6 +349,7 @@
      &                      (resoutm(k,j), k = 6, 14),                  
      &                      resoutm(15,j) / Real(idlast),               
      &                      resoutm(16,j) / Real(idlast)
+                    end if
                 else if (isproj == 1) then
                 write (22,5800) j, mo_chk, res_vol(j),                  
      &                      resoutm(1,j) / Real(idlast),                
