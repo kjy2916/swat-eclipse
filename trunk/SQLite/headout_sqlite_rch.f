@@ -54,45 +54,60 @@
       use parm
 
       integer :: j
-      integer :: colreachnum,colnum
+      integer :: colrchnum
+
+      !table name
+      tblrch = 'rch'
+
+      !!delete any existing table
+      call sqlite3_delete_table( db, tblrch)
 
       !!The number of common columns
-      colnum = 0
+      tblrch_num = 0
       if (icalen == 0) then
-        colnum = 2
+        tblrch_num = 3
       else if (icalen == 1) then
-        colnum = 4
+        tblrch_num = 4
       end if
 
       !!get number of columns of reach
-      colreachnum = 0
+      colrchnum = 0
       if (ipdvar(1) > 0) then
-        colreachnum = colnum + itotr
+        colrchnum = tblrch_num + itotr
       else
-        colreachnum = colnum + mrcho
+        colrchnum = tblrch_num + mrcho
       end if
 
       !!create table rch
-      allocate( colreach(colreachnum) )
-      call sqlite3_column_props( colreach(1), "RCH", SQLITE_INT)
+      allocate( colrch(colrchnum) )
+      call sqlite3_column_props( colrch(1), "RCH", SQLITE_INT)
       if(icalen == 0) then
-        call sqlite3_column_props( colreach(2), "MON", SQLITE_INT)
+        call sqlite3_column_props( colrch(2), "YR", SQLITE_INT)
+        call sqlite3_column_props( colrch(3), "MON", SQLITE_INT)
       else if(icalen == 1) then
-        call sqlite3_column_props( colreach(2), "YR", SQLITE_INT)
-        call sqlite3_column_props( colreach(3), "MO", SQLITE_INT)
-        call sqlite3_column_props( colreach(4), "DA", SQLITE_INT)
+        call sqlite3_column_props( colrch(2), "YR", SQLITE_INT)
+        call sqlite3_column_props( colrch(3), "MO", SQLITE_INT)
+        call sqlite3_column_props( colrch(4), "DA", SQLITE_INT)
       end if
       if (ipdvar(1) > 0) then
         do j = 1, itotr
-           call sqlite3_column_props(colreach(colnum+j),hedr(ipdvar(j)),
-     &                                                      SQLITE_REAL)
+           call sqlite3_column_props(colrch(tblrch_num+j),
+     &                                  hedr(ipdvar(j)), SQLITE_REAL)
         end do
       else
         do j = 1, mrcho
-            call sqlite3_column_props(colreach(colnum+j), hedr(j),
+            call sqlite3_column_props(colrch(tblrch_num+j), hedr(j),
      &                                                      SQLITE_REAL)
          end do
       end if
-      call sqlite3_delete_table( db, "rch")
-      call sqlite3_create_table( db, "rch", colreach )
+      call sqlite3_create_table( db, tblrch, colrch )
+
+      !create index
+      if(icalen == 0) then
+        call sqlite3_create_index( db, "rch_index", tblrch,
+     &                                                     "RCH,YR,MON")
+      else if(icalen == 1) then
+         call sqlite3_create_index( db, "rch_index", tblrch,
+     &                                                   "RCH,YR,MO,DA")
+      end if
       end

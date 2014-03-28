@@ -121,6 +121,9 @@
         !!reinitialize for new scenario
         if (scenario > iscen) call rewind_init
       end do
+
+      if(ioutput == 1) call sqlite3_commit( db )
+
          end if
       do i = 101, 109       !Claire 12/2/09: change 1, 9  to 101, 109.
         close (i)

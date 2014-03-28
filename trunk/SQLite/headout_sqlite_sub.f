@@ -53,30 +53,37 @@
 
       use parm
 
-      integer :: j,colsubnum,colnum
+      integer :: j,colsubnum
+
+      !table name
+      tblsub = 'sub'
+
+      !!delete any existing table
+      call sqlite3_delete_table( db, tblsub)
 
       !!subbasin table
       !!The number of common columns
-      colnum = 0
+      tblsub_num = 0
       if (icalen == 0) then
-        colnum = 2
+        tblsub_num = 3
       else if (icalen == 1) then
-        colnum = 4
+        tblsub_num = 4
       end if
 
       !!get number of columns of sub
       colsubnum = 0
       if (ipdvab(1) > 0) then
-        colsubnum = colnum + itotb
+        colsubnum = tblsub_num + itotb
       else
-        colsubnum = colnum + msubo
+        colsubnum = tblsub_num + msubo
       end if
 
       !!create table sub
       allocate( colsub(colsubnum) )
       call sqlite3_column_props( colsub(1), "SUB", SQLITE_INT)
       if(icalen == 0) then
-        call sqlite3_column_props( colsub(2), "MON", SQLITE_INT)
+        call sqlite3_column_props( colsub(2), "YR", SQLITE_INT)
+        call sqlite3_column_props( colsub(3), "MON", SQLITE_INT)
       else if(icalen == 1) then
         call sqlite3_column_props( colsub(2), "YR", SQLITE_INT)
         call sqlite3_column_props( colsub(3), "MO", SQLITE_INT)
@@ -84,15 +91,23 @@
       end if
       if (ipdvab(1) > 0) then
         do j = 1, itotb
-           call sqlite3_column_props(colsub(colnum+j),hedb(ipdvab(j)),
+         call sqlite3_column_props(colsub(tblsub_num+j),hedb(ipdvab(j)),
      &                                                      SQLITE_REAL)
         end do
       else
         do j = 1, msubo
-            call sqlite3_column_props(colsub(colnum+j), hedb(j),
+            call sqlite3_column_props(colsub(tblsub_num+j), hedb(j),
      &                                                      SQLITE_REAL)
         end do
       end if
-      call sqlite3_delete_table( db, "sub")
-      call sqlite3_create_table( db, "sub", colsub )
+      call sqlite3_create_table( db, tblsub, colsub )
+
+      !create index
+      if(icalen == 0) then
+        call sqlite3_create_index( db, "sub_index", tblsub,
+     &                                                     "SUB,YR,MON")
+      else if(icalen == 1) then
+         call sqlite3_create_index( db, "sub_index", tblsub,
+     &                                                   "SUB,YR,MO,DA")
+      end if
       end

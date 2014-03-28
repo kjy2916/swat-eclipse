@@ -59,6 +59,7 @@
       call headout_sqlite_sub
       call headout_sqlite_rsv
       call headout_sqlite_wtr
+      call sqlite3_begin( db )
 
 !! write headings to pesticide output file (output.pst)
       if (iprp /= 0) then

@@ -115,7 +115,11 @@
 
       if (iprint == 1.or.iprint==3) then
         if (da_ha < 1.e-9) then
-	    call rchday
+	    if(ioutput == 1) then
+	        call rchday_sqlite
+	    else
+	        call rchday
+	    end if
 	    call rseday
 	    return
 	  end if
@@ -153,7 +157,11 @@
         end do
 
         !! write daily reach output
-        call rchday
+        if(ioutput == 1) then
+            call rchday_sqlite
+        else
+            call rchday
+        end if
 
         !! write daily sediment routing output (.sed)
         call rseday

@@ -902,10 +902,24 @@
                             !!1 = SQLite format
 
         type(SQLITE_DATABASE) :: db !!database
-        type(SQLITE_COLUMN), dimension(:), pointer :: colreach
+
+        !!columns
+        type(SQLITE_COLUMN), dimension(:), pointer :: colrch
         type(SQLITE_COLUMN), dimension(:), pointer :: colhru
         type(SQLITE_COLUMN), dimension(:), pointer :: colsub
         type(SQLITE_COLUMN), dimension(:), pointer :: colrsv
         type(SQLITE_COLUMN), dimension(:), pointer :: colwtr
+
+        !!table name
+        character(len=3) :: tblrch
+        character(len=3) :: tblhru
+        character(len=3) :: tblsub
+        character(len=3) :: tblrsv
+        character(len=3) :: tblwtr
+
+        !!number of basic information columns in each table
+        integer :: tblhru_num
+        integer :: tblrch_num
+        integer :: tblsub_num
 
       end module parm
