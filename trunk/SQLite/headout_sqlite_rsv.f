@@ -55,6 +55,8 @@
 
       integer :: j
 
+      tblrsv = 'rsv'
+
       !!create table rsv
       allocate( colrsv(43) )
       call sqlite3_column_props( colrsv(1), "RES", SQLITE_INT)
@@ -62,7 +64,7 @@
       do j = 1, 41
          call sqlite3_column_props(colrsv(2+j),hedrsv(j),SQLITE_REAL)
       end do
-      call sqlite3_delete_table( db, "rsv")
-      call sqlite3_create_table( db, "rsv", colrsv )
+      call sqlite3_delete_table( db, tblrsv)
+      call sqlite3_create_table( db, tblrsv, colrsv )
 
       end

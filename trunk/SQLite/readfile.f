@@ -277,6 +277,7 @@
 !!Special Projects input
       read (101,5101) titldum
       read (101,*) isproj
+      isproj = 0 !!currently only consider the normal project,zhiqiang
       read (101,*) iclb
       read (101,5000) calfile
 
@@ -740,9 +741,16 @@
 !     code for writing out calendar day or julian day to output.rch, .sub, .hru files
 !     icalen = 0 (print julian day) 1 (print month/day/year) 
       read (101,*, iostat=eof) icalen
-      icalen = 1
 !!!!! if icalen == 1 (print month/day/year) - force iprint to be daily  <--nubz asked srin 06/11/2012
-      if (icalen == 1) iprint = 1
+!      if (icalen == 1) iprint = 1
+      !!~~~ SQLite ~~~
+      !!force to use normal calender output for daily output
+      if (iprint == 1) then
+        icalen = 1
+      else
+        icalen = 0
+      end if
+      !!~~~ SQLite ~~~
       
       if (isproj == 1) then
         open (19,file="output2.std")

@@ -65,7 +65,11 @@
       !!The number of common columns
       tblrch_num = 0
       if (icalen == 0) then
-        tblrch_num = 3
+        if(iprint == 2) then     !!yearly output
+            tblrch_num = 2
+        else                !!daily or monthly output
+            tblrch_num = 3
+        end if
       else if (icalen == 1) then
         tblrch_num = 4
       end if
@@ -83,7 +87,9 @@
       call sqlite3_column_props( colrch(1), "RCH", SQLITE_INT)
       if(icalen == 0) then
         call sqlite3_column_props( colrch(2), "YR", SQLITE_INT)
-        call sqlite3_column_props( colrch(3), "MON", SQLITE_INT)
+        if(iprint < 2) then
+            call sqlite3_column_props( colrch(3), "MON", SQLITE_INT)
+        end if
       else if(icalen == 1) then
         call sqlite3_column_props( colrch(2), "YR", SQLITE_INT)
         call sqlite3_column_props( colrch(3), "MO", SQLITE_INT)

@@ -65,7 +65,11 @@
       !!The number of common columns
       tblsub_num = 0
       if (icalen == 0) then
-        tblsub_num = 3
+        if(iprint == 2) then
+            tblsub_num = 2
+        else
+            tblsub_num = 3
+        end if
       else if (icalen == 1) then
         tblsub_num = 4
       end if
@@ -83,7 +87,9 @@
       call sqlite3_column_props( colsub(1), "SUB", SQLITE_INT)
       if(icalen == 0) then
         call sqlite3_column_props( colsub(2), "YR", SQLITE_INT)
-        call sqlite3_column_props( colsub(3), "MON", SQLITE_INT)
+        if(iprint < 2) then
+            call sqlite3_column_props( colsub(3), "MON", SQLITE_INT)
+        end if
       else if(icalen == 1) then
         call sqlite3_column_props( colsub(2), "YR", SQLITE_INT)
         call sqlite3_column_props( colsub(3), "MO", SQLITE_INT)
