@@ -53,7 +53,7 @@
 
       use parm
 
-      integer :: j
+      integer :: j,wtrbasiccolnum
 
       tblwtr = 'wtr'
 
@@ -62,12 +62,17 @@
           allocate( colwtr(46) )
           call sqlite3_column_props( colwtr(1), "LULC", SQLITE_CHAR,4)
           call sqlite3_column_props( colwtr(2), "HRU", SQLITE_INT)
-          call sqlite3_column_props( colwtr(3), "GIS", SQLITE_INT)
-          call sqlite3_column_props( colwtr(4), "SUB", SQLITE_INT)
-          call sqlite3_column_props( colwtr(5), "MGT", SQLITE_INT)
-          call sqlite3_column_props( colwtr(6), "MON", SQLITE_INT)
+          call sqlite3_column_props( colwtr(3), "SUB", SQLITE_INT)
+          call sqlite3_column_props( colwtr(4), "MGT", SQLITE_INT)
+          call sqlite3_column_props( colwtr(5), "YR", SQLITE_INT)
+          wtrbasiccolnum = 5
+          if(iprint < 2) then
+            wtrbasiccolnum = 6
+            call sqlite3_column_props( colwtr(6), "MON", SQLITE_INT)
+          end if
           do j = 1, 40
-            call sqlite3_column_props(colwtr(6+j),hedwtr(j),SQLITE_REAL)
+             call sqlite3_column_props(colwtr(wtrbasiccolnum+j),
+     &                                          hedwtr(j),SQLITE_REAL)
           end do
           call sqlite3_delete_table( db, tblwtr)
           call sqlite3_create_table( db, tblwtr, colwtr )

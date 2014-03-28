@@ -233,6 +233,7 @@
      
           endif
         end if
+        call sqlite3_insert( db, tblrch, colrch )
       end do
 
       return

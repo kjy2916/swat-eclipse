@@ -103,6 +103,7 @@
 !          write (31,1000) sb, subgis(sb), iyr, sub_km(sb),
 !     &                                    (pdvab(ii), ii = 1, msubo), sb
         end if
+        call sqlite3_insert( db, tblsub, colsub )
       end do
 
       return

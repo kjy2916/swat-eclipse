@@ -278,6 +278,47 @@
             resouty(41,j) = resouty(41,j) / Real(idlast)
             if (iyr >= iyres(j)) then
               if (iscen == 1 .and. isproj == 0) then
+                if(ioutput == 1) then
+                    !!~~~ SQLite ~~~
+                call sqlite3_set_column( colrsv(1), j )
+                call sqlite3_set_column( colrsv(2), iyr )
+
+                call sqlite3_set_column( colrsv(3), res_vol(j) )
+                call sqlite3_set_column( colrsv(4), resouty(1,j) )
+                call sqlite3_set_column( colrsv(5), resouty(2,j) )
+                call sqlite3_set_column( colrsv(6), resouty(19,j) )
+                call sqlite3_set_column( colrsv(7), resouty(17,j) )
+                call sqlite3_set_column( colrsv(8), resouty(18,j) )
+                call sqlite3_set_column( colrsv(9), resouty(3,j) )
+                call sqlite3_set_column( colrsv(10), resouty(4,j) )
+                call sqlite3_set_column( colrsv(11), resouty(5,j) )
+                call sqlite3_set_column( colrsv(12), resouty(22,j) )
+                call sqlite3_set_column( colrsv(13), resouty(23,j) )
+                call sqlite3_set_column( colrsv(14), resouty(38,j) )
+                call sqlite3_set_column( colrsv(15), resouty(24,j) )
+                call sqlite3_set_column( colrsv(16), resouty(25,j) )
+                call sqlite3_set_column( colrsv(17), resouty(36,j) )
+                call sqlite3_set_column( colrsv(18), resouty(26,j) )
+                call sqlite3_set_column( colrsv(19), resouty(27,j) )
+                call sqlite3_set_column( colrsv(20), resouty(39,j) )
+                call sqlite3_set_column( colrsv(21), resouty(28,j) )
+                call sqlite3_set_column( colrsv(22), resouty(29,j) )
+                call sqlite3_set_column( colrsv(23), resouty(40,j) )
+                call sqlite3_set_column( colrsv(24), resouty(30,j) )
+                call sqlite3_set_column( colrsv(25), resouty(31,j) )
+                call sqlite3_set_column( colrsv(26), resouty(41,j) )
+                call sqlite3_set_column( colrsv(27), resouty(32,j) )
+                call sqlite3_set_column( colrsv(28), resouty(33,j) )
+                call sqlite3_set_column( colrsv(29), resouty(37,j) )
+                call sqlite3_set_column( colrsv(30), resouty(34,j) )
+                call sqlite3_set_column( colrsv(31), resouty(35,j) )
+                call sqlite3_set_column( colrsv(32), res_seci(j) )
+                do k=6,16
+                    call sqlite3_set_column( colrsv(27+k), resouty(k,j) )
+                end do
+                call sqlite3_insert( db, tblrsv, colrsv )
+                    !!~~~ SQLite ~~~
+                else
               write (8,5800) j, iyr, res_vol(j), resouty(1,j),          
      &                       resouty(2,j), resouty(19,j), resouty(17,j),
      &                       resouty(18,j), resouty(3,j), resouty(4,j), 
@@ -290,6 +331,7 @@
      &                       (resouty(k,j), k = 32, 33), resouty(37,j), 
      &                       (resouty(k,j), k = 34, 35), res_seci(j),   
      &                       (resouty(k,j), k = 6, 16)
+                end if
               else if (isproj == 1) then
               write (22,5800) j, iyr, res_vol(j), resouty(1,j),         
      &                       resouty(2,j), resouty(19,j), resouty(17,j),
