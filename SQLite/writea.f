@@ -314,7 +314,7 @@
                 call sqlite3_set_column( colrsv(31), resouty(35,j) )
                 call sqlite3_set_column( colrsv(32), res_seci(j) )
                 do k=6,16
-                    call sqlite3_set_column( colrsv(27+k), resouty(k,j) )
+                    call sqlite3_set_column( colrsv(27+k), resouty(k,j))
                 end do
                 call sqlite3_insert( db, tblrsv, colrsv )
                     !!~~~ SQLite ~~~

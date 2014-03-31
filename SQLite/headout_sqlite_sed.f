@@ -1,4 +1,4 @@
-      subroutine headout_sqlite_rsv
+      subroutine headout_sqlite_sed
 
 !!     ~ ~ ~ PURPOSE ~ ~ ~
 !!     this subroutine writes the headings to the major output files
@@ -53,29 +53,42 @@
 
       use parm
 
-      integer :: j,rsvbasiccolnum,rsvvaluecolnum
+      integer :: j,sedbasiccolnum,sedvaluecolnum
+      character(len=13) :: hedsed(19)
 
-      tblrsv = 'rsv'
-      rsvvaluecolnum = 41
-      rsvbasiccolnum = 0
+      tblsed = 'sed'
+      sedbasiccolnum = 2
+      sedvaluecolnum = 19
+      hedsed=(/"SED_INtons","SED_OUTtons","     PETmm","      ETmm",
+     &         "      SWmm","    PERCmm","    SURQmm","    GW_Qmm",
+     &         "    WYLDmm","  SYLDt/ha"," ORGNkg/ha"," ORGPkg/ha",
+     &         "NSURQkg/ha"," SOLPkg/ha"," SEDPkg/ha"," LAT Q(mm)",
+     &         "LATNO3kg/h","GWNO3kg/ha","CHOLAmic/L","CBODU mg/L",
+     &         " DOXQ mg/L"," TNO3kg/ha"/)
 
-      if(iprint < 2)
-        rsvbasiccolnum = 3
-      else
-        rsvbasiccolnum = 2
-      end if
-      allocate( colrsv(rsvbasiccolnum + rsvvaluecolnum) )
+!1080  format (t8,'RCH',t17,'GIS',t23,'MON',t31,'AREAkm2',
+!     &t40,'SED_INtons',t51,'SED_OUTtons',t63,'SAND_INtons',t74,
+!     &'SAND_OUTtons',t87,'SILT_INtons',t98,'SILT_OUTtons',t111,
+!     &'CLAY_INtons',t122,'CLAY_OUTtons',t135,'SMAG_INtons',t146,
+!     &'SMAG_OUTtons',t160,'LAG_INtons',t171,'LAG_OUTtons',t184,
+!     &'GRA_INtons',t195,'GRA_OUTtons',t208,'CH_BNKtons',t220,
+!     &'CH_BEDtons',t232,'CH_DEPtons',t244,'FP_DEPtons',t259,'TSSmg/L')
 
-      call sqlite3_column_props( colrsv(1), "RES", SQLITE_INT)
-      call sqlite3_column_props( colrsv(2), "YR", SQLITE_INT)
+      !!create table rsv
+      if(iprint < 2) sedbasiccolnum = 3
+      allocate( colwtr(sedbasiccolnum + sedvaluecolnum) )
+
+      call sqlite3_column_props( colwtr(1), "RCH", SQLITE_INT)
+      call sqlite3_column_props( colwtr(2), "YR", SQLITE_INT)
       if(iprint < 2) then
-        call sqlite3_column_props( colrsv(3), "MON", SQLITE_INT)
+        call sqlite3_column_props( colwtr(3), "MON", SQLITE_INT)
       end if
-      do j = 1, rsvvaluecolnum
-         call sqlite3_column_props(colrsv(rsvbasiccolnum+j),hedrsv(j),
-     &                                                      SQLITE_REAL)
-      end do
-      call sqlite3_delete_table( db, tblrsv)
-      call sqlite3_create_table( db, tblrsv, colrsv )
+
+      call sqlite3_column_props( colwtr(3), "SED_INtons", SQLITE_REAL)
+
+
+      call sqlite3_delete_table( db, tblwtr)
+      call sqlite3_create_table( db, tblwtr, colwtr )
+
 
       end

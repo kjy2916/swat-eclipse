@@ -53,24 +53,30 @@
 
       use parm
 
-      integer :: j,wtrbasiccolnum
+      integer :: j,wtrbasiccolnum,wtrvaluecolnum
 
       tblwtr = 'wtr'
+      wtrbasiccolnum = 0
+      wtrvaluecolnum = 40
 
       !!create table rsv
       if (iwtr == 1) then
-          allocate( colwtr(46) )
+          if(iprint < 2) then
+            wtrbasiccolnum = 6
+          else
+            wtrbasiccolnum = 5
+          end if
+          allocate( colwtr(wtrbasiccolnum + wtrvaluecolnum) )
+
           call sqlite3_column_props( colwtr(1), "LULC", SQLITE_CHAR,4)
           call sqlite3_column_props( colwtr(2), "HRU", SQLITE_INT)
           call sqlite3_column_props( colwtr(3), "SUB", SQLITE_INT)
           call sqlite3_column_props( colwtr(4), "MGT", SQLITE_INT)
           call sqlite3_column_props( colwtr(5), "YR", SQLITE_INT)
-          wtrbasiccolnum = 5
           if(iprint < 2) then
-            wtrbasiccolnum = 6
             call sqlite3_column_props( colwtr(6), "MON", SQLITE_INT)
           end if
-          do j = 1, 40
+          do j = 1, wtrvaluecolnum
              call sqlite3_column_props(colwtr(wtrbasiccolnum+j),
      &                                          hedwtr(j),SQLITE_REAL)
           end do
