@@ -909,6 +909,7 @@
         type(SQLITE_COLUMN), dimension(:), pointer :: colsub
         type(SQLITE_COLUMN), dimension(:), pointer :: colrsv
         type(SQLITE_COLUMN), dimension(:), pointer :: colwtr
+        type(SQLITE_COLUMN), dimension(:), pointer :: colsed
 
         !!table name
         character(len=3) :: tblrch
@@ -916,6 +917,7 @@
         character(len=3) :: tblsub
         character(len=3) :: tblrsv
         character(len=3) :: tblwtr
+        character(len=3) :: tblsed
 
         !!number of basic information columns in each table
         integer :: tblhru_num

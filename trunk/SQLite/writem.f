@@ -401,10 +401,12 @@
      
             end do
 
+            !!~~~ SQLite ~~~
             if(ioutput == 1) then
                  !! monthly write--HRU output (output.hru)
                 call hrumon_sqlite
 
+                 !!don't need separate subroutine
                 call impndmon
 
                 !! monthly write--subbasin output (output.sub)
@@ -430,6 +432,7 @@
                 !! monthly write--sediment routing output (.sed)
                 if (idlast > 0) call rsedmon(idlast)
             end if
+            !!~~~ SQLite ~~~
 
           end if
 
