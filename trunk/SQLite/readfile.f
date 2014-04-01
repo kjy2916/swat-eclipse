@@ -779,7 +779,15 @@
 !     icalen = 0 (print julian day) 1 (print month/day/year) 
       read (101,*, iostat=eof) icalen
 !!!!! if icalen == 1 (print month/day/year) - force iprint to be daily  <--nubz asked srin 06/11/2012
-      if (icalen == 1) iprint = 1
+!      if (icalen == 1) iprint = 1
+      !!~~~ SQLite ~~~
+      !!force to use normal calender output for daily output
+      if (iprint == 1) then
+        icalen = 1
+      else
+        icalen = 0
+      end if
+      !!~~~ SQLite ~~~
       
       if (isproj == 1) then
         open (19,file="output2.std")

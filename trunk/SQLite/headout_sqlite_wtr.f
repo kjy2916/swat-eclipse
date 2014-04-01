@@ -51,6 +51,7 @@
 
 !!    ~ ~ ~ ~ ~ ~ END SPECIFICATIONS ~ ~ ~ ~ ~ ~
 
+      !!File handle = 29
       use parm
 
       integer :: j,wtrbasiccolnum,wtrvaluecolnum
@@ -74,7 +75,7 @@
           call sqlite3_column_props( colwtr(4), "MGT", SQLITE_INT)
           call sqlite3_column_props( colwtr(5), "YR", SQLITE_INT)
           if(iprint < 2) then
-            call sqlite3_column_props( colwtr(6), "MON", SQLITE_INT)
+            call sqlite3_column_props( colwtr(6), "MO", SQLITE_INT)
           end if
           do j = 1, wtrvaluecolnum
              call sqlite3_column_props(colwtr(wtrbasiccolnum+j),

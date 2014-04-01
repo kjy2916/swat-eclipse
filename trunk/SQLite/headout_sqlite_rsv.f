@@ -51,25 +51,26 @@
 
 !!    ~ ~ ~ ~ ~ ~ END SPECIFICATIONS ~ ~ ~ ~ ~ ~
 
+      !!File handle = 8
       use parm
 
       integer :: j,rsvbasiccolnum,rsvvaluecolnum
 
       tblrsv = 'rsv'
       rsvvaluecolnum = 41
-      rsvbasiccolnum = 0
+      rsvbasiccolnum = 2
 
-      if(iprint < 2)
-        rsvbasiccolnum = 3
-      else
-        rsvbasiccolnum = 2
-      end if
+      if(iprint == 0) sedbasiccolnum = 3
+      if(iprint == 1) sedbasiccolnum = 4
       allocate( colrsv(rsvbasiccolnum + rsvvaluecolnum) )
 
       call sqlite3_column_props( colrsv(1), "RES", SQLITE_INT)
       call sqlite3_column_props( colrsv(2), "YR", SQLITE_INT)
       if(iprint < 2) then
-        call sqlite3_column_props( colrsv(3), "MON", SQLITE_INT)
+        call sqlite3_column_props( colrsv(3), "MO", SQLITE_INT)
+        if(iprint == 1) then    !!daily
+            call sqlite3_column_props( colrsv(4), "DA", SQLITE_INT)
+        end if
       end if
       do j = 1, rsvvaluecolnum
          call sqlite3_column_props(colrsv(rsvbasiccolnum+j),hedrsv(j),

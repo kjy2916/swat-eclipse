@@ -88,7 +88,7 @@
       if(icalen == 0) then
         call sqlite3_column_props( colsub(2), "YR", SQLITE_INT)
         if(iprint < 2) then
-            call sqlite3_column_props( colsub(3), "MON", SQLITE_INT)
+            call sqlite3_column_props( colsub(3), "MO", SQLITE_INT)
         end if
       else if(icalen == 1) then
         call sqlite3_column_props( colsub(2), "YR", SQLITE_INT)
