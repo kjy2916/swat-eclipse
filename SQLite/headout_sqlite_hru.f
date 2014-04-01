@@ -51,6 +51,7 @@
 
 !!    ~ ~ ~ ~ ~ ~ END SPECIFICATIONS ~ ~ ~ ~ ~ ~
 
+      !!File handle = 28
       use parm
 
       integer :: j
@@ -63,16 +64,7 @@
 
       !!hru table
       !!The number of common columns
-      tblhru_num = 0
-      if (icalen == 0) then
-        if(iprint == 2) then    !!yearly output
-            tblhru_num = 5
-        else                    !!daily or monthly output
-            tblhru_num = 6
-        end if
-      else if (icalen == 1) then
-        tblhru_num = 7
-      end if
+      tblhru_num = 4 + datecol_num
 
       !!get number of columns of hru
       colhrunum = 0
@@ -84,20 +76,12 @@
 
       !!create table hru
       allocate( colhru(colhrunum) )
-      call sqlite3_column_props( colhru(1), "LULC", SQLITE_CHAR,4)
+      call sqlite3_column_props( colhru(1), "SUB", SQLITE_INT)
       call sqlite3_column_props( colhru(2), "HRU", SQLITE_INT)
-      call sqlite3_column_props( colhru(3), "SUB", SQLITE_INT)
+      call sqlite3_column_props( colhru(3), "LULC", SQLITE_CHAR,4)
       call sqlite3_column_props( colhru(4), "MGT", SQLITE_INT)
-      if(icalen == 0) then
-        call sqlite3_column_props( colhru(5), "YR", SQLITE_INT)
-        if(iprint < 2) then
-            call sqlite3_column_props( colhru(6), "MO", SQLITE_INT)
-        end if
-      else if(icalen == 1) then
-        call sqlite3_column_props( colhru(5), "YR", SQLITE_INT)
-        call sqlite3_column_props( colhru(6), "MO", SQLITE_INT)
-        call sqlite3_column_props( colhru(7), "DA", SQLITE_INT)
-      end if
+      call headout_sqlite_adddate(colhru,5)
+
       if (ipdvas(1) > 0) then
         do j = 1, itots
          call sqlite3_column_props(colhru(tblhru_num+j),heds(ipdvas(j)),
@@ -110,14 +94,6 @@
         end do
       end if
       call sqlite3_create_table( db, tblhru, colhru )
-
-      !create index
-      if(icalen == 0) then
-        call sqlite3_create_index( db, "hru_index", tblhru,
-     &                                                 "HRU,SUB,YR,MON")
-      else if(icalen == 1) then
-         call sqlite3_create_index( db, "hru_index", tblhru,
-     &                                               "HRU,SUB,YR,MO,DA")
-      end if
+      call headout_sqlite_createindex("hru_index",tblhru,"SUB,HRU")
 
       end

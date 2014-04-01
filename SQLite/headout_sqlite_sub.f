@@ -51,6 +51,7 @@
 
 !!    ~ ~ ~ ~ ~ ~ END SPECIFICATIONS ~ ~ ~ ~ ~ ~
 
+      !!File handle = 31
       use parm
 
       integer :: j,colsubnum
@@ -63,16 +64,7 @@
 
       !!subbasin table
       !!The number of common columns
-      tblsub_num = 0
-      if (icalen == 0) then
-        if(iprint == 2) then
-            tblsub_num = 2
-        else
-            tblsub_num = 3
-        end if
-      else if (icalen == 1) then
-        tblsub_num = 4
-      end if
+      tblsub_num = 1 + datecol_num
 
       !!get number of columns of sub
       colsubnum = 0
@@ -85,16 +77,8 @@
       !!create table sub
       allocate( colsub(colsubnum) )
       call sqlite3_column_props( colsub(1), "SUB", SQLITE_INT)
-      if(icalen == 0) then
-        call sqlite3_column_props( colsub(2), "YR", SQLITE_INT)
-        if(iprint < 2) then
-            call sqlite3_column_props( colsub(3), "MO", SQLITE_INT)
-        end if
-      else if(icalen == 1) then
-        call sqlite3_column_props( colsub(2), "YR", SQLITE_INT)
-        call sqlite3_column_props( colsub(3), "MO", SQLITE_INT)
-        call sqlite3_column_props( colsub(4), "DA", SQLITE_INT)
-      end if
+      call headout_sqlite_adddate(colsub,2)
+
       if (ipdvab(1) > 0) then
         do j = 1, itotb
          call sqlite3_column_props(colsub(tblsub_num+j),hedb(ipdvab(j)),
@@ -107,13 +91,7 @@
         end do
       end if
       call sqlite3_create_table( db, tblsub, colsub )
+      call headout_sqlite_createindex("sub_index",tblsub,"SUB")
 
-      !create index
-      if(icalen == 0) then
-        call sqlite3_create_index( db, "sub_index", tblsub,
-     &                                                     "SUB,YR,MON")
-      else if(icalen == 1) then
-         call sqlite3_create_index( db, "sub_index", tblsub,
-     &                                                   "SUB,YR,MO,DA")
       end if
       end

@@ -1,4 +1,4 @@
-      subroutine headersqlite
+      subroutine header_sqlite
 
 !!    ~ ~ ~ PURPOSE ~ ~ ~                                               
 !!    This subroutine defines header titles for the different output files
@@ -82,6 +82,19 @@
      &         "     TOT_Nkg","     TOT_Pkg"," NO3ConcMg_l",
      &         "    WTMPdegc"/)
 
+!!    column headers for reach sediment output file
+!!    previous in readfile.f format 1080
+      hedsed=(/ "  SED_INtons"," SED_OUTtons",
+     &          " SAND_INtons","SAND_OUTtons",
+     &          " SILT_INtons","SILT_OUTtons",
+     &          " CLAY_INtons","CLAY_OUTtons",
+     &          " SMAG_INtons","SMAG_OUTtons",
+     &          "  LAG_INtons"," LAG_OUTtons",
+     &          "  GRA_INtons"," GRA_OUTtons",
+     &          "  CH_BNKtons","  CH_BEDtons",
+     &          "  CH_DEPtons","  FP_DEPtons",
+     &          "     TSSmg_L"/)
+
 !!    column headers for reservoir output file
       hedrsv = (/"    VOLUMEm3","  FLOW_INcms"," FLOW_OUTcms",          
      &           "    PRECIPm3","      EVAPm3","   SEEPAGEm3",          
@@ -109,6 +122,12 @@
      &           "  POTPCPmm","  POT_INmm","OSED_It_ha","  POTEVPmm",
      &           "  POTSEPmm"," POT_OUTmm","OSED_Ot_ha","  POTVOLm3",
      &           "  POT_SAha","HRU_SURQmm","PLANT_ETmm"," SOIL_ETmm"/)
+
+!!    column headers for HRU potholes output file
+!!    previous in readfile.f format 1000
+      hedpot = (/"     VOL_I","      SA_I","     SPILLO","   POTSEP",
+     &           "     POTEV","    SOL_SW","   TILE_O","      VOL_F",
+     &           "      SA_F"/)
 
       return
       end                                           

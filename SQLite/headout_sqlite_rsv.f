@@ -57,26 +57,21 @@
       integer :: j,rsvbasiccolnum,rsvvaluecolnum
 
       tblrsv = 'rsv'
-      rsvvaluecolnum = 41
-      rsvbasiccolnum = 2
 
-      if(iprint == 0) sedbasiccolnum = 3
-      if(iprint == 1) sedbasiccolnum = 4
+      !!delete any existing table
+      call sqlite3_delete_table( db, tblrsv)
+
+      rsvvaluecolnum = 41
+      rsvbasiccolnum = 1 + datecol_num
       allocate( colrsv(rsvbasiccolnum + rsvvaluecolnum) )
 
       call sqlite3_column_props( colrsv(1), "RES", SQLITE_INT)
-      call sqlite3_column_props( colrsv(2), "YR", SQLITE_INT)
-      if(iprint < 2) then
-        call sqlite3_column_props( colrsv(3), "MO", SQLITE_INT)
-        if(iprint == 1) then    !!daily
-            call sqlite3_column_props( colrsv(4), "DA", SQLITE_INT)
-        end if
-      end if
+      call headout_sqlite_adddate(colrsv,2)
+
       do j = 1, rsvvaluecolnum
          call sqlite3_column_props(colrsv(rsvbasiccolnum+j),hedrsv(j),
      &                                                      SQLITE_REAL)
       end do
-      call sqlite3_delete_table( db, tblrsv)
       call sqlite3_create_table( db, tblrsv, colrsv )
-
+      call headout_sqlite_createindex("rsv_index",tblrsv,"RES")
       end

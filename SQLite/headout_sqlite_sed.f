@@ -55,42 +55,23 @@
       use parm
 
       integer :: j,sedbasiccolnum,sedvaluecolnum
-      character(len=13) :: hedsed(19)
 
       tblsed = 'sed'
-      hedsed=(/ "  SED_INtons"," SED_OUTtons",
-     &          " SAND_INtons","SAND_OUTtons",
-     &          " SILT_INtons","SILT_OUTtons",
-     &          " CLAY_INtons","CLAY_OUTtons",
-     &          " SMAG_INtons","SMAG_OUTtons",
-     &          "  LAG_INtons"," LAG_OUTtons",
-     &          "  GRA_INtons"," GRA_OUTtons",
-     &          "  CH_BNKtons","  CH_BEDtons",
-     &          "  CH_DEPtons","  FP_DEPtons",
-     &          "     TSSmg_L"/)
 
-      sedbasiccolnum = 2
+      call sqlite3_delete_table( db, tblsed)
+
+      sedbasiccolnum = 1 + datecol_num
       sedvaluecolnum = size(hedsed)
 
-      !!create table rsv
-      if(iprint == 0) sedbasiccolnum = 3
-      if(iprint == 1) sedbasiccolnum = 4
       allocate( colsed(sedbasiccolnum + sedvaluecolnum) )
 
       call sqlite3_column_props( colsed(1), "RCH", SQLITE_INT)
-      call sqlite3_column_props( colsed(2), "YR", SQLITE_INT)
-      if(iprint < 2) then       !!monthly or daily
-        call sqlite3_column_props( colsed(3), "MO", SQLITE_INT)
-        if(iprint == 1) then    !!daily
-            call sqlite3_column_props( colsed(4), "DA", SQLITE_INT)
-        end if
-      end if
+      call headout_sqlite_adddate(colsed,2)
 
       do j=1,sedvaluecolnum
         call sqlite3_column_props( colsed(sedbasiccolnum + j),
      &                                          hedsed(j), SQLITE_REAL)
       end do
-
-      call sqlite3_delete_table( db, tblsed)
       call sqlite3_create_table( db, tblsed, colsed )
+      call headout_sqlite_createindex("sed_index",tblsed,"RCH")
       end
