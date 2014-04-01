@@ -1,4 +1,4 @@
-      subroutine headout_sqlite_rch
+      subroutine headout_sqlite_pot
 
 !!     ~ ~ ~ PURPOSE ~ ~ ~
 !!     this subroutine writes the headings to the major output files
@@ -51,49 +51,31 @@
 
 !!    ~ ~ ~ ~ ~ ~ END SPECIFICATIONS ~ ~ ~ ~ ~ ~
 
-
-      !!File handle = 7
+      !!File handle = 125
       use parm
 
-      integer :: j
-      integer :: colrchnum
+      integer :: j,potbasiccolnum,potvaluecolnum
 
-      !table name
-      tblrch = 'rch'
+      !!create table pot
+      if (iwtr == 1) then
+          tblpot = 'pot'
 
-      !!delete any existing table
-      call sqlite3_delete_table( db, tblrch)
+          !!delete any existing table
+          call sqlite3_delete_table( db, tblpot)
 
-      !!The number of common columns
-      tblrch_num = 1 + datecol_num
+          potvaluecolnum = size(hedpot)
+          potbasiccolnum = 2 + datecol_num
 
-      !!get number of columns of reach
-      colrchnum = 0
-      if (ipdvar(1) > 0) then
-        colrchnum = tblrch_num + itotr
-      else
-        colrchnum = tblrch_num + mrcho
+          allocate( colpot(potbasiccolnum + potvaluecolnum) )
+
+          call sqlite3_column_props( colpot(1), "SUB", SQLITE_INT)
+          call sqlite3_column_props( colpot(2), "HRU", SQLITE_INT)
+          call headout_sqlite_adddate(colpot,3)
+          do j = 1, potvaluecolnum
+             call sqlite3_column_props(colpot(potbasiccolnum+j),
+     &                                          hedpot(j),SQLITE_REAL)
+          end do
+          call sqlite3_create_table( db, tblpot, colpot )
+          call headout_sqlite_createindex("pot_index",tblpot,"SUB,HRU")
       end if
-
-      !!create table rch
-      allocate( colrch(colrchnum) )
-      call sqlite3_column_props( colrch(1), "RCH", SQLITE_INT)
-      call headout_sqlite_adddate(colrch,2)
-
-      if (ipdvar(1) > 0) then
-        do j = 1, itotr
-           call sqlite3_column_props(colrch(tblrch_num+j),
-     &                                  hedr(ipdvar(j)), SQLITE_REAL)
-        end do
-      else
-        do j = 1, mrcho
-            call sqlite3_column_props(colrch(tblrch_num+j), hedr(j),
-     &                                                      SQLITE_REAL)
-         end do
-      end if
-      call sqlite3_create_table( db, tblrch, colrch )
-      call headout_sqlite_createindex("rch_index",tblrch,"RCH")
-
-      end if
-
       end

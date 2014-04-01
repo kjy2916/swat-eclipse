@@ -763,10 +763,18 @@
 ! 0 =no print  1 =print
       read (101,*,iostat=eof) iwtr
         if (iwtr == 1) then
-          open (29,file="output.wtr",recl=800)
-! write statement added for Aziz (06/25/09)
-          open (125,file='output.pot')
-          write (125, 1000) 
+          !!~~~ SQLite ~~~
+          if(ioutput == 1) then
+              !!do nothing, output.wtr and output.pot would be write in
+              !!SQLite database
+          else
+              open (29,file="output.wtr",recl=800)
+    ! write statement added for Aziz (06/25/09)
+              open (125,file='output.pot')
+              write (125, 1000)
+          end if
+          !!~~~ SQLite ~~~
+
         end if
         
  1000  format (1x,'SUB',t6,'HRU',t12,'DAY',t17,'YEAR',t26,'VOL-I',t37,  

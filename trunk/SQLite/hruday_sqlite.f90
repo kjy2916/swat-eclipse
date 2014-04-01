@@ -413,9 +413,9 @@
       endif
 
       !!output basic information
-      call sqlite3_set_column( colhru(1), cropname )
+      call sqlite3_set_column( colhru(1), sb )
       call sqlite3_set_column( colhru(2), j )
-      call sqlite3_set_column( colhru(3), sb )
+      call sqlite3_set_column( colhru(3), cropname )
       call sqlite3_set_column( colhru(4), nmgt(j) )
       if (icalen == 0) then
         call sqlite3_set_column( colhru(5), iyr )

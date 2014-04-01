@@ -53,7 +53,11 @@
 
       use parm
 
-      call headersqlite
+      datecol_num = 1                    !!yearly
+      if(iprint == 1) datecol_num = 3    !!daily
+      if(iprint == 0) datecol_num = 2    !!monthly
+
+      call header_sqlite
       call headout_sqlite_rch
       call headout_sqlite_hru
       call headout_sqlite_sub

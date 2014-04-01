@@ -647,6 +647,12 @@
       character(len=13) :: heds(78),hedb(22),hedr(46),hedrsv(41)
 !!      character(len=13) :: heds(73),hedb(21),hedr(42),hedrsv(41)
       character(len=13) :: hedwtr(40)
+      !!~~~ SQLite ~~~
+      !!columns for reach sediment output
+      character(len=13) :: hedsed(19)
+      !!columns for potholes output
+      character(len=13) :: hedpot(9)
+      !!~~~ SQLite ~~~
 !     character(len=4) :: title(60), cpnm(250)
       character(len=4) :: title(60), cpnm(5000)
       character(len=17), dimension(50) :: fname
@@ -910,6 +916,7 @@
         type(SQLITE_COLUMN), dimension(:), pointer :: colrsv
         type(SQLITE_COLUMN), dimension(:), pointer :: colwtr
         type(SQLITE_COLUMN), dimension(:), pointer :: colsed
+        type(SQLITE_COLUMN), dimension(:), pointer :: colpot
 
         !!table name
         character(len=3) :: tblrch
@@ -918,10 +925,15 @@
         character(len=3) :: tblrsv
         character(len=3) :: tblwtr
         character(len=3) :: tblsed
+        character(len=3) :: tblpot
 
         !!number of basic information columns in each table
         integer :: tblhru_num
         integer :: tblrch_num
         integer :: tblsub_num
+
+        !!number of date columns
+        !!yearly = 1, monthly = 2, daily = 3
+        integer :: datecol_num
 
       end module parm
