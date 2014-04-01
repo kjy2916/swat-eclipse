@@ -51,44 +51,46 @@
 
 !!    ~ ~ ~ ~ ~ ~ END SPECIFICATIONS ~ ~ ~ ~ ~ ~
 
+      !!File handle = 84
       use parm
 
       integer :: j,sedbasiccolnum,sedvaluecolnum
       character(len=13) :: hedsed(19)
 
       tblsed = 'sed'
-      sedbasiccolnum = 2
-      sedvaluecolnum = 19
-      hedsed=(/"SED_INtons","SED_OUTtons","     PETmm","      ETmm",
-     &         "      SWmm","    PERCmm","    SURQmm","    GW_Qmm",
-     &         "    WYLDmm","  SYLDt/ha"," ORGNkg/ha"," ORGPkg/ha",
-     &         "NSURQkg/ha"," SOLPkg/ha"," SEDPkg/ha"," LAT Q(mm)",
-     &         "LATNO3kg/h","GWNO3kg/ha","CHOLAmic/L","CBODU mg/L",
-     &         " DOXQ mg/L"," TNO3kg/ha"/)
+      hedsed=(/ "  SED_INtons"," SED_OUTtons",
+     &          " SAND_INtons","SAND_OUTtons",
+     &          " SILT_INtons","SILT_OUTtons",
+     &          " CLAY_INtons","CLAY_OUTtons",
+     &          " SMAG_INtons","SMAG_OUTtons",
+     &          "  LAG_INtons"," LAG_OUTtons",
+     &          "  GRA_INtons"," GRA_OUTtons",
+     &          "  CH_BNKtons","  CH_BEDtons",
+     &          "  CH_DEPtons","  FP_DEPtons",
+     &          "     TSSmg_L"/)
 
-!1080  format (t8,'RCH',t17,'GIS',t23,'MON',t31,'AREAkm2',
-!     &t40,'SED_INtons',t51,'SED_OUTtons',t63,'SAND_INtons',t74,
-!     &'SAND_OUTtons',t87,'SILT_INtons',t98,'SILT_OUTtons',t111,
-!     &'CLAY_INtons',t122,'CLAY_OUTtons',t135,'SMAG_INtons',t146,
-!     &'SMAG_OUTtons',t160,'LAG_INtons',t171,'LAG_OUTtons',t184,
-!     &'GRA_INtons',t195,'GRA_OUTtons',t208,'CH_BNKtons',t220,
-!     &'CH_BEDtons',t232,'CH_DEPtons',t244,'FP_DEPtons',t259,'TSSmg/L')
+      sedbasiccolnum = 2
+      sedvaluecolnum = size(hedsed)
 
       !!create table rsv
-      if(iprint < 2) sedbasiccolnum = 3
-      allocate( colwtr(sedbasiccolnum + sedvaluecolnum) )
+      if(iprint == 0) sedbasiccolnum = 3
+      if(iprint == 1) sedbasiccolnum = 4
+      allocate( colsed(sedbasiccolnum + sedvaluecolnum) )
 
-      call sqlite3_column_props( colwtr(1), "RCH", SQLITE_INT)
-      call sqlite3_column_props( colwtr(2), "YR", SQLITE_INT)
-      if(iprint < 2) then
-        call sqlite3_column_props( colwtr(3), "MON", SQLITE_INT)
+      call sqlite3_column_props( colsed(1), "RCH", SQLITE_INT)
+      call sqlite3_column_props( colsed(2), "YR", SQLITE_INT)
+      if(iprint < 2) then       !!monthly or daily
+        call sqlite3_column_props( colsed(3), "MO", SQLITE_INT)
+        if(iprint == 1) then    !!daily
+            call sqlite3_column_props( colsed(4), "DA", SQLITE_INT)
+        end if
       end if
 
-      call sqlite3_column_props( colwtr(3), "SED_INtons", SQLITE_REAL)
+      do j=1,sedvaluecolnum
+        call sqlite3_column_props( colsed(sedbasiccolnum + j),
+     &                                          hedsed(j), SQLITE_REAL)
+      end do
 
-
-      call sqlite3_delete_table( db, tblwtr)
-      call sqlite3_create_table( db, tblwtr, colwtr )
-
-
+      call sqlite3_delete_table( db, tblsed)
+      call sqlite3_create_table( db, tblsed, colsed )
       end
