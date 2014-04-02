@@ -125,9 +125,23 @@
 
 !!    column headers for HRU potholes output file
 !!    previous in readfile.f format 1000
-      hedpot = (/"     VOL_I","      SA_I","     SPILLO","   POTSEP",
-     &           "     POTEV","    SOL_SW","   TILE_O","      VOL_F",
-     &           "      SA_F"/)
+      hedpot = (/" VOL_I","  SA_I","SPILLO","POTSEP",
+     &           " POTEV","SOL_SW","TILE_O"," VOL_F",
+     &           "  SA_F"/)
+
+!!    column headers for ave annual hru output
+!!    previous in stdaa.f format 1800
+      hedahu = (/"   AREAkm2","        CN","     AWCmm","   USLE_LS",
+     &           "     IRRmm","   AUTONkh","   AUTOPkh","     MIXEF",
+     &           "    PRECmm"," SURQGENmm","     GWQmm","      ETmm",
+     &           "     SEDth","    NO3kgh","   ORGNkgh","    BIOMth",
+     &           "     YLDth","    SURQmm"/)
+
+!!    column headers for monthly basin value
+!!    previous in stdaa.f format 2000
+      hedamo = (/"   rain_mm","   snow_mm","  surfQ_mm","   latQ_mm",
+     &           " watery_mm","     ET_mm","  sedy_tha","    PET_mm"/)
+
 
       return
       end                                           

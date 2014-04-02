@@ -29,7 +29,7 @@
       !!create table sub
       allocate( colsub(colsubnum) )
       call sqlite3_column_props( colsub(1), "SUB", SQLITE_INT)
-      call headout_sqlite_adddate(colsub,2)
+      call headout_sqlite_adddate(colsub,colsubnum,2)
 
       if (ipdvab(1) > 0) then
         do j = 1, itotb

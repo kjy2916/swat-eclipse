@@ -12,7 +12,7 @@
       tblrch = 'rch'
 
       !!delete any existing table
-      call sqlite3_delete_table( db, tblrch)
+      !call sqlite3_delete_table( db, tblrch)
 
       !!The number of common columns
       tblrch_num = 1 + datecol_num
@@ -28,7 +28,7 @@
       !!create table rch
       allocate( colrch(colrchnum) )
       call sqlite3_column_props( colrch(1), "RCH", SQLITE_INT)
-      call headout_sqlite_adddate(colrch,2)
+      call headout_sqlite_adddate(colrch,colrchnum,2)
 
       if (ipdvar(1) > 0) then
         do j = 1, itotr

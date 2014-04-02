@@ -32,7 +32,7 @@
       call sqlite3_column_props( colhru(2), "HRU", SQLITE_INT)
       call sqlite3_column_props( colhru(3), "LULC", SQLITE_CHAR,4)
       call sqlite3_column_props( colhru(4), "MGT", SQLITE_INT)
-      call headout_sqlite_adddate(colhru,5)
+      call headout_sqlite_adddate(colhru,colhrunum,5)
 
       if (ipdvas(1) > 0) then
         do j = 1, itots

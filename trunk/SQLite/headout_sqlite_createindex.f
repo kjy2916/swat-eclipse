@@ -10,7 +10,7 @@
       character(len=*), intent(in)           :: tblname
       character(len=*), intent(in)           :: indexcols
 
-      character(len=10+size(indecols)        :: indexs
+      character(len=10+len(indexcols))       :: indexs
 
       !!get all index columns
       if(iprint == 2) write(indexs,*) indexcols,',','YR'
@@ -20,4 +20,4 @@
       !!create the index if not existing
       call sqlite3_create_index( db, indexname, tblname,indexs)
 
-      end
+      end subroutine headout_sqlite_createindex

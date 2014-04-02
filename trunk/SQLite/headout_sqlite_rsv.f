@@ -18,7 +18,8 @@
       allocate( colrsv(rsvbasiccolnum + rsvvaluecolnum) )
 
       call sqlite3_column_props( colrsv(1), "RES", SQLITE_INT)
-      call headout_sqlite_adddate(colrsv,2)
+      call headout_sqlite_adddate(colrsv,
+     &                          rsvbasiccolnum + rsvvaluecolnum,2)
 
       do j = 1, rsvvaluecolnum
          call sqlite3_column_props(colrsv(rsvbasiccolnum+j),hedrsv(j),

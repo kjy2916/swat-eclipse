@@ -20,7 +20,8 @@
           call sqlite3_column_props( colwtr(2), "HRU", SQLITE_INT)
           call sqlite3_column_props( colwtr(3), "LULC", SQLITE_CHAR,4)
           call sqlite3_column_props( colwtr(4), "MGT", SQLITE_INT)
-          call headout_sqlite_adddate(colwtr,5)
+          call headout_sqlite_adddate(colwtr,
+     &                  wtrbasiccolnum + wtrvaluecolnum,5)
 
           do j = 1, wtrvaluecolnum
              call sqlite3_column_props(colwtr(wtrbasiccolnum+j),
