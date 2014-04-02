@@ -22,7 +22,8 @@
 
           call sqlite3_column_props( colpot(1), "SUB", SQLITE_INT)
           call sqlite3_column_props( colpot(2), "HRU", SQLITE_INT)
-          call headout_sqlite_adddate(colpot,3)
+          call headout_sqlite_adddate(colpot,
+     &     potbasiccolnum + potvaluecolnum,3)
           do j = 1, potvaluecolnum
              call sqlite3_column_props(colpot(potbasiccolnum+j),
      &                                          hedpot(j),SQLITE_REAL)

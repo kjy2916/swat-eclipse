@@ -1,13 +1,16 @@
-      subroutine headout_sqlite_adddate(col,yearcolindex)
+      subroutine headout_sqlite_adddate(col,colnum,yearcolindex)
 
 !!     ~ ~ ~ PURPOSE ~ ~ ~
 !!     add date columns (year, month and day) to given column structure
 
       use parm
 
-      type(SQLITE_COLUMN), intent(inout) :: col
+      integer :: colnum
+      type(SQLITE_COLUMN), dimension(:),intent(inout) :: col(colnum)
       integer, intent(in)                :: yearcolindex
 
+
+      write(*,*) size(col)
       call sqlite3_column_props( col(yearcolindex),
      &                                                  "YR",SQLITE_INT)
       if(iprint < 2) then       !!monthly or daily

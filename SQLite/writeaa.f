@@ -554,7 +554,14 @@
 
 
 !! write average annual summary tables in standard output file (.std)
-      call stdaa
+!!      call stdaa
+      !!~~~ SQLite ~~~
+      if(ioutput == 1) then
+        call stdaa_sqlite
+      else
+        call stdaa
+      end if
+      !!~~~ SQLite ~~~
 
 !! write average annual forecast table
       if (ffcst == 1 .and. fcstcnt > 0) then

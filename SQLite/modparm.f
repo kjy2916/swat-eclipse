@@ -652,6 +652,10 @@
       character(len=13) :: hedsed(19)
       !!columns for potholes output
       character(len=13) :: hedpot(9)
+      !!columns for ave annaul hru value
+      character(len=13) :: hedahu(18)
+      !!columns for monthly basin value
+      character(len=13) :: hedamo(8)
       !!~~~ SQLite ~~~
 !     character(len=4) :: title(60), cpnm(250)
       character(len=4) :: title(60), cpnm(5000)
@@ -910,13 +914,27 @@
         type(SQLITE_DATABASE) :: db !!database
 
         !!columns
-        type(SQLITE_COLUMN), dimension(:), pointer :: colrch
-        type(SQLITE_COLUMN), dimension(:), pointer :: colhru
-        type(SQLITE_COLUMN), dimension(:), pointer :: colsub
-        type(SQLITE_COLUMN), dimension(:), pointer :: colrsv
-        type(SQLITE_COLUMN), dimension(:), pointer :: colwtr
-        type(SQLITE_COLUMN), dimension(:), pointer :: colsed
-        type(SQLITE_COLUMN), dimension(:), pointer :: colpot
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colrch
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colhru
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colsub
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colrsv
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colwtr
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colsed
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colpot
+
+        !!output.sed is separated into following tables
+        !!yearly basin value
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colayr
+        !!ave annual irrigation
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colair
+        !!ave annual crop yield and biomass
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colacp
+        !!ave annual hru
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colahu
+        !!monthly basin value
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colamo
+        !!ave annual basin value
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colabn
 
         !!table name
         character(len=3) :: tblrch
@@ -926,6 +944,8 @@
         character(len=3) :: tblwtr
         character(len=3) :: tblsed
         character(len=3) :: tblpot
+
+        character(len=3) :: tblabn
 
         !!number of basic information columns in each table
         integer :: tblhru_num

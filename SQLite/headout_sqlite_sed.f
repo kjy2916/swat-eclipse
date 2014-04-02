@@ -18,7 +18,8 @@
       allocate( colsed(sedbasiccolnum + sedvaluecolnum) )
 
       call sqlite3_column_props( colsed(1), "RCH", SQLITE_INT)
-      call headout_sqlite_adddate(colsed,2)
+      call headout_sqlite_adddate(colsed,
+     &          sedbasiccolnum + sedvaluecolnum,2)
 
       do j=1,sedvaluecolnum
         call sqlite3_column_props( colsed(sedbasiccolnum + j),
