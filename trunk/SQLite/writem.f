@@ -235,6 +235,31 @@
         if (iprint /= 2 .and. curyr > nyskip) then
 
           !! monthly write--output.std
+          !!~~~ SQLite ~~~
+          if(ioutput == 1) then
+            call sqlite3_set_column(colwshd_mn(1),iyr)
+            call sqlite3_set_column(colwshd_mn(2),mo_chk)
+            call sqlite3_set_column(colwshd_mn(3),wshdmono(1))
+            call sqlite3_set_column(colwshd_mn(4),wshdmono(3))
+            call sqlite3_set_column(colwshd_mn(5),wshdmono(4))
+            call sqlite3_set_column(colwshd_mn(6),wshdmono(104))
+            call sqlite3_set_column(colwshd_mn(7),wshdmono(5))
+            call sqlite3_set_column(colwshd_mn(8),wshdmono(109))
+            call sqlite3_set_column(colwshd_mn(9),wshdmono(35))
+            call sqlite3_set_column(colwshd_mn(10),wshdmono(7))
+            call sqlite3_set_column(colwshd_mn(11),wshdmono(108))
+            call sqlite3_set_column(colwshd_mn(12),wshdmono(6))
+            call sqlite3_set_column(colwshd_mn(13),wshdmono(12))
+            call sqlite3_set_column(colwshd_mn(14),wshdmono(42))
+            call sqlite3_set_column(colwshd_mn(15),wshdmono(45))
+            call sqlite3_set_column(colwshd_mn(16),wshdmono(46))
+            call sqlite3_set_column(colwshd_mn(17),wshdmono(44))
+            call sqlite3_set_column(colwshd_mn(18),wshdmono(40))
+            call sqlite3_set_column(colwshd_mn(19),wshdmono(43))
+            call sqlite3_set_column(colwshd_mn(20),wshdmono(41))
+            call sqlite3_set_column(colwshd_mn(21),wshdmono(111))
+            call sqlite3_insert( db, tblwshd_mn, colwshd_mn )
+          else
           if (iscen == 1) then
           write (26,6200) mo_chk, wshdmono(1), wshdmono(3), wshdmono(4),
      &            wshdmono(104), wshdmono(5), wshdmono(109),            
@@ -250,6 +275,8 @@
      &            wshdmono(46), wshdmono(44), wshdmono(40),             
      &            wshdmono(43), wshdmono(41), wshdmono(111)
           endif
+          endif
+          !!~~~ SQLite ~~~
 
           if (iprint == 0) then
             !! monthly write--pesticide output (output.pst) for HRUs

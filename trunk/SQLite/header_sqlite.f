@@ -142,6 +142,14 @@
       hedamo = (/"   rain_mm","   snow_mm","  surfQ_mm","   latQ_mm",
      &           " watery_mm","     ET_mm","  sedy_tha","    PET_mm"/)
 
+!!    column headers for daily, monthly and yearly watershed summary
+!!    the first part of output.std
+!!    previous in std3.f format 1300
+      hedwshd =(/"   PREC_mm","   SURQ_mm","   LATQ_mm","    GWQ_mm",
+     &           "PERCOLA_mm","  TILEQ_mm","     SW_mm","     ET_mm",
+     &           "    PET_mm","   WYLD_mm"," SYLD_tons","  NO3_SURQ",
+     &           "  NO3_LATQ","  NO3_PERC","  NO3_CROP","     N_ORG",
+     &           "     P_SOL","     P_ORG","   TILENO3"/)
 
       return
       end                                           

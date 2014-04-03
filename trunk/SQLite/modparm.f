@@ -656,6 +656,8 @@
       character(len=13) :: hedahu(18)
       !!columns for monthly basin value
       character(len=13) :: hedamo(8)
+      !!columns for watershed value
+      character(len=13) :: hedwshd(19)
       !!~~~ SQLite ~~~
 !     character(len=4) :: title(60), cpnm(250)
       character(len=4) :: title(60), cpnm(5000)
@@ -923,8 +925,11 @@
         type(SQLITE_COLUMN), dimension(:), allocatable :: colpot
 
         !!output.sed is separated into following tables
-        !!yearly basin value
-        type(SQLITE_COLUMN), dimension(:), allocatable :: colayr
+        !!daily, monthly and yearly watershed value
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colwshd_dy
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colwshd_mn
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colwshd_yr
+
         !!ave annual irrigation
         type(SQLITE_COLUMN), dimension(:), allocatable :: colair
         !!ave annual crop yield and biomass
@@ -945,7 +950,12 @@
         character(len=3) :: tblsed
         character(len=3) :: tblpot
 
-        character(len=3) :: tblabn
+        character(len=30) :: tblwshd_dy
+        character(len=30) :: tblwshd_mn
+        character(len=30) :: tblwshd_yr
+
+        character(len=30) :: tblabn
+
 
         !!number of basic information columns in each table
         integer :: tblhru_num

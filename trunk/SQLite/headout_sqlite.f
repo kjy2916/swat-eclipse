@@ -58,12 +58,14 @@
       if(iprint == 0) datecol_num = 2    !!monthly
 
       call header_sqlite
+      call sqlite3_open( "result.db3", db )
       call headout_sqlite_rch
       call headout_sqlite_hru
       call headout_sqlite_sub
       call headout_sqlite_rsv
       call headout_sqlite_wtr
       call headout_sqlite_sed
+      call headout_sqlite_wshd
       call sqlite3_begin( db )
 
 !! write headings to pesticide output file (output.pst)

@@ -127,6 +127,32 @@
 	    end if
 
         !! daily write to output.std
+          !!~~~ SQLite ~~~
+          if(ioutput == 1) then
+            call sqlite3_set_column(colwshd_dy(1),iyr)
+            call sqlite3_set_column(colwshd_dy(2),i_mo)
+            call sqlite3_set_column(colwshd_dy(3),icl(iida))
+            call sqlite3_set_column(colwshd_dy(4),wshddayo(1))
+            call sqlite3_set_column(colwshd_dy(5),wshddayo(3))
+            call sqlite3_set_column(colwshd_dy(6),wshddayo(4))
+            call sqlite3_set_column(colwshd_dy(7),wshddayo(104))
+            call sqlite3_set_column(colwshd_dy(8),wshddayo(5))
+            call sqlite3_set_column(colwshd_dy(9),wshddayo(109))
+            call sqlite3_set_column(colwshd_dy(10),wshddayo(35))
+            call sqlite3_set_column(colwshd_dy(11),wshddayo(7))
+            call sqlite3_set_column(colwshd_dy(12),wshddayo(108))
+            call sqlite3_set_column(colwshd_dy(13),wshddayo(6))
+            call sqlite3_set_column(colwshd_dy(14),wshddayo(12)/da_ha)
+            call sqlite3_set_column(colwshd_dy(15),wshddayo(42))
+            call sqlite3_set_column(colwshd_dy(16),wshddayo(45))
+            call sqlite3_set_column(colwshd_dy(17),wshddayo(46))
+            call sqlite3_set_column(colwshd_dy(18),wshddayo(44))
+            call sqlite3_set_column(colwshd_dy(19),wshddayo(40))
+            call sqlite3_set_column(colwshd_dy(20),wshddayo(43))
+            call sqlite3_set_column(colwshd_dy(21),wshddayo(41))
+            call sqlite3_set_column(colwshd_dy(22),wshddayo(111))
+            call sqlite3_insert( db, tblwshd_dy, colwshd_dy )
+          else
         if (iscen == 1) then
         write (26,6200) iida, wshddayo(1), wshddayo(3), wshddayo(4),    
      &                 wshddayo(104), wshddayo(5), wshddayo(109),       
@@ -143,6 +169,8 @@
      &                 wshddayo(45), wshddayo(46), wshddayo(44),        
      &                 wshddayo(40), wshddayo(43), wshddayo(41)
         endif
+        endif
+        !!~~~ SQLite ~~~
 
         !! daily write to pesticide output file (output.pst) for HRUs
         do j = 1, nhru
