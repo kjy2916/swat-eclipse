@@ -197,6 +197,30 @@
         wshdyro(9) = wshdyro(9) / 12.
 
           !! annual write-output.std
+          !!~~~ SQLite ~~~
+          if(ioutput == 1) then
+            call sqlite3_set_column(colwshd_yr(1),iyr)
+            call sqlite3_set_column(colwshd_yr(2),wshdyro(1))
+            call sqlite3_set_column(colwshd_yr(3),wshdyro(3))
+            call sqlite3_set_column(colwshd_yr(4),wshdyro(4))
+            call sqlite3_set_column(colwshd_yr(5),wshdyro(104))
+            call sqlite3_set_column(colwshd_yr(6),wshdyro(5))
+            call sqlite3_set_column(colwshd_yr(7),wshdyro(109))
+            call sqlite3_set_column(colwshd_yr(8),wshdyro(35))
+            call sqlite3_set_column(colwshd_yr(9),wshdyro(7))
+            call sqlite3_set_column(colwshd_yr(10),wshdyro(108))
+            call sqlite3_set_column(colwshd_yr(11),wshdyro(6))
+            call sqlite3_set_column(colwshd_yr(12),wshdyro(12))
+            call sqlite3_set_column(colwshd_yr(13),wshdyro(42))
+            call sqlite3_set_column(colwshd_yr(14),wshdyro(45))
+            call sqlite3_set_column(colwshd_yr(15),wshdyro(46))
+            call sqlite3_set_column(colwshd_yr(16),wshdyro(44))
+            call sqlite3_set_column(colwshd_yr(17),wshdyro(40))
+            call sqlite3_set_column(colwshd_yr(18),wshdyro(43))
+            call sqlite3_set_column(colwshd_yr(19),wshdyro(41))
+            call sqlite3_set_column(colwshd_yr(20),wshdyro(111))
+            call sqlite3_insert( db, tblwshd_yr, colwshd_yr )
+          else
           if (iscen == 1) then
           write (26,6300) iyr, wshdyro(1), wshdyro(3), wshdyro(4),      
      &            wshdyro(104), wshdyro(5), wshdyro(109), wshddayo(35), 
@@ -210,6 +234,8 @@
      &            wshdyro(42), wshdyro(45), wshdyro(46), wshdyro(44),   
      &            wshdyro(40), wshdyro(43), wshdyro(41), wshdyro(111)
           endif
+          endif
+          !!~~~ SQLite ~~~
 
           !!write channel degradation data (chan.deg)
           if (ideg == 1) then 
