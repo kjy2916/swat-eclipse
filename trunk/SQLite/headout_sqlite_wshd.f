@@ -48,7 +48,7 @@
 
       !!yearly table
       basiccolnum = 1
-      allocate( colwshd_dy(basiccolnum + valuecolnum) )
+      allocate( colwshd_yr(basiccolnum + valuecolnum) )
       call sqlite3_column_props(colwshd_yr(1),"YR",SQLITE_INT)
       do j=1,valuecolnum
         call sqlite3_column_props( colwshd_yr(basiccolnum + j),
