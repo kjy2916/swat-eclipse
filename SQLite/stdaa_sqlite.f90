@@ -298,7 +298,7 @@
       real :: xirr
       integer :: j, nnro, nicr, k, sumpady, ncrp
       integer :: colnum, maxcropnum
-      character*3 tblname
+      character*30 tblname
       character*4 cropname
       character*6 acp_crp, acp_yld, acp_bio
 
@@ -346,9 +346,9 @@
       call sqlite3_column_props( colacp(1), "SUB", SQLITE_INT)
       call sqlite3_column_props( colacp(2), "HRU", SQLITE_INT)
       do j = 1, maxcropnum
-        write(acp_crp,*) "CRP", j
-        write(acp_yld,*) "YLD", j
-        write(acp_bio,*) "BIO", j
+        write(acp_crp,"(a,i3.3)") "CRP", j
+        write(acp_yld,"(a,i3.3)") "YLD", j
+        write(acp_bio,"(a,i3.3)") "BIO", j
         call sqlite3_column_props( colacp(3+(j-1)*3), acp_crp, SQLITE_CHAR,4)
         call sqlite3_column_props( colacp(4+(j-1)*3), acp_yld, SQLITE_REAL)
         call sqlite3_column_props( colacp(5+(j-1)*3), acp_bio, SQLITE_REAL)
@@ -383,7 +383,7 @@
       call sqlite3_column_props( colahu(1), "SUB", SQLITE_INT)
       call sqlite3_column_props( colahu(2), "HRU", SQLITE_INT)
       call sqlite3_column_props( colahu(3), "CPMN", SQLITE_CHAR,4)
-      call sqlite3_column_props( colahu(4), "SOIL", SQLITE_CHAR,4)
+      call sqlite3_column_props( colahu(4), "SOIL", SQLITE_CHAR,16)
       do j = 1, colnum
         call sqlite3_column_props( colahu(4+j), hedahu(j), SQLITE_REAL)
       end do
@@ -400,25 +400,25 @@
           call sqlite3_set_column( colahu(1), hru_sub(j) )
           call sqlite3_set_column( colahu(2), j )
           call sqlite3_set_column( colahu(3), cropname )
-          call sqlite3_set_column( colahu(5), snam(j) )
-          call sqlite3_set_column( colahu(6), hru_km(j) )
-          call sqlite3_set_column( colahu(7), cn2(j) )
-          call sqlite3_set_column( colahu(8), sol_sumfc(j) )
-          call sqlite3_set_column( colahu(9), usle_ls(j) )
-          call sqlite3_set_column( colahu(10),hruaao(22,j)  )
-          call sqlite3_set_column( colahu(11),hruaao(28,j)  )
-          call sqlite3_set_column( colahu(12),hruaao(29,j)  )
-          call sqlite3_set_column( colahu(13),sumix(j)  )
-          call sqlite3_set_column( colahu(14),hruaao(1,j)  )
-          call sqlite3_set_column( colahu(15),hruaao(19,j)  )
-          call sqlite3_set_column( colahu(16),hruaao(5,j) + hruaao(6,j))
-          call sqlite3_set_column( colahu(17),hruaao(12,j)  )
-          call sqlite3_set_column( colahu(18),hruaao(14,j)  )
-          call sqlite3_set_column( colahu(19),hruaao(37,j)+hruaao(38,j))
-          call sqlite3_set_column( colahu(20),hruaao(35,j)  )
-          call sqlite3_set_column( colahu(21),bio_aams(j)  )
-          call sqlite3_set_column( colahu(22),yldaa(j)  )
-          call sqlite3_set_column( colahu(23),hruaao(4,j) )
+          call sqlite3_set_column( colahu(4), snam(j) )
+          call sqlite3_set_column( colahu(5), hru_km(j) )
+          call sqlite3_set_column( colahu(6), cn2(j) )
+          call sqlite3_set_column( colahu(7), sol_sumfc(j) )
+          call sqlite3_set_column( colahu(8), usle_ls(j) )
+          call sqlite3_set_column( colahu(9),hruaao(22,j)  )
+          call sqlite3_set_column( colahu(10),hruaao(28,j)  )
+          call sqlite3_set_column( colahu(11),hruaao(29,j)  )
+          call sqlite3_set_column( colahu(12),sumix(j)  )
+          call sqlite3_set_column( colahu(13),hruaao(1,j)  )
+          call sqlite3_set_column( colahu(14),hruaao(19,j)  )
+          call sqlite3_set_column( colahu(15),hruaao(5,j) + hruaao(6,j))
+          call sqlite3_set_column( colahu(16),hruaao(12,j)  )
+          call sqlite3_set_column( colahu(17),hruaao(14,j)  )
+          call sqlite3_set_column( colahu(18),hruaao(37,j)+hruaao(38,j))
+          call sqlite3_set_column( colahu(19),hruaao(35,j)  )
+          call sqlite3_set_column( colahu(20),bio_aams(j)  )
+          call sqlite3_set_column( colahu(21),yldaa(j)  )
+          call sqlite3_set_column( colahu(22),hruaao(4,j) )
           call sqlite3_insert( db, tblname, colahu )
       end do
 
@@ -446,7 +446,7 @@
 
 !! create table ave_annual_basin for any single value result in basin level
       tblname = 'ave_annual_basin'
-      tblabn = tblname
+      write(tblabn,"(a)") tblname
       colnum = 2
       allocate(colabn(colnum))
       call sqlite3_column_props( colabn(1), "NAME", SQLITE_CHAR,50)

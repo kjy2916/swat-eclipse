@@ -12,7 +12,7 @@
       tblrch = 'rch'
 
       !!delete any existing table
-      !call sqlite3_delete_table( db, tblrch)
+      call sqlite3_delete_table( db, tblrch)
 
       !!The number of common columns
       tblrch_num = 1 + datecol_num
