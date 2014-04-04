@@ -121,11 +121,7 @@
 
         !! perform summary calculations
         call finalbal
-        !!call writeaa
-        !!~~~ SQLite ~~~
-        !! only calculate average annual value for regular output
-        if(ioutput == 0) call writeaa
-        !!~~~ SQLite ~~~
+        call writeaa
         call pestw
 
         !!reinitialize for new scenario
