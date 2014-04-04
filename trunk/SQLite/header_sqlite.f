@@ -157,10 +157,21 @@
      &           "    SOL_SW","    BIO_MS",
      &           "   SOL_RSD","SOL_SUMNO3",
      &           "SOL_SUMSOP","     YIELD",
-     &           "   IRR_AMT","  FERT_AMT",
-     &           "   MIX_EFF","  FERT_NO3",
-     &           "  FERT_NH3"," FERT_ORGN",
-     &           " FERT_MINN"," FERT_ORGP"/)
+     &           "   MIX_EFF","  FERT_AMT",
+     &           "  FERT_NO3","  FERT_NH3",
+     &           " FERT_ORGN"," FERT_SOLP",
+     &           " FERT_ORGP",
+     &           "  PEST_AMT","     STRSN",
+     &           "     STRSP","   STRSTMP",
+     &           "     STRSW","     STRSA",
+     &           " YIELD_GRN"," YIELD_BMS",
+     &           " YIELD_TBR"," YIELD_RSD",
+     &           "   YIELD_N","   YIELD_P",
+     &           "MANURE_AMT",
+     &           "   IRR_AMT",/)
+
+     yieldgrn, yieldbms, yieldtbr, yieldrsd,
+     *        yieldn, yieldp
 
 !!    column headers for soil, output.snu (previously output.sol) which will be generated when ISOL = 1
 !!    previous in readfile.f format 12222

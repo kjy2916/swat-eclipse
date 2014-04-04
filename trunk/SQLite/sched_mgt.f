@@ -54,11 +54,11 @@
 
             call plantop 
 
-            if (imgt == 1) then
+            if (imgt == 1 .AND. ioutput == 0) then
               write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida,   
      &        cpnm(idplt(j))," PLANT", phubase(j), phuacc(j), sol_sw(j),
      &        bio_ms(j), sol_rsd(1,j),sol_sumno3(j),sol_sumsolp(j)
-            end if
+            end ifhru
 
  
           case (2)  !! irrigation operation
@@ -78,7 +78,7 @@
               call irrsub
             endif
             
-            if (imgt ==1) then
+            if (imgt ==1 .AND. ioutput == 0) then
               write (143, 1002) subnum(j), hruno(j), iyr, i_mo, 
      *        iida, "        ",
      *        "IRRIGATE", phubase(j), phuacc(j), sol_sw(j),bio_ms(j), 
@@ -98,7 +98,7 @@
             
             call fert
             
-            if (imgt ==1) then
+            if (imgt ==1 .AND. ioutput == 0) then
               write (143, 1004) subnum(j), hruno(j), iyr, i_mo, iida, 
      *        fertnm(ifrttyp),
      *        "   FERT", phubase(j), phuacc(j), sol_sw(j),bio_ms(j), 
@@ -116,7 +116,7 @@
             
             call apply
             
-            if (imgt ==1) then
+            if (imgt ==1 .AND. ioutput == 0) then
               write (143, 1004) subnum(j), hruno(j), iyr, i_mo, iida, 
      *        pname(ipest),
      *        "   PEST", phubase(j), phuacc(j), sol_sw(j),bio_ms(j), 
@@ -131,7 +131,7 @@
             
             call harvkillop       
             
-            if (imgt ==1) then
+            if (imgt ==1 .AND. ioutput == 0) then
               write (143, 1001) subnum(j), hruno(j), iyr, i_mo, iida, 
      *        cpnm(idplt(j)),
      *        "HARV/KILL", phubase(j), phuacc(j), sol_sw(j),biomass, 
@@ -151,7 +151,7 @@
             
             call newtillmix(j,0.)
             
-            if (imgt ==1) then
+            if (imgt ==1 .AND. ioutput == 0) then
               write (143, 1003) subnum(j), hruno(j),iyr, i_mo, iida, 
      *        tillnm(idtill),
      *        "TILLAGE", phubase(j), phuacc(j), sol_sw(j),bio_ms(j), 
@@ -166,7 +166,7 @@
             if (harveff <= 0.) harveff = 1.0 
             call harvestop
 
-            if (imgt == 1) then
+            if (imgt == 1 .AND. ioutput == 0) then
               write (143, 1001) subnum(j), hruno(j), iyr, i_mo, iida, 
      *        cpnm(idplt(j)),
      *        "HARVEST ONLY", phubase(j), phuacc(j),sol_sw(j),bio_ms(j),
@@ -179,7 +179,7 @@
           case (8)   !! kill operation
             call killop
   
-            if (imgt == 1) then 
+            if (imgt == 1 .AND. ioutput == 0) then
               write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida,
      *        "         ",
      *        "    KILL", phubase(j), phuacc(j), sol_sw(j),bio_ms(j), 
@@ -203,7 +203,7 @@
             end if
             call graze
 
-            if (imgt == 1) then
+            if (imgt == 1 .AND. ioutput == 0) then
               write (143, 1005) subnum(j), hruno(j), iyr, i_mo, iida,
      *        "         ",
      *        "   GRAZE", phubase(j), phuacc(j), sol_sw(j),bio_ms(j), 
@@ -262,7 +262,7 @@
             sweepeff = mgt4op(nop(j),j)
             fr_curb = mgt5op(nop(j),j)
             
-            if (imgt == 1) then
+            if (imgt == 1 .AND. ioutput == 0) then
               write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida, 
      *        "         ",
      *        "STREET SWEEP",phubase(j), phuacc(j), sol_sw(j),bio_ms(j),
@@ -272,7 +272,7 @@
           case (13)    !! release/impound water in rice fields
             imp_trig(j) = mgt1iop(nop(j),j)
           
-            if (imgt == 1) then
+            if (imgt == 1 .AND. ioutput == 0) then
               write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida, 
      *        "         ","RELEASE/IMPOUND", phubase(j),phuacc(j),
      *        sol_sw(j),bio_ms(j),sol_rsd(1,j),sol_sumno3(j),
@@ -300,7 +300,7 @@
           case (16)   !! burning
             burn_frlb = mgt4op(nop(j),j)
             call burnop
-            if (imgt == 1) then
+            if (imgt == 1 .AND. ioutput == 0) then
               write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida, 
      *        "         ",
      *        "      BURN", phubase(j), phuacc(j), sol_sw(j),bio_ms(j), 

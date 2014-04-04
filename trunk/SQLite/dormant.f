@@ -408,7 +408,7 @@
               strsw(j) = 1.
             end if 
           end select
-           if (imgt == 1) then
+           if (imgt == 1 .AND. ioutput == 0) then
             write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida, 
      *       cpnm(idplt(j)),"START-DORM", phubase(j), phuacc(j), 
      *       sol_sw(j),bio_ms(j), sol_rsd(1,j), sol_sumno3(j),
@@ -434,7 +434,7 @@
 
             end select
             
-            if (imgt == 1) then
+            if (imgt == 1 .AND. ioutput == 0) then
                  write (143,1000) subnum(j), hruno(j), iyr, i_mo, iida, 
      *       cpnm(idplt(j)), "END-DORM", phubase(j), phuacc(j), 
      *       sol_sw(j), bio_ms(j), sol_rsd(1,j), sol_sumno3(j),

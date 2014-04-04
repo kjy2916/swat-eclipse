@@ -288,7 +288,7 @@
      &                 hru_dafr(j) * forgp(it)
         end if
           
-        if (imgt ==1) then
+        if (imgt ==1 .AND. ioutput == 0) then
          write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida,
      *      "         ",
      *      "CONT FERT", phubase(j), phuacc(j), sol_sw(j),bio_ms(j), 

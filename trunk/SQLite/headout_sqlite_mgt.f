@@ -28,7 +28,7 @@
      &                                               SQLITE_CHAR,10)
           do j=1,valuecolnum
             call sqlite3_column_props( colmgt(basiccolnum + j),
-         &                                       hedmgt(j), SQLITE_REAL)
+     &                                          hedmgt(j), SQLITE_REAL)
           end do
           call sqlite3_column_props(colmgt(basiccolnum +valuecolnum +1),
      &                                               "IRRSC",SQLITE_INT)
