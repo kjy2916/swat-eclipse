@@ -104,7 +104,7 @@
         plt_pst(k,j) = plt_pst(k,j) + gc * xx
         sol_pst(k,j,1) = sol_pst(k,j,1) + (1. - gc) * xx
  
-        if (imgt == 1) then
+        if (imgt == 1 .AND. ioutput == 0) then
          write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida, 
      *      "         ",
      *      "CONT PEST", phubase(j), phuacc(j), sol_sw(j),bio_ms(j), 
