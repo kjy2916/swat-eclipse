@@ -131,10 +131,16 @@
       if (icrk == 1) write (24,1110)
 
 !!    standard output file
+      !!~~~ SQLite ~~~
+      if(ioutput == 1) then
+        !!do nothing
+      else
       write (26,1000) prog,values(2),values(3),values(1),values(5),     
      &values(6),values(7)
       write (26,1010) title
       write (26,1020) nbyr, da_km
+      end if
+      !!~~~ SQLite ~~~
       if (isproj == 1) then
         write (19,1000) prog,values(2),values(3),values(1),values(5),   
      &  values(6),values(7)
