@@ -658,6 +658,10 @@
       character(len=13) :: hedamo(8)
       !!columns for watershed value
       character(len=13) :: hedwshd(19)
+      !!columns for table mgt, output.mgt
+      character(len=13) :: hedmgt(16)
+      !!columns for table snu, output.snu, soil nutrient
+      character(len=13) :: hedsnu(6)
       !!~~~ SQLite ~~~
 !     character(len=4) :: title(60), cpnm(250)
       character(len=4) :: title(60), cpnm(5000)
@@ -923,6 +927,8 @@
         type(SQLITE_COLUMN), dimension(:), allocatable :: colwtr
         type(SQLITE_COLUMN), dimension(:), allocatable :: colsed
         type(SQLITE_COLUMN), dimension(:), allocatable :: colpot
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colmgt
+        type(SQLITE_COLUMN), dimension(:), allocatable :: colsnu
 
         !!output.sed is separated into following tables
         !!daily, monthly and yearly watershed value
@@ -949,6 +955,8 @@
         character(len=3) :: tblwtr
         character(len=3) :: tblsed
         character(len=3) :: tblpot
+        character(len=3) :: tblmgt
+        character(len=3) :: tblsnu
 
         character(len=30) :: tblwshd_dy
         character(len=30) :: tblwshd_mn

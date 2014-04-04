@@ -151,5 +151,21 @@
      &           "  NO3_LATQ","  NO3_PERC","  NO3_CROP","     N_ORG",
      &           "     P_SOL","     P_ORG","   TILENO3"/)
 
+!!    column headers for mgt operations, output.mgt which is output only when IMGT = 1
+!!    previous in readfile.f format 999
+      hedmgt = (/"   PHUBASE","    PHUACC",
+     &           "    SOL_SW","    BIO_MS",
+     &           "   SOL_RSD","SOL_SUMNO3",
+     &           "SOL_SUMSOP","     YIELD",
+     &           "   IRR_AMT","  FERT_AMT",
+     &           "   MIX_EFF","  FERT_NO3",
+     &           "  FERT_NH3"," FERT_ORGN",
+     &           " FERT_MINN"," FERT_ORGP"/)
+
+!!    column headers for soil, output.snu (previously output.sol) which will be generated when ISOL = 1
+!!    previous in readfile.f format 12222
+      hedsnu = (/"SU_SOL_RSD","     SOL_P","       NO3","     ORG_N",
+     &           "     ORG_P","        CN"/)
+
       return
       end                                           

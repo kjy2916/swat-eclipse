@@ -608,7 +608,7 @@
       if(ioutput == 1) then
           !!output hru, sub, rch, sed, rsv into sqlite database
           open (24,file="input.std")
-          open (26,file="output.std")
+!          open (26,file="output.std")
 
           !!Ignore binary output for hru, sub and rch
           ia_b = 0
@@ -736,8 +736,15 @@
 !  0=no print 1=print
       read (101, *,iostat=eof) imgt
 	if (imgt==1) then
+	    !!~ ~ ~ SQLite ~ ~ ~
+	    if(ioutput == 1) then
+	        !!do nothing, the mgt table structure would be created in subroutine
+	        !!headout_sqlite_mgt
+	    else
          open (143, file="output.mgt", recl=600)
          write(143,999)
+         end if
+         !!~ ~ ~ SQLite ~ ~ ~
 999   format(2x,'Sub',2x,'Hru',2x,'Year',3x,'Mon',3x,'Day',3x,
      *'crop/fert/pest', 4x,
      *'Operation',4x,'phubase',3x,'phuacc',4x,'sol_sw',4x,'bio_ms',3x,
