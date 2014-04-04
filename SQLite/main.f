@@ -128,7 +128,12 @@
         if (scenario > iscen) call rewind_init
       end do
 
-      if(ioutput == 1) call sqlite3_commit( db )
+      !!~ ~ ~ SQLite ~ ~ ~
+      if(ioutput == 1) then
+        call sqlite3_commit( db )
+        call sqlite3_close( db)
+      end if
+      !!~ ~ ~ SQLite ~ ~ ~
 
          end if
       do i = 101, 109       !Claire 12/2/09: change 1, 9  to 101, 109.
