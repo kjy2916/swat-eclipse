@@ -239,9 +239,20 @@
 
           !!write channel degradation data (chan.deg)
           if (ideg == 1) then 
-            write (16,780) iyr
+            if(ioutput == 0) write (16,780) iyr
             do j = 1, nrch
+            !!~ ~ ~ SQLite ~ ~ ~
+            if(ioutput == 1) then
+                call sqlite3_set_column(coldeg(1),j)
+                call sqlite3_set_column(coldeg(2),iyr)
+                call sqlite3_set_column(coldeg(3),ch_d(j))
+                call sqlite3_set_column(coldeg(4),ch_w(2,j))
+                call sqlite3_set_column(coldeg(5),ch_s(2,j))
+                call sqlite3_insert(db,tbldeg,coldeg)
+            else
               write (16,779) j, ch_d(j), ch_w(2,j), ch_s(2,j)
+            end if
+            !!~ ~ ~ SQLite ~ ~ ~
             end do
           end if
 

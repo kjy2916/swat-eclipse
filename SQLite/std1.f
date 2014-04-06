@@ -152,7 +152,11 @@
       write (11123,5000)     
 
 !!    chan.deg file
+      !!~ ~ ~ SQLite ~ ~ ~
+      if(ioutput == 0) then
       write (16,7000)
+      end if
+      !!~ ~ ~ SQLite ~ ~ ~
 
       return
  1000 format ('1',/t5,a80,t105,2(i2,'/'),i4,5x,2(i2,':'),i2)
