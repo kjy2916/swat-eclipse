@@ -10,7 +10,6 @@
       integer, intent(in)                :: yearcolindex
 
 
-      write(*,*) size(col)
       call sqlite3_column_props( col(yearcolindex),
      &                                                  "YR",SQLITE_INT)
       if(iprint < 2) then       !!monthly or daily
