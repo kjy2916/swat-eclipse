@@ -1,9 +1,9 @@
       subroutine mgt_sqlite(id_op)
 
         use parm
-        implicit none
 
         integer,intent(in) :: id_op
+        j = ihru
 
         if(imgt == 0) return;
 
