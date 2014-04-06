@@ -58,7 +58,7 @@
               write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida,   
      &        cpnm(idplt(j))," PLANT", phubase(j), phuacc(j), sol_sw(j),
      &        bio_ms(j), sol_rsd(1,j),sol_sumno3(j),sol_sumsolp(j)
-            end ifhru
+            end if
 
  
           case (2)  !! irrigation operation
@@ -312,6 +312,10 @@
           
       end select
       
+      !!~ ~ ~ SQLite ~ ~ ~
+      if(ioutput == 1) call mgt_sqlite(mgtop(nop(j),j))
+      !!~ ~ ~ SQLite ~ ~ ~
+
       if (mgtop(nop(j),j) /= 17) then 
         nop(j) = nop(j) + 1
       end if
