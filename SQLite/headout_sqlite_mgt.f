@@ -13,7 +13,7 @@
 
       call sqlite3_delete_table( db, tblmgt)
 
-      if(isol == 1) then
+      if(imgt == 1) then
           valuecolnum = size(hedmgt)
           basiccolnum = 7
           allocate( colmgt(basiccolnum + valuecolnum + 2) )

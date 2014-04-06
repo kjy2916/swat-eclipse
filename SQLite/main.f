@@ -80,7 +80,7 @@
       call readatmodep
       call readinpt
       call std1
-      call std2
+      !!call std2
       call openwth
       !!~ ~ ~ SQLITE ~ ~ ~
       if(ioutput == 1) then
@@ -88,6 +88,7 @@
       else
         call headout
       end if
+      call std2
       !!~ ~ ~ SQLITE ~ ~ ~
 
       !! convert integer to string for output.mgt file
