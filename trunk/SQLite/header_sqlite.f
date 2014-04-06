@@ -168,15 +168,24 @@
      &           " YIELD_TBR"," YIELD_RSD",
      &           "   YIELD_N","   YIELD_P",
      &           "MANURE_AMT",
-     &           "   IRR_AMT",/)
+     &           "   IRR_AMT"/)
 
-     yieldgrn, yieldbms, yieldtbr, yieldrsd,
-     *        yieldn, yieldp
-
-!!    column headers for soil, output.snu (previously output.sol) which will be generated when ISOL = 1
+!!    column headers for soil nutrient, output.snu (previously output.sol) which will be generated when ISOL = 1
 !!    previous in readfile.f format 12222
       hedsnu = (/"SU_SOL_RSD","     SOL_P","       NO3","     ORG_N",
      &           "     ORG_P","        CN"/)
+
+!!    column headers for soil water in each layer
+!!    output.swr which will be generated when ISTO = 1
+!!    previous in readfile.f format 5001
+      hedswr = (/"    LAYER1","    LAYER2","    LAYER3","    LAYER4",
+     &           "    LAYER5","    LAYER6","    LAYER7","    LAYER8",
+     &           "    LAYER9","   LAYER10"/)
+
+!!    column headers for channel dimesion, chan.deg
+!!    previous in std1.f format 7000
+      heddeg = (/"   DEPTH_M","   WIDTH_M"," SLOPE_M_M"/)
+
 
       return
       end                                           

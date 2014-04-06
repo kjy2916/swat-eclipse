@@ -494,6 +494,8 @@
       isol = 0
       read (101,*,iostat=eof) isol  
       if (isol == 1) then
+        !!~ ~ ~ SQLite ~ ~ ~
+        if(ioutput == 0) then
          open (121,file='output.snu')
          write (121,12222) 
 12222   format (t25,'SURFACE',t39,'-------  SOIL PROFILE  -------',/, 
@@ -501,6 +503,8 @@
      &  'NO3',t57,'ORG_N',t67,'ORG_P',t80,'CN'/,t26,                    
      &  '(t/ha)',t35,'(kg/ha)',t45,                                     
      &  '(kg/ha)',t55,'(kg/ha)',t66,'(kg/ha)')
+        end if
+        !!~ ~ ~ SQLite ~ ~ ~
       end if  
 !! headwater code (0=do not route; 1=route)
       i_subhw = 0
@@ -709,16 +713,20 @@
       open (14,file='rsv.dat')
 !!darrell output files added for interface plotting
       open (11123,file='hyd.out')
-      open (16,file='chan.deg')
+      if(ioutput == 0) open (16,file='chan.deg')
 !!    open (17,file='wbl.out')
       open (18,file='swat.qst')
 !! output amount of water stored in the soil layer (formerly 'soilst.out')
       if (isto > 0) then
+        !!~ ~ ~ SQLite ~ ~ ~
+        if(ioutput == 0) then
         open (129,file='output.swr')
         write (129,5001) 
 5001    format (t20,'Soil Storage (mm)',/,t15,'Layer #',/,t3,'Day',t13,
      *  'HRU',t28,'1',t40,'2',t52,'3',t64,'4',t76,'5',t87,'6',t100,
      *  '7',t112,'8',t124,'9',t135,'10')
+        end if
+        !!~ ~ ~ SQLite ~ ~ ~
       end if
 
 

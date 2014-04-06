@@ -68,6 +68,8 @@
       call headout_sqlite_wshd
       call headout_sqlite_mgt
       call headout_sqlite_snu
+      call headout_sqlite_swr
+      call headout_sqlite_deg
       call sqlite3_begin( db )
 
 !! write headings to pesticide output file (output.pst)

@@ -107,9 +107,26 @@
 !!    writes out the amount of water stored in the soil layer
       if (isto > 0) then 
         do j = 1, nhru
+            !!~ ~ ~ SQLite ~ ~ ~
+            if(ioutput == 1) then
+                call sqlite3_set_column( colswr(1), j )
+                call sqlite3_set_column( colswr(2), iyr )
+                call sqlite3_set_column( colswr(3), i_mo )
+                call sqlite3_set_column( colswr(4), icl(iida) )
+                do j1 = 1, 10
+                    if(j1 > sol_nly(j)) then
+                      call sqlite3_set_column(colswr(4+j1),0.0)
+                    else
+                      call sqlite3_set_column(colswr(4+j1),sol_st(j1,j))
+                    end if
+                end do
+                call sqlite3_insert( db, tblswr, colswr )
+            else
           write (129,5000) iida, j, (sol_st(j1,j), j1 = 1, sol_nly(j))
 !          write (129,5000) iida, subnum(j), hruno(j),                   
 !     &             (sol_no3(j1,j), j1 = 1, sol_nly(j))
+            end if
+            !!~ ~ ~ SQLite ~ ~ ~
         enddo
       end if
 
