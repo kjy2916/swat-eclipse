@@ -13,10 +13,10 @@
 
       call sqlite3_delete_table( db, tblsnu)
 
-      if(imgt == 1) then
+      if(isol == 1) then
           valuecolnum = size(hedsnu)
           basiccolnum = 5
-          allocate( colsnu(basiccolnum + valuecolnum + 2) )
+          allocate( colsnu(basiccolnum + valuecolnum) )
           call sqlite3_column_props(colsnu(1),"SUB",SQLITE_INT)
           call sqlite3_column_props(colsnu(2),"HRU",SQLITE_INT)
           call sqlite3_column_props(colsnu(3),"YR",SQLITE_INT)
