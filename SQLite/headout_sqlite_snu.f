@@ -15,13 +15,12 @@
 
       if(isol == 1) then
           valuecolnum = size(hedsnu)
-          basiccolnum = 5
+          basiccolnum = 4
           allocate( colsnu(basiccolnum + valuecolnum) )
-          call sqlite3_column_props(colsnu(1),"SUB",SQLITE_INT)
-          call sqlite3_column_props(colsnu(2),"HRU",SQLITE_INT)
-          call sqlite3_column_props(colsnu(3),"YR",SQLITE_INT)
-          call sqlite3_column_props(colsnu(4),"MO",SQLITE_INT)
-          call sqlite3_column_props(colsnu(5),"DA",SQLITE_INT)
+          call sqlite3_column_props(colsnu(1),"HRU",SQLITE_INT)
+          call sqlite3_column_props(colsnu(2),"YR",SQLITE_INT)
+          call sqlite3_column_props(colsnu(3),"MO",SQLITE_INT)
+          call sqlite3_column_props(colsnu(4),"DA",SQLITE_INT)
           do j=1,valuecolnum
             call sqlite3_column_props( colsnu(basiccolnum + j),
      &                                          hedsnu(j), SQLITE_REAL)
