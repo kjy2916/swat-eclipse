@@ -59,6 +59,7 @@
 
       call header_sqlite
       call sqlite3_open( "result.db3", db )
+      call sqlite3_clear( db )
       call headout_sqlite_rch
       call headout_sqlite_hru
       call headout_sqlite_sub
