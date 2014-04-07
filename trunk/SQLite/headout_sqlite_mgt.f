@@ -15,16 +15,15 @@
 
       if(imgt == 1) then
           valuecolnum = size(hedmgt)
-          basiccolnum = 7
+          basiccolnum = 6
           allocate( colmgt(basiccolnum + valuecolnum + 2) )
-          call sqlite3_column_props(colmgt(1),"SUB",SQLITE_INT)
-          call sqlite3_column_props(colmgt(2),"HRU",SQLITE_INT)
-          call sqlite3_column_props(colmgt(3),"YR",SQLITE_INT)
-          call sqlite3_column_props(colmgt(4),"MO",SQLITE_INT)
-          call sqlite3_column_props(colmgt(5),"DA",SQLITE_INT)
-          call sqlite3_column_props(colmgt(6),"CROP_FERT_PEST",
+          call sqlite3_column_props(colmgt(1),"HRU",SQLITE_INT)
+          call sqlite3_column_props(colmgt(2),"YR",SQLITE_INT)
+          call sqlite3_column_props(colmgt(3),"MO",SQLITE_INT)
+          call sqlite3_column_props(colmgt(4),"DA",SQLITE_INT)
+          call sqlite3_column_props(colmgt(5),"CROP_FERT_PEST",
      &                                               SQLITE_CHAR,10)
-          call sqlite3_column_props(colmgt(7),"OPERATION",
+          call sqlite3_column_props(colmgt(6),"OPERATION",
      &                                               SQLITE_CHAR,10)
           do j=1,valuecolnum
             call sqlite3_column_props( colmgt(basiccolnum + j),
