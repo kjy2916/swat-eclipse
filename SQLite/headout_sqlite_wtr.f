@@ -11,17 +11,16 @@
       !!create table rsv
       if (iwtr == 1) then
           tblwtr = 'wtr'
-          wtrbasiccolnum = 4 + datecol_num
+          wtrbasiccolnum = 3 + datecol_num
           wtrvaluecolnum = 40
 
           allocate( colwtr(wtrbasiccolnum + wtrvaluecolnum) )
 
-          call sqlite3_column_props( colwtr(1), "SUB", SQLITE_INT)
-          call sqlite3_column_props( colwtr(2), "HRU", SQLITE_INT)
-          call sqlite3_column_props( colwtr(3), "LULC", SQLITE_CHAR,4)
-          call sqlite3_column_props( colwtr(4), "MGT", SQLITE_INT)
+          call sqlite3_column_props( colwtr(1), "HRU", SQLITE_INT)
+          call sqlite3_column_props( colwtr(2), "LULC", SQLITE_CHAR,4)
+          call sqlite3_column_props( colwtr(3), "MGT", SQLITE_INT)
           call headout_sqlite_adddate(colwtr,
-     &                  wtrbasiccolnum + wtrvaluecolnum,5)
+     &                  wtrbasiccolnum + wtrvaluecolnum,4)
 
           do j = 1, wtrvaluecolnum
              call sqlite3_column_props(colwtr(wtrbasiccolnum+j),
