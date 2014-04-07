@@ -580,6 +580,48 @@ subroutine sqlite3_create_index( db, indexname, tablename, columns )
 
 end subroutine sqlite3_create_index
 
+subroutine sqlite3_delete_index( db, indexname )
+   type(SQLITE_DATABASE) :: db
+   character(len=*)      :: indexname
+
+   character(len=25+len(indexname)) :: command
+
+   write( command, * ) "DROP INDEX IF EXISTS ", indexname
+   call sqlite3_do( db, command )
+
+end subroutine sqlite3_delete_index
+
+subroutine sqlite3_clear( db )
+   type(SQLITE_DATABASE) :: db
+   type(SQLITE_COLUMN), dimension(:), pointer :: column_names
+   type(SQLITE_STATEMENT)            :: stmt
+   logical                           :: finished
+
+   !!prepare
+   allocate(column_names(1))
+   call sqlite3_column_props(column_names(1),'name',SQLITE_CHAR,10)
+
+   !!clear indexs
+   call sqlite3_prepare_select( db, "sqlite_master", column_names, stmt," where type='index'" )
+   finished = .false.
+   do
+      call sqlite3_next_row( stmt, column_names, finished )
+      if ( finished ) exit
+      call sqlite3_delete_index(db,trim(column_names(1)%char_value))
+   enddo
+
+   !!clear tables
+   call sqlite3_prepare_select( db, "sqlite_master", column_names, stmt," where type='table'" )
+   finished = .false.
+   do
+      call sqlite3_next_row( stmt, column_names, finished )
+      if ( finished ) exit
+      call sqlite3_delete_table(db,trim(column_names(1)%char_value))
+   enddo
+   deallocate(column_names)
+
+end subroutine sqlite3_clear
+
 
 ! sqlite3_prepare_select --
 !    Prepare a selection of data from the database
