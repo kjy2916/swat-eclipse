@@ -413,17 +413,16 @@
       endif
 
       !!output basic information
-      call sqlite3_set_column( colhru(1), sb )
-      call sqlite3_set_column( colhru(2), j )
-      call sqlite3_set_column( colhru(3), cropname )
-      call sqlite3_set_column( colhru(4), nmgt(j) )
+      call sqlite3_set_column( colhru(1), j )
+      call sqlite3_set_column( colhru(2), cropname )
+      call sqlite3_set_column( colhru(3), nmgt(j) )
       if (icalen == 0) then
-        call sqlite3_set_column( colhru(5), iyr )
-        call sqlite3_set_column( colhru(6), iida )
+        call sqlite3_set_column( colhru(4), iyr )
+        call sqlite3_set_column( colhru(5), iida )
       else if (icalen == 1) then
-        call sqlite3_set_column( colhru(5), iyr )
-        call sqlite3_set_column( colhru(6), i_mo )
-        call sqlite3_set_column( colhru(7), icl(iida) )
+        call sqlite3_set_column( colhru(4), iyr )
+        call sqlite3_set_column( colhru(5), i_mo )
+        call sqlite3_set_column( colhru(6), icl(iida) )
       end if
 
       !!customized columns
