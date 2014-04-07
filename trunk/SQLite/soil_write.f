@@ -57,17 +57,16 @@
          !!~ ~ ~ SQLite ~ ~ ~
          if(ioutput == 1) then
             !!save to SQLite database
-            call sqlite3_set_column( colsnu(1), hru_sub(j) )
-            call sqlite3_set_column( colsnu(2), j )
-            call sqlite3_set_column( colsnu(3), iyr )
-            call sqlite3_set_column( colsnu(4), i_mo )
-            call sqlite3_set_column( colsnu(5), icl(iida) )
-            call sqlite3_set_column( colsnu(6), sol_rsd(1,j) )
-            call sqlite3_set_column( colsnu(7), solp_t )
-            call sqlite3_set_column( colsnu(8), solno3_t )
-            call sqlite3_set_column( colsnu(9), solorgn_t )
-            call sqlite3_set_column( colsnu(10), solorgp_t )
-            call sqlite3_set_column( colsnu(11), cnday(j) )
+            call sqlite3_set_column( colsnu(1), j )
+            call sqlite3_set_column( colsnu(2), iyr )
+            call sqlite3_set_column( colsnu(3), i_mo )
+            call sqlite3_set_column( colsnu(4), icl(iida) )
+            call sqlite3_set_column( colsnu(5), sol_rsd(1,j) )
+            call sqlite3_set_column( colsnu(6), solp_t )
+            call sqlite3_set_column( colsnu(7), solno3_t )
+            call sqlite3_set_column( colsnu(8), solorgn_t )
+            call sqlite3_set_column( colsnu(9), solorgp_t )
+            call sqlite3_set_column( colsnu(10), cnday(j) )
             call sqlite3_insert( db, tblsnu, colsnu )
          else
          write (121,1000) i, subnum(j), hruno(j), sol_rsd(1,j), solp_t, 
