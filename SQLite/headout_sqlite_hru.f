@@ -16,7 +16,7 @@
 
       !!hru table
       !!The number of common columns
-      tblhru_num = 4 + datecol_num
+      tblhru_num = 3 + datecol_num
 
       !!get number of columns of hru
       colhrunum = 0
@@ -28,11 +28,10 @@
 
       !!create table hru
       allocate( colhru(colhrunum) )
-      call sqlite3_column_props( colhru(1), "SUB", SQLITE_INT)
-      call sqlite3_column_props( colhru(2), "HRU", SQLITE_INT)
-      call sqlite3_column_props( colhru(3), "LULC", SQLITE_CHAR,4)
-      call sqlite3_column_props( colhru(4), "MGT", SQLITE_INT)
-      call headout_sqlite_adddate(colhru,colhrunum,5)
+      call sqlite3_column_props( colhru(1), "HRU", SQLITE_INT)
+      call sqlite3_column_props( colhru(2), "LULC", SQLITE_CHAR,4)
+      call sqlite3_column_props( colhru(3), "MGT", SQLITE_INT)
+      call headout_sqlite_adddate(colhru,colhrunum,4)
 
       if (ipdvas(1) > 0) then
         do j = 1, itots
