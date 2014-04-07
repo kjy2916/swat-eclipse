@@ -16,14 +16,13 @@
           call sqlite3_delete_table( db, tblpot)
 
           potvaluecolnum = size(hedpot)
-          potbasiccolnum = 2 + datecol_num
+          potbasiccolnum = 1 + datecol_num
 
           allocate( colpot(potbasiccolnum + potvaluecolnum) )
 
-          call sqlite3_column_props( colpot(1), "SUB", SQLITE_INT)
-          call sqlite3_column_props( colpot(2), "HRU", SQLITE_INT)
+          call sqlite3_column_props( colpot(1), "HRU", SQLITE_INT)
           call headout_sqlite_adddate(colpot,
-     &     potbasiccolnum + potvaluecolnum,3)
+     &     potbasiccolnum + potvaluecolnum,2)
           do j = 1, potvaluecolnum
              call sqlite3_column_props(colpot(potbasiccolnum+j),
      &                                          hedpot(j),SQLITE_REAL)
