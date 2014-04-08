@@ -505,6 +505,11 @@
 
 !! write average annual data
       if (iprint /= 1) then
+        !!~ ~ ~ SQLite ~ ~ ~
+        if(ioutput == 1) then
+            !!do nothing
+            !!don't need the ave annual output which would mix yearly output and monthly/daily output
+        else
         !! write average annual output--HRU (output.hru)
         call hruaa(yrs)
         call impndaa(yrs)
@@ -517,6 +522,8 @@
 
         !! write average annual output--subbasin (output.sub)
         call subaa(yrs)
+        end if
+        !!~ ~ ~ SQLite ~ ~ ~
       end if
 
 !! write average annual pesticide data (output.pst)

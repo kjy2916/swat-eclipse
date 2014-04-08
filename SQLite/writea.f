@@ -271,19 +271,25 @@
             end if
           end do
 
+          !!~ ~ ~ SQLite ~ ~ ~
           if(ioutput == 1) then
-              !! annual write--HRU output (output.hru)
-              call hruyr_sqlite
-              call impndyr
+              !!only output yearly data when yearly output is selected
+              !!the yearly data could be calculated based on monthly data
+              !!this wouldn't mix monthly and yearly output in one table
+              if(iprint == 2) then
+                  !! annual write--HRU output (output.hru)
+                  call hruyr_sqlite
+                  call impndyr
 
-              !! annual write--subbasin output (output.sub)
-              call subyr_sqlite
+                  !! annual write--subbasin output (output.sub)
+                  call subyr_sqlite
 
-              !! annual write--reach output (.rch)
-              call rchyr_sqlite
+                  !! annual write--reach output (.rch)
+                  call rchyr_sqlite
 
-    !         !! annual write--sediment routing (.sed)
-              call rsedyr
+        !         !! annual write--sediment routing (.sed)
+                  call rsedyr
+              end if
           else
               !! annual write--HRU output (output.hru)
               call hruyr
@@ -298,6 +304,7 @@
     !         !! annual write--sediment routing (.sed)
               call rsedyr
           end if
+          !!~ ~ ~ SQLite ~ ~ ~
 
           idlast = 0
           idlast = i - (id1 - 1)
