@@ -1,5 +1,5 @@
 #Generated using GenerateMakefile by Zhiqiang Yu, hawklorry@gmail.com
-#March-11-14 4:41:21 PM
+#Wednesday, April 09, 2014 3:19:02 PM
 
 #Define compiler, change it if using other compiler
 CC=gcc
@@ -25,7 +25,7 @@ ARCH32=-m32
 ARCH64=-m64
 
 
-OBJECTS_DEBUG32= debug32/csqlite.o debug32/sqlite3.o  debug32/addh.o debug32/sqlite_writeinfo.o debug32/albedo.o debug32/allocate_parms.o debug32/alph.o debug32/mgt_sqlite.o debug32/headout_sqlite_deg.o debug32/anfert.o debug32/apex_day.o debug32/apply.o debug32/ascrv.o debug32/atri.o debug32/aunif.o debug32/autoirr.o debug32/aveval.o debug32/bacteria.o debug32/biofilm.o debug32/biozone.o debug32/bmpfixed.o debug32/bmpinit.o debug32/bmp_det_pond.o debug32/bmp_ri_pond.o debug32/bmp_sand_filter.o debug32/bmp_sed_pond.o debug32/bmp_wet_pond.o debug32/buffer.o debug32/burnop.o debug32/canopyint.o debug32/caps.o debug32/carbon_new.o debug32/carbon_zhang2.o debug32/cfactor.o debug32/chkcst.o debug32/clgen.o debug32/clicon.o debug32/command.o debug32/conapply.o debug32/confert.o debug32/crackflow.o debug32/crackvol.o debug32/curno.o debug32/dailycn.o debug32/decay.o debug32/depstor.o debug32/distrib_bmps.o debug32/dormant.o debug32/drains.o debug32/dstn1.o debug32/ee.o debug32/eiusle.o debug32/enrsb.o debug32/erfc.o debug32/estimate_ksat.o debug32/etact.o debug32/etpot.o debug32/expo.o debug32/fert.o debug32/filter.o debug32/filtw.o debug32/finalbal.o debug32/fsqlite.o debug32/gcycl.o debug32/getallo.o debug32/grass_wway.o debug32/graze.o debug32/grow.o debug32/gwmod.o debug32/gwmod_deep.o debug32/gwnutr.o debug32/gw_no3.o debug32/h2omgt_init.o debug32/harvestop.o debug32/harvgrainop.o debug32/harvkillop.o debug32/header.o debug32/header_sqlite.o debug32/headout.o debug32/headout_sqlite_mgt.o debug32/headout_sqlite_swr.o debug32/headout_sqlite_snu.o debug32/headout_sqlite_wshd.o debug32/headout_sqlite.o debug32/headout_sqlite_adddate.o debug32/headout_sqlite_createindex.o debug32/headout_sqlite_hru.o debug32/headout_sqlite_rch.o debug32/headout_sqlite_sub.o debug32/headout_sqlite_rsv.o debug32/headout_sqlite_wtr.o debug32/headout_sqlite_sed.o  debug32/hhnoqual.o debug32/hhwatqual.o debug32/hmeas.o debug32/hruaa.o debug32/hruallo.o debug32/hruday.o debug32/hruday_sqlite.o debug32/hrumon.o debug32/hrumon_sqlite.o debug32/hrupond.o debug32/hrupondhr.o debug32/hruyr.o debug32/hruyr_sqlite.o debug32/hydroinit.o debug32/icl.o debug32/impndaa.o debug32/impndday.o debug32/impndmon.o debug32/impndyr.o debug32/impnd_init.o debug32/irrigate.o debug32/irrsub.o debug32/irr_rch.o debug32/irr_res.o debug32/jdt.o debug32/killop.o debug32/lakeq.o debug32/latsed.o debug32/layersplit.o debug32/lwqdef.o debug32/main.o debug32/ncsed_leach.o debug32/ndenit.o debug32/newtillmix.o debug32/nfix.o debug32/nitvol.o debug32/nlch.o debug32/nminrl.o debug32/noqual.o debug32/npup.o debug32/nrain.o debug32/nup.o debug32/nuts.o debug32/openwth.o debug32/operatn.o debug32/orgn.o debug32/orgncswat.o debug32/origtile.o debug32/ovr_sed.o debug32/percmacro.o debug32/percmain.o debug32/percmicro.o debug32/pestlch.o debug32/pestw.o debug32/pesty.o debug32/pgen.o debug32/pgenhr.o debug32/pkq.o debug32/plantmod.o debug32/plantop.o debug32/pmeas.o debug32/pminrl.o debug32/pminrl2.o debug32/pond.o debug32/pondhr.o debug32/pothole.o debug32/potholehr.o debug32/print_hyd.o debug32/psed.o debug32/qman.o debug32/ran1.o debug32/rchaa.o debug32/rchday.o debug32/rchday_sqlite.o debug32/rchinit.o debug32/rchmon.o debug32/rchmon_sqlite.o debug32/rchuse.o debug32/rchyr.o debug32/rchyr_sqlite.o debug32/reachout.o debug32/readatmodep.o debug32/readbsn.o debug32/readchm.o debug32/readcnst.o debug32/readfcst.o debug32/readfert.o debug32/readfig.o debug32/readfile.o debug32/readgw.o debug32/readhru.o debug32/readinpt.o debug32/readlup.o debug32/readlwq.o debug32/readmgt.o debug32/readmon.o debug32/readops.o debug32/readpest.o debug32/readplant.o debug32/readpnd.o debug32/readres.o debug32/readrte.o debug32/readru.o debug32/readsdr.o debug32/readsepticbz.o debug32/readseptwq.o debug32/readsno.o debug32/readsol.o debug32/readsub.o debug32/readswq.o debug32/readtill.o debug32/readurban.o debug32/readwgn.o debug32/readwus.o debug32/readwwq.o debug32/readyr.o debug32/reccnst.o debug32/recday.o debug32/rechour.o debug32/recmon.o debug32/recyear.o debug32/regres.o debug32/res.o debug32/resbact.o debug32/resetlu.o debug32/reshr.o debug32/resinit.o debug32/resnut.o debug32/rewind_init.o debug32/rhgen.o debug32/rootfr.o debug32/route.o debug32/routels.o debug32/routeunit.o debug32/routres.o debug32/rsedaa.o debug32/rseday.o debug32/rsedmon.o debug32/rsedyr.o debug32/rtbact.o debug32/rtday.o debug32/rteinit.o debug32/rthmusk.o debug32/rthpest.o debug32/rthr.o debug32/rthsed.o debug32/rtmusk.o debug32/rtout.o debug32/rtpest.o debug32/rtsed.o debug32/rtsed_bagnold.o debug32/rtsed_kodatie.o debug32/rtsed_molinas_wu.o debug32/rtsed_yangsand.o debug32/sat_excess.o debug32/save.o debug32/saveconc.o debug32/schedule_ops.o debug32/sched_mgt.o debug32/simulate.o debug32/sim_initday.o debug32/sim_inityr.o debug32/slrgen.o debug32/smeas.o debug32/snom.o debug32/soil_chem.o debug32/soil_par.o debug32/soil_phys.o debug32/soil_write.o debug32/solp.o debug32/solt.o debug32/std1.o debug32/std2.o debug32/std3.o debug32/stdaa.o debug32/stdaa_sqlite.o debug32/stdaa_sqlite_writebasin.o debug32/storeinitial.o debug32/structure.o debug32/subaa.o debug32/subbasin.o debug32/subday.o debug32/subday_sqlite.o debug32/submon.o debug32/submon_sqlite.o debug32/substor.o debug32/subwq.o debug32/subyr.o debug32/subyr_sqlite.o debug32/sub_subbasin.o debug32/sumhyd.o debug32/sumv.o debug32/surface.o debug32/surfstor.o debug32/surfst_h2o.o debug32/surq_daycn.o debug32/surq_greenampt.o debug32/swbl.o debug32/sweep.o debug32/swu.o debug32/tair.o debug32/tgen.o debug32/theta.o debug32/tillfactor.o debug32/tillmix.o debug32/tmeas.o debug32/tran.o debug32/transfer.o debug32/tstr.o debug32/ttcoef.o debug32/ttcoef_wway.o debug32/urban.o debug32/urbanhr.o debug32/urb_bmp.o debug32/varinit.o debug32/vbl.o debug32/virtual.o debug32/volq.o debug32/washp.o debug32/watbal.o debug32/water_hru.o debug32/watqual.o debug32/watqual2.o debug32/wattable.o debug32/watuse.o debug32/weatgn.o debug32/wetlan.o debug32/wmeas.o debug32/wndgen.o debug32/writea.o debug32/writeaa.o debug32/writed.o debug32/writem.o debug32/xmon.o debug32/ysed.o debug32/zero0.o debug32/zero1.o debug32/zero2.o debug32/zeroini.o debug32/zero_urbn.o
+OBJECTS_DEBUG32= debug32/csqlite.o debug32/sqlite3.o  debug32/addh.o debug32/albedo.o debug32/allocate_parms.o debug32/alph.o debug32/anfert.o debug32/apex_day.o debug32/apply.o debug32/ascrv.o debug32/atri.o debug32/aunif.o debug32/autoirr.o debug32/aveval.o debug32/bacteria.o debug32/biofilm.o debug32/biozone.o debug32/bmpfixed.o debug32/bmpinit.o debug32/bmp_det_pond.o debug32/bmp_ri_pond.o debug32/bmp_sand_filter.o debug32/bmp_sed_pond.o debug32/bmp_wet_pond.o debug32/buffer.o debug32/burnop.o debug32/canopyint.o debug32/caps.o debug32/carbon_new.o debug32/carbon_zhang2.o debug32/cfactor.o debug32/chkcst.o debug32/clgen.o debug32/clicon.o debug32/command.o debug32/conapply.o debug32/confert.o debug32/crackflow.o debug32/crackvol.o debug32/curno.o debug32/dailycn.o debug32/decay.o debug32/depstor.o debug32/distrib_bmps.o debug32/dormant.o debug32/drains.o debug32/dstn1.o debug32/ee.o debug32/eiusle.o debug32/enrsb.o debug32/erfc.o debug32/estimate_ksat.o debug32/etact.o debug32/etpot.o debug32/expo.o debug32/fert.o debug32/filter.o debug32/filtw.o debug32/finalbal.o debug32/fsqlite.o debug32/gcycl.o debug32/getallo.o debug32/grass_wway.o debug32/graze.o debug32/grow.o debug32/gwmod.o debug32/gwmod_deep.o debug32/gwnutr.o debug32/gw_no3.o debug32/h2omgt_init.o debug32/harvestop.o debug32/harvgrainop.o debug32/harvkillop.o debug32/header.o debug32/header_sqlite.o debug32/headout.o debug32/headout_sqlite.o debug32/headout_sqlite_adddate.o debug32/headout_sqlite_createindex.o debug32/headout_sqlite_deg.o debug32/headout_sqlite_hru.o debug32/headout_sqlite_mgt.o debug32/headout_sqlite_pot.o debug32/headout_sqlite_rch.o debug32/headout_sqlite_rsv.o debug32/headout_sqlite_sed.o debug32/headout_sqlite_snu.o debug32/headout_sqlite_sub.o debug32/headout_sqlite_swr.o debug32/headout_sqlite_wshd.o debug32/headout_sqlite_wtr.o debug32/hhnoqual.o debug32/hhwatqual.o debug32/hmeas.o debug32/hruaa.o debug32/hruallo.o debug32/hruday.o debug32/hruday_sqlite.o debug32/hrumon.o debug32/hrumon_sqlite.o debug32/hrupond.o debug32/hrupondhr.o debug32/hruyr.o debug32/hruyr_sqlite.o debug32/hydroinit.o debug32/icl.o debug32/impndaa.o debug32/impndday.o debug32/impndmon.o debug32/impndyr.o debug32/impnd_init.o debug32/irrigate.o debug32/irrsub.o debug32/irr_rch.o debug32/irr_res.o debug32/jdt.o debug32/killop.o debug32/lakeq.o debug32/latsed.o debug32/layersplit.o debug32/lwqdef.o debug32/main.o debug32/mgt_sqlite.o debug32/ncsed_leach.o debug32/ndenit.o debug32/newtillmix.o debug32/nfix.o debug32/nitvol.o debug32/nlch.o debug32/nminrl.o debug32/noqual.o debug32/npup.o debug32/nrain.o debug32/nup.o debug32/nuts.o debug32/openwth.o debug32/operatn.o debug32/orgn.o debug32/orgncswat.o debug32/origtile.o debug32/ovr_sed.o debug32/percmacro.o debug32/percmain.o debug32/percmicro.o debug32/pestlch.o debug32/pestw.o debug32/pesty.o debug32/pgen.o debug32/pgenhr.o debug32/pkq.o debug32/plantmod.o debug32/plantop.o debug32/pmeas.o debug32/pminrl.o debug32/pminrl2.o debug32/pond.o debug32/pondhr.o debug32/pothole.o debug32/potholehr.o debug32/print_hyd.o debug32/psed.o debug32/qman.o debug32/ran1.o debug32/rchaa.o debug32/rchday.o debug32/rchday_sqlite.o debug32/rchinit.o debug32/rchmon.o debug32/rchmon_sqlite.o debug32/rchuse.o debug32/rchyr.o debug32/rchyr_sqlite.o debug32/reachout.o debug32/readatmodep.o debug32/readbsn.o debug32/readchm.o debug32/readcnst.o debug32/readfcst.o debug32/readfert.o debug32/readfig.o debug32/readfile.o debug32/readgw.o debug32/readhru.o debug32/readinpt.o debug32/readlup.o debug32/readlwq.o debug32/readmgt.o debug32/readmon.o debug32/readops.o debug32/readpest.o debug32/readplant.o debug32/readpnd.o debug32/readres.o debug32/readrte.o debug32/readru.o debug32/readsdr.o debug32/readsepticbz.o debug32/readseptwq.o debug32/readsno.o debug32/readsol.o debug32/readsub.o debug32/readswq.o debug32/readtill.o debug32/readurban.o debug32/readwgn.o debug32/readwus.o debug32/readwwq.o debug32/readyr.o debug32/reccnst.o debug32/recday.o debug32/rechour.o debug32/recmon.o debug32/recyear.o debug32/regres.o debug32/res.o debug32/resbact.o debug32/resetlu.o debug32/reshr.o debug32/resinit.o debug32/resnut.o debug32/rewind_init.o debug32/rhgen.o debug32/rootfr.o debug32/route.o debug32/routels.o debug32/routeunit.o debug32/routres.o debug32/rsedaa.o debug32/rseday.o debug32/rsedmon.o debug32/rsedyr.o debug32/rtbact.o debug32/rtday.o debug32/rteinit.o debug32/rthmusk.o debug32/rthpest.o debug32/rthr.o debug32/rthsed.o debug32/rtmusk.o debug32/rtout.o debug32/rtpest.o debug32/rtsed.o debug32/rtsed_bagnold.o debug32/rtsed_kodatie.o debug32/rtsed_molinas_wu.o debug32/rtsed_yangsand.o debug32/sat_excess.o debug32/save.o debug32/saveconc.o debug32/schedule_ops.o debug32/sched_mgt.o debug32/simulate.o debug32/sim_initday.o debug32/sim_inityr.o debug32/slrgen.o debug32/smeas.o debug32/snom.o debug32/soil_chem.o debug32/soil_par.o debug32/soil_phys.o debug32/soil_write.o debug32/solp.o debug32/solt.o debug32/sqlite_writeinfo.o debug32/std1.o debug32/std2.o debug32/std3.o debug32/stdaa.o debug32/stdaa_sqlite.o debug32/stdaa_sqlite_writebasin.o debug32/storeinitial.o debug32/structure.o debug32/subaa.o debug32/subbasin.o debug32/subday.o debug32/subday_sqlite.o debug32/submon.o debug32/submon_sqlite.o debug32/substor.o debug32/subwq.o debug32/subyr.o debug32/subyr_sqlite.o debug32/sub_subbasin.o debug32/sumhyd.o debug32/sumv.o debug32/surface.o debug32/surfstor.o debug32/surfst_h2o.o debug32/surq_daycn.o debug32/surq_greenampt.o debug32/swbl.o debug32/sweep.o debug32/swu.o debug32/tair.o debug32/tgen.o debug32/theta.o debug32/tillfactor.o debug32/tillmix.o debug32/tmeas.o debug32/tran.o debug32/transfer.o debug32/tstr.o debug32/ttcoef.o debug32/ttcoef_wway.o debug32/urban.o debug32/urbanhr.o debug32/urb_bmp.o debug32/varinit.o debug32/vbl.o debug32/virtual.o debug32/volq.o debug32/washp.o debug32/watbal.o debug32/water_hru.o debug32/watqual.o debug32/watqual2.o debug32/wattable.o debug32/watuse.o debug32/weatgn.o debug32/wetlan.o debug32/wmeas.o debug32/wndgen.o debug32/writea.o debug32/writeaa.o debug32/writed.o debug32/writem.o debug32/xmon.o debug32/ysed.o debug32/zero0.o debug32/zero1.o debug32/zero2.o debug32/zeroini.o debug32/zero_urbn.o
 
 NAMEDEBUG32=swat_debug32
 debug32:debug32_mkdir ${NAMEDEBUG32}
@@ -42,14 +42,9 @@ debug32/csqlite.o: csqlite.c
 debug32/sqlite3.o: sqlite3.c
 	${CC} ${ARCH32} ${CFLAG} ${DFLAG}  sqlite3.c -o debug32/sqlite3.o
 
+
 debug32/addh.o: addh.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  addh.f -o debug32/addh.o -I debug32
-
-debug32/sqlite_writeinfo.o: sqlite_writeinfo.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sqlite_writeinfo.f -o debug32/sqlite_writeinfo.o -I debug32
-	
-debug32/mgt_sqlite.o: mgt_sqlite.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  mgt_sqlite.f -o debug32/mgt_sqlite.o -I debug32
 
 debug32/albedo.o: albedo.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  albedo.f -o debug32/albedo.o -I debug32
@@ -219,7 +214,7 @@ debug32/filtw.o: filtw.f debug32/main.o
 debug32/finalbal.o: finalbal.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  finalbal.f -o debug32/finalbal.o -I debug32
 
-debug32/fsqlite.o: fsqlite.f90 debug32/main.o
+debug32/fsqlite.o: fsqlite.f90
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  fsqlite.f90 -o debug32/fsqlite.o -J debug32
 
 debug32/gcycl.o: gcycl.f debug32/main.o
@@ -260,7 +255,7 @@ debug32/harvgrainop.o: harvgrainop.f debug32/main.o
 
 debug32/harvkillop.o: harvkillop.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  harvkillop.f -o debug32/harvkillop.o -I debug32
-	
+
 debug32/header.o: header.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  header.f -o debug32/header.o -I debug32
 
@@ -270,48 +265,51 @@ debug32/header_sqlite.o: header_sqlite.f debug32/main.o
 debug32/headout.o: headout.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout.f -o debug32/headout.o -I debug32
 
-debug32/headout_sqlite_mgt.o: headout_sqlite_mgt.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_mgt.f -o debug32/headout_sqlite_mgt.o -I debug32
+debug32/headout_sqlite.o: headout_sqlite.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite.f -o debug32/headout_sqlite.o -I debug32
+
+debug32/headout_sqlite_adddate.o: headout_sqlite_adddate.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_adddate.f -o debug32/headout_sqlite_adddate.o -I debug32
+
+debug32/headout_sqlite_createindex.o: headout_sqlite_createindex.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_createindex.f -o debug32/headout_sqlite_createindex.o -I debug32
 
 debug32/headout_sqlite_deg.o: headout_sqlite_deg.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_deg.f -o debug32/headout_sqlite_deg.o -I debug32
 
-debug32/headout_sqlite_swr.o: headout_sqlite_swr.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_swr.f -o debug32/headout_sqlite_swr.o -I debug32
-	
-debug32/headout_sqlite_snu.o: headout_sqlite_snu.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_snu.f -o debug32/headout_sqlite_snu.o -I debug32
-
-debug32/headout_sqlite_wshd.o: headout_sqlite_wshd.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_wshd.f -o debug32/headout_sqlite_wshd.o -I debug32
-
 debug32/headout_sqlite_hru.o: headout_sqlite_hru.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_hru.f -o debug32/headout_sqlite_hru.o -I debug32
-	
+
+debug32/headout_sqlite_mgt.o: headout_sqlite_mgt.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_mgt.f -o debug32/headout_sqlite_mgt.o -I debug32
+
+debug32/headout_sqlite_pot.o: headout_sqlite_pot.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_pot.f -o debug32/headout_sqlite_pot.o -I debug32
+
 debug32/headout_sqlite_rch.o: headout_sqlite_rch.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_rch.f -o debug32/headout_sqlite_rch.o -I debug32
+
+debug32/headout_sqlite_rsv.o: headout_sqlite_rsv.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_rsv.f -o debug32/headout_sqlite_rsv.o -I debug32
+
+debug32/headout_sqlite_sed.o: headout_sqlite_sed.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_sed.f -o debug32/headout_sqlite_sed.o -I debug32
+
+debug32/headout_sqlite_snu.o: headout_sqlite_snu.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_snu.f -o debug32/headout_sqlite_snu.o -I debug32
 
 debug32/headout_sqlite_sub.o: headout_sqlite_sub.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_sub.f -o debug32/headout_sqlite_sub.o -I debug32
 
+debug32/headout_sqlite_swr.o: headout_sqlite_swr.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_swr.f -o debug32/headout_sqlite_swr.o -I debug32
+
+debug32/headout_sqlite_wshd.o: headout_sqlite_wshd.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_wshd.f -o debug32/headout_sqlite_wshd.o -I debug32
+
 debug32/headout_sqlite_wtr.o: headout_sqlite_wtr.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_wtr.f -o debug32/headout_sqlite_wtr.o -I debug32
 
-debug32/headout_sqlite_rsv.o: headout_sqlite_rsv.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_rsv.f -o debug32/headout_sqlite_rsv.o -I debug32
-	
-debug32/headout_sqlite_sed.o: headout_sqlite_sed.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_sed.f -o debug32/headout_sqlite_sed.o -I debug32
-	
-debug32/headout_sqlite.o: headout_sqlite.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite.f -o debug32/headout_sqlite.o -I debug32
-	
-debug32/headout_sqlite_adddate.o: headout_sqlite_adddate.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_adddate.f -o debug32/headout_sqlite_adddate.o -I debug32
-	
-debug32/headout_sqlite_createindex.o: headout_sqlite_createindex.f debug32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  headout_sqlite_createindex.f -o debug32/headout_sqlite_createindex.o -I debug32
-	
 debug32/hhnoqual.o: hhnoqual.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  hhnoqual.f -o debug32/hhnoqual.o -I debug32
 
@@ -347,10 +345,10 @@ debug32/hrupondhr.o: hrupondhr.f debug32/main.o
 
 debug32/hruyr.o: hruyr.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  hruyr.f -o debug32/hruyr.o -I debug32
-	
+
 debug32/hruyr_sqlite.o: hruyr_sqlite.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  hruyr_sqlite.f -o debug32/hruyr_sqlite.o -I debug32
-	
+
 debug32/hydroinit.o: hydroinit.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  hydroinit.f -o debug32/hydroinit.o -I debug32
 
@@ -402,8 +400,11 @@ debug32/layersplit.o: layersplit.f debug32/main.o
 debug32/lwqdef.o: lwqdef.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  lwqdef.f -o debug32/lwqdef.o -I debug32
 
-debug32/main.o: debug32/fsqlite.o main.f modparm.f
+debug32/main.o: main.f modparm.f debug32/fsqlite.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG} ${LONGFIX} main.f -o debug32/main.o -J debug32
+
+debug32/mgt_sqlite.o: mgt_sqlite.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  mgt_sqlite.f -o debug32/mgt_sqlite.o -I debug32
 
 debug32/ncsed_leach.o: ncsed_leach.f90 debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  ncsed_leach.f90 -o debug32/ncsed_leach.o -I debug32
@@ -825,6 +826,9 @@ debug32/solp.o: solp.f debug32/main.o
 debug32/solt.o: solt.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  solt.f -o debug32/solt.o -I debug32
 
+debug32/sqlite_writeinfo.o: sqlite_writeinfo.f debug32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sqlite_writeinfo.f -o debug32/sqlite_writeinfo.o -I debug32
+
 debug32/std1.o: std1.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  std1.f -o debug32/std1.o -I debug32
 
@@ -839,7 +843,7 @@ debug32/stdaa.o: stdaa.f debug32/main.o
 
 debug32/stdaa_sqlite.o: stdaa_sqlite.f90 debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  stdaa_sqlite.f90 -o debug32/stdaa_sqlite.o -I debug32
-	
+
 debug32/stdaa_sqlite_writebasin.o: stdaa_sqlite_writebasin.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  stdaa_sqlite_writebasin.f -o debug32/stdaa_sqlite_writebasin.o -I debug32
 
@@ -857,7 +861,7 @@ debug32/subbasin.o: subbasin.f debug32/main.o
 
 debug32/subday.o: subday.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  subday.f -o debug32/subday.o -I debug32
-	
+
 debug32/subday_sqlite.o: subday_sqlite.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  subday_sqlite.f -o debug32/subday_sqlite.o -I debug32
 
@@ -878,7 +882,7 @@ debug32/subyr.o: subyr.f debug32/main.o
 
 debug32/subyr_sqlite.o: subyr_sqlite.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  subyr_sqlite.f -o debug32/subyr_sqlite.o -I debug32
-	
+
 debug32/sub_subbasin.o: sub_subbasin.f debug32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${DFLAG}  sub_subbasin.f -o debug32/sub_subbasin.o -I debug32
 
@@ -1038,7 +1042,7 @@ debug32_clean:
 	rm -f debug32/*.mod
 	rm -f debug32/*~
 
-OBJECTS_DEBUG64= debug64/csqlite.o debug64/sqlite3.o  debug64/addh.o debug64/albedo.o debug64/allocate_parms.o debug64/alph.o debug64/anfert.o debug64/apex_day.o debug64/apply.o debug64/ascrv.o debug64/atri.o debug64/aunif.o debug64/autoirr.o debug64/aveval.o debug64/bacteria.o debug64/biofilm.o debug64/biozone.o debug64/bmpfixed.o debug64/bmpinit.o debug64/bmp_det_pond.o debug64/bmp_ri_pond.o debug64/bmp_sand_filter.o debug64/bmp_sed_pond.o debug64/bmp_wet_pond.o debug64/buffer.o debug64/burnop.o debug64/canopyint.o debug64/caps.o debug64/carbon_new.o debug64/carbon_zhang2.o debug64/cfactor.o debug64/chkcst.o debug64/clgen.o debug64/clicon.o debug64/command.o debug64/conapply.o debug64/confert.o debug64/crackflow.o debug64/crackvol.o debug64/curno.o debug64/dailycn.o debug64/decay.o debug64/depstor.o debug64/distrib_bmps.o debug64/dormant.o debug64/drains.o debug64/dstn1.o debug64/ee.o debug64/eiusle.o debug64/enrsb.o debug64/erfc.o debug64/estimate_ksat.o debug64/etact.o debug64/etpot.o debug64/expo.o debug64/fert.o debug64/filter.o debug64/filtw.o debug64/finalbal.o debug64/fsqlite.o debug64/gcycl.o debug64/getallo.o debug64/grass_wway.o debug64/graze.o debug64/grow.o debug64/gwmod.o debug64/gwmod_deep.o debug64/gwnutr.o debug64/gw_no3.o debug64/h2omgt_init.o debug64/harvestop.o debug64/harvgrainop.o debug64/harvkillop.o debug64/header.o debug64/headout.o debug64/hhnoqual.o debug64/hhwatqual.o debug64/hmeas.o debug64/hruaa.o debug64/hruallo.o debug64/hruday.o debug64/hrumon.o debug64/hrupond.o debug64/hrupondhr.o debug64/hruyr.o debug64/hydroinit.o debug64/icl.o debug64/impndaa.o debug64/impndday.o debug64/impndmon.o debug64/impndyr.o debug64/impnd_init.o debug64/irrigate.o debug64/irrsub.o debug64/irr_rch.o debug64/irr_res.o debug64/jdt.o debug64/killop.o debug64/lakeq.o debug64/latsed.o debug64/layersplit.o debug64/lwqdef.o debug64/main.o debug64/ncsed_leach.o debug64/ndenit.o debug64/newtillmix.o debug64/nfix.o debug64/nitvol.o debug64/nlch.o debug64/nminrl.o debug64/noqual.o debug64/npup.o debug64/nrain.o debug64/nup.o debug64/nuts.o debug64/openwth.o debug64/operatn.o debug64/orgn.o debug64/orgncswat.o debug64/origtile.o debug64/ovr_sed.o debug64/percmacro.o debug64/percmain.o debug64/percmicro.o debug64/pestlch.o debug64/pestw.o debug64/pesty.o debug64/pgen.o debug64/pgenhr.o debug64/pkq.o debug64/plantmod.o debug64/plantop.o debug64/pmeas.o debug64/pminrl.o debug64/pminrl2.o debug64/pond.o debug64/pondhr.o debug64/pothole.o debug64/potholehr.o debug64/print_hyd.o debug64/psed.o debug64/qman.o debug64/ran1.o debug64/rchaa.o debug64/rchday.o debug64/rchinit.o debug64/rchmon.o debug64/rchuse.o debug64/rchyr.o debug64/reachout.o debug64/readatmodep.o debug64/readbsn.o debug64/readchm.o debug64/readcnst.o debug64/readfcst.o debug64/readfert.o debug64/readfig.o debug64/readfile.o debug64/readgw.o debug64/readhru.o debug64/readinpt.o debug64/readlup.o debug64/readlwq.o debug64/readmgt.o debug64/readmon.o debug64/readops.o debug64/readpest.o debug64/readplant.o debug64/readpnd.o debug64/readres.o debug64/readrte.o debug64/readru.o debug64/readsdr.o debug64/readsepticbz.o debug64/readseptwq.o debug64/readsno.o debug64/readsol.o debug64/readsub.o debug64/readswq.o debug64/readtill.o debug64/readurban.o debug64/readwgn.o debug64/readwus.o debug64/readwwq.o debug64/readyr.o debug64/reccnst.o debug64/recday.o debug64/rechour.o debug64/recmon.o debug64/recyear.o debug64/regres.o debug64/res.o debug64/resbact.o debug64/resetlu.o debug64/reshr.o debug64/resinit.o debug64/resnut.o debug64/rewind_init.o debug64/rhgen.o debug64/rootfr.o debug64/route.o debug64/routels.o debug64/routeunit.o debug64/routres.o debug64/rsedaa.o debug64/rseday.o debug64/rsedmon.o debug64/rsedyr.o debug64/rtbact.o debug64/rtday.o debug64/rteinit.o debug64/rthmusk.o debug64/rthpest.o debug64/rthr.o debug64/rthsed.o debug64/rtmusk.o debug64/rtout.o debug64/rtpest.o debug64/rtsed.o debug64/rtsed_bagnold.o debug64/rtsed_kodatie.o debug64/rtsed_molinas_wu.o debug64/rtsed_yangsand.o debug64/sat_excess.o debug64/save.o debug64/saveconc.o debug64/schedule_ops.o debug64/sched_mgt.o debug64/simulate.o debug64/sim_initday.o debug64/sim_inityr.o debug64/slrgen.o debug64/smeas.o debug64/snom.o debug64/soil_chem.o debug64/soil_par.o debug64/soil_phys.o debug64/soil_write.o debug64/solp.o debug64/solt.o debug64/std1.o debug64/std2.o debug64/std3.o debug64/stdaa.o debug64/storeinitial.o debug64/structure.o debug64/subaa.o debug64/subbasin.o debug64/subday.o debug64/submon.o debug64/substor.o debug64/subwq.o debug64/subyr.o debug64/sub_subbasin.o debug64/sumhyd.o debug64/sumv.o debug64/surface.o debug64/surfstor.o debug64/surfst_h2o.o debug64/surq_daycn.o debug64/surq_greenampt.o debug64/swbl.o debug64/sweep.o debug64/swu.o debug64/tair.o debug64/tgen.o debug64/theta.o debug64/tillfactor.o debug64/tillmix.o debug64/tmeas.o debug64/tran.o debug64/transfer.o debug64/tstr.o debug64/ttcoef.o debug64/ttcoef_wway.o debug64/urban.o debug64/urbanhr.o debug64/urb_bmp.o debug64/varinit.o debug64/vbl.o debug64/virtual.o debug64/volq.o debug64/washp.o debug64/watbal.o debug64/water_hru.o debug64/watqual.o debug64/watqual2.o debug64/wattable.o debug64/watuse.o debug64/weatgn.o debug64/wetlan.o debug64/wmeas.o debug64/wndgen.o debug64/writea.o debug64/writeaa.o debug64/writed.o debug64/writem.o debug64/xmon.o debug64/ysed.o debug64/zero0.o debug64/zero1.o debug64/zero2.o debug64/zeroini.o debug64/zero_urbn.o
+OBJECTS_DEBUG64= debug64/csqlite.o debug64/sqlite3.o  debug64/addh.o debug64/albedo.o debug64/allocate_parms.o debug64/alph.o debug64/anfert.o debug64/apex_day.o debug64/apply.o debug64/ascrv.o debug64/atri.o debug64/aunif.o debug64/autoirr.o debug64/aveval.o debug64/bacteria.o debug64/biofilm.o debug64/biozone.o debug64/bmpfixed.o debug64/bmpinit.o debug64/bmp_det_pond.o debug64/bmp_ri_pond.o debug64/bmp_sand_filter.o debug64/bmp_sed_pond.o debug64/bmp_wet_pond.o debug64/buffer.o debug64/burnop.o debug64/canopyint.o debug64/caps.o debug64/carbon_new.o debug64/carbon_zhang2.o debug64/cfactor.o debug64/chkcst.o debug64/clgen.o debug64/clicon.o debug64/command.o debug64/conapply.o debug64/confert.o debug64/crackflow.o debug64/crackvol.o debug64/curno.o debug64/dailycn.o debug64/decay.o debug64/depstor.o debug64/distrib_bmps.o debug64/dormant.o debug64/drains.o debug64/dstn1.o debug64/ee.o debug64/eiusle.o debug64/enrsb.o debug64/erfc.o debug64/estimate_ksat.o debug64/etact.o debug64/etpot.o debug64/expo.o debug64/fert.o debug64/filter.o debug64/filtw.o debug64/finalbal.o debug64/fsqlite.o debug64/gcycl.o debug64/getallo.o debug64/grass_wway.o debug64/graze.o debug64/grow.o debug64/gwmod.o debug64/gwmod_deep.o debug64/gwnutr.o debug64/gw_no3.o debug64/h2omgt_init.o debug64/harvestop.o debug64/harvgrainop.o debug64/harvkillop.o debug64/header.o debug64/header_sqlite.o debug64/headout.o debug64/headout_sqlite.o debug64/headout_sqlite_adddate.o debug64/headout_sqlite_createindex.o debug64/headout_sqlite_deg.o debug64/headout_sqlite_hru.o debug64/headout_sqlite_mgt.o debug64/headout_sqlite_pot.o debug64/headout_sqlite_rch.o debug64/headout_sqlite_rsv.o debug64/headout_sqlite_sed.o debug64/headout_sqlite_snu.o debug64/headout_sqlite_sub.o debug64/headout_sqlite_swr.o debug64/headout_sqlite_wshd.o debug64/headout_sqlite_wtr.o debug64/hhnoqual.o debug64/hhwatqual.o debug64/hmeas.o debug64/hruaa.o debug64/hruallo.o debug64/hruday.o debug64/hruday_sqlite.o debug64/hrumon.o debug64/hrumon_sqlite.o debug64/hrupond.o debug64/hrupondhr.o debug64/hruyr.o debug64/hruyr_sqlite.o debug64/hydroinit.o debug64/icl.o debug64/impndaa.o debug64/impndday.o debug64/impndmon.o debug64/impndyr.o debug64/impnd_init.o debug64/irrigate.o debug64/irrsub.o debug64/irr_rch.o debug64/irr_res.o debug64/jdt.o debug64/killop.o debug64/lakeq.o debug64/latsed.o debug64/layersplit.o debug64/lwqdef.o debug64/main.o debug64/mgt_sqlite.o debug64/ncsed_leach.o debug64/ndenit.o debug64/newtillmix.o debug64/nfix.o debug64/nitvol.o debug64/nlch.o debug64/nminrl.o debug64/noqual.o debug64/npup.o debug64/nrain.o debug64/nup.o debug64/nuts.o debug64/openwth.o debug64/operatn.o debug64/orgn.o debug64/orgncswat.o debug64/origtile.o debug64/ovr_sed.o debug64/percmacro.o debug64/percmain.o debug64/percmicro.o debug64/pestlch.o debug64/pestw.o debug64/pesty.o debug64/pgen.o debug64/pgenhr.o debug64/pkq.o debug64/plantmod.o debug64/plantop.o debug64/pmeas.o debug64/pminrl.o debug64/pminrl2.o debug64/pond.o debug64/pondhr.o debug64/pothole.o debug64/potholehr.o debug64/print_hyd.o debug64/psed.o debug64/qman.o debug64/ran1.o debug64/rchaa.o debug64/rchday.o debug64/rchday_sqlite.o debug64/rchinit.o debug64/rchmon.o debug64/rchmon_sqlite.o debug64/rchuse.o debug64/rchyr.o debug64/rchyr_sqlite.o debug64/reachout.o debug64/readatmodep.o debug64/readbsn.o debug64/readchm.o debug64/readcnst.o debug64/readfcst.o debug64/readfert.o debug64/readfig.o debug64/readfile.o debug64/readgw.o debug64/readhru.o debug64/readinpt.o debug64/readlup.o debug64/readlwq.o debug64/readmgt.o debug64/readmon.o debug64/readops.o debug64/readpest.o debug64/readplant.o debug64/readpnd.o debug64/readres.o debug64/readrte.o debug64/readru.o debug64/readsdr.o debug64/readsepticbz.o debug64/readseptwq.o debug64/readsno.o debug64/readsol.o debug64/readsub.o debug64/readswq.o debug64/readtill.o debug64/readurban.o debug64/readwgn.o debug64/readwus.o debug64/readwwq.o debug64/readyr.o debug64/reccnst.o debug64/recday.o debug64/rechour.o debug64/recmon.o debug64/recyear.o debug64/regres.o debug64/res.o debug64/resbact.o debug64/resetlu.o debug64/reshr.o debug64/resinit.o debug64/resnut.o debug64/rewind_init.o debug64/rhgen.o debug64/rootfr.o debug64/route.o debug64/routels.o debug64/routeunit.o debug64/routres.o debug64/rsedaa.o debug64/rseday.o debug64/rsedmon.o debug64/rsedyr.o debug64/rtbact.o debug64/rtday.o debug64/rteinit.o debug64/rthmusk.o debug64/rthpest.o debug64/rthr.o debug64/rthsed.o debug64/rtmusk.o debug64/rtout.o debug64/rtpest.o debug64/rtsed.o debug64/rtsed_bagnold.o debug64/rtsed_kodatie.o debug64/rtsed_molinas_wu.o debug64/rtsed_yangsand.o debug64/sat_excess.o debug64/save.o debug64/saveconc.o debug64/schedule_ops.o debug64/sched_mgt.o debug64/simulate.o debug64/sim_initday.o debug64/sim_inityr.o debug64/slrgen.o debug64/smeas.o debug64/snom.o debug64/soil_chem.o debug64/soil_par.o debug64/soil_phys.o debug64/soil_write.o debug64/solp.o debug64/solt.o debug64/sqlite_writeinfo.o debug64/std1.o debug64/std2.o debug64/std3.o debug64/stdaa.o debug64/stdaa_sqlite.o debug64/stdaa_sqlite_writebasin.o debug64/storeinitial.o debug64/structure.o debug64/subaa.o debug64/subbasin.o debug64/subday.o debug64/subday_sqlite.o debug64/submon.o debug64/submon_sqlite.o debug64/substor.o debug64/subwq.o debug64/subyr.o debug64/subyr_sqlite.o debug64/sub_subbasin.o debug64/sumhyd.o debug64/sumv.o debug64/surface.o debug64/surfstor.o debug64/surfst_h2o.o debug64/surq_daycn.o debug64/surq_greenampt.o debug64/swbl.o debug64/sweep.o debug64/swu.o debug64/tair.o debug64/tgen.o debug64/theta.o debug64/tillfactor.o debug64/tillmix.o debug64/tmeas.o debug64/tran.o debug64/transfer.o debug64/tstr.o debug64/ttcoef.o debug64/ttcoef_wway.o debug64/urban.o debug64/urbanhr.o debug64/urb_bmp.o debug64/varinit.o debug64/vbl.o debug64/virtual.o debug64/volq.o debug64/washp.o debug64/watbal.o debug64/water_hru.o debug64/watqual.o debug64/watqual2.o debug64/wattable.o debug64/watuse.o debug64/weatgn.o debug64/wetlan.o debug64/wmeas.o debug64/wndgen.o debug64/writea.o debug64/writeaa.o debug64/writed.o debug64/writem.o debug64/xmon.o debug64/ysed.o debug64/zero0.o debug64/zero1.o debug64/zero2.o debug64/zeroini.o debug64/zero_urbn.o
 
 NAMEDEBUG64=swat_debug64
 debug64:debug64_mkdir ${NAMEDEBUG64}
@@ -1227,8 +1231,8 @@ debug64/filtw.o: filtw.f debug64/main.o
 debug64/finalbal.o: finalbal.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  finalbal.f -o debug64/finalbal.o -I debug64
 
-debug64/fsqlite.o: fsqlite.f90 debug64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  fsqlite.f90 -o debug64/fsqlite.o -I debug64
+debug64/fsqlite.o: fsqlite.f90
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  fsqlite.f90 -o debug64/fsqlite.o -J debug64
 
 debug64/gcycl.o: gcycl.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  gcycl.f -o debug64/gcycl.o -I debug64
@@ -1272,8 +1276,56 @@ debug64/harvkillop.o: harvkillop.f debug64/main.o
 debug64/header.o: header.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  header.f -o debug64/header.o -I debug64
 
+debug64/header_sqlite.o: header_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  header_sqlite.f -o debug64/header_sqlite.o -I debug64
+
 debug64/headout.o: headout.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout.f -o debug64/headout.o -I debug64
+
+debug64/headout_sqlite.o: headout_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite.f -o debug64/headout_sqlite.o -I debug64
+
+debug64/headout_sqlite_adddate.o: headout_sqlite_adddate.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_adddate.f -o debug64/headout_sqlite_adddate.o -I debug64
+
+debug64/headout_sqlite_createindex.o: headout_sqlite_createindex.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_createindex.f -o debug64/headout_sqlite_createindex.o -I debug64
+
+debug64/headout_sqlite_deg.o: headout_sqlite_deg.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_deg.f -o debug64/headout_sqlite_deg.o -I debug64
+
+debug64/headout_sqlite_hru.o: headout_sqlite_hru.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_hru.f -o debug64/headout_sqlite_hru.o -I debug64
+
+debug64/headout_sqlite_mgt.o: headout_sqlite_mgt.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_mgt.f -o debug64/headout_sqlite_mgt.o -I debug64
+
+debug64/headout_sqlite_pot.o: headout_sqlite_pot.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_pot.f -o debug64/headout_sqlite_pot.o -I debug64
+
+debug64/headout_sqlite_rch.o: headout_sqlite_rch.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_rch.f -o debug64/headout_sqlite_rch.o -I debug64
+
+debug64/headout_sqlite_rsv.o: headout_sqlite_rsv.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_rsv.f -o debug64/headout_sqlite_rsv.o -I debug64
+
+debug64/headout_sqlite_sed.o: headout_sqlite_sed.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_sed.f -o debug64/headout_sqlite_sed.o -I debug64
+
+debug64/headout_sqlite_snu.o: headout_sqlite_snu.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_snu.f -o debug64/headout_sqlite_snu.o -I debug64
+
+debug64/headout_sqlite_sub.o: headout_sqlite_sub.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_sub.f -o debug64/headout_sqlite_sub.o -I debug64
+
+debug64/headout_sqlite_swr.o: headout_sqlite_swr.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_swr.f -o debug64/headout_sqlite_swr.o -I debug64
+
+debug64/headout_sqlite_wshd.o: headout_sqlite_wshd.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_wshd.f -o debug64/headout_sqlite_wshd.o -I debug64
+
+debug64/headout_sqlite_wtr.o: headout_sqlite_wtr.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  headout_sqlite_wtr.f -o debug64/headout_sqlite_wtr.o -I debug64
 
 debug64/hhnoqual.o: hhnoqual.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hhnoqual.f -o debug64/hhnoqual.o -I debug64
@@ -1293,8 +1345,14 @@ debug64/hruallo.o: hruallo.f debug64/main.o
 debug64/hruday.o: hruday.f90 debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hruday.f90 -o debug64/hruday.o -I debug64
 
+debug64/hruday_sqlite.o: hruday_sqlite.f90 debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hruday_sqlite.f90 -o debug64/hruday_sqlite.o -I debug64
+
 debug64/hrumon.o: hrumon.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hrumon.f -o debug64/hrumon.o -I debug64
+
+debug64/hrumon_sqlite.o: hrumon_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hrumon_sqlite.f -o debug64/hrumon_sqlite.o -I debug64
 
 debug64/hrupond.o: hrupond.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hrupond.f -o debug64/hrupond.o -I debug64
@@ -1304,6 +1362,9 @@ debug64/hrupondhr.o: hrupondhr.f debug64/main.o
 
 debug64/hruyr.o: hruyr.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hruyr.f -o debug64/hruyr.o -I debug64
+
+debug64/hruyr_sqlite.o: hruyr_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hruyr_sqlite.f -o debug64/hruyr_sqlite.o -I debug64
 
 debug64/hydroinit.o: hydroinit.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  hydroinit.f -o debug64/hydroinit.o -I debug64
@@ -1356,8 +1417,11 @@ debug64/layersplit.o: layersplit.f debug64/main.o
 debug64/lwqdef.o: lwqdef.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  lwqdef.f -o debug64/lwqdef.o -I debug64
 
-debug64/main.o: main.f modparm.f
+debug64/main.o: main.f modparm.f debug64/fsqlite.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG} ${LONGFIX} main.f -o debug64/main.o -J debug64
+
+debug64/mgt_sqlite.o: mgt_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  mgt_sqlite.f -o debug64/mgt_sqlite.o -I debug64
 
 debug64/ncsed_leach.o: ncsed_leach.f90 debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  ncsed_leach.f90 -o debug64/ncsed_leach.o -I debug64
@@ -1485,17 +1549,26 @@ debug64/rchaa.o: rchaa.f debug64/main.o
 debug64/rchday.o: rchday.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rchday.f -o debug64/rchday.o -I debug64
 
+debug64/rchday_sqlite.o: rchday_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rchday_sqlite.f -o debug64/rchday_sqlite.o -I debug64
+
 debug64/rchinit.o: rchinit.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rchinit.f -o debug64/rchinit.o -I debug64
 
 debug64/rchmon.o: rchmon.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rchmon.f -o debug64/rchmon.o -I debug64
 
+debug64/rchmon_sqlite.o: rchmon_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rchmon_sqlite.f -o debug64/rchmon_sqlite.o -I debug64
+
 debug64/rchuse.o: rchuse.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rchuse.f -o debug64/rchuse.o -I debug64
 
 debug64/rchyr.o: rchyr.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rchyr.f -o debug64/rchyr.o -I debug64
+
+debug64/rchyr_sqlite.o: rchyr_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  rchyr_sqlite.f -o debug64/rchyr_sqlite.o -I debug64
 
 debug64/reachout.o: reachout.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  reachout.f -o debug64/reachout.o -I debug64
@@ -1770,6 +1843,9 @@ debug64/solp.o: solp.f debug64/main.o
 debug64/solt.o: solt.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  solt.f -o debug64/solt.o -I debug64
 
+debug64/sqlite_writeinfo.o: sqlite_writeinfo.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sqlite_writeinfo.f -o debug64/sqlite_writeinfo.o -I debug64
+
 debug64/std1.o: std1.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  std1.f -o debug64/std1.o -I debug64
 
@@ -1781,6 +1857,12 @@ debug64/std3.o: std3.f debug64/main.o
 
 debug64/stdaa.o: stdaa.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  stdaa.f -o debug64/stdaa.o -I debug64
+
+debug64/stdaa_sqlite.o: stdaa_sqlite.f90 debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  stdaa_sqlite.f90 -o debug64/stdaa_sqlite.o -I debug64
+
+debug64/stdaa_sqlite_writebasin.o: stdaa_sqlite_writebasin.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  stdaa_sqlite_writebasin.f -o debug64/stdaa_sqlite_writebasin.o -I debug64
 
 debug64/storeinitial.o: storeinitial.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  storeinitial.f -o debug64/storeinitial.o -I debug64
@@ -1797,8 +1879,14 @@ debug64/subbasin.o: subbasin.f debug64/main.o
 debug64/subday.o: subday.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  subday.f -o debug64/subday.o -I debug64
 
+debug64/subday_sqlite.o: subday_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  subday_sqlite.f -o debug64/subday_sqlite.o -I debug64
+
 debug64/submon.o: submon.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  submon.f -o debug64/submon.o -I debug64
+
+debug64/submon_sqlite.o: submon_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  submon_sqlite.f -o debug64/submon_sqlite.o -I debug64
 
 debug64/substor.o: substor.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  substor.f -o debug64/substor.o -I debug64
@@ -1808,6 +1896,9 @@ debug64/subwq.o: subwq.f debug64/main.o
 
 debug64/subyr.o: subyr.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  subyr.f -o debug64/subyr.o -I debug64
+
+debug64/subyr_sqlite.o: subyr_sqlite.f debug64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  subyr_sqlite.f -o debug64/subyr_sqlite.o -I debug64
 
 debug64/sub_subbasin.o: sub_subbasin.f debug64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${DFLAG}  sub_subbasin.f -o debug64/sub_subbasin.o -I debug64
@@ -1968,7 +2059,7 @@ debug64_clean:
 	rm -f debug64/*.mod
 	rm -f debug64/*~
 
-OBJECTS_REL32= rel32/csqlite.o rel32/sqlite3.o  rel32/addh.o rel32/albedo.o rel32/allocate_parms.o rel32/alph.o rel32/anfert.o rel32/apex_day.o rel32/apply.o rel32/ascrv.o rel32/atri.o rel32/aunif.o rel32/autoirr.o rel32/aveval.o rel32/bacteria.o rel32/biofilm.o rel32/biozone.o rel32/bmpfixed.o rel32/bmpinit.o rel32/bmp_det_pond.o rel32/bmp_ri_pond.o rel32/bmp_sand_filter.o rel32/bmp_sed_pond.o rel32/bmp_wet_pond.o rel32/buffer.o rel32/burnop.o rel32/canopyint.o rel32/caps.o rel32/carbon_new.o rel32/carbon_zhang2.o rel32/cfactor.o rel32/chkcst.o rel32/clgen.o rel32/clicon.o rel32/command.o rel32/conapply.o rel32/confert.o rel32/crackflow.o rel32/crackvol.o rel32/curno.o rel32/dailycn.o rel32/decay.o rel32/depstor.o rel32/distrib_bmps.o rel32/dormant.o rel32/drains.o rel32/dstn1.o rel32/ee.o rel32/eiusle.o rel32/enrsb.o rel32/erfc.o rel32/estimate_ksat.o rel32/etact.o rel32/etpot.o rel32/expo.o rel32/fert.o rel32/filter.o rel32/filtw.o rel32/finalbal.o rel32/fsqlite.o rel32/gcycl.o rel32/getallo.o rel32/grass_wway.o rel32/graze.o rel32/grow.o rel32/gwmod.o rel32/gwmod_deep.o rel32/gwnutr.o rel32/gw_no3.o rel32/h2omgt_init.o rel32/harvestop.o rel32/harvgrainop.o rel32/harvkillop.o rel32/header.o rel32/headout.o rel32/hhnoqual.o rel32/hhwatqual.o rel32/hmeas.o rel32/hruaa.o rel32/hruallo.o rel32/hruday.o rel32/hrumon.o rel32/hrupond.o rel32/hrupondhr.o rel32/hruyr.o rel32/hydroinit.o rel32/icl.o rel32/impndaa.o rel32/impndday.o rel32/impndmon.o rel32/impndyr.o rel32/impnd_init.o rel32/irrigate.o rel32/irrsub.o rel32/irr_rch.o rel32/irr_res.o rel32/jdt.o rel32/killop.o rel32/lakeq.o rel32/latsed.o rel32/layersplit.o rel32/lwqdef.o rel32/main.o rel32/ncsed_leach.o rel32/ndenit.o rel32/newtillmix.o rel32/nfix.o rel32/nitvol.o rel32/nlch.o rel32/nminrl.o rel32/noqual.o rel32/npup.o rel32/nrain.o rel32/nup.o rel32/nuts.o rel32/openwth.o rel32/operatn.o rel32/orgn.o rel32/orgncswat.o rel32/origtile.o rel32/ovr_sed.o rel32/percmacro.o rel32/percmain.o rel32/percmicro.o rel32/pestlch.o rel32/pestw.o rel32/pesty.o rel32/pgen.o rel32/pgenhr.o rel32/pkq.o rel32/plantmod.o rel32/plantop.o rel32/pmeas.o rel32/pminrl.o rel32/pminrl2.o rel32/pond.o rel32/pondhr.o rel32/pothole.o rel32/potholehr.o rel32/print_hyd.o rel32/psed.o rel32/qman.o rel32/ran1.o rel32/rchaa.o rel32/rchday.o rel32/rchinit.o rel32/rchmon.o rel32/rchuse.o rel32/rchyr.o rel32/reachout.o rel32/readatmodep.o rel32/readbsn.o rel32/readchm.o rel32/readcnst.o rel32/readfcst.o rel32/readfert.o rel32/readfig.o rel32/readfile.o rel32/readgw.o rel32/readhru.o rel32/readinpt.o rel32/readlup.o rel32/readlwq.o rel32/readmgt.o rel32/readmon.o rel32/readops.o rel32/readpest.o rel32/readplant.o rel32/readpnd.o rel32/readres.o rel32/readrte.o rel32/readru.o rel32/readsdr.o rel32/readsepticbz.o rel32/readseptwq.o rel32/readsno.o rel32/readsol.o rel32/readsub.o rel32/readswq.o rel32/readtill.o rel32/readurban.o rel32/readwgn.o rel32/readwus.o rel32/readwwq.o rel32/readyr.o rel32/reccnst.o rel32/recday.o rel32/rechour.o rel32/recmon.o rel32/recyear.o rel32/regres.o rel32/res.o rel32/resbact.o rel32/resetlu.o rel32/reshr.o rel32/resinit.o rel32/resnut.o rel32/rewind_init.o rel32/rhgen.o rel32/rootfr.o rel32/route.o rel32/routels.o rel32/routeunit.o rel32/routres.o rel32/rsedaa.o rel32/rseday.o rel32/rsedmon.o rel32/rsedyr.o rel32/rtbact.o rel32/rtday.o rel32/rteinit.o rel32/rthmusk.o rel32/rthpest.o rel32/rthr.o rel32/rthsed.o rel32/rtmusk.o rel32/rtout.o rel32/rtpest.o rel32/rtsed.o rel32/rtsed_bagnold.o rel32/rtsed_kodatie.o rel32/rtsed_molinas_wu.o rel32/rtsed_yangsand.o rel32/sat_excess.o rel32/save.o rel32/saveconc.o rel32/schedule_ops.o rel32/sched_mgt.o rel32/simulate.o rel32/sim_initday.o rel32/sim_inityr.o rel32/slrgen.o rel32/smeas.o rel32/snom.o rel32/soil_chem.o rel32/soil_par.o rel32/soil_phys.o rel32/soil_write.o rel32/solp.o rel32/solt.o rel32/std1.o rel32/std2.o rel32/std3.o rel32/stdaa.o rel32/storeinitial.o rel32/structure.o rel32/subaa.o rel32/subbasin.o rel32/subday.o rel32/submon.o rel32/substor.o rel32/subwq.o rel32/subyr.o rel32/sub_subbasin.o rel32/sumhyd.o rel32/sumv.o rel32/surface.o rel32/surfstor.o rel32/surfst_h2o.o rel32/surq_daycn.o rel32/surq_greenampt.o rel32/swbl.o rel32/sweep.o rel32/swu.o rel32/tair.o rel32/tgen.o rel32/theta.o rel32/tillfactor.o rel32/tillmix.o rel32/tmeas.o rel32/tran.o rel32/transfer.o rel32/tstr.o rel32/ttcoef.o rel32/ttcoef_wway.o rel32/urban.o rel32/urbanhr.o rel32/urb_bmp.o rel32/varinit.o rel32/vbl.o rel32/virtual.o rel32/volq.o rel32/washp.o rel32/watbal.o rel32/water_hru.o rel32/watqual.o rel32/watqual2.o rel32/wattable.o rel32/watuse.o rel32/weatgn.o rel32/wetlan.o rel32/wmeas.o rel32/wndgen.o rel32/writea.o rel32/writeaa.o rel32/writed.o rel32/writem.o rel32/xmon.o rel32/ysed.o rel32/zero0.o rel32/zero1.o rel32/zero2.o rel32/zeroini.o rel32/zero_urbn.o
+OBJECTS_REL32= rel32/csqlite.o rel32/sqlite3.o  rel32/addh.o rel32/albedo.o rel32/allocate_parms.o rel32/alph.o rel32/anfert.o rel32/apex_day.o rel32/apply.o rel32/ascrv.o rel32/atri.o rel32/aunif.o rel32/autoirr.o rel32/aveval.o rel32/bacteria.o rel32/biofilm.o rel32/biozone.o rel32/bmpfixed.o rel32/bmpinit.o rel32/bmp_det_pond.o rel32/bmp_ri_pond.o rel32/bmp_sand_filter.o rel32/bmp_sed_pond.o rel32/bmp_wet_pond.o rel32/buffer.o rel32/burnop.o rel32/canopyint.o rel32/caps.o rel32/carbon_new.o rel32/carbon_zhang2.o rel32/cfactor.o rel32/chkcst.o rel32/clgen.o rel32/clicon.o rel32/command.o rel32/conapply.o rel32/confert.o rel32/crackflow.o rel32/crackvol.o rel32/curno.o rel32/dailycn.o rel32/decay.o rel32/depstor.o rel32/distrib_bmps.o rel32/dormant.o rel32/drains.o rel32/dstn1.o rel32/ee.o rel32/eiusle.o rel32/enrsb.o rel32/erfc.o rel32/estimate_ksat.o rel32/etact.o rel32/etpot.o rel32/expo.o rel32/fert.o rel32/filter.o rel32/filtw.o rel32/finalbal.o rel32/fsqlite.o rel32/gcycl.o rel32/getallo.o rel32/grass_wway.o rel32/graze.o rel32/grow.o rel32/gwmod.o rel32/gwmod_deep.o rel32/gwnutr.o rel32/gw_no3.o rel32/h2omgt_init.o rel32/harvestop.o rel32/harvgrainop.o rel32/harvkillop.o rel32/header.o rel32/header_sqlite.o rel32/headout.o rel32/headout_sqlite.o rel32/headout_sqlite_adddate.o rel32/headout_sqlite_createindex.o rel32/headout_sqlite_deg.o rel32/headout_sqlite_hru.o rel32/headout_sqlite_mgt.o rel32/headout_sqlite_pot.o rel32/headout_sqlite_rch.o rel32/headout_sqlite_rsv.o rel32/headout_sqlite_sed.o rel32/headout_sqlite_snu.o rel32/headout_sqlite_sub.o rel32/headout_sqlite_swr.o rel32/headout_sqlite_wshd.o rel32/headout_sqlite_wtr.o rel32/hhnoqual.o rel32/hhwatqual.o rel32/hmeas.o rel32/hruaa.o rel32/hruallo.o rel32/hruday.o rel32/hruday_sqlite.o rel32/hrumon.o rel32/hrumon_sqlite.o rel32/hrupond.o rel32/hrupondhr.o rel32/hruyr.o rel32/hruyr_sqlite.o rel32/hydroinit.o rel32/icl.o rel32/impndaa.o rel32/impndday.o rel32/impndmon.o rel32/impndyr.o rel32/impnd_init.o rel32/irrigate.o rel32/irrsub.o rel32/irr_rch.o rel32/irr_res.o rel32/jdt.o rel32/killop.o rel32/lakeq.o rel32/latsed.o rel32/layersplit.o rel32/lwqdef.o rel32/main.o rel32/mgt_sqlite.o rel32/ncsed_leach.o rel32/ndenit.o rel32/newtillmix.o rel32/nfix.o rel32/nitvol.o rel32/nlch.o rel32/nminrl.o rel32/noqual.o rel32/npup.o rel32/nrain.o rel32/nup.o rel32/nuts.o rel32/openwth.o rel32/operatn.o rel32/orgn.o rel32/orgncswat.o rel32/origtile.o rel32/ovr_sed.o rel32/percmacro.o rel32/percmain.o rel32/percmicro.o rel32/pestlch.o rel32/pestw.o rel32/pesty.o rel32/pgen.o rel32/pgenhr.o rel32/pkq.o rel32/plantmod.o rel32/plantop.o rel32/pmeas.o rel32/pminrl.o rel32/pminrl2.o rel32/pond.o rel32/pondhr.o rel32/pothole.o rel32/potholehr.o rel32/print_hyd.o rel32/psed.o rel32/qman.o rel32/ran1.o rel32/rchaa.o rel32/rchday.o rel32/rchday_sqlite.o rel32/rchinit.o rel32/rchmon.o rel32/rchmon_sqlite.o rel32/rchuse.o rel32/rchyr.o rel32/rchyr_sqlite.o rel32/reachout.o rel32/readatmodep.o rel32/readbsn.o rel32/readchm.o rel32/readcnst.o rel32/readfcst.o rel32/readfert.o rel32/readfig.o rel32/readfile.o rel32/readgw.o rel32/readhru.o rel32/readinpt.o rel32/readlup.o rel32/readlwq.o rel32/readmgt.o rel32/readmon.o rel32/readops.o rel32/readpest.o rel32/readplant.o rel32/readpnd.o rel32/readres.o rel32/readrte.o rel32/readru.o rel32/readsdr.o rel32/readsepticbz.o rel32/readseptwq.o rel32/readsno.o rel32/readsol.o rel32/readsub.o rel32/readswq.o rel32/readtill.o rel32/readurban.o rel32/readwgn.o rel32/readwus.o rel32/readwwq.o rel32/readyr.o rel32/reccnst.o rel32/recday.o rel32/rechour.o rel32/recmon.o rel32/recyear.o rel32/regres.o rel32/res.o rel32/resbact.o rel32/resetlu.o rel32/reshr.o rel32/resinit.o rel32/resnut.o rel32/rewind_init.o rel32/rhgen.o rel32/rootfr.o rel32/route.o rel32/routels.o rel32/routeunit.o rel32/routres.o rel32/rsedaa.o rel32/rseday.o rel32/rsedmon.o rel32/rsedyr.o rel32/rtbact.o rel32/rtday.o rel32/rteinit.o rel32/rthmusk.o rel32/rthpest.o rel32/rthr.o rel32/rthsed.o rel32/rtmusk.o rel32/rtout.o rel32/rtpest.o rel32/rtsed.o rel32/rtsed_bagnold.o rel32/rtsed_kodatie.o rel32/rtsed_molinas_wu.o rel32/rtsed_yangsand.o rel32/sat_excess.o rel32/save.o rel32/saveconc.o rel32/schedule_ops.o rel32/sched_mgt.o rel32/simulate.o rel32/sim_initday.o rel32/sim_inityr.o rel32/slrgen.o rel32/smeas.o rel32/snom.o rel32/soil_chem.o rel32/soil_par.o rel32/soil_phys.o rel32/soil_write.o rel32/solp.o rel32/solt.o rel32/sqlite_writeinfo.o rel32/std1.o rel32/std2.o rel32/std3.o rel32/stdaa.o rel32/stdaa_sqlite.o rel32/stdaa_sqlite_writebasin.o rel32/storeinitial.o rel32/structure.o rel32/subaa.o rel32/subbasin.o rel32/subday.o rel32/subday_sqlite.o rel32/submon.o rel32/submon_sqlite.o rel32/substor.o rel32/subwq.o rel32/subyr.o rel32/subyr_sqlite.o rel32/sub_subbasin.o rel32/sumhyd.o rel32/sumv.o rel32/surface.o rel32/surfstor.o rel32/surfst_h2o.o rel32/surq_daycn.o rel32/surq_greenampt.o rel32/swbl.o rel32/sweep.o rel32/swu.o rel32/tair.o rel32/tgen.o rel32/theta.o rel32/tillfactor.o rel32/tillmix.o rel32/tmeas.o rel32/tran.o rel32/transfer.o rel32/tstr.o rel32/ttcoef.o rel32/ttcoef_wway.o rel32/urban.o rel32/urbanhr.o rel32/urb_bmp.o rel32/varinit.o rel32/vbl.o rel32/virtual.o rel32/volq.o rel32/washp.o rel32/watbal.o rel32/water_hru.o rel32/watqual.o rel32/watqual2.o rel32/wattable.o rel32/watuse.o rel32/weatgn.o rel32/wetlan.o rel32/wmeas.o rel32/wndgen.o rel32/writea.o rel32/writeaa.o rel32/writed.o rel32/writem.o rel32/xmon.o rel32/ysed.o rel32/zero0.o rel32/zero1.o rel32/zero2.o rel32/zeroini.o rel32/zero_urbn.o
 
 NAMEREL32=swat_rel32
 rel32:rel32_mkdir ${NAMEREL32}
@@ -2157,8 +2248,8 @@ rel32/filtw.o: filtw.f rel32/main.o
 rel32/finalbal.o: finalbal.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  finalbal.f -o rel32/finalbal.o -I rel32
 
-rel32/fsqlite.o: fsqlite.f90 rel32/main.o
-	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  fsqlite.f90 -o rel32/fsqlite.o -I rel32
+rel32/fsqlite.o: fsqlite.f90
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  fsqlite.f90 -o rel32/fsqlite.o -J rel32
 
 rel32/gcycl.o: gcycl.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  gcycl.f -o rel32/gcycl.o -I rel32
@@ -2202,8 +2293,56 @@ rel32/harvkillop.o: harvkillop.f rel32/main.o
 rel32/header.o: header.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  header.f -o rel32/header.o -I rel32
 
+rel32/header_sqlite.o: header_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  header_sqlite.f -o rel32/header_sqlite.o -I rel32
+
 rel32/headout.o: headout.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout.f -o rel32/headout.o -I rel32
+
+rel32/headout_sqlite.o: headout_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite.f -o rel32/headout_sqlite.o -I rel32
+
+rel32/headout_sqlite_adddate.o: headout_sqlite_adddate.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_adddate.f -o rel32/headout_sqlite_adddate.o -I rel32
+
+rel32/headout_sqlite_createindex.o: headout_sqlite_createindex.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_createindex.f -o rel32/headout_sqlite_createindex.o -I rel32
+
+rel32/headout_sqlite_deg.o: headout_sqlite_deg.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_deg.f -o rel32/headout_sqlite_deg.o -I rel32
+
+rel32/headout_sqlite_hru.o: headout_sqlite_hru.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_hru.f -o rel32/headout_sqlite_hru.o -I rel32
+
+rel32/headout_sqlite_mgt.o: headout_sqlite_mgt.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_mgt.f -o rel32/headout_sqlite_mgt.o -I rel32
+
+rel32/headout_sqlite_pot.o: headout_sqlite_pot.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_pot.f -o rel32/headout_sqlite_pot.o -I rel32
+
+rel32/headout_sqlite_rch.o: headout_sqlite_rch.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_rch.f -o rel32/headout_sqlite_rch.o -I rel32
+
+rel32/headout_sqlite_rsv.o: headout_sqlite_rsv.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_rsv.f -o rel32/headout_sqlite_rsv.o -I rel32
+
+rel32/headout_sqlite_sed.o: headout_sqlite_sed.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_sed.f -o rel32/headout_sqlite_sed.o -I rel32
+
+rel32/headout_sqlite_snu.o: headout_sqlite_snu.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_snu.f -o rel32/headout_sqlite_snu.o -I rel32
+
+rel32/headout_sqlite_sub.o: headout_sqlite_sub.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_sub.f -o rel32/headout_sqlite_sub.o -I rel32
+
+rel32/headout_sqlite_swr.o: headout_sqlite_swr.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_swr.f -o rel32/headout_sqlite_swr.o -I rel32
+
+rel32/headout_sqlite_wshd.o: headout_sqlite_wshd.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_wshd.f -o rel32/headout_sqlite_wshd.o -I rel32
+
+rel32/headout_sqlite_wtr.o: headout_sqlite_wtr.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  headout_sqlite_wtr.f -o rel32/headout_sqlite_wtr.o -I rel32
 
 rel32/hhnoqual.o: hhnoqual.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hhnoqual.f -o rel32/hhnoqual.o -I rel32
@@ -2223,8 +2362,14 @@ rel32/hruallo.o: hruallo.f rel32/main.o
 rel32/hruday.o: hruday.f90 rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hruday.f90 -o rel32/hruday.o -I rel32
 
+rel32/hruday_sqlite.o: hruday_sqlite.f90 rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hruday_sqlite.f90 -o rel32/hruday_sqlite.o -I rel32
+
 rel32/hrumon.o: hrumon.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hrumon.f -o rel32/hrumon.o -I rel32
+
+rel32/hrumon_sqlite.o: hrumon_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hrumon_sqlite.f -o rel32/hrumon_sqlite.o -I rel32
 
 rel32/hrupond.o: hrupond.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hrupond.f -o rel32/hrupond.o -I rel32
@@ -2234,6 +2379,9 @@ rel32/hrupondhr.o: hrupondhr.f rel32/main.o
 
 rel32/hruyr.o: hruyr.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hruyr.f -o rel32/hruyr.o -I rel32
+
+rel32/hruyr_sqlite.o: hruyr_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hruyr_sqlite.f -o rel32/hruyr_sqlite.o -I rel32
 
 rel32/hydroinit.o: hydroinit.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  hydroinit.f -o rel32/hydroinit.o -I rel32
@@ -2286,8 +2434,11 @@ rel32/layersplit.o: layersplit.f rel32/main.o
 rel32/lwqdef.o: lwqdef.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  lwqdef.f -o rel32/lwqdef.o -I rel32
 
-rel32/main.o: main.f modparm.f
+rel32/main.o: main.f modparm.f rel32/fsqlite.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG} ${LONGFIX} main.f -o rel32/main.o -J rel32
+
+rel32/mgt_sqlite.o: mgt_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  mgt_sqlite.f -o rel32/mgt_sqlite.o -I rel32
 
 rel32/ncsed_leach.o: ncsed_leach.f90 rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  ncsed_leach.f90 -o rel32/ncsed_leach.o -I rel32
@@ -2415,17 +2566,26 @@ rel32/rchaa.o: rchaa.f rel32/main.o
 rel32/rchday.o: rchday.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rchday.f -o rel32/rchday.o -I rel32
 
+rel32/rchday_sqlite.o: rchday_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rchday_sqlite.f -o rel32/rchday_sqlite.o -I rel32
+
 rel32/rchinit.o: rchinit.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rchinit.f -o rel32/rchinit.o -I rel32
 
 rel32/rchmon.o: rchmon.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rchmon.f -o rel32/rchmon.o -I rel32
 
+rel32/rchmon_sqlite.o: rchmon_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rchmon_sqlite.f -o rel32/rchmon_sqlite.o -I rel32
+
 rel32/rchuse.o: rchuse.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rchuse.f -o rel32/rchuse.o -I rel32
 
 rel32/rchyr.o: rchyr.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rchyr.f -o rel32/rchyr.o -I rel32
+
+rel32/rchyr_sqlite.o: rchyr_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  rchyr_sqlite.f -o rel32/rchyr_sqlite.o -I rel32
 
 rel32/reachout.o: reachout.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  reachout.f -o rel32/reachout.o -I rel32
@@ -2700,6 +2860,9 @@ rel32/solp.o: solp.f rel32/main.o
 rel32/solt.o: solt.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  solt.f -o rel32/solt.o -I rel32
 
+rel32/sqlite_writeinfo.o: sqlite_writeinfo.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sqlite_writeinfo.f -o rel32/sqlite_writeinfo.o -I rel32
+
 rel32/std1.o: std1.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  std1.f -o rel32/std1.o -I rel32
 
@@ -2711,6 +2874,12 @@ rel32/std3.o: std3.f rel32/main.o
 
 rel32/stdaa.o: stdaa.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  stdaa.f -o rel32/stdaa.o -I rel32
+
+rel32/stdaa_sqlite.o: stdaa_sqlite.f90 rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  stdaa_sqlite.f90 -o rel32/stdaa_sqlite.o -I rel32
+
+rel32/stdaa_sqlite_writebasin.o: stdaa_sqlite_writebasin.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  stdaa_sqlite_writebasin.f -o rel32/stdaa_sqlite_writebasin.o -I rel32
 
 rel32/storeinitial.o: storeinitial.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  storeinitial.f -o rel32/storeinitial.o -I rel32
@@ -2727,8 +2896,14 @@ rel32/subbasin.o: subbasin.f rel32/main.o
 rel32/subday.o: subday.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  subday.f -o rel32/subday.o -I rel32
 
+rel32/subday_sqlite.o: subday_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  subday_sqlite.f -o rel32/subday_sqlite.o -I rel32
+
 rel32/submon.o: submon.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  submon.f -o rel32/submon.o -I rel32
+
+rel32/submon_sqlite.o: submon_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  submon_sqlite.f -o rel32/submon_sqlite.o -I rel32
 
 rel32/substor.o: substor.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  substor.f -o rel32/substor.o -I rel32
@@ -2738,6 +2913,9 @@ rel32/subwq.o: subwq.f rel32/main.o
 
 rel32/subyr.o: subyr.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  subyr.f -o rel32/subyr.o -I rel32
+
+rel32/subyr_sqlite.o: subyr_sqlite.f rel32/main.o
+	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  subyr_sqlite.f -o rel32/subyr_sqlite.o -I rel32
 
 rel32/sub_subbasin.o: sub_subbasin.f rel32/main.o
 	${FC} ${ARCH32} ${FFLAG} ${RFLAG}  sub_subbasin.f -o rel32/sub_subbasin.o -I rel32
@@ -2898,7 +3076,7 @@ rel32_clean:
 	rm -f rel32/*.mod
 	rm -f rel32/*~
 
-OBJECTS_REL64= rel64/csqlite.o rel64/sqlite3.o  rel64/addh.o rel64/albedo.o rel64/allocate_parms.o rel64/alph.o rel64/anfert.o rel64/apex_day.o rel64/apply.o rel64/ascrv.o rel64/atri.o rel64/aunif.o rel64/autoirr.o rel64/aveval.o rel64/bacteria.o rel64/biofilm.o rel64/biozone.o rel64/bmpfixed.o rel64/bmpinit.o rel64/bmp_det_pond.o rel64/bmp_ri_pond.o rel64/bmp_sand_filter.o rel64/bmp_sed_pond.o rel64/bmp_wet_pond.o rel64/buffer.o rel64/burnop.o rel64/canopyint.o rel64/caps.o rel64/carbon_new.o rel64/carbon_zhang2.o rel64/cfactor.o rel64/chkcst.o rel64/clgen.o rel64/clicon.o rel64/command.o rel64/conapply.o rel64/confert.o rel64/crackflow.o rel64/crackvol.o rel64/curno.o rel64/dailycn.o rel64/decay.o rel64/depstor.o rel64/distrib_bmps.o rel64/dormant.o rel64/drains.o rel64/dstn1.o rel64/ee.o rel64/eiusle.o rel64/enrsb.o rel64/erfc.o rel64/estimate_ksat.o rel64/etact.o rel64/etpot.o rel64/expo.o rel64/fert.o rel64/filter.o rel64/filtw.o rel64/finalbal.o rel64/fsqlite.o rel64/gcycl.o rel64/getallo.o rel64/grass_wway.o rel64/graze.o rel64/grow.o rel64/gwmod.o rel64/gwmod_deep.o rel64/gwnutr.o rel64/gw_no3.o rel64/h2omgt_init.o rel64/harvestop.o rel64/harvgrainop.o rel64/harvkillop.o rel64/header.o rel64/headout.o rel64/hhnoqual.o rel64/hhwatqual.o rel64/hmeas.o rel64/hruaa.o rel64/hruallo.o rel64/hruday.o rel64/hrumon.o rel64/hrupond.o rel64/hrupondhr.o rel64/hruyr.o rel64/hydroinit.o rel64/icl.o rel64/impndaa.o rel64/impndday.o rel64/impndmon.o rel64/impndyr.o rel64/impnd_init.o rel64/irrigate.o rel64/irrsub.o rel64/irr_rch.o rel64/irr_res.o rel64/jdt.o rel64/killop.o rel64/lakeq.o rel64/latsed.o rel64/layersplit.o rel64/lwqdef.o rel64/main.o rel64/ncsed_leach.o rel64/ndenit.o rel64/newtillmix.o rel64/nfix.o rel64/nitvol.o rel64/nlch.o rel64/nminrl.o rel64/noqual.o rel64/npup.o rel64/nrain.o rel64/nup.o rel64/nuts.o rel64/openwth.o rel64/operatn.o rel64/orgn.o rel64/orgncswat.o rel64/origtile.o rel64/ovr_sed.o rel64/percmacro.o rel64/percmain.o rel64/percmicro.o rel64/pestlch.o rel64/pestw.o rel64/pesty.o rel64/pgen.o rel64/pgenhr.o rel64/pkq.o rel64/plantmod.o rel64/plantop.o rel64/pmeas.o rel64/pminrl.o rel64/pminrl2.o rel64/pond.o rel64/pondhr.o rel64/pothole.o rel64/potholehr.o rel64/print_hyd.o rel64/psed.o rel64/qman.o rel64/ran1.o rel64/rchaa.o rel64/rchday.o rel64/rchinit.o rel64/rchmon.o rel64/rchuse.o rel64/rchyr.o rel64/reachout.o rel64/readatmodep.o rel64/readbsn.o rel64/readchm.o rel64/readcnst.o rel64/readfcst.o rel64/readfert.o rel64/readfig.o rel64/readfile.o rel64/readgw.o rel64/readhru.o rel64/readinpt.o rel64/readlup.o rel64/readlwq.o rel64/readmgt.o rel64/readmon.o rel64/readops.o rel64/readpest.o rel64/readplant.o rel64/readpnd.o rel64/readres.o rel64/readrte.o rel64/readru.o rel64/readsdr.o rel64/readsepticbz.o rel64/readseptwq.o rel64/readsno.o rel64/readsol.o rel64/readsub.o rel64/readswq.o rel64/readtill.o rel64/readurban.o rel64/readwgn.o rel64/readwus.o rel64/readwwq.o rel64/readyr.o rel64/reccnst.o rel64/recday.o rel64/rechour.o rel64/recmon.o rel64/recyear.o rel64/regres.o rel64/res.o rel64/resbact.o rel64/resetlu.o rel64/reshr.o rel64/resinit.o rel64/resnut.o rel64/rewind_init.o rel64/rhgen.o rel64/rootfr.o rel64/route.o rel64/routels.o rel64/routeunit.o rel64/routres.o rel64/rsedaa.o rel64/rseday.o rel64/rsedmon.o rel64/rsedyr.o rel64/rtbact.o rel64/rtday.o rel64/rteinit.o rel64/rthmusk.o rel64/rthpest.o rel64/rthr.o rel64/rthsed.o rel64/rtmusk.o rel64/rtout.o rel64/rtpest.o rel64/rtsed.o rel64/rtsed_bagnold.o rel64/rtsed_kodatie.o rel64/rtsed_molinas_wu.o rel64/rtsed_yangsand.o rel64/sat_excess.o rel64/save.o rel64/saveconc.o rel64/schedule_ops.o rel64/sched_mgt.o rel64/simulate.o rel64/sim_initday.o rel64/sim_inityr.o rel64/slrgen.o rel64/smeas.o rel64/snom.o rel64/soil_chem.o rel64/soil_par.o rel64/soil_phys.o rel64/soil_write.o rel64/solp.o rel64/solt.o rel64/std1.o rel64/std2.o rel64/std3.o rel64/stdaa.o rel64/storeinitial.o rel64/structure.o rel64/subaa.o rel64/subbasin.o rel64/subday.o rel64/submon.o rel64/substor.o rel64/subwq.o rel64/subyr.o rel64/sub_subbasin.o rel64/sumhyd.o rel64/sumv.o rel64/surface.o rel64/surfstor.o rel64/surfst_h2o.o rel64/surq_daycn.o rel64/surq_greenampt.o rel64/swbl.o rel64/sweep.o rel64/swu.o rel64/tair.o rel64/tgen.o rel64/theta.o rel64/tillfactor.o rel64/tillmix.o rel64/tmeas.o rel64/tran.o rel64/transfer.o rel64/tstr.o rel64/ttcoef.o rel64/ttcoef_wway.o rel64/urban.o rel64/urbanhr.o rel64/urb_bmp.o rel64/varinit.o rel64/vbl.o rel64/virtual.o rel64/volq.o rel64/washp.o rel64/watbal.o rel64/water_hru.o rel64/watqual.o rel64/watqual2.o rel64/wattable.o rel64/watuse.o rel64/weatgn.o rel64/wetlan.o rel64/wmeas.o rel64/wndgen.o rel64/writea.o rel64/writeaa.o rel64/writed.o rel64/writem.o rel64/xmon.o rel64/ysed.o rel64/zero0.o rel64/zero1.o rel64/zero2.o rel64/zeroini.o rel64/zero_urbn.o
+OBJECTS_REL64= rel64/csqlite.o rel64/sqlite3.o  rel64/addh.o rel64/albedo.o rel64/allocate_parms.o rel64/alph.o rel64/anfert.o rel64/apex_day.o rel64/apply.o rel64/ascrv.o rel64/atri.o rel64/aunif.o rel64/autoirr.o rel64/aveval.o rel64/bacteria.o rel64/biofilm.o rel64/biozone.o rel64/bmpfixed.o rel64/bmpinit.o rel64/bmp_det_pond.o rel64/bmp_ri_pond.o rel64/bmp_sand_filter.o rel64/bmp_sed_pond.o rel64/bmp_wet_pond.o rel64/buffer.o rel64/burnop.o rel64/canopyint.o rel64/caps.o rel64/carbon_new.o rel64/carbon_zhang2.o rel64/cfactor.o rel64/chkcst.o rel64/clgen.o rel64/clicon.o rel64/command.o rel64/conapply.o rel64/confert.o rel64/crackflow.o rel64/crackvol.o rel64/curno.o rel64/dailycn.o rel64/decay.o rel64/depstor.o rel64/distrib_bmps.o rel64/dormant.o rel64/drains.o rel64/dstn1.o rel64/ee.o rel64/eiusle.o rel64/enrsb.o rel64/erfc.o rel64/estimate_ksat.o rel64/etact.o rel64/etpot.o rel64/expo.o rel64/fert.o rel64/filter.o rel64/filtw.o rel64/finalbal.o rel64/fsqlite.o rel64/gcycl.o rel64/getallo.o rel64/grass_wway.o rel64/graze.o rel64/grow.o rel64/gwmod.o rel64/gwmod_deep.o rel64/gwnutr.o rel64/gw_no3.o rel64/h2omgt_init.o rel64/harvestop.o rel64/harvgrainop.o rel64/harvkillop.o rel64/header.o rel64/header_sqlite.o rel64/headout.o rel64/headout_sqlite.o rel64/headout_sqlite_adddate.o rel64/headout_sqlite_createindex.o rel64/headout_sqlite_deg.o rel64/headout_sqlite_hru.o rel64/headout_sqlite_mgt.o rel64/headout_sqlite_pot.o rel64/headout_sqlite_rch.o rel64/headout_sqlite_rsv.o rel64/headout_sqlite_sed.o rel64/headout_sqlite_snu.o rel64/headout_sqlite_sub.o rel64/headout_sqlite_swr.o rel64/headout_sqlite_wshd.o rel64/headout_sqlite_wtr.o rel64/hhnoqual.o rel64/hhwatqual.o rel64/hmeas.o rel64/hruaa.o rel64/hruallo.o rel64/hruday.o rel64/hruday_sqlite.o rel64/hrumon.o rel64/hrumon_sqlite.o rel64/hrupond.o rel64/hrupondhr.o rel64/hruyr.o rel64/hruyr_sqlite.o rel64/hydroinit.o rel64/icl.o rel64/impndaa.o rel64/impndday.o rel64/impndmon.o rel64/impndyr.o rel64/impnd_init.o rel64/irrigate.o rel64/irrsub.o rel64/irr_rch.o rel64/irr_res.o rel64/jdt.o rel64/killop.o rel64/lakeq.o rel64/latsed.o rel64/layersplit.o rel64/lwqdef.o rel64/main.o rel64/mgt_sqlite.o rel64/ncsed_leach.o rel64/ndenit.o rel64/newtillmix.o rel64/nfix.o rel64/nitvol.o rel64/nlch.o rel64/nminrl.o rel64/noqual.o rel64/npup.o rel64/nrain.o rel64/nup.o rel64/nuts.o rel64/openwth.o rel64/operatn.o rel64/orgn.o rel64/orgncswat.o rel64/origtile.o rel64/ovr_sed.o rel64/percmacro.o rel64/percmain.o rel64/percmicro.o rel64/pestlch.o rel64/pestw.o rel64/pesty.o rel64/pgen.o rel64/pgenhr.o rel64/pkq.o rel64/plantmod.o rel64/plantop.o rel64/pmeas.o rel64/pminrl.o rel64/pminrl2.o rel64/pond.o rel64/pondhr.o rel64/pothole.o rel64/potholehr.o rel64/print_hyd.o rel64/psed.o rel64/qman.o rel64/ran1.o rel64/rchaa.o rel64/rchday.o rel64/rchday_sqlite.o rel64/rchinit.o rel64/rchmon.o rel64/rchmon_sqlite.o rel64/rchuse.o rel64/rchyr.o rel64/rchyr_sqlite.o rel64/reachout.o rel64/readatmodep.o rel64/readbsn.o rel64/readchm.o rel64/readcnst.o rel64/readfcst.o rel64/readfert.o rel64/readfig.o rel64/readfile.o rel64/readgw.o rel64/readhru.o rel64/readinpt.o rel64/readlup.o rel64/readlwq.o rel64/readmgt.o rel64/readmon.o rel64/readops.o rel64/readpest.o rel64/readplant.o rel64/readpnd.o rel64/readres.o rel64/readrte.o rel64/readru.o rel64/readsdr.o rel64/readsepticbz.o rel64/readseptwq.o rel64/readsno.o rel64/readsol.o rel64/readsub.o rel64/readswq.o rel64/readtill.o rel64/readurban.o rel64/readwgn.o rel64/readwus.o rel64/readwwq.o rel64/readyr.o rel64/reccnst.o rel64/recday.o rel64/rechour.o rel64/recmon.o rel64/recyear.o rel64/regres.o rel64/res.o rel64/resbact.o rel64/resetlu.o rel64/reshr.o rel64/resinit.o rel64/resnut.o rel64/rewind_init.o rel64/rhgen.o rel64/rootfr.o rel64/route.o rel64/routels.o rel64/routeunit.o rel64/routres.o rel64/rsedaa.o rel64/rseday.o rel64/rsedmon.o rel64/rsedyr.o rel64/rtbact.o rel64/rtday.o rel64/rteinit.o rel64/rthmusk.o rel64/rthpest.o rel64/rthr.o rel64/rthsed.o rel64/rtmusk.o rel64/rtout.o rel64/rtpest.o rel64/rtsed.o rel64/rtsed_bagnold.o rel64/rtsed_kodatie.o rel64/rtsed_molinas_wu.o rel64/rtsed_yangsand.o rel64/sat_excess.o rel64/save.o rel64/saveconc.o rel64/schedule_ops.o rel64/sched_mgt.o rel64/simulate.o rel64/sim_initday.o rel64/sim_inityr.o rel64/slrgen.o rel64/smeas.o rel64/snom.o rel64/soil_chem.o rel64/soil_par.o rel64/soil_phys.o rel64/soil_write.o rel64/solp.o rel64/solt.o rel64/sqlite_writeinfo.o rel64/std1.o rel64/std2.o rel64/std3.o rel64/stdaa.o rel64/stdaa_sqlite.o rel64/stdaa_sqlite_writebasin.o rel64/storeinitial.o rel64/structure.o rel64/subaa.o rel64/subbasin.o rel64/subday.o rel64/subday_sqlite.o rel64/submon.o rel64/submon_sqlite.o rel64/substor.o rel64/subwq.o rel64/subyr.o rel64/subyr_sqlite.o rel64/sub_subbasin.o rel64/sumhyd.o rel64/sumv.o rel64/surface.o rel64/surfstor.o rel64/surfst_h2o.o rel64/surq_daycn.o rel64/surq_greenampt.o rel64/swbl.o rel64/sweep.o rel64/swu.o rel64/tair.o rel64/tgen.o rel64/theta.o rel64/tillfactor.o rel64/tillmix.o rel64/tmeas.o rel64/tran.o rel64/transfer.o rel64/tstr.o rel64/ttcoef.o rel64/ttcoef_wway.o rel64/urban.o rel64/urbanhr.o rel64/urb_bmp.o rel64/varinit.o rel64/vbl.o rel64/virtual.o rel64/volq.o rel64/washp.o rel64/watbal.o rel64/water_hru.o rel64/watqual.o rel64/watqual2.o rel64/wattable.o rel64/watuse.o rel64/weatgn.o rel64/wetlan.o rel64/wmeas.o rel64/wndgen.o rel64/writea.o rel64/writeaa.o rel64/writed.o rel64/writem.o rel64/xmon.o rel64/ysed.o rel64/zero0.o rel64/zero1.o rel64/zero2.o rel64/zeroini.o rel64/zero_urbn.o
 
 NAMEREL64=swat_rel64
 rel64:rel64_mkdir ${NAMEREL64}
@@ -3087,8 +3265,8 @@ rel64/filtw.o: filtw.f rel64/main.o
 rel64/finalbal.o: finalbal.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  finalbal.f -o rel64/finalbal.o -I rel64
 
-rel64/fsqlite.o: fsqlite.f90 rel64/main.o
-	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  fsqlite.f90 -o rel64/fsqlite.o -I rel64
+rel64/fsqlite.o: fsqlite.f90
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  fsqlite.f90 -o rel64/fsqlite.o -J rel64
 
 rel64/gcycl.o: gcycl.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  gcycl.f -o rel64/gcycl.o -I rel64
@@ -3132,8 +3310,56 @@ rel64/harvkillop.o: harvkillop.f rel64/main.o
 rel64/header.o: header.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  header.f -o rel64/header.o -I rel64
 
+rel64/header_sqlite.o: header_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  header_sqlite.f -o rel64/header_sqlite.o -I rel64
+
 rel64/headout.o: headout.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout.f -o rel64/headout.o -I rel64
+
+rel64/headout_sqlite.o: headout_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite.f -o rel64/headout_sqlite.o -I rel64
+
+rel64/headout_sqlite_adddate.o: headout_sqlite_adddate.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_adddate.f -o rel64/headout_sqlite_adddate.o -I rel64
+
+rel64/headout_sqlite_createindex.o: headout_sqlite_createindex.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_createindex.f -o rel64/headout_sqlite_createindex.o -I rel64
+
+rel64/headout_sqlite_deg.o: headout_sqlite_deg.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_deg.f -o rel64/headout_sqlite_deg.o -I rel64
+
+rel64/headout_sqlite_hru.o: headout_sqlite_hru.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_hru.f -o rel64/headout_sqlite_hru.o -I rel64
+
+rel64/headout_sqlite_mgt.o: headout_sqlite_mgt.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_mgt.f -o rel64/headout_sqlite_mgt.o -I rel64
+
+rel64/headout_sqlite_pot.o: headout_sqlite_pot.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_pot.f -o rel64/headout_sqlite_pot.o -I rel64
+
+rel64/headout_sqlite_rch.o: headout_sqlite_rch.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_rch.f -o rel64/headout_sqlite_rch.o -I rel64
+
+rel64/headout_sqlite_rsv.o: headout_sqlite_rsv.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_rsv.f -o rel64/headout_sqlite_rsv.o -I rel64
+
+rel64/headout_sqlite_sed.o: headout_sqlite_sed.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_sed.f -o rel64/headout_sqlite_sed.o -I rel64
+
+rel64/headout_sqlite_snu.o: headout_sqlite_snu.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_snu.f -o rel64/headout_sqlite_snu.o -I rel64
+
+rel64/headout_sqlite_sub.o: headout_sqlite_sub.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_sub.f -o rel64/headout_sqlite_sub.o -I rel64
+
+rel64/headout_sqlite_swr.o: headout_sqlite_swr.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_swr.f -o rel64/headout_sqlite_swr.o -I rel64
+
+rel64/headout_sqlite_wshd.o: headout_sqlite_wshd.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_wshd.f -o rel64/headout_sqlite_wshd.o -I rel64
+
+rel64/headout_sqlite_wtr.o: headout_sqlite_wtr.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  headout_sqlite_wtr.f -o rel64/headout_sqlite_wtr.o -I rel64
 
 rel64/hhnoqual.o: hhnoqual.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hhnoqual.f -o rel64/hhnoqual.o -I rel64
@@ -3153,8 +3379,14 @@ rel64/hruallo.o: hruallo.f rel64/main.o
 rel64/hruday.o: hruday.f90 rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hruday.f90 -o rel64/hruday.o -I rel64
 
+rel64/hruday_sqlite.o: hruday_sqlite.f90 rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hruday_sqlite.f90 -o rel64/hruday_sqlite.o -I rel64
+
 rel64/hrumon.o: hrumon.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hrumon.f -o rel64/hrumon.o -I rel64
+
+rel64/hrumon_sqlite.o: hrumon_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hrumon_sqlite.f -o rel64/hrumon_sqlite.o -I rel64
 
 rel64/hrupond.o: hrupond.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hrupond.f -o rel64/hrupond.o -I rel64
@@ -3164,6 +3396,9 @@ rel64/hrupondhr.o: hrupondhr.f rel64/main.o
 
 rel64/hruyr.o: hruyr.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hruyr.f -o rel64/hruyr.o -I rel64
+
+rel64/hruyr_sqlite.o: hruyr_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hruyr_sqlite.f -o rel64/hruyr_sqlite.o -I rel64
 
 rel64/hydroinit.o: hydroinit.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  hydroinit.f -o rel64/hydroinit.o -I rel64
@@ -3216,8 +3451,11 @@ rel64/layersplit.o: layersplit.f rel64/main.o
 rel64/lwqdef.o: lwqdef.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  lwqdef.f -o rel64/lwqdef.o -I rel64
 
-rel64/main.o: main.f modparm.f
+rel64/main.o: main.f modparm.f rel64/fsqlite.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG} ${LONGFIX} main.f -o rel64/main.o -J rel64
+
+rel64/mgt_sqlite.o: mgt_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  mgt_sqlite.f -o rel64/mgt_sqlite.o -I rel64
 
 rel64/ncsed_leach.o: ncsed_leach.f90 rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  ncsed_leach.f90 -o rel64/ncsed_leach.o -I rel64
@@ -3345,17 +3583,26 @@ rel64/rchaa.o: rchaa.f rel64/main.o
 rel64/rchday.o: rchday.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rchday.f -o rel64/rchday.o -I rel64
 
+rel64/rchday_sqlite.o: rchday_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rchday_sqlite.f -o rel64/rchday_sqlite.o -I rel64
+
 rel64/rchinit.o: rchinit.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rchinit.f -o rel64/rchinit.o -I rel64
 
 rel64/rchmon.o: rchmon.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rchmon.f -o rel64/rchmon.o -I rel64
 
+rel64/rchmon_sqlite.o: rchmon_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rchmon_sqlite.f -o rel64/rchmon_sqlite.o -I rel64
+
 rel64/rchuse.o: rchuse.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rchuse.f -o rel64/rchuse.o -I rel64
 
 rel64/rchyr.o: rchyr.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rchyr.f -o rel64/rchyr.o -I rel64
+
+rel64/rchyr_sqlite.o: rchyr_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  rchyr_sqlite.f -o rel64/rchyr_sqlite.o -I rel64
 
 rel64/reachout.o: reachout.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  reachout.f -o rel64/reachout.o -I rel64
@@ -3630,6 +3877,9 @@ rel64/solp.o: solp.f rel64/main.o
 rel64/solt.o: solt.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  solt.f -o rel64/solt.o -I rel64
 
+rel64/sqlite_writeinfo.o: sqlite_writeinfo.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sqlite_writeinfo.f -o rel64/sqlite_writeinfo.o -I rel64
+
 rel64/std1.o: std1.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  std1.f -o rel64/std1.o -I rel64
 
@@ -3641,6 +3891,12 @@ rel64/std3.o: std3.f rel64/main.o
 
 rel64/stdaa.o: stdaa.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  stdaa.f -o rel64/stdaa.o -I rel64
+
+rel64/stdaa_sqlite.o: stdaa_sqlite.f90 rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  stdaa_sqlite.f90 -o rel64/stdaa_sqlite.o -I rel64
+
+rel64/stdaa_sqlite_writebasin.o: stdaa_sqlite_writebasin.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  stdaa_sqlite_writebasin.f -o rel64/stdaa_sqlite_writebasin.o -I rel64
 
 rel64/storeinitial.o: storeinitial.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  storeinitial.f -o rel64/storeinitial.o -I rel64
@@ -3657,8 +3913,14 @@ rel64/subbasin.o: subbasin.f rel64/main.o
 rel64/subday.o: subday.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  subday.f -o rel64/subday.o -I rel64
 
+rel64/subday_sqlite.o: subday_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  subday_sqlite.f -o rel64/subday_sqlite.o -I rel64
+
 rel64/submon.o: submon.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  submon.f -o rel64/submon.o -I rel64
+
+rel64/submon_sqlite.o: submon_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  submon_sqlite.f -o rel64/submon_sqlite.o -I rel64
 
 rel64/substor.o: substor.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  substor.f -o rel64/substor.o -I rel64
@@ -3668,6 +3930,9 @@ rel64/subwq.o: subwq.f rel64/main.o
 
 rel64/subyr.o: subyr.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  subyr.f -o rel64/subyr.o -I rel64
+
+rel64/subyr_sqlite.o: subyr_sqlite.f rel64/main.o
+	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  subyr_sqlite.f -o rel64/subyr_sqlite.o -I rel64
 
 rel64/sub_subbasin.o: sub_subbasin.f rel64/main.o
 	${FC} ${ARCH64} ${FFLAG} ${RFLAG}  sub_subbasin.f -o rel64/sub_subbasin.o -I rel64
