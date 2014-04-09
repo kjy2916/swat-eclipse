@@ -42,6 +42,6 @@
          end do
       end if
       call sqlite3_create_table( db, tblrch, colrch )
-      call headout_sqlite_createindex("rch_index",tblrch,"RCH")
+      call headout_sqlite_createindex("rch_index",tblrch,"RCH",1)
 
       end

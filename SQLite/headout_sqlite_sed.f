@@ -26,5 +26,5 @@
      &                                          hedsed(j), SQLITE_REAL)
       end do
       call sqlite3_create_table( db, tblsed, colsed )
-      call headout_sqlite_createindex("sed_index",tblsed,"RCH")
+      call headout_sqlite_createindex("sed_index",tblsed,"RCH",1)
       end

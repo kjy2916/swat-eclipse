@@ -27,7 +27,7 @@
       call sqlite3_column_props( col(7), "SLOPE", SQLITE_REAL)
       call sqlite3_create_table( db, tbl, col )
       call headout_sqlite_createindex("hru_info_index",
-     &                                              tbl,"HRU,SEQ,SUB")
+     &                                              tbl,"HRU,SEQ,SUB",0)
 
       do j = 1,nhru
         call sqlite3_set_column( col(1), j )
@@ -50,7 +50,7 @@
       call sqlite3_column_props( col(3), "AREA_FR_WSHD", SQLITE_REAL)
       call sqlite3_create_table( db, tbl, col )
       call headout_sqlite_createindex("sub_info_index",
-     &                                                     tbl,"SUB")
+     &                                                     tbl,"SUB",0)
 
       do j = 1,subtot
         call sqlite3_set_column( col(1), j )
@@ -68,7 +68,7 @@
       call sqlite3_column_props( col(2), "CONTR_AREA_KM2", SQLITE_REAL)
       call sqlite3_create_table( db, tbl, col )
       call headout_sqlite_createindex("rch_info_index",
-     &                                                     tbl,"RCH")
+     &                                                     tbl,"RCH",0)
 
       do j = 1,subtot
         call sqlite3_set_column( col(1), j )

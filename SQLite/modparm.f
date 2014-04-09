@@ -983,4 +983,11 @@
         !!yearly = 1, monthly = 2, daily = 3
         integer :: datecol_num
 
+        !!create index after insert would speed up SQLiter performance
+        !!All indexs informatio would be saved in following variable temporarily
+        !!The indexs would be created after insert
+        character(len=50), dimension(100) :: sq_indexname
+        character(len=50), dimension(100) :: sq_tablename
+        character(len=50), dimension(100) :: sq_indexs
+        integer :: sq_indexnum
       end module parm
