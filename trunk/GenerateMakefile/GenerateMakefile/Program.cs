@@ -11,6 +11,7 @@ namespace GenerateMakefile
     {
         private static string[] LONG_F_NAMES = { "bmpinit.f", "ovr_sed.f", "percmain.f", "rthsed.f", "main.f","biozone.f" };
         private static string[] LONG_F90_NAMES = { "carbon_zhang2.f90" };
+        private static string[] MODE_FILES = { "main.f", "fsqlite.f90" };
 
         private static string NAME_C_FLAG = "CFLAG";
         private static string NAME_FORTRAN_FLAG = "FFLAG";
@@ -274,12 +275,14 @@ namespace GenerateMakefile
 
             StringBuilder makefilesb = new StringBuilder();
             StringBuilder objfilesb = new StringBuilder();
+            bool isSQLiteProject = false;
 
             foreach (FileInfo f in files)
             {
                 string sourceName = f.Name.ToLower(); //BIOZONE.F is upper case, need to convert to lowercase
                 if (sourceName.Equals("modparm.f")) continue;
                 if (sourceName.Equals("readmgtsave.f")) continue; //for rev435, double define readmgt in readmgt.f and readmgtsave.f
+                if (sourceName.Equals("fsqlite.f90")) isSQLiteProject = true;
 
                 string longFortranflag = "";
                 string o_file = "";
@@ -308,8 +311,20 @@ namespace GenerateMakefile
                 string line_rule = o_file + ": " + f_file;
                 //Add dependency modparm.f to main.f to recompile main.f when moadparm.f is changed
                 //Add dependency main.o to other files to recompile main.f when moadparm.f is changed
+                //Add dependency fsqlite.o to main.o to recompile main.f when fsqlite.f90 is changed, only for SQLite version
                 if (type == CODE_TYPE.FORTRAN)
-                    line_rule += sourceName.Equals("main.f") ? " " + f_prefix + "modparm.f" : " " + o_prefix + "main.o";
+                {
+                    if (sourceName.Equals("main.f"))
+                    {                        
+                        line_rule += " " + f_prefix + "modparm.f";
+                        if (isSQLiteProject)
+                            line_rule += " " + o_prefix + "fsqlite.o";
+                    }
+                    else if (!sourceName.Equals("fsqlite.f90")) //fsqlite.f90 doesn't depends on main
+                    {
+                        line_rule += " " + o_prefix + "main.o";
+                    }
+                }
 
                 //generate the line for compile
                 string line_compile = string.Format("\t{0} {6} {1} {2} {3} {4} -o {5}",
@@ -320,7 +335,7 @@ namespace GenerateMakefile
                 //-J specify the location where the mod file will be saved, only used by main.f
                 //-I specify the location where the mod file will be search for, used by other files except main.f
                 if (type == CODE_TYPE.FORTRAN && inSameFolder)
-                    line_compile += (sourceName.Equals("main.f") ? " -J " : " -I ") + modLocation;
+                    line_compile += (System.Array.IndexOf(MODE_FILES,sourceName) > -1 ? " -J " : " -I ") + modLocation;
 
                 makefilesb.AppendLine("");
                 makefilesb.AppendLine(line_rule);
