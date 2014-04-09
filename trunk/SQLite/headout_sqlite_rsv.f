@@ -26,5 +26,5 @@
      &                                                      SQLITE_REAL)
       end do
       call sqlite3_create_table( db, tblrsv, colrsv )
-      call headout_sqlite_createindex("rsv_index",tblrsv,"RES")
+      call headout_sqlite_createindex("rsv_index",tblrsv,"RES",1)
       end

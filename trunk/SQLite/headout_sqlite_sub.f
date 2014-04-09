@@ -43,6 +43,6 @@
         end do
       end if
       call sqlite3_create_table( db, tblsub, colsub )
-      call headout_sqlite_createindex("sub_index",tblsub,"SUB")
+      call headout_sqlite_createindex("sub_index",tblsub,"SUB",1)
 
       end

@@ -28,7 +28,7 @@
           end do
           call sqlite3_delete_table( db, tblwtr)
           call sqlite3_create_table( db, tblwtr, colwtr )
-          call headout_sqlite_createindex("wtr_index",tblwtr,"HRU,SUB")
+         call headout_sqlite_createindex("wtr_index",tblwtr,"HRU,SUB",1)
       end if
 
 

@@ -24,7 +24,7 @@
       end do
 
       call sqlite3_create_table( db, tbldeg, coldeg )
-      call sqlite3_create_index( db, "deg_index",tbldeg,
-     &                                              "RCH,YR")
+      call headout_sqlite_createindex( "deg_index",tbldeg,
+     &                                              "RCH,YR",0)
 
       end

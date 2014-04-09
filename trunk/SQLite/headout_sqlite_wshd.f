@@ -30,8 +30,8 @@
      &                                          hedwshd(j), SQLITE_REAL)
       end do
       call sqlite3_create_table( db, tblwshd_dy, colwshd_dy )
-      call sqlite3_create_index( db, "watershed_daily_index",tblwshd_dy,
-     &                                                      "YR,MO,DA")
+      call headout_sqlite_createindex("watershed_daily_index",
+     &                                       tblwshd_dy,"YR,MO,DA",0)
 
       !!monthly table
       basiccolnum = 2
@@ -43,8 +43,8 @@
      &                                          hedwshd(j), SQLITE_REAL)
       end do
       call sqlite3_create_table( db, tblwshd_mn, colwshd_mn )
-      call sqlite3_create_index(db,"watershed_monthly_index",tblwshd_mn,
-     &                                                         "YR,MO")
+      call headout_sqlite_createindex("watershed_monthly_index",
+     &                                            tblwshd_mn,"YR,MO",0)
 
       !!yearly table
       basiccolnum = 1
@@ -55,7 +55,7 @@
      &                                          hedwshd(j), SQLITE_REAL)
       end do
       call sqlite3_create_table(db,tblwshd_yr, colwshd_yr)
-      call sqlite3_create_index(db,"watershed_yearly_index",tblwshd_yr,
-     &                                                            "YR")
+      call headout_sqlite_createindex("watershed_yearly_index",
+     &                                              tblwshd_yr,"YR",0)
 
       end

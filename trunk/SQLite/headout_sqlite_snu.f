@@ -27,8 +27,8 @@
           end do
 
           call sqlite3_create_table( db, tblsnu, colsnu )
-          call sqlite3_create_index( db, "snu_index",tblsnu,
-     &                                              "SUB,HRU,YR,MO,DA")
+          call headout_sqlite_createindex( "snu_index",tblsnu,
+     &                                            "SUB,HRU,YR,MO,DA",0)
       end if
 
       end

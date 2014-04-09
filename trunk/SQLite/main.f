@@ -132,6 +132,11 @@
       !!~ ~ ~ SQLite ~ ~ ~
       if(ioutput == 1) then
         call sqlite3_commit( db )
+        !!create index
+        do i=1,sq_indexnum
+            call sqlite3_create_index(db,sq_indexname(i),
+     &                                  sq_tablename(i),sq_indexs(i))
+        end do
         call sqlite3_close( db)
       end if
       !!~ ~ ~ SQLite ~ ~ ~
