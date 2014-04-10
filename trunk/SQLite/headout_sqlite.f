@@ -52,14 +52,21 @@
 !!    ~ ~ ~ ~ ~ ~ END SPECIFICATIONS ~ ~ ~ ~ ~ ~
 
       use parm
+      integer :: stat
 
       datecol_num = 1                    !!yearly
       if(iprint == 1) datecol_num = 3    !!daily
       if(iprint == 0) datecol_num = 2    !!monthly
 
-      call header_sqlite
+      !!delete existing result.db3
+      open(1234,file="result.db3",status="old",iostat=stat)
+      if(stat .eq. 0) close(1234,status="delete")
+
+      !!create the result database
       call sqlite3_open( "result.db3", db )
-      call sqlite3_clear( db )
+
+      !!create tables
+      call header_sqlite
       call headout_sqlite_rch
       call headout_sqlite_hru
       call headout_sqlite_sub
