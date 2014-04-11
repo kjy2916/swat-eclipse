@@ -24,9 +24,9 @@
       end if
 
       !!create the index if not existing
-!      sq_indexnum = sq_indexnum + 1
-!      write(sq_tablename(sq_indexnum),*) tblname
-!      write(sq_indexname(sq_indexnum),*) indexname
-!      write(sq_indexs(sq_indexnum),*) indexs
+      sq_indexnum = sq_indexnum + 1
+      write(sq_tablename(sq_indexnum),*) tblname
+      write(sq_indexname(sq_indexnum),*) indexname
+      write(sq_indexs(sq_indexnum),*) indexs
 
       end subroutine headout_sqlite_createindex
