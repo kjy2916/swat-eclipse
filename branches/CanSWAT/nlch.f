@@ -94,7 +94,7 @@
         if (ldrain(j) == jj) vv = vv + qtile
         ww = -vv / ((1. - anion_excl(j)) * sol_ul(jj,j))
         vno3 = sol_no3(jj,j) * (1. - Exp(ww))
-        if (vv > 1.e-10)  co = Max(vno3 / vv, 0.)
+        if (vv > 1.e-10)  co = Max(vno3 / vv, 0.0)
 
         !! calculate nitrate in surface runoff
         cosurf = 0.
@@ -108,6 +108,9 @@
           surqno3(j) = Min(surqno3(j), sol_no3(jj,j))
           sol_no3(jj,j) = sol_no3(jj,j) - surqno3(j)
         endif
+
+
+
  !Daniel 1/2012    
         !! calculate nitrate in tile flow 
         if (ldrain(j) == jj) then

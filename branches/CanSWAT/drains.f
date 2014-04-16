@@ -142,10 +142,9 @@
 	if (ad/sdrain(j) < 0.3) then
           hdrain= ad / (1 + ((ad / sdrain(j)) * (((8 / pi) *
      &	    Log(ad / re(j)) - ap))))
-      else
-        hdrain = ad
-!          hdrain = (sdrain(j) * pi) / (8 * ((log(sdrain(j) / re(j))/
-!     & 	  log(e)) - 1.15))
+	else
+          hdrain = (sdrain(j) * pi) / (8 * ((log(sdrain(j) / re(j))/
+     & 	  log(e)) - 1.15))
 	end if
       !! calculate Kirkham G-Factor, gee
         k2 = tan((pi * ((2. * ad) - re(j))) / (4. * dep_imp(j)))

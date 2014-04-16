@@ -137,9 +137,6 @@
 !!    real :: hiad1, wur, yield, clip, yieldn, yieldp, clipn, clipp
       real :: hiad1, wur, clip, clipn, clipp
       real :: yldpst, clippst, rtresnew
-      real :: clipgrn,cliptbr,clipngrn,clippgrn,yieldngrn
-      real :: yieldntbr,yieldnrsd,yieldpgrn,yieldptbr,yieldprsd
-      real :: clipntbr,clipptbr,rtresp
 
       !!add by zhang
       !!===================
@@ -165,11 +162,6 @@
       
       RLN = 0.
       RLR = 0.
-      clipgrn = 0.; cliptbr = 0.; clipngrn = 0.; clippgrn = 0.
-      yieldngrn = 0.; yieldntbr = 0.; yieldnrsd = 0.; yieldpgrn = 0.
-      yieldptbr = 0.; yieldprsd = 0.; clipntbr = 0.; clipptbr = 0.
-      rtresnew = 0.; rtresn = 0.; rtresp = 0.
-      
       !!add by zhang
       !!===================
 
@@ -201,15 +193,14 @@
       if (hiad1 > hvsti(idplt(j))) then
         hiad1 = hvsti(idplt(j))
       end if
-	
 
       !! check if yield is from above or below ground
       if (hvsti(idplt(j)) > 1.001) then
         !! compute tuber yields
- !!       yieldtbr = bio_ms(j) * (1. - 1. / (1. + hiad1))
+        yieldtbr = bio_ms(j) * (1. - 1. / (1. + hiad1))
         !! determine clippings (biomass left behind) and update yield
-        yieldtbr = bio_ms(j) * (1. - 1. / (1. + hiad1)) * harveff  !! corrected by cibin Nov/2013
-        cliptbr = bio_ms(j) * (1. - 1. / (1. + hiad1)) * (1. - harveff) !! corrected by cibin Nov/2013
+        yieldtbr = yieldtbr * harveff
+        cliptbr = yieldtbr * (1. - harveff)
         bio_ms(j) = bio_ms(j) - yieldtbr - cliptbr
         !! calculate nutrients removed with yield
         yieldntbr = yieldtbr * cnyld(idplt(j))
@@ -222,30 +213,12 @@
         clipptbr = Min(clipptbr, plantp(j) - yieldptbr)
         plantn(j) = plantn(j) - yieldntbr - clipntbr
         plantp(j) = plantp(j) - yieldptbr - clipptbr
-      endif
-
-	if (hi_bms > 0.) then       !! compute biomass yield !! corrected by cibin Nov/2013
-        yieldbms = hi_bms * (1.-rwt(j)) * bio_ms(j)*harveff
-        clipbms = hi_bms * (1.-rwt(j)) * bio_ms(j) * (1. - harveff)  
-        bio_ms(j) = bio_ms(j) - yieldbms - clipbms !corrected by Jaehak Jeong sep. 2013
-        !! calculate nutrients removed with yield
-        yieldnbms = yieldbms * cnyld(idplt(j))   !! corrected by cibin Nov/2013
-        yieldpbms = yieldbms * cpyld(idplt(j))
-        yieldnbms = Min(yieldnbms, 0.80 * plantn(j))
-        yieldpbms = Min(yieldpbms, 0.80 * plantp(j))
-        !! calculate nutrients removed with clippings
-        clipnbms = clipbms * cnyld(idplt(j))   !! corrected by cibin Nov/2013
-        clippbms = clipbms * cpyld(idplt(j))
-        clipnbms = Min(clipnbms, plantn(j) - yieldnbms)
-        clippbms = Min(clippbms, plantp(j) - yieldpbms)
-        plantn(j) = plantn(j) - yieldnbms - clipnbms
-        plantp(j) = plantp(j) - yieldpbms - clippbms
-	else
+      else
         !! compute grain yields
-        yieldgrn = (1.-rwt(j)) * bio_ms(j) * hiad1* harveff
+        yieldgrn = (1.-rwt(j)) * bio_ms(j) * hiad1
         !! determine clippings (biomass left behind) and update yield
-
-        clipgrn = (1.-rwt(j)) * bio_ms(j) * hiad1 * (1. - harveff)
+        yieldgrn = yieldgrn * harveff
+        clipgrn = yieldgrn * (1. - harveff)
         bio_ms(j) = bio_ms(j) - yieldgrn - clipgrn
         !! calculate nutrients removed with yield
         yieldngrn = yieldgrn * cnyld(idplt(j))
@@ -261,8 +234,24 @@
         plantp(j) = plantp(j) - yieldpgrn - clippgrn
       endif
 
-      
-     
+      !! compute biomass yield
+      if (hi_bms > 0.) then
+        yieldbms = hi_bms * (1.-rwt(j)) * bio_ms(j)
+        clipbms = yieldbms * (1. - harveff)  !added by Jaehak Jeong sep. 2013
+        bio_ms(j) = bio_ms(j) - yieldbms - clipbms !corrected by Jaehak Jeong sep. 2013
+        !! calculate nutrients removed with yield
+        yieldnbms = yieldbms * pltfr_n(j)
+        yieldpbms = yieldbms * pltfr_p(j)
+        yieldnbms = Min(yieldnbms, 0.80 * plantn(j))
+        yieldpbms = Min(yieldpbms, 0.80 * plantp(j))
+        !! calculate nutrients removed with clippings
+        clipnbms = clipbms * pltfr_n(j)
+        clippbms = clipbms * pltfr_p(j)
+        clipnbms = Min(clipnbms, plantn(j) - yieldnbms)
+        clippbms = Min(clippbms, plantp(j) - yieldpbms)
+        plantn(j) = plantn(j) - yieldnbms - clipnbms
+        plantp(j) = plantp(j) - yieldpbms - clippbbms
+      endif
 
       !! add clippings to residue and organic n and p
       sol_rsd(1,j) = sol_rsd(1,j) + clipgrn + clipbms + cliptbr
@@ -282,9 +271,6 @@
       yield = yieldgrn + yieldbms + yieldtbr + yieldrsd
       yieldn = yieldngrn + yieldnbms + yieldntbr + yieldnrsd
       yieldp = yieldpgrn + yieldpbms + yieldptbr + yieldprsd
-	clip= clipgrn + clipbms + cliptbr   !! cibin nov 2013
-      clipn = clipngrn + clipnbms + clipntbr !! cibin nov 2013
-      clipp = clippgrn + clippbms + clipptbr !! cibin nov 2013
       
       !!add by zhang
       !!=====================

@@ -122,6 +122,9 @@
      &                                         (res_vol(jres) + resflwo)
       nitrok = Min(nitrok, 1.)
 
+
+    
+
       !! remove nutrients from reservoir by settling
       !! other part of equation 29.1.3 in SWAT manual
       res_solp(jres) = res_solp(jres) * (1. - phosk)
@@ -156,6 +159,7 @@
       if (res_chla(jres) < 1.e-4) res_chla(jres) = 0.0
       if (res_nh3(jres) < 1.e-4) res_nh3(jres) = 0.0
       if (res_no2(jres) < 1.e-4) res_no2(jres) = 0.0
+            
       resno3o = res_no3(jres) * resflwo / (res_vol(jres) + resflwo)
       resorgno = res_orgn(jres) * resflwo / (res_vol(jres) + resflwo)
       resorgpo = res_orgp(jres) * resflwo / (res_vol(jres) + resflwo)
@@ -163,6 +167,8 @@
       reschlao = res_chla(jres) * resflwo / (res_vol(jres) + resflwo)
       resnh3o = res_nh3(jres) * resflwo / (res_vol(jres) + resflwo)
       resno2o = res_no2(jres) * resflwo / (res_vol(jres) + resflwo)
+
+       
       res_orgn(jres) = res_orgn(jres) - resorgno
       res_orgp(jres) = res_orgp(jres) - resorgpo
       res_no3(jres) = res_no3(jres) - resno3o

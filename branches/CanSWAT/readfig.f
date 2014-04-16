@@ -76,6 +76,8 @@
 !!                                 |   associated with the record file
 !!     subgis(:)    |none          |GIS code printed to output files(output.sub)
 !!     subtot       |none          |number of subbasins in watershed
+!!     mpoint()                     number of records of the ith res              !Liu
+!!     mmpoint                      max number of records                         !Liu
 !!     ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 !!     ~ ~ ~ LOCAL DEFINITIONS ~ ~ ~
@@ -100,6 +102,7 @@
 !!     titldum      |NA            |description line
 !!     year_in      |NA            |name of file containing annual loadings
 !!                                 |to reach (fig command 8)
+!!     ires                         counter                                   !Liu
 !!     ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 !!     ~ ~ ~ SUBROUTINES/FUNCTIONS CALLED ~ ~ ~
@@ -118,6 +121,7 @@
       character (len=13) :: hour_in, resfile, lwqfile, rtefile, swqfile
       character (len=13) :: subfile, auto_in , rufile
       integer :: ii, eof
+      integer :: ires, eof3    !Liu
 
       character (len=3), dimension (mhyd) :: char6, char7, char8
       char6 = "   "
@@ -223,9 +227,29 @@
               nres = nres + 1
               resfile = ""
               lwqfile = ""
-              read (102,5100) resfile, lwqfile
+              !read (102,5100) resfile, lwqfile
+              read (102,5100) resfile, lwqfile, resfname(nres)  !Liu
               call caps(resfile)
               call caps(lwqfile)
+              call caps(resfname(nres))      !Liu
+
+!Liu>	
+           if (resfname(nres) /= '             ') then
+!		   count number of records
+		   open (140,file=resfname(nres))
+            eof3=0
+            ires=0
+	        do
+                read (140,5200,iostat=eof3) titldum
+                if (eof3 < 0.or.trim(titldum)=="") exit
+		        ires=ires+1
+            end do
+            mpoint(nres)=ires-3
+	      mmpoint=max(mmpoint,mpoint(nres))
+            close (140)
+	   end if
+!Liu<
+
               i = 0
               i = inum1s(idum)
               open (105,file=resfile)
@@ -394,7 +418,21 @@
 
 !! close .fig file
       close (102)
-
+!Liu>
+      ssb11=0       
+      allocate (resv(mmpoint,msub))
+      allocate (resa(mmpoint,msub))
+      allocate (resq(mmpoint,msub))
+      allocate (reslsv(msub))
+      allocate (reslstag(msub))
+      allocate (resdead(msub))
+      resv=0.0
+      resa=0.0
+      resq=0.0
+      reslsv=0.0
+      reslstag=0
+      resdead=0.0
+!Liu<
 
       return
 !! isproj = 0
@@ -405,7 +443,8 @@
  5004 format (10x,3i4)
 !! isproj = 2 (CEAP)
  5003 format (a1,9x,4i6,i5,f8.0,i8)
- 5100 format (10x,2a13)
+ !5100 format (10x,2a13)
+ 5100 format (10x,3a13)     !Liu
  5200 format (a80)
  5300 format (2i6)
  5400 format (20a4)

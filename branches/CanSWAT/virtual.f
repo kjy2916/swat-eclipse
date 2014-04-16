@@ -210,6 +210,7 @@
 !!    sub_sorpst(:)|mg pst        |pesticide sorbed to sediment in surface
 !!                               |runoff on day in subbasin
 !!    sub_subp(:) |mm H2O        |precipitation for day in subbasin
+!!    sub_subt(:) |mm H2O        |average temperature for day in subbasin
 !!    sub_sumfc(:)|mm H2O        |amount of water in soil at field capacity in
 !!                               |subbasin
 !!    sub_surfq(:)|mm H2O        |surface runoff generated on day in subbasin
@@ -279,6 +280,7 @@
       if (sb > 0) then
       !! subbasin averages: water
         sub_subp(sb) = sub_subp(sb) + subp(j) * hru_fr(j)
+        sub_subt(sb) = sub_subt(sb) + tmpav(j) * hru_fr(j)          !Liu
         sub_snom(sb) = sub_snom(sb) + snomlt * hru_fr(j)
         sub_pet(sb) = sub_pet(sb) + pet_day * hru_fr(j)
         sub_etday(sb) = sub_etday(sb) + etday * hru_fr(j)

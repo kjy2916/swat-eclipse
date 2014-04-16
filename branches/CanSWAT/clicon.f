@@ -160,6 +160,11 @@
 
 !! Wind Speed: Measured !!
       if (wndsim == 1 .and. ipet == 1) call wmeas
+!Liu<
+!! Added by Hailiang April 11 2011 ~~ start ~~
+      !!if (wndsim == 3 .and. ipet == 1) call wmeas2
+      if (wndsim == 3) call wmeas2
+!! Liu>
 
 !! Potential ET: Read in data !!
       if (ipet == 3) then

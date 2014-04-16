@@ -517,6 +517,6 @@
       wshd_aamon = 0.
 !      wshddayo = 0.
       yr_skip = 0
-
+      fs_flag2 = 1      !Liu 0
       return
       end

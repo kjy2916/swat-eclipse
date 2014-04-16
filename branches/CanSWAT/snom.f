@@ -174,13 +174,27 @@
 !! no elevation bands
       
 	ib = 1
+!>Liu
+      sub_sftmp(ib,isub)=sftmp
+      sub_smtmp(ib,isub)=smtmp
+      sub_timp(ib,isub)=timp
+      sub_smfmx(ib,isub)=smfmx
+      sub_smfmn(ib,isub)=smfmn
+!<Liu 
 
         !! estimate snow pack temperature
         snotmp(j)=snotmp(j) * (1. - sub_timp(ib,isub)) + tmpav(j) *     
      &            sub_timp(ib,isub)
 
         if (tmpav(j) <= sub_sftmp(ib,isub)) then
-          !! calculate snow fall
+          !! calculate snow fall  
+               
+!Liu<
+            if (sr_flag == 1) then
+                precipday = precipday * (1.0 + k_blow)
+            end if
+!Liu>  
+
           sno_hru(j) = sno_hru(j) + precipday
           snofall = precipday
           precipday = 0.
@@ -194,7 +208,13 @@
           smfac = (sub_smfmx(ib,isub) + sub_smfmn(ib,isub)) / 2. +      
      &       Sin((iida - 81) / 58.09) *                                 
      &       (sub_smfmx(ib,isub) - sub_smfmn(ib,isub)) / 2.    !! 365/2pi = 58.09
-          snomlt = smfac * (((snotmp(j)+tmx(j))/2.)-sub_smtmp(ib,isub))
+          !snomlt = smfac * (((snotmp(j)+tmx(j))/2.)-sub_smtmp(ib,isub))
+!>Liu
+          snomlt = smfac * (((snotmp(j)+tmx(j))/2.)-sub_smtmp(ib,isub)) &
+     &        + rsno_fac*(((snotmp(j)+tmx(j))/2.)-sub_smtmp(ib,isub)) *
+     &        precipday
+!<Liu
+
 
           !! adjust for areal extent of snow cover
           if (sno_hru(j) < snocovmx) then

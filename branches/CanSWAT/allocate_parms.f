@@ -62,6 +62,7 @@
       msubo = 22
       mstdo = 113
       motot = 600             !! (50 years limit)
+      mmpoint=1    !Liu
       
 !!!!!!!!!! drains
       allocate (wnan(mlyr))
@@ -422,6 +423,7 @@
       allocate (sub_solpst(msub))
       allocate (sub_sorpst(msub))
       allocate (sub_subp(msub))
+      allocate (sub_subt(msub))         !Liu
       allocate (sub_sumfc(msub))
       allocate (sub_surfq(msub))
       allocate (sub_sw(msub))
@@ -1534,6 +1536,11 @@
 
       allocate (wshd_aamon(12,8))
 
+      !Liu>
+      allocate (mpoint(msub))
+      allocate (ssb11(mstdo))
+      !Liu<
+
 !!arrays that store initial values
       allocate (ivar_orig(10))
       allocate (rvar_orig(10))
@@ -1573,7 +1580,7 @@
       allocate (snam(mhru),hydgrp(mhru),kirr(mhru))
 	allocate (dratio(msub),init_abstrc(mhru))
 	allocate (sub_subp_dt(msub,nstep),sub_hhsedy(msub,nstep))
-	allocate (sub_atmp(msub,nstep),bmp_recharge(msub))
+	allocate (sub_atmp(msub,nstep))
 	allocate (rchhr(mrcho,mch,nstep),hrtevp(nstep),hrttlc(nstep))
 	allocate (hhresflwi(nstep), hhresflwo(nstep),hhressedi(nstep),
      &	 hhressedo(nstep))
@@ -1776,6 +1783,29 @@
       !! By Zhang for C/N cycling
       !! ============================
       	  
+!Liu<
+!! Added by Hailiang April 12 2011 for snow redistribution ~~ start ~~
+      allocate (hru_wndslp(mhru))
+      allocate (hru_curv(mhru))
+      allocate (hru_shc_con(mhru))
+      allocate (hru_shc_no(mhru))
+      allocate (sno_hru2(mhru))
+      allocate (sr_wt(mhru))
+      allocate (sr_wl(mhru))
+      allocate (sr_ww(mhru))
+      allocate (sr_w(mhru))
+      allocate (cnday2(mhru))
+      allocate (fs_flag(mhru))
+      allocate (fs_flag2(mhru))
+      allocate (usle_kb(mhru))
+      allocate (erorgn_b(mhru))
+      allocate (erorgp_b(mhru))
+      allocate (usle_pb(mhru))  !yongbo
+      allocate (sol_solp_b(mhru)) !yongbo
+      allocate (ioper2(mhru))
+      allocate (sr_sub_swe(msub)) !zhiqiang
+!Liu>
+
       call zero0
       call zero1
       call zero2

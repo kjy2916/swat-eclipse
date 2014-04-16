@@ -69,6 +69,8 @@
 
       pdvab = 0.
       pdvb = 0.
+      
+      ii = icl(iida)
 
       pdvab(1) = sub_subp(sb)
       pdvab(2) = sub_snom(sb)

@@ -61,6 +61,7 @@
 !!    sub_solpst(:)|mg pst        |soluble pesticide loading on day in subbasin
 !!    sub_sorpst(:)|mg pst        |sorbed pesticide loading on day in subbasin
 !!    sub_subp(:) |mm H2O        |precipitation for day in subbasin
+!!    sub_subt(:) |oC            |average temperature for day in subbasin           !Liu
 !!    sub_sumfc(:)|mm H2O        |amount of water in soil at field capacity in
 !!                               |subbasin
 !!    sub_surfq(:)|mm H2O        |surface runoff generated on day in subbasin
@@ -179,6 +180,7 @@
       sub_solpst = 0.
       sub_sorpst = 0.
       sub_subp = 0.
+      sub_subt = 0.         !Liu
       sub_sumfc = 0.
       sub_surfq = 0.
       sub_sw = 0.
@@ -186,7 +188,6 @@
       sub_tran = 0.
       sub_wtmp = 0.
       sub_wyld = 0.
-      sub_gwq_d = 0.
       sub_yorgn = 0.
       sub_yorgp = 0.
       subp = 0.

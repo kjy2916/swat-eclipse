@@ -186,12 +186,7 @@
          if (as_p_coeff < 0.002) as_p_coeff = 0.002
         !! Estimate active/stable pool ratio
         !! Generated from sharpley 2003
-        
-        xx = actp(l) + (actp(l) * rto)
-        if (xx > 1.e-6) then
-      	 ssp = 25.044 * xx ** -0.3833 
-        end if
-        
+      	ssp = 25.044 * (actp(l) + (actp(l) * rto))** -0.3833 
 	  ! limit ssp to range in measured data
 	  if (ssp > 10.) ssp = 10.
 	  if (ssp < 0.7) ssp = 0.7

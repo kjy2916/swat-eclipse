@@ -182,7 +182,6 @@
 	  wtp_sede = 0.	 
 	  wtp_qi = 0.
       ovrlnd_dt = 0.
-      bmp_recharge = 0.
 	  
       return
       end

@@ -190,7 +190,7 @@
 		ro_bmp_sed(iops,ihru) = mgt3 !! Sediment
 		ro_bmp_pp(iops,ihru) = mgt4 !! Particulate P
 		ro_bmp_sp(iops,ihru) = mgt5 !! Soluble P
-		ro_bmp_pn(iops,ihru) = mgt7 !! Particulate N1123
+		ro_bmp_pn(iops,ihru) = mgt7 !! Particulate N
 		ro_bmp_sn(iops,ihru) = mgt8 !! Soluble N
 		ro_bmp_bac(iops,ihru) = mgt9 !! Bacteria
           end select

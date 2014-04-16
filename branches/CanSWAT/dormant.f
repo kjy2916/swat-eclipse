@@ -397,8 +397,8 @@
             plantp(j) = (1. - bm_dieoff(idplt(j))) *                    
      &         plantp(j)
             strsw(j) = 1.
-             laiday(j) = alai_min(idplt(j))
-             phuacc(j) = 0.
+!            laiday(j) = alai_min(idplt(j))
+!            phuacc(j) = 0.
 !            ncrops(icr(j),j) = ncrops(icr(j),j) + 1
 
           !! beginning of cool season annual dormant period

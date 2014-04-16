@@ -321,6 +321,7 @@
       read (109,*) biomix(ihru)
       read (109,*) cn2(ihru)
       read (109,*) usle_p(ihru)
+      usle_pb(ihru) = usle_p(ihru)  !Liu
       read (109,*) bio_min(ihru)
       read (109,*) filterw(ihru)
       read (109,5000) titldum
@@ -337,10 +338,9 @@
       read (109,*) tdrain(ihru)
       read (109,*) gdrain(ihru)
       read (109,5000) titldum
- !!     read (109,*) nrot(ihru)
-      read (109,5000) titldum 
+!!      read (109,*) nrot(ihru)
       read (109,5000) titldum
-
+      read (109,5000) titldum
 
 !!    set pothole trigger
 !    if (ipot(ihru) == ihru) then

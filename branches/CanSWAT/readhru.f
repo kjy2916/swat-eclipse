@@ -117,8 +117,10 @@
       read (108,*,iostat=eof) rsdin(ihru) 
       if (eof < 0) exit
       read (108,*,iostat=eof) erorgn(ihru) 
+      erorgn_b(ihru) = erorgn(ihru)     !Liu
       if (eof < 0) exit
       read (108,*,iostat=eof) erorgp(ihru) 
+      erorgp_b(ihru) = erorgp(ihru)     !Liu
       if (eof < 0) exit
       read (108,*,iostat=eof) pot_fr(ihru) 
       if (eof < 0) exit

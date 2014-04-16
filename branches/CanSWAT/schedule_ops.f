@@ -37,7 +37,7 @@
 
 
         iops = ioper(ihru)
-
+        ioper2(ihru) = ioper(ihru)      !Liu
         do while (iida == iopday(iops,ihru).and.iyr == iopyr(iops,ihru)) 
 
         select case(mgt_ops(iops,ihru))

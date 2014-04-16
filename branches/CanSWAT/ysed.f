@@ -76,6 +76,8 @@
         cklsp(j) = usle_cfac(j) * usle_mult(j)
       end if
 
+      !print*,j,usle_cfac(j),usle_mult(j),cklsp(j)
+
       !! compute sediment yield with musle
       if (iwave > 0) then
         !! subbasin sediment calculations
@@ -85,6 +87,7 @@
         !! HRU sediment calculations
         sedyld(j) = (surfq(j) * peakr * 1000. * hru_km(j)) ** .56       
      &                                                        * cklsp(j)
+      
       end if
 
       if (isproj == 2) then

@@ -187,6 +187,7 @@
 
 !!  compute month and day given julian day
         call xmon 
+        ii = icl(iida) 
 
       if (ievent==3.and.iprint==3) then
 	  ! print out subdaily reach output in output.rch
@@ -229,7 +230,7 @@
           else if (iscen == 1 .and. isproj == 2) then
           if(icalen == 0)write (7,6000) j, subgis(j), iida, rch_dakm(j),
      &                               (pdvr(ii), ii = 1, itotr),iyr 
-          if (icalen == 1) write (7,6002) j, subgis(j), i_mo, icl(iida),
+          if(icalen == 1) write (7,6002) j, subgis(j), i_mo, icl(iida), 
      &          iyr, rch_dakm(j),(pdvr(ii), ii = 1, itotr), iyr
           endif
         else

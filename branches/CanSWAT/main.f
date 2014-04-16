@@ -48,17 +48,18 @@
 !!    SWAT: readbsn, std1, readwwq, readinpt, std2, storeinitial
 !!    SWAT: openwth, headout, simulate, finalbal, writeaa, pestw 
 
-
 !!    ~ ~ ~ ~ ~ ~ END SPECIFICATIONS ~ ~ ~ ~ ~ ~
 
       use parm
       implicit none
-      prog = "SWAT Mar 4 2014    VER 2012/Rev 622"
+      prog = "SWAT Nov 15 2013    VER 2012/Rev 610"
+
       write (*,1000)
  1000 format(1x,"               SWAT2012               ",/,             
-     &          "               Rev. 622              ",/,             
+     &          "               Rev. 610               ",/,             
      &          "      Soil & Water Assessment Tool    ",/,             
-     &          "               PC Version             ",/,             
+     &          "               PC Version             ",/,
+     &          "      CanSWAT, University of Guelph   ",/,
      &          " Program reading from file.cio . . . executing",/)
 
 !! process input
@@ -79,6 +80,10 @@
       call readfig
       call readatmodep
       call readinpt
+      !Liu<
+      call readparmfile          !! BK read and adjust parms
+      call readsnowrd            !! read in snow redistribution related data
+      !Liu>
       call std1
       call std2
       call openwth
@@ -135,5 +140,10 @@
       write (9999,*) 'Execution successful'
       close (9999)
       
+      !Liu<
+      !!    deallocate memory Hailiang ~ start ~
+      if (sr_print>0)deallocate (hru_output)   
+      !Liu>
+
 	stop
       end

@@ -241,7 +241,7 @@
        wtrin = 0.
        wtrin = varoute(2,inum2) * (1. - rnum1)
 
-       if (wtrin > 1.e-4) then
+         if (wtrin > 1.e-4) then
 !! concentrations
          !! initialize inflow concentrations
          chlin = 0.
@@ -459,16 +459,16 @@
          xx = Theta(rk4(jrch),thrk4,wtmp) / (rchdep * 1000.)
          yy = ai5 * Theta(bc1mod,thbc1,wtmp) * nh3con
          zz = ai6 * Theta(bc2mod,thbc2,wtmp) * no2con
+         rch_dox(jrch) = 0.
          rch_dox(jrch) = o2con + (uu + vv - ww - xx - yy - zz) * tday
-         rch_dox(jrch) = amin1(0.1, rch_dox(jrch))
          
          !algea O2 production minus respiration
-         !if (vv > 0.) then
+         if (vv > 0.) then
            doxrch = soxy
-         !else
-         !  coef = exp(-0.03 * vv)
-         !  doxrch = coef * soxy
-         !end if
+         else
+           coef = exp(-0.03 * vv)
+           doxrch = coef * soxy
+         end if
          
          !cbod deoxygenation
          coef = exp(-0.1 * ww)
@@ -615,6 +615,58 @@
         rch_dox(jrch) = 0.0
         soxy = 0.0
       endif
+
+!!    Liu
+      if (nitraten(jrch)> 5.0) then
+        algin = 0.0
+        chlin = 0.0
+        orgnin = 0.0
+        ammoin = 0.0
+        nitritin = 0.0
+        nitratin = 0.0
+        orgpin = 0.0
+        dispin = 0.0
+        cbodin = 0.0
+        disoxin = 0.0
+        algae(jrch) = 0.0
+        chlora(jrch) = 0.0
+        organicn(jrch) = 0.0
+        ammonian(jrch) = 0.0
+        nitriten(jrch) = 0.0
+        nitraten(jrch) = 0.0
+        organicp(jrch) = 0.0
+        disolvp(jrch) = 0.0
+        rch_cbod(jrch) = 0.0
+        rch_dox(jrch) = 0.0
+        soxy = 0.0
+      end if
+      
+      if (nitraten(jrch) < 0.0001) then
+        algin = 0.0
+        chlin = 0.0
+        orgnin = 0.0
+        ammoin = 0.0
+        nitritin = 0.0
+        nitratin = 0.0
+        orgpin = 0.0
+        dispin = 0.0
+        cbodin = 0.0
+        disoxin = 0.0
+        algae(jrch) = 0.0
+        chlora(jrch) = 0.0
+        organicn(jrch) = 0.0
+        ammonian(jrch) = 0.0
+        nitriten(jrch) = 0.0
+        nitraten(jrch) = 0.0
+        organicp(jrch) = 0.0
+        disolvp(jrch) = 0.0
+        rch_cbod(jrch) = 0.0
+        rch_dox(jrch) = 0.0
+        soxy = 0.0
+        end if
+!!    Liu
+
+
 
 !!!! commented following statements per conversation with 
 !!!! srini 10/22/08

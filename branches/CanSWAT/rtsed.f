@@ -112,8 +112,8 @@
       end if
       if (vc > 5.) vc = 5.
 
+      tbase = 0.
       tbase = ch_l2(jrch) * 1000. / (3600. * 24. * vc)
-      tbase = prf
 
       if (tbase > 1.) tbase = 1.
 
@@ -130,7 +130,7 @@
       cych = spcon * vc ** spexp
       depnet = qdin * (cych - cyin)
 	if(abs(depnet) < 1.e-6) depnet = 0.
-      if (vc < vcrit) depnet = 0.
+      !if (vc < vcrit) depnet = 0.
 
 !!  tbase is multiplied so that erosion is proportional to the traveltime, 
 !!  which is directly related to the length of the channel
@@ -139,7 +139,7 @@
 !!  from a small channel than a larger channel. Modification made by Balaji Narasimhan
 
       if (depnet > 1.e-6) then
-        deg = depnet * tbase
+        deg = depnet   !* tbase
 	  !! First the deposited material will be degraded before channel bed
 	  if (deg >= depch(jrch)) then
 	    deg1 = depch(jrch)
@@ -150,7 +150,7 @@
 	  endif
         dep = 0.
       else
-        dep = -depnet ! * tbase
+        dep = -depnet   !* tbase
         deg = 0.
 	  deg1 = 0.
 	  deg2 = 0.

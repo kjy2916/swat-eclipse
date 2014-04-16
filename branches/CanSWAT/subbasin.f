@@ -134,7 +134,8 @@
 
       integer :: j,sb,kk
       real :: tmpk, d, gma, ho, pet_alpha, aphu, phuop
-
+      integer :: jj     !Liu
+      jj = hrutot(inum1)    !Liu
       ihru = 0
       ihru = hru1(inum1) 
       
@@ -197,6 +198,11 @@
         !! calculate soil temperature for soil layers
         call solt
 
+        !Liu<
+        !! added by Hailiang to set frozen soil flag, May 10 2011
+        call fsflag
+        !Liu>
+
 !       if (ipot(j) /= j .and. imp_trig(nro(j),nrelease(j),j)==1)       &  Srini pothole
 !
 !     &        then             
@@ -222,6 +228,12 @@
 
         !! compute evapotranspiration
         call etpot
+
+        !Liu
+        !! snow redistribution Hailiang April 14 2011 ~~ start ~~ 
+        if (sr_flag==1) call snowrd
+        !Liu
+
 !        if (pot_vol(j) < 1.e-6) call etact
         call etact
 
