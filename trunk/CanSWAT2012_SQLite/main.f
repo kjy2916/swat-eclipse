@@ -85,9 +85,16 @@
       call readsnowrd            !! read in snow redistribution related data
       !Liu>
       call std1
-      call std2
+      !!call std2
       call openwth
+      !!~ ~ ~ SQLITE ~ ~ ~
+      if(ioutput == 1) then
+        call headoutsqlite
+      else
       call headout
+      end if
+      call std2
+      !!~ ~ ~ SQLITE ~ ~ ~
 
       !! convert integer to string for output.mgt file
       subnum = ""
@@ -126,6 +133,19 @@
         !!reinitialize for new scenario
         if (scenario > iscen) call rewind_init
       end do
+
+      !!~ ~ ~ SQLite ~ ~ ~
+      if(ioutput == 1) then
+        call sqlite3_commit( db )
+        !!create index
+        do i=1,sq_indexnum
+            call sqlite3_create_index(db,sq_indexname(i),
+     &                                  sq_tablename(i),sq_indexs(i))
+        end do
+        call sqlite3_close( db)
+         end if
+      !!~ ~ ~ SQLite ~ ~ ~
+
          end if
       do i = 101, 109       !Claire 12/2/09: change 1, 9  to 101, 109.
         close (i)
