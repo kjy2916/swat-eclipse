@@ -137,6 +137,9 @@
 !!    real :: hiad1, wur, yield, clip, yieldn, yieldp, clipn, clipp
       real :: hiad1, wur, clip, clipn, clipp
       real :: yldpst, clippst, rtresnew
+      real :: clipgrn,cliptbr,clipngrn,clippgrn,yieldngrn
+      real :: yieldntbr,yieldnrsd,yieldpgrn,yieldptbr,yieldprsd
+      real :: clipntbr,clipptbr,rtresp
 
       !!add by zhang
       !!===================
@@ -162,6 +165,11 @@
       
       RLN = 0.
       RLR = 0.
+      clipgrn = 0.; cliptbr = 0.; clipngrn = 0.; clippgrn = 0.
+      yieldngrn = 0.; yieldntbr = 0.; yieldnrsd = 0.; yieldpgrn = 0.
+      yieldptbr = 0.; yieldprsd = 0.; clipntbr = 0.; clipptbr = 0.
+      rtresnew = 0.; rtresn = 0.; rtresp = 0.
+      
       !!add by zhang
       !!===================
 

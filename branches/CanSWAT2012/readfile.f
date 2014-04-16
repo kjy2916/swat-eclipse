@@ -727,7 +727,7 @@
           write (125, 1000) 
         end if
         
- 1000  format (1x,'HRU',t6,'SUB',t12,'DAY',t17,'YEAR',t26,'VOL-I',t37,  
+ 1000  format (1x,'SUB',t6,'HRU',t12,'DAY',t17,'YEAR',t26,'VOL-I',t37,  
      &'SA-I',t46,'SPILLO', 
      &t56,'POTSEP',t66,'POTEV',t75,'SOL_SW',t85,'TILE-O',t96,'VOL-F',   
      &t106,'SA-F',/,t27,'(mm)',t37,'(ha)',t47,'(mm)',t57,'(mm)',t67,    

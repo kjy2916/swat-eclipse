@@ -48,15 +48,15 @@
 !!    SWAT: readbsn, std1, readwwq, readinpt, std2, storeinitial
 !!    SWAT: openwth, headout, simulate, finalbal, writeaa, pestw 
 
+
 !!    ~ ~ ~ ~ ~ ~ END SPECIFICATIONS ~ ~ ~ ~ ~ ~
 
       use parm
       implicit none
-      prog = "SWAT Jan 22 2014    VER 2012/Rev 615"
-
+      prog = "SWAT Mar 4 2014    VER 2012/Rev 622"
       write (*,1000)
- 1000 format(1x,"               SWAT2012               ",/,             
-     &          "               Rev. 615               ",/,             
+ 1000 format(1x,"               SWAT2012               ",/,
+     &          "               Rev. 622              ",/,             
      &          "      Soil & Water Assessment Tool    ",/,             
      &          "               PC Version             ",/,
      &          "      CanSWAT, University of Guelph   ",/,

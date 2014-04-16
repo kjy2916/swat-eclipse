@@ -207,6 +207,20 @@
     
       
 
+!! new water volume for day
+      if (iresco(jres) /= 5) then 
+       res_vol(jres) = res_vol(jres) + respcp + resflwi - resev - ressep
+      endif
+      
+!! subtract consumptive water use from reservoir storage
+        xx = 0.
+        xx = wuresn(i_mo,jres)
+        res_vol(jres) = res_vol(jres) - xx
+        if (res_vol(jres) < 0.) then
+          xx = xx + res_vol(jres)
+          res_vol(jres) = 0.
+        end if
+
 !! if reservoir volume is greater than zero
      
         !! determine reservoir outflow
@@ -215,10 +229,6 @@
             vvr = 0.
             if (res_vol(jres) > res_pvol(jres)) then
               vvr = res_vol(jres) - res_pvol(jres)
-              if (res_vol(jres) > res_evol(jres)) then
-                resflwo = res_vol(jres) - res_evol(jres)
-                vvr = res_evol(jres) - res_pvol(jres)
-              endif
               if (res_rr(jres) > vvr) then
                 resflwo = resflwo + vvr
               else
@@ -440,13 +450,6 @@
 
         !Liu
         !! compute sediment leaving reservoir
-        !ressedo = res_sed(jres) * resflwo
-        !ressano = res_san(jres) * resflwo
-        !ressilo = res_sil(jres) * resflwo
-        !resclao = res_cla(jres) * resflwo
-        !ressago = res_sag(jres) * resflwo
-        !reslago = res_lag(jres) * resflwo
-	  !resgrao = res_gra(jres) * resflwo
 
         !! net change in amount of sediment in reservoir for day
     !    ressedc = vol * sed + ressedi - ressedo - res_sed(jres) *       &
