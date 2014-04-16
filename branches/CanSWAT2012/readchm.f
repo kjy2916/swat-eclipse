@@ -78,6 +78,7 @@
       read (106,5100,iostat=eof) (sol_orgn(j,ihru), j = 1, mlyr)
       if (eof < 0) exit
       read (106,5100,iostat=eof) (sol_solp(j,ihru), j = 1, mlyr)
+      sol_solp_b(ihru) = sol_solp(1,ihru)   !Liu
       if (eof < 0) exit
       read (106,5100,iostat=eof) (sol_orgp(j,ihru), j = 1, mlyr)
       if (eof < 0) exit

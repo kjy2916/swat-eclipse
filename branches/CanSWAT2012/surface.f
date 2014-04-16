@@ -99,6 +99,11 @@
 
       !!calculate subdaily curve number value
       call dailycn
+      
+      !Liu
+      !! added by Hailiang for frozen soil CN value adjust May 10 2011
+      if (fs_flag(j) > 0) call dailycn2
+      !Liu
 
         !! compute runoff - surfq in mm H2O
       if (precipday > 0.1) then

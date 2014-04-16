@@ -97,10 +97,11 @@
 
       integer :: idlst, j, iix, iiz, ic, mon, ii
       real :: xx
-
+      integer :: ipt1,ipt2                                  !Liu
+	real atmp, qtmp, lsv                                  !Liu
 
       do curyr = 1, nbyr
-        write (*,1234) curyr
+        write (*,1234) iyr
         
         !! initialize annual variables
         call sim_inityr
@@ -223,6 +224,15 @@
 
           if (pcpsim < 3) call clicon      !! read in/generate weather
 
+          !Liu
+          !! calculate WW and WL Hailiang April 14 2011 ~~ start ~~
+          !! snowrdflag subroutine has to be called after clicon, where
+          !! temperature, precipitation is read
+          call snowrdflag
+          if (sr_flag==1) call snoww
+          !! calculate WW and WL Hailiang April 14 2011 ~~ end ~~
+          !Liu
+
            !! call resetlu
            if (ida_lup(no_lup) == i .and. iyr_lup(no_lup) == iyr) then
               call resetlu
@@ -267,6 +277,13 @@
             iida = i + 1
             call xmon
           endif
+          
+          !Liu<
+          !! finish snow redistribution, set frozen soil flag Hailiang ~~ start ~~
+          call snowf
+          fs_flag2 = fs_flag
+          !! finish snow redistribution, set frozen soil flag Hailiang ~~ end ~~
+          !Liu>
 
         end do                                        !! end daily loop
 
@@ -323,6 +340,41 @@
 
       !! update simulation year
       iyr = iyr + 1
+
+      !Liu>
+      ! Adjusting the rating curves
+      if (j==j+1) then   !comment the below
+
+	  do j=1, nres
+
+	   lsv=0.
+
+	  If (reslstag(j) == 0) then
+		  lsv=reslsv(j)
+		 elseif (curyr>1) then
+
+		  lsv=ssb11(curyr-1)
+
+		 end if
+	   do ipt1=1, mpoint(j)
+ 	    do ipt2=1, mpoint(j)-1
+		   if((resv(ipt1,j)+lsv) >= resv(ipt2,j)) then
+	      xx=resv(ipt2+1,j)-resv(ipt2,j)
+		    if (xx>0) xx=(resv(ipt1,j)+lsv - resv(ipt2,j))/xx
+		resa(ipt1,j) = resa(ipt2,j) + (resa(ipt2+1,j)-resa(ipt2,j))*xx
+		resq(ipt1,j) = resq(ipt2,j) + (resq(ipt2+1,j)-resq(ipt2,j))*xx
+		    exit
+		   end if
+		  end do
+	   end do
+	  end do
+      end if    !comment the above
+
+ 
+      ! Reserve the net reservoir sediment of the current year
+	  ssb11(curyr)=wshddayo(11)
+!Liu<
+
       end do            !!     end annual loop
 
       return

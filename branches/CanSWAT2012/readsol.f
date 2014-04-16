@@ -93,7 +93,7 @@
       read (107,5600) sol_crk(ihru)
       read (107,5500) titldum
       read (107,5000) (sol_z(j,ihru), j = 1, mlyr)
-
+      usle_kb(ihru) = usle_k(ihru)              !Liu
       
       !! calculate number of soil layers in HRU soil series
       do j = 1, mlyr

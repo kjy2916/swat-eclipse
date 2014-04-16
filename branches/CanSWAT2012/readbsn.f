@@ -386,8 +386,11 @@
       read (103,*) n_updis
       read (103,*) p_updis
       read (103,*) nperco
+      nperco_b = nperco     !Liu
       read (103,*) pperco
+      pperco_b = nperco
       read (103,*) phoskd
+      phoskd_b = phoskd     !Liu
       read (103,*) psp
       read (103,*) rsdco
       read (103,1000) titldum

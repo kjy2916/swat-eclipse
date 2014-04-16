@@ -53,11 +53,13 @@
       use parm
       implicit none
       prog = "SWAT Jan 22 2014    VER 2012/Rev 615"
+
       write (*,1000)
  1000 format(1x,"               SWAT2012               ",/,             
-     &          "               Rev. 615              ",/,             
+     &          "               Rev. 615               ",/,             
      &          "      Soil & Water Assessment Tool    ",/,             
-     &          "               PC Version             ",/,             
+     &          "               PC Version             ",/,
+     &          "      CanSWAT, University of Guelph   ",/,
      &          " Program reading from file.cio . . . executing",/)
 
 !! process input
@@ -78,6 +80,10 @@
       call readfig
       call readatmodep
       call readinpt
+      !Liu<
+      call readparmfile          !! BK read and adjust parms
+      call readsnowrd            !! read in snow redistribution related data
+      !Liu>
       call std1
       call std2
       call openwth
@@ -134,5 +140,10 @@
       write (9999,*) 'Execution successful'
       close (9999)
       
+      !Liu<
+      !!    deallocate memory Hailiang ~ start ~
+      if (sr_print>0)deallocate (hru_output)   
+      !Liu>
+
 	stop
       end

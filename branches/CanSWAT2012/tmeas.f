@@ -119,6 +119,11 @@
               tmnbsb = tmn(k)
             end if
           end if
+
+!>Liu          
+          tmx(k) = txmeas(1)
+          tmn(k) = tnmeas(1)
+!<Liu
         end do
 
       return

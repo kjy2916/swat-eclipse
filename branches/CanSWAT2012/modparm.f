@@ -308,6 +308,7 @@
       real, dimension (:,:), allocatable :: sub_smtmp,sub_timp,sub_sftmp
       real, dimension (:), allocatable :: sub_tileno3     
       real, dimension (:), allocatable :: sub_solp,sub_subp,sub_etday
+      real, dimension (:), allocatable :: sub_subt              !Liu
       real, dimension (:), allocatable :: sub_wyld,sub_surfq,sub_elev
       real, dimension (:), allocatable :: qird
       real, dimension (:), allocatable :: sub_gwq,sub_sep,sub_chl
@@ -689,6 +690,59 @@
 ! Modifications to Pesticide and Water routing routines by Balaji Narasimhan
         real, dimension (:), allocatable :: lkpst_mass, lkspst_mass
         real, dimension (:), allocatable :: vel_chan
+
+!Liu>
+      character(len=13), dimension (1000) :: resfname
+      integer :: mmpoint
+      real, dimension (:,:), allocatable :: resv, resa, resq
+      real, dimension (:), allocatable :: reslsv
+      integer, dimension (:), allocatable :: mpoint, reslstag
+      real, dimension (:), allocatable :: ssb11
+      real, dimension (:), allocatable :: resdead
+!Liu<
+
+!Liu>
+!! Added by Hailiang for snow redistribution and frozen soil ~~ start ~~
+      !! snow redistribution ~~
+      integer :: sr_flag, sr_code, sr_print
+      integer :: ztcode
+      integer :: snowday
+      real, dimension (:), allocatable :: hru_wndslp, hru_curv
+      real, dimension (:), allocatable :: hru_shc_con, hru_shc_no
+      real, dimension (:), allocatable :: sno_hru2
+      real, dimension (:), allocatable :: sr_wt, sr_wl, sr_ww
+      real, dimension (:), allocatable :: sr_w
+      !!subbasin swe, calculated in snowf.f
+      real, dimension (:), allocatable :: sr_sub_swe
+      integer, dimension (:), allocatable :: hru_output
+      real :: wt_k1, wt_k2
+      real :: ww_ut0, ww_u0, ww_t0, ww_aa, ww_init_swe,k_blow,rsno_fac
+      real :: wl_shccrop
+      
+      !! frozen soil ~~
+      integer :: fs_code
+      integer, dimension(:), allocatable :: fs_flag, fs_flag2
+      real :: usle_kc
+      real :: erorgn_r, erorgp_r, phoskd_r, nperco_r
+      real :: psp_r,usle_pr,pperco_r,rsdco_r,p_updis_r !yongbo
+      real :: n_updis_r
+      real :: sol_solp_r 
+      real, dimension (:), allocatable :: cnday2
+      
+      !! to bake data for updating back
+      real :: phoskd_b, nperco_b,pperco_b, psp_b,rsdco_b,p_updis_b   !yongbo
+      real :: n_updis_b
+      real, dimension (:), allocatable :: usle_kb, erorgn_b, erorgp_b
+      real, dimension (:), allocatable :: sol_solp_b 
+      real, dimension (:), allocatable :: usle_pb   !yongbo
+
+      !! for usle_k modification, to store info in ioper
+      integer, dimension(:), allocatable :: ioper2
+      
+!! Added by Hailiang for snow redistribution and frozen soil ~~  end   ~~ 
+!Liu<
+
+
 !Additional buffer and filter strip variables Mike White
       real, dimension (:), allocatable :: vfscon,vfsratio,vfsch,vfsi
       real, dimension (:,:), allocatable :: filter_i,filter_ratio

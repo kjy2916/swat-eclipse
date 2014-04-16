@@ -321,6 +321,7 @@
       read (109,*) biomix(ihru)
       read (109,*) cn2(ihru)
       read (109,*) usle_p(ihru)
+      usle_pb(ihru) = usle_p(ihru)  !Liu
       read (109,*) bio_min(ihru)
       read (109,*) filterw(ihru)
       read (109,5000) titldum

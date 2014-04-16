@@ -63,6 +63,14 @@
       call h2omgt_init           !! initialize water management parameters
       call hydroinit             !! initialize hydrology parameters
       call impnd_init            !! initialize impoundment parameters
-
+!Liu>	
+!!    process reservoir files
+      do i = 1, nres
+        if (resfname(i) /= '             ') then 
+         open(140,file=resfname(i))
+         call readres2
+        end if
+      end do
+!Liu<
       return
       end

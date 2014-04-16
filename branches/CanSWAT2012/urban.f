@@ -165,8 +165,7 @@
           rp1 = 0.
           durf = 0.
           turo = 0.
-          if(al5==0) al5 = 1e-6    !J.Jeong urban modeling
-          rp1 = -2. * Log(1.- al5)
+          now rp1 = -2. * Log(1.- al5)
           durf = 4.605 / rp1         
           turo = durf + tconc(j)
           if (turo > 24.) turo = 24.
