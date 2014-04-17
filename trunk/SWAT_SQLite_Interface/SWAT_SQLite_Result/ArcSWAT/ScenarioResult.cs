@@ -8,9 +8,14 @@ using System.Data;
 namespace SWAT_SQLite_Result.ArcSWAT
 {
     class ScenarioResult
-    {   
+    {
+        #region result SQLite database structure
+
         public static int UNKONWN_ID = -1;
         public static double EMPTY_VALUE = -99.0;
+
+        public static string DATABASE_NAME_NORMAL = "result.db3";
+        public static string DATABASE_NAME_CANSWAT = "result_can.db3";
 
         public static string INFO_TABLE_NAME_HRU = "hru_info";
         public static string INFO_TABLE_NAME_SUB = "sub_info";
@@ -34,6 +39,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static string TABLE_NAME_HRU_SOIL_NUTRIENT = "snu";
         public static string TABLE_NAME_HRU_SOIL_WATER = "swr";
         public static string TABLE_NAME_SUB = "sub";
+
+        #endregion
 
         public ScenarioResult(string databasePath)
         {
@@ -71,7 +78,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public int StartYear { get { return _startYear; } }
         public int EndYear { get { return _endYear; } }
         public SWATResultIntervalType Interval { get { return _interval; } }
-
+ 
         private void checkStatus()
         {
             if (DatabasePath == null || !File.Exists(DatabasePath)) { _status = ScenarioResultStatus.NO_EXIST; return; }
@@ -83,16 +90,20 @@ namespace SWAT_SQLite_Result.ArcSWAT
             {
                 RowItem item = new RowItem(r);
                 string name = item.getColumnValue_String("NAME");
-                if (name.Equals("START_YEAR")) _startYear = item.getColumnValue_Int("VALUE");
-                else if (name.Equals("END_YEAR")) _endYear = item.getColumnValue_Int("VALUE");
-                else if (name.Equals("OUTPUT_INTERVAL")) _interval = (SWATResultIntervalType)(item.getColumnValue_Int("VALUE"));
-                else if (name.Equals("SUCCESS")) _status = ScenarioResultStatus.NORMAL;                
-            }
+                if (name.Equals("START_YEAR")) 
+                    _startYear = item.getColumnValue_Int("VALUE");
+                else if (name.Equals("END_YEAR")) 
+                    _endYear = item.getColumnValue_Int("VALUE");
+                else if (name.Equals("OUTPUT_INTERVAL")) 
+                    _interval = (SWATResultIntervalType)(item.getColumnValue_Int("VALUE"));
+                else if (name.Equals("SUCCESS")) 
+                    _status = ScenarioResultStatus.NORMAL;                
+            }             
         }
 
 #endregion
 
-        #region All Kinds of Units
+        #region All Kinds of SWAT Units
 
         private Dictionary<int, SWATUnit> _hrus = new Dictionary<int, SWATUnit>();
         private Dictionary<int, SWATUnit> _subbasins = new Dictionary<int, SWATUnit>();
@@ -140,6 +151,17 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
 #endregion
 
-         
+        public override string ToString()
+        {
+            if (Status != ScenarioResultStatus.NORMAL) return Status.ToString();
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(string.Format("Database File: {0}",DatabasePath));
+            sb.AppendLine(string.Format("Start Year: {0}", StartYear));
+            sb.AppendLine(string.Format("End Year: {0}", EndYear));
+            sb.AppendLine(string.Format("Interval : {0}", Interval));
+
+            return sb.ToString();
+        }
     }
 }

@@ -18,7 +18,8 @@ namespace SWAT_SQLite_Result
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ArcSWAT.Project p = new ArcSWAT.Project(@"C:\Swat\ArcSWAT\Databases\Example1_model");
+            //ArcSWAT.Project p = new ArcSWAT.Project(@"C:\Swat\ArcSWAT\Databases\Example1_model"); //University
+            ArcSWAT.Project p = new ArcSWAT.Project(@"C:\zhiqiang\Existing SWAT Model\Lasalle-new");   //AAFC
             richTextBox1.Text = p.ToString();
 
             projectTree1.Project = p;

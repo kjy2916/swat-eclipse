@@ -27,24 +27,34 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     return;
                 }
                 _name = (new DirectoryInfo(Folder)).Name;
+
+                //Regular SWAT and CanSWAT could run one a same model 
+                _result_normal = new ScenarioResult(_modelfolder + @"\" + ScenarioResult.DATABASE_NAME_NORMAL);
+                _result_canswat = new ScenarioResult(_modelfolder + @"\" + ScenarioResult.DATABASE_NAME_CANSWAT);
             }
         }
 
         public override string ToString()
         {
-            return Folder;
+            if(!IsValid) return "";
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(string.Format("Model Folder : {0}", _modelfolder));
+            sb.AppendLine("***\nNormal Result\n***");
+            sb.AppendLine(_result_normal.ToString());
+            sb.AppendLine("***\nCanSWAT Result\n***");
+            sb.AppendLine(_result_canswat.ToString());
+            return sb.ToString();
         }
 
         private string _name = null;
         private string _modelfolder = null;
-        private string _resultDatabase = null;
+        private ScenarioResult _result_normal = null;
+        private ScenarioResult _result_canswat = null;
 
-
-
-        public string Name
-        {
-            get { return _name; }
-        }
+        private ScenarioResult ResultNormal { get { return _result_normal; } }
+        private ScenarioResult ResultCanSWAT { get { return _result_canswat; } }
+        public string Name { get { return _name; } } 
 
         public static Dictionary<string, Scenario> FromProjectFolder(string f)
         {
@@ -61,5 +71,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             }
             return scenarios;
         }
+
+        
     }
 }
