@@ -34,18 +34,17 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(820, 96);
+            this.richTextBox1.Size = new System.Drawing.Size(437, 660);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
             // projectTree1
             // 
-            this.projectTree1.Location = new System.Drawing.Point(12, 131);
+            this.projectTree1.Location = new System.Drawing.Point(460, 12);
             this.projectTree1.Name = "projectTree1";
-            this.projectTree1.Size = new System.Drawing.Size(336, 439);
+            this.projectTree1.Size = new System.Drawing.Size(336, 648);
             this.projectTree1.TabIndex = 1;
             // 
             // Form1

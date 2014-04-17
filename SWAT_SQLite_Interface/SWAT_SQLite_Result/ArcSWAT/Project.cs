@@ -43,7 +43,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 sb.AppendLine(_spatial.ToString());
                 sb.AppendLine(string.Format("{0} scenarios", _scenarios.Count));
                 foreach (string s in _scenarios.Keys)
-                    sb.AppendLine(string.Format("{0}:{1}",s,_scenarios[s]));
+                {
+                    sb.AppendLine("-----------------------------------------");
+                    sb.AppendLine(string.Format("Scenario : {0}", s));
+                    sb.AppendLine(_scenarios[s].ToString());
+                }
             }
             return sb.ToString();            
         }
