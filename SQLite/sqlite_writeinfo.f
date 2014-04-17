@@ -65,7 +65,7 @@
       tbl = "rch_info"
       allocate( col(colnum))
       call sqlite3_column_props( col(1), "RCH", SQLITE_INT)
-      call sqlite3_column_props( col(2), "CONTR_AREA_KM2", SQLITE_REAL)
+      call sqlite3_column_props( col(2), "AREA_KM2", SQLITE_REAL)
       call sqlite3_create_table( db, tbl, col )
       call headout_sqlite_createindex("rch_info_index",
      &                                                     tbl,"RCH",0)
@@ -76,5 +76,22 @@
         call sqlite3_insert(db,tbl,col)
       end do
       deallocate(col)
+
+      !!RSV info
+      if(nres > 0) then
+          colnum = 1
+          tbl = "rsv_info"
+          allocate( col(colnum))
+          call sqlite3_column_props( col(1), "RES", SQLITE_INT)
+          call sqlite3_create_table( db, tbl, col )
+          call headout_sqlite_createindex("rsv_info_index",
+     &                                                     tbl,"RES",0)
+
+          do j = 1,nres
+            call sqlite3_set_column( col(1), j )
+            call sqlite3_insert(db,tbl,col)
+          end do
+          deallocate(col)
+      end if
 
       end
