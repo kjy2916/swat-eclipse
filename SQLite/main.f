@@ -58,7 +58,8 @@
  1000 format(1x,"               SWAT2012               ",/,             
      &          "               Rev. 622              ",/,             
      &          "      Soil & Water Assessment Tool    ",/,             
-     &          "               PC Version             ",/,             
+     &          "               PC Version             ",/,
+     &          "        SWAT_SQLite, Zhiqiang YU      ",/,
      &          " Program reading from file.cio . . . executing",/)
 
 !! process input
