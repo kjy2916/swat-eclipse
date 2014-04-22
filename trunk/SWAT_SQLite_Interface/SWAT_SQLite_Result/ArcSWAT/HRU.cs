@@ -9,18 +9,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
 {
     class HRU : SWATUnit
     {
-        public HRU(int id, ScenarioResult scenario)
-            : base(id, SWATUnitType.HRU, scenario)
-        {
-
-        }
-
         public HRU(DataRow hruInfoRow, ScenarioResult scenario) : base(hruInfoRow,scenario)
         {
-            if (!hruInfoRow.Table.TableName.Equals(BasicInfoTableName)) return;
-
-            _type = SWATUnitType.HRU;
-
             RowItem item = new RowItem(hruInfoRow);
             _id = item.getColumnValue_Int(ScenarioResult.COLUMN_NAME_HRU);
             _area = item.getColumnValue_Double(ScenarioResult.COLUMN_NAME_AREA_KM2);
@@ -28,7 +18,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _area_fr_wshd = item.getColumnValue_Double(ScenarioResult.COLUMN_NAME_AREA_FR_WSHD);
 
             //connect hru and subbasin
-            int subid = item.getColumnValue_Int(ScenarioResult.COLUMN_NAME_AREA_FR_SUB);
+            int subid = item.getColumnValue_Int(ScenarioResult.COLUMN_NAME_SUB);
             if (scenario.Subbasins.ContainsKey(subid))
             {
                 _sub = scenario.Subbasins[subid] as Subbasin;
@@ -56,11 +46,22 @@ namespace SWAT_SQLite_Result.ArcSWAT
             }
         }
 
+        public override SWATUnitType Type
+        {
+            get { return SWATUnitType.HRU; }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() +
+                string.Format("Sub : {0}\tArea : {1:F4} km2\tArea Fraction in Subbasin : {2:P2}\tArea Fraction in Watershed : {3:P2}",
+                _sub == null ? -1 : _sub.ID, _area, _area_fr_sub, _area_fr_wshd);
+        }
+
         private Subbasin _sub = null;
         private double _area = ScenarioResult.EMPTY_VALUE;
         private double _area_fr_sub = ScenarioResult.EMPTY_VALUE;
-        private double _area_fr_wshd = ScenarioResult.EMPTY_VALUE;
-            
+        private double _area_fr_wshd = ScenarioResult.EMPTY_VALUE;           
 
     }
 }
