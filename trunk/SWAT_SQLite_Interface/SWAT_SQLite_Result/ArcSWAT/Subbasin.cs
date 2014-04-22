@@ -12,24 +12,14 @@ namespace SWAT_SQLite_Result.ArcSWAT
             : base(subInfoRow, scenario)
         {
             RowItem item = new RowItem(subInfoRow);
-            _id = item.getColumnValue_Int(ScenarioResult.COLUMN_NAME_SUB);
-            _area = item.getColumnValue_Double(ScenarioResult.COLUMN_NAME_AREA_KM2);
-            _area_fr_wshd = item.getColumnValue_Double(ScenarioResult.COLUMN_NAME_AREA_FR_WSHD);
+            _id = item.getColumnValue_Int(ScenarioResultStructure.COLUMN_NAME_SUB);
+            _area = item.getColumnValue_Double(ScenarioResultStructure.COLUMN_NAME_AREA_KM2);
+            _area_fr_wshd = item.getColumnValue_Double(ScenarioResultStructure.COLUMN_NAME_AREA_FR_WSHD);
         }
 
         public override string BasicInfoTableName
         {
-            get { return ScenarioResult.INFO_TABLE_NAME_SUB; }
-        }
-
-        public override System.Collections.Specialized.StringCollection ResultTableNames
-        {
-            get
-            {
-                return new System.Collections.Specialized.StringCollection() { 
-                    ScenarioResult.TABLE_NAME_SUB
-                };
-            }
+            get { return ScenarioResultStructure.INFO_TABLE_NAME_SUB; }
         }
 
         public override SWATUnitType Type
@@ -56,7 +46,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         }
 
         private Dictionary<int, HRU> _hrus = new Dictionary<int, HRU>(); //initial subbasin first and then add corresonding to subbasin
-        private double _area = ScenarioResult.EMPTY_VALUE;
-        private double _area_fr_wshd = ScenarioResult.EMPTY_VALUE;
+        private double _area = ScenarioResultStructure.EMPTY_VALUE;
+        private double _area_fr_wshd = ScenarioResultStructure.EMPTY_VALUE;
     }
 }

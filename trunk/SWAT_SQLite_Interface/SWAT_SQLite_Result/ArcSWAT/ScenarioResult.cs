@@ -8,50 +8,7 @@ using System.Data;
 namespace SWAT_SQLite_Result.ArcSWAT
 {
     class ScenarioResult
-    {
-        #region result SQLite database structure
-
-        public static int UNKONWN_ID = -1;
-        public static double EMPTY_VALUE = -99.0;
-
-        public static string DATABASE_NAME_NORMAL = "result.db3";
-        public static string DATABASE_NAME_CANSWAT = "result_can.db3";
-
-        public static string INFO_TABLE_NAME_HRU = "hru_info";
-        public static string INFO_TABLE_NAME_SUB = "sub_info";
-        public static string INFO_TABLE_NAME_RCH = "rch_info";
-        public static string INFO_TABLE_NAME_RSV = "rsv_info";
-
-        public static string COLUMN_NAME_HRU = "HRU";
-        public static string COLUMN_NAME_SUB = "SUB";
-        public static string COLUMN_NAME_RCH = "RCH";
-        public static string COLUMN_NAME_RES = "RES";
-        public static string COLUMN_NAME_YEAR = "YR";
-        public static string COLUMN_NAME_MONTH = "MO";
-        public static string COLUMN_NAME_AREA_KM2 = "AREA_KM2";
-        public static string COLUMN_NAME_AREA_FR_SUB = "AREA_FR_SUB";
-        public static string COLUMN_NAME_AREA_FR_WSHD = "AREA_FR_WSHD";
-
-        public static string TABLE_NAME_HRU = "hru";
-        public static string TABLE_NAME_HRU_DEPRESSION = "wtr";
-        public static string TABLE_NAME_HRU_POTHOLE = "pot";
-        public static string TABLE_NAME_HRU_MGT = "mgt";
-        public static string TABLE_NAME_HRU_SOIL_NUTRIENT = "snu";
-        public static string TABLE_NAME_HRU_SOIL_WATER = "swr";
-
-        public static string TABLE_NAME_SUB = "sub";
-
-        public static string TABLE_NAME_RESERVOIR = "rsv";
-
-        public static string TABLE_NAME_REACH = "rch";
-        public static string TABLE_NAME_REACH_SEDIMENT = "sed";
-
-        public static string TABLE_NAME_WATERSHED_DAILY = "watershed_daily";
-        public static string TABLE_NAME_WATERSHED_MONTHLY = "watershed_monthly";
-        public static string TABLE_NAME_WATERSHED_YEARLY = "watershed_yearly";
-        //public static string TABLE_NAME_REACH_SEDIMENT = "ave_annual_basin";
-
-        #endregion
+    {      
 
         public ScenarioResult(string databasePath)
         {
@@ -60,16 +17,20 @@ namespace SWAT_SQLite_Result.ArcSWAT
             loadModelStructure();
         }
 
+        private ScenarioResultStructure _structure = null;
+
+        public ScenarioResultStructure Structure { get { return _structure; } }
+
         #region Helper
 
         private string getInfoTableFromType(SWATUnitType type)
         {
             switch (type)
             {
-                case SWATUnitType.HRU: return INFO_TABLE_NAME_HRU;
-                case SWATUnitType.SUB: return INFO_TABLE_NAME_SUB;
-                case SWATUnitType.RCH: return INFO_TABLE_NAME_RCH;
-                case SWATUnitType.RES: return INFO_TABLE_NAME_RSV;
+                case SWATUnitType.HRU: return ScenarioResultStructure.INFO_TABLE_NAME_HRU;
+                case SWATUnitType.SUB: return ScenarioResultStructure.INFO_TABLE_NAME_SUB;
+                case SWATUnitType.RCH: return ScenarioResultStructure.INFO_TABLE_NAME_RCH;
+                case SWATUnitType.RES: return ScenarioResultStructure.INFO_TABLE_NAME_RSV;
                 default: return "";
             }
         }
@@ -79,8 +40,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
         #region Basic Information
 
         private string _databasePath = null;
-        private int _startYear = UNKONWN_ID;
-        private int _endYear = UNKONWN_ID;
+        private int _startYear = ScenarioResultStructure.UNKONWN_ID;
+        private int _endYear = ScenarioResultStructure.UNKONWN_ID;
         private SWATResultIntervalType _interval = SWATResultIntervalType.UNKNOWN;
         private ScenarioResultStatus _status = ScenarioResultStatus.UNKNOWN;
 
@@ -148,7 +109,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     case SWATUnitType.RCH: unit = new Reach(r, this); break;
                     case SWATUnitType.RES: unit = new Reservoir(r, this); break;
                 }
-                if (unit != null && unit.ID != ScenarioResult.UNKONWN_ID && !units.ContainsKey(unit.ID)) 
+                if (unit != null && unit.ID != ScenarioResultStructure.UNKONWN_ID && !units.ContainsKey(unit.ID)) 
                     units.Add(unit.ID, unit);
             }
             return units;

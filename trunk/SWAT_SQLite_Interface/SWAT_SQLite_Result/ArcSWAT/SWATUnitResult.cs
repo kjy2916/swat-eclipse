@@ -17,7 +17,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private string _tableName = null;
         private SWATResultIntervalType _interval = SWATResultIntervalType.UNKNOWN;
         private DataTable _dataTable = null; //this would be the datatable corresponding to the whole table
-        private StringCollection _columns = null;
 
         public SWATUnitResult(string tableName, SWATUnit parentUnit)
         {
@@ -36,27 +35,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
             }
         }
 
-        public StringCollection DataColumns
-        {
-            get
-            {
-                if (_columns == null)
-                {
-                    _columns = new StringCollection();
-
-                    DataTable dt = _unit.Scenario.GetDataTable(
-                        string.Format("PRAGMA table_info({0})", Name));
-                    foreach (DataRow r in dt.Rows)
-                    {
-                        RowItem item = new RowItem(r);
-                        if (item.getColumnValue_String("type").ToLower().Equals("float"))
-                            _columns.Add(item.getColumnValue_String("name"));
-                    }
-                }
-                return _columns;
-            }
-        }
-
         /// <summary>
         /// Name of the result, also the table name
         /// </summary>
@@ -65,6 +43,19 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <summary>
         /// Result interval
         /// </summary>
-        public SWATResultIntervalType Interval { get { return _interval; } }
+        public SWATResultIntervalType Interval
+        {
+            get
+            {
+                if(_interval == SWATResultIntervalType.UNKNOWN)
+                    _interval = _unit.Scenario.Structure.getInterval(Name);
+                return _interval;
+            }
+        }
+
+        /// <summary>
+        /// Data Columns
+        /// </summary>
+        public StringCollection Columns { get { return _unit.Scenario.Structure.getDataColumns(Name); } }
     }
 }

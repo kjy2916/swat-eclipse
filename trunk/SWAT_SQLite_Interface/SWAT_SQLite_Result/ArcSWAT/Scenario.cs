@@ -29,8 +29,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 _name = (new DirectoryInfo(Folder)).Name;
 
                 //Regular SWAT and CanSWAT could run one a same model 
-                _result_normal = new ScenarioResult(_modelfolder + @"\" + ScenarioResult.DATABASE_NAME_NORMAL);
-                _result_canswat = new ScenarioResult(_modelfolder + @"\" + ScenarioResult.DATABASE_NAME_CANSWAT);
+                _result_normal = new ScenarioResult(_modelfolder + @"\" + ScenarioResultStructure.DATABASE_NAME_NORMAL);
+                _result_canswat = new ScenarioResult(_modelfolder + @"\" + ScenarioResultStructure.DATABASE_NAME_CANSWAT);
             }
         }
 

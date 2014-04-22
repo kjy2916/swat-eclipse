@@ -13,7 +13,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
     /// </summary>
     abstract class SWATUnit
     {
-        protected int _id = ScenarioResult.UNKONWN_ID;
+        protected int _id = ScenarioResultStructure.UNKONWN_ID;
         protected ScenarioResult _scenario = null;
         protected Dictionary<string, SWATUnitResult> _results = new Dictionary<string, SWATUnitResult>();
 
@@ -46,12 +46,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <summary>
         /// Names of all result tables corresponding to this SWAT unit
         /// </summary>
-        public abstract StringCollection ResultTableNames { get; }
+        public string[] ResultTableNames { get { return ScenarioResultStructure.getResultTableNames(Type); } }
 
         public Dictionary<string, SWATUnitResult> Results { get { return _results; } }
 
         private void loadResults()
-        {
+        {            
             foreach (string t in ResultTableNames)
                 loadResults(t);
         }
