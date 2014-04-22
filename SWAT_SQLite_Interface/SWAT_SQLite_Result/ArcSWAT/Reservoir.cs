@@ -12,17 +12,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
             : base(resInfoRow, scenario)
         {
             RowItem item = new RowItem(resInfoRow);
-            _id = item.getColumnValue_Int(ScenarioResult.COLUMN_NAME_RES); 
+            _id = item.getColumnValue_Int(ScenarioResultStructure.COLUMN_NAME_RES); 
         }
 
         public override string BasicInfoTableName
         {
-            get { return ScenarioResult.INFO_TABLE_NAME_RSV; }
-        }
-
-        public override System.Collections.Specialized.StringCollection ResultTableNames
-        {
-            get { return new System.Collections.Specialized.StringCollection() { ScenarioResult.TABLE_NAME_RESERVOIR }; }
+            get { return ScenarioResultStructure.INFO_TABLE_NAME_RSV; }
         }
 
         public override SWATUnitType Type
