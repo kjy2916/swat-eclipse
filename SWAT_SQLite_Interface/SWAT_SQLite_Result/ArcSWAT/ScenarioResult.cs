@@ -38,7 +38,18 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static string TABLE_NAME_HRU_MGT = "mgt";
         public static string TABLE_NAME_HRU_SOIL_NUTRIENT = "snu";
         public static string TABLE_NAME_HRU_SOIL_WATER = "swr";
+
         public static string TABLE_NAME_SUB = "sub";
+
+        public static string TABLE_NAME_RESERVOIR = "rsv";
+
+        public static string TABLE_NAME_REACH = "rch";
+        public static string TABLE_NAME_REACH_SEDIMENT = "sed";
+
+        public static string TABLE_NAME_WATERSHED_DAILY = "watershed_daily";
+        public static string TABLE_NAME_WATERSHED_MONTHLY = "watershed_monthly";
+        public static string TABLE_NAME_WATERSHED_YEARLY = "watershed_yearly";
+        //public static string TABLE_NAME_REACH_SEDIMENT = "ave_annual_basin";
 
         #endregion
 
@@ -107,6 +118,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         private Dictionary<int, SWATUnit> _hrus = new Dictionary<int, SWATUnit>();
         private Dictionary<int, SWATUnit> _subbasins = new Dictionary<int, SWATUnit>();
+        private Dictionary<int, SWATUnit> _reaches = new Dictionary<int, SWATUnit>();
+        private Dictionary<int, SWATUnit> _reservoirs = new Dictionary<int, SWATUnit>();
+        private Watershed _watershed = null;
 
         public Dictionary<int, SWATUnit> Subbasins { get { return _subbasins; } }
 
@@ -114,7 +128,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
         {
             //subbasin first and then HRUs to add hru to subbasin
             _subbasins = readUnitBasicInfo(SWATUnitType.SUB);
-            _hrus = readUnitBasicInfo(SWATUnitType.HRU);            
+            _hrus = readUnitBasicInfo(SWATUnitType.HRU);
+            _reaches = readUnitBasicInfo(SWATUnitType.RCH);
+            _reservoirs = readUnitBasicInfo(SWATUnitType.RES);
         }
 
         private Dictionary<int, SWATUnit> readUnitBasicInfo(SWATUnitType type)
@@ -129,10 +145,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 {
                     case SWATUnitType.HRU: unit = new HRU(r, this); break;
                     case SWATUnitType.SUB: unit = new Subbasin(r, this); break;
-                    case SWATUnitType.RCH: unit = new HRU(r, this); break;
-                    case SWATUnitType.RES: unit = new HRU(r, this); break;
+                    case SWATUnitType.RCH: unit = new Reach(r, this); break;
+                    case SWATUnitType.RES: unit = new Reservoir(r, this); break;
                 }
-                if (unit != null) units.Add(unit.ID, unit);
+                if (unit != null && unit.ID != ScenarioResult.UNKONWN_ID && !units.ContainsKey(unit.ID)) 
+                    units.Add(unit.ID, unit);
             }
             return units;
         }
@@ -160,6 +177,23 @@ namespace SWAT_SQLite_Result.ArcSWAT
             sb.AppendLine(string.Format("Start Year: {0}", StartYear));
             sb.AppendLine(string.Format("End Year: {0}", EndYear));
             sb.AppendLine(string.Format("Interval : {0}", Interval));
+
+            foreach (SWATUnit u in _hrus.Values)
+                sb.AppendLine(u.ToString());
+
+            foreach (SWATUnit u in _subbasins.Values)
+                sb.AppendLine(u.ToString());
+
+            foreach (SWATUnit u in _reaches.Values)
+                sb.AppendLine(u.ToString());
+
+            if (_reservoirs.Count == 0)
+                sb.AppendLine("No Reservoirs!");
+            else
+            {
+                foreach (SWATUnit u in this._reservoirs.Values)
+                    sb.AppendLine(u.ToString());
+            }
 
             return sb.ToString();
         }

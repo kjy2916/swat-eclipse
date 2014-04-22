@@ -15,19 +15,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
     {
         protected int _id = ScenarioResult.UNKONWN_ID;
         protected ScenarioResult _scenario = null;
-        protected SWATUnitType _type = SWATUnitType.UNKNOWN;
         protected Dictionary<string, SWATUnitResult> _results = new Dictionary<string, SWATUnitResult>();
-
-        public SWATUnit(int id, SWATUnitType type, ScenarioResult scenario)
-        {
-            _id = id;
-            _type = type;
-            _scenario = scenario;
-        }
 
         public SWATUnit(DataRow unitInfoRow, ScenarioResult scenario)
         {
             _scenario = scenario;
+            loadResults(); //don't load all datas
         }
 
         /// <summary>
@@ -38,7 +31,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <summary>
         /// SWAT Unit Type`
         /// </summary>
-        public SWATUnitType Type { get { return _type; } }
+        public abstract SWATUnitType Type { get; }
 
         /// <summary>
         /// Parent scenario
@@ -54,6 +47,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// Names of all result tables corresponding to this SWAT unit
         /// </summary>
         public abstract StringCollection ResultTableNames { get; }
+
+        public Dictionary<string, SWATUnitResult> Results { get { return _results; } }
 
         private void loadResults()
         {
@@ -79,5 +74,15 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _results.Add(tableName, new SWATUnitResult(tableName, this));
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(string.Format("{0} : {1}", Type,ID));
+            sb.AppendLine("Results");
+            foreach (string s in _results.Keys)
+                sb.AppendLine(s);
+
+            return sb.ToString();
+        }
     }
 }

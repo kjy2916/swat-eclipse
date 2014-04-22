@@ -52,8 +52,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private ScenarioResult _result_normal = null;
         private ScenarioResult _result_canswat = null;
 
-        private ScenarioResult ResultNormal { get { return _result_normal; } }
-        private ScenarioResult ResultCanSWAT { get { return _result_canswat; } }
+        public ScenarioResult ResultNormal { get { return _result_normal; } }
+        public ScenarioResult ResultCanSWAT { get { return _result_canswat; } }
         public string Name { get { return _name; } } 
 
         public static Dictionary<string, Scenario> FromProjectFolder(string f)
