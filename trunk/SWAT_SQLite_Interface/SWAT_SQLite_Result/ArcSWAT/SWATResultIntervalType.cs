@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    enum SWATResultIntervalType
+    public enum SWATResultIntervalType
     {
         UNKNOWN = -1,
         DAILY = 1,

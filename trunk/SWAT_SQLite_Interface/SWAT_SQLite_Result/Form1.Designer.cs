@@ -28,32 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.projectTree1 = new SWAT_SQLite_Result.ProjectTree();
+            this.tableResultsCtrl1 = new SWAT_SQLite_Result.TableResultsCtrl();
             this.SuspendLayout();
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(437, 660);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
             // 
             // projectTree1
             // 
-            this.projectTree1.Location = new System.Drawing.Point(460, 12);
+            this.projectTree1.Location = new System.Drawing.Point(12, 12);
             this.projectTree1.Name = "projectTree1";
-            this.projectTree1.Size = new System.Drawing.Size(336, 648);
+            this.projectTree1.Size = new System.Drawing.Size(207, 648);
             this.projectTree1.TabIndex = 1;
+            // 
+            // tableResultsCtrl1
+            // 
+            this.tableResultsCtrl1.Location = new System.Drawing.Point(225, 12);
+            this.tableResultsCtrl1.Name = "tableResultsCtrl1";
+            this.tableResultsCtrl1.Size = new System.Drawing.Size(583, 663);
+            this.tableResultsCtrl1.TabIndex = 2;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 687);
+            this.Controls.Add(this.tableResultsCtrl1);
             this.Controls.Add(this.projectTree1);
-            this.Controls.Add(this.richTextBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -63,8 +62,8 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private ProjectTree projectTree1;
+        private TableResultsCtrl tableResultsCtrl1;
     }
 }
 

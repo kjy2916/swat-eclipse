@@ -6,7 +6,7 @@ using System.Data;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    class Subbasin : SWATUnit
+    public class Subbasin : SWATUnit
     {
         public Subbasin(DataRow subInfoRow, ScenarioResult scenario)
             : base(subInfoRow, scenario)
@@ -30,12 +30,16 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder(base.ToString());
-            sb.AppendLine(string.Format("{0} subbasins", _hrus.Count));
+            sb.AppendLine(string.Format("{0} HRUs", _hrus.Count));
             foreach (int hruid in _hrus.Keys)
                 sb.AppendLine(hruid.ToString());
-
-            sb.AppendLine(string.Format("Area : {0:F4} km2\tArea Fraction in Watershed : {1:P2}", _area, _area_fr_wshd));
+            
             return sb.ToString();
+        }
+
+        public override string ToStringBasicInfo()
+        {
+            return string.Format("Area : {0:F4} km2, Area Fraction in Watershed : {1:P2}", _area, _area_fr_wshd);
         }
 
         public void addHRU(HRU hru)

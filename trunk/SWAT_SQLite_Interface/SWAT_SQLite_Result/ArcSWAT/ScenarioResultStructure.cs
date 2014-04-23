@@ -11,7 +11,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
     /// The structure of the scenario result database
     /// Suppose to be a static structure, don't need to load twice
     /// </summary>
-    class ScenarioResultStructure
+    public class ScenarioResultStructure
     {
         #region result SQLite database structure
 
@@ -32,6 +32,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static string COLUMN_NAME_RES = "RES";
         public static string COLUMN_NAME_YEAR = "YR";
         public static string COLUMN_NAME_MONTH = "MO";
+        public static string COLUMN_NAME_DAY = "DA";
         public static string COLUMN_NAME_AREA_KM2 = "AREA_KM2";
         public static string COLUMN_NAME_AREA_FR_SUB = "AREA_FR_SUB";
         public static string COLUMN_NAME_AREA_FR_WSHD = "AREA_FR_WSHD";
@@ -82,7 +83,17 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     TABLE_NAME_WATERSHED_MONTHLY,
                     TABLE_NAME_WATERSHED_YEARLY};
 
+
+        public static string DATE_COLUMNS_YEARLY = COLUMN_NAME_YEAR;
+        public static string DATE_COLUMNS_MONTHLY = DATE_COLUMNS_YEARLY + "," + COLUMN_NAME_MONTH;
+        public static string DATE_COLUMNS_DAILY = DATE_COLUMNS_MONTHLY + "," + COLUMN_NAME_DAY;
+
         #endregion
+
+        public ScenarioResultStructure(ScenarioResult scenario)
+        {
+            _scenario = scenario;
+        }
 
         private ScenarioResult _scenario = null;
 
@@ -99,7 +110,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             StringCollection cols = new StringCollection();
             if (tableName == null) return cols;
 
-            tableName = tableName.Trim().ToLower();
+            tableName = tableName.Trim();
             if (tableName.Length == 0) return cols;
 
             if (!_columns.ContainsKey(tableName))
@@ -148,6 +159,60 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 case SWATUnitType.WSHD: return WATERSHED_TABLES;
                 default: return new string[] { };
             }
+        }       
+
+        /// <summary>
+        /// Retrieve data columns for given result interval
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static string getDateColumns(SWATResultIntervalType type)
+        {
+            switch (type)
+            {
+                case SWATResultIntervalType.DAILY: return DATE_COLUMNS_DAILY;
+                case SWATResultIntervalType.MONTHLY: return DATE_COLUMNS_MONTHLY;
+                case SWATResultIntervalType.YEARLY: return DATE_COLUMNS_YEARLY;
+                default: return "";
+            }
+        }
+
+        private Dictionary<string, bool> _tableStatus = new Dictionary<string, bool>();
+
+        public bool isTableHasData(string tableName)
+        {
+            tableName = tableName.Trim().ToLower();
+            if (!_tableStatus.ContainsKey(tableName))
+            {
+                bool hasData = false;
+                DataTable dt = _scenario.GetDataTable(
+                    string.Format("select * from sqlite_master where type = 'table' and name ='{0}'", tableName));
+                if (dt.Rows.Count > 0)
+                {
+                    dt = _scenario.GetDataTable(
+                        string.Format("select count(*) from {0}", tableName));
+
+                    RowItem item = new RowItem(dt.Rows[0]);
+                    if (item.getColumnValue_Int(0) > 0) hasData = true;
+                }
+                _tableStatus[tableName] = hasData;
+            }
+            return _tableStatus[tableName];
+        }
+
+        /// <summary>
+        /// Get tables with data in it
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public StringCollection getResultTablesWithData(SWATUnitType type)
+        {
+            string[] tbls_fromType = getResultTableNames(type);
+            StringCollection tbls = new StringCollection();
+            foreach(string tbl in tbls_fromType)
+                if(isTableHasData(tbl))
+                    tbls.Add(tbl);
+            return tbls;
         }
     }
 }

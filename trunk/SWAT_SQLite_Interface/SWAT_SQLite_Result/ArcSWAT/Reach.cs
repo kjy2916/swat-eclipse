@@ -6,7 +6,7 @@ using System.Data;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    class Reach : SWATUnit
+    public class Reach : SWATUnit
     {
         public Reach(DataRow rchInfoRow, ScenarioResult scenario)
             : base(rchInfoRow, scenario)
@@ -33,10 +33,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
             get { return SWATUnitType.RCH; }
         }
 
-        public override string ToString()
+        public override string ToStringBasicInfo()
         {
-            return base.ToString() +
-                string.Format("Contribution Area : {0:F4} km2",_area);
+            return string.Format("Contribution Area : {0:F4} km2", _area);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
     /// Corresponding to the watershed folder
     /// Used to get access to shapefiles
     /// </summary>
-    class Spatial : FolderBase
+    public class Spatial : FolderBase
     {
         public Spatial(string f)
             : base(f)

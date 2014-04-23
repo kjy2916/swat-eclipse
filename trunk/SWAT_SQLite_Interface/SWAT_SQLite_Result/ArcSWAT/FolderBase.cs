@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    class FolderBase
+    public class FolderBase
     {
         private string _folder = null;
         protected bool _isValid = false;
