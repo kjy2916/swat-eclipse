@@ -10,7 +10,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
     /// As this would suppose to be a separate program and doesn't utilize any 
     /// ESRI functions, class Project is modified.
     /// </summary>
-    class Project : FolderBase
+    public class Project : FolderBase
     {
         private static string DEFAULT_WATERSHED_FOLDER = @"\Watershed";
         private static string DEFAULT_SCENARIOS_FOLDER = @"\Scenarios";

@@ -133,8 +133,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     {
                         a.Fill(dt);
                     }
-                    catch
+                    catch(System.Exception e)
                     {
+                        System.Diagnostics.Debug.WriteLine("Query: " + query);
+                        System.Diagnostics.Debug.WriteLine(e.ToString());
                         dt = null;
                     }
 

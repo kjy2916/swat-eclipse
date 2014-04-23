@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    class HRU : SWATUnit
+    public class HRU : SWATUnit
     {
         public HRU(DataRow hruInfoRow, ScenarioResult scenario) : base(hruInfoRow,scenario)
         {
@@ -36,11 +36,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
             get { return SWATUnitType.HRU; }
         }
 
-        public override string ToString()
+        public override string ToStringBasicInfo()
         {
-            return base.ToString() +
-                string.Format("Sub : {0}\tArea : {1:F4} km2\tArea Fraction in Subbasin : {2:P2}\tArea Fraction in Watershed : {3:P2}",
-                _sub == null ? -1 : _sub.ID, _area, _area_fr_sub, _area_fr_wshd);
+            return string.Format("Subbasin: {0}, Area : {1:F4} km2, Area Fraction in Subbasin : {2:P2}, Area Fraction in Watershed : {3:P2}",
+            _sub == null ? -1 : _sub.ID, _area, _area_fr_sub, _area_fr_wshd);
         }
 
         private Subbasin _sub = null;

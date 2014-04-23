@@ -7,14 +7,16 @@ using System.Data;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    class ScenarioResult
+    public class ScenarioResult
     {      
 
         public ScenarioResult(string databasePath)
         {
             _databasePath = databasePath;
             checkStatus();
-            loadModelStructure();
+            if (Status == ScenarioResultStatus.NORMAL)
+                 loadModelStructure();
+          
         }
 
         private ScenarioResultStructure _structure = null;
@@ -83,10 +85,15 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private Dictionary<int, SWATUnit> _reservoirs = new Dictionary<int, SWATUnit>();
         private Watershed _watershed = null;
 
+        public Dictionary<int, SWATUnit> HRUs { get { return _hrus; } }
         public Dictionary<int, SWATUnit> Subbasins { get { return _subbasins; } }
+        public Dictionary<int, SWATUnit> Reaches { get { return _reaches; } }
+        public Dictionary<int, SWATUnit> Reservoirs { get { return _reservoirs; } }
 
         private void loadModelStructure()
         {
+            _structure = new ScenarioResultStructure(this);
+
             //subbasin first and then HRUs to add hru to subbasin
             _subbasins = readUnitBasicInfo(SWATUnitType.SUB);
             _hrus = readUnitBasicInfo(SWATUnitType.HRU);
@@ -124,8 +131,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
             if (Status != ScenarioResultStatus.NORMAL) return new DataTable();
             return Query.GetDataTable(query, DatabasePath);
         }
-
-
 
 #endregion
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    class RowItem
+    public class RowItem
     {
         protected System.Data.DataRow _row;
 

@@ -85,13 +85,17 @@ namespace SWAT_SQLite_Result
             {
                try
                 {
-                    TreeNode scenNode = _prjNode.Nodes.Add(s.Name);
-                    scenNode.Tag = s;
+                    if (s.ResultNormal.Status == ArcSWAT.ScenarioResultStatus.NORMAL)
+                    {
+                        TreeNode scenNode = _prjNode.Nodes.Add(s.Name);
+                        scenNode.Tag = s;
 
-                    TreeNode hruNode = scenNode.Nodes.Add("HRU");
-                    
-                    TreeNode subbasinNode = scenNode.Nodes.Add("Subbasin");
-                    TreeNode reachNode = scenNode.Nodes.Add("Reach");
+                        scenNode.Nodes.Add("HRU");                                         
+                        scenNode.Nodes.Add("Subbasin");
+                        scenNode.Nodes.Add("Reach");
+                        if(s.ResultNormal.Reservoirs.Count > 0)
+                            scenNode.Nodes.Add("Reservoir");
+                    }
                 }
                 catch (Exception e)
                 {

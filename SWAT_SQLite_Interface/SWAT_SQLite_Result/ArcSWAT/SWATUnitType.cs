@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    enum SWATUnitType
+    public enum SWATUnitType
     {
         UNKNOWN,
         HRU,

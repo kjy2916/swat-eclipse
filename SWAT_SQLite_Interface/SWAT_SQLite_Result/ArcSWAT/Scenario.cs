@@ -9,7 +9,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
     /// <summary>
     /// Corresponding to one specific scenario folder
     /// </summary>
-    class Scenario : FolderBase
+    public class Scenario : FolderBase
     {
         private static string DEFAULT_TXTINOUT_NAME = @"\TxtInOut";
 

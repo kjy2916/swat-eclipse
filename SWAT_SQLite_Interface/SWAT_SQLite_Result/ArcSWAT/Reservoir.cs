@@ -6,7 +6,7 @@ using System.Data;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    class Reservoir : SWATUnit
+    public class Reservoir : SWATUnit
     {
         public Reservoir(DataRow resInfoRow, ScenarioResult scenario)
             : base(resInfoRow, scenario)

@@ -7,7 +7,7 @@ using System.Data;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    class Watershed : SWATUnit
+    public class Watershed : SWATUnit
     {
         public Watershed(ScenarioResult scenario)
             : base(null, scenario)
