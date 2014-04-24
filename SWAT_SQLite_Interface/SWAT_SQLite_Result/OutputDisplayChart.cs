@@ -11,33 +11,7 @@ namespace SWAT_SQLite_Result
 {
     class OutputDisplayChart : Chart
     {
-        private ChartArea _chartArea;   //used to change Y title
-
-        public OutputDisplayChart()
-        {            
-            this.ChartAreas.Clear();
-            this.Series.Clear();
-            this.Titles.Clear();
-
-            _chartArea = this.ChartAreas.Add("chart_area");
-            _chartArea.AxisY.Title = "y";
-            _chartArea.AxisX.MajorGrid.Enabled = false;
-            _chartArea.AxisY.MajorGrid.Enabled = false;
-            _chartArea.AxisX.MajorTickMark.TickMarkStyle = TickMarkStyle.AcrossAxis;
-
-            //context menu
-            System.Windows.Forms.ToolStripMenuItem exportMenu =
-                new System.Windows.Forms.ToolStripMenuItem("Export current results to CSV");
-            exportMenu.Click +=
-                (ss, _e) =>
-                {
-                    if (onExport != null)
-                        onExport(this, new EventArgs());
-                };
-            
-            this.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
-            this.ContextMenuStrip.Items.Add(exportMenu);
-        }
+        private ChartArea _chartArea = null;   //used to change Y title
 
         private Series getLine(int index)
         {
@@ -88,7 +62,7 @@ namespace SWAT_SQLite_Result
             {
                 _chartArea.AxisX.Title = "Time (daily)";
                 _chartArea.AxisX.LabelStyle.Format = "yyyy-MM-dd";
-                _chartArea.AxisX.LabelStyle.Angle = -45;
+                //_chartArea.AxisX.LabelStyle.Angle = -45;
 
                 if (rows.Count == 365 || rows.Count == 366) //for one year
                 {
@@ -105,6 +79,32 @@ namespace SWAT_SQLite_Result
 
         public void DrawGraph(DataRowCollection rows, string xColName, StringCollection yColNames, ArcSWAT.SWATResultIntervalType interval)
         {
+            if (_chartArea == null)
+            {
+                this.ChartAreas.Clear();
+                this.Series.Clear();
+                this.Titles.Clear();
+
+                _chartArea = this.ChartAreas.Add("chart_area");
+                _chartArea.AxisY.Title = "y";
+                _chartArea.AxisX.MajorGrid.Enabled = false;
+                _chartArea.AxisY.MajorGrid.Enabled = false;
+                _chartArea.AxisX.MajorTickMark.TickMarkStyle = TickMarkStyle.AcrossAxis;
+
+                //context menu
+                System.Windows.Forms.ToolStripMenuItem exportMenu =
+                    new System.Windows.Forms.ToolStripMenuItem("Export current results to CSV");
+                exportMenu.Click +=
+                    (ss, _e) =>
+                    {
+                        if (onExport != null)
+                            onExport(this, new EventArgs());
+                    };
+
+                this.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+                this.ContextMenuStrip.Items.Add(exportMenu);
+            }
+
             foreach (Series line in this.Series)
                 line.Points.Clear();
             _chartArea.AxisY.Title = "";
