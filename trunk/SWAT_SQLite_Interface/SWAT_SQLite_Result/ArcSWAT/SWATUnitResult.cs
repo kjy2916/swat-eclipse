@@ -28,6 +28,19 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _unit = parentUnit;
         }
 
+        public double getData(string col, DateTime date)
+        {
+            DataTable dt = getDataTable(col);
+            if (dt.Rows.Count == 0) return ScenarioResultStructure.EMPTY_VALUE;
+
+            string filter = string.Format("{0}='{1:yyyy-MM-dd}'",COLUMN_NAME_DATE,date);
+            DataRow[] rows = dt.Select(filter);
+            if (rows.Length == 0) return ScenarioResultStructure.EMPTY_VALUE;
+
+            RowItem item = new RowItem(rows[0]);
+            return item.getColumnValue_Double(col);
+        }
+
         /// <summary>
         /// Read data for given column
         /// </summary>
@@ -66,7 +79,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             if (!_statistics.ContainsKey(col))
             {
                 DataTable dt = getDataTable(col);
-                _statistics.Add(col, new Statistics(dt, col, _unit.Scenario.EndYear - _unit.Scenario.StartYear + 1));
+                _statistics.Add(col, new Statistics(dt, col));
             }
 
             return _statistics[col];
@@ -110,5 +123,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// </summary>
         public StringCollection Columns { get { if (_columns == null) _columns = _unit.Scenario.Structure.getDataColumns(Name); return _columns; } }
 
+
+        public SWATUnit Unit { get { return _unit; } }
     }
 }

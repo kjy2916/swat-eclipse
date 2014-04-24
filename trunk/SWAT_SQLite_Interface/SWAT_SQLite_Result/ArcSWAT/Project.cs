@@ -56,5 +56,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         {
             get { return _scenarios; }
         }
+
+        public Spatial Spatial { get { return _spatial; } }
     }
 }

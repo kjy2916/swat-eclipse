@@ -14,7 +14,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private double _max = ScenarioResultStructure.EMPTY_VALUE;
         private double _annualAverage = ScenarioResultStructure.EMPTY_VALUE;
 
-        public Statistics(DataTable dt, string col, int years)
+        public Statistics(DataTable dt, string col)
         {
             if (dt.Rows.Count == 0) return;
 
@@ -23,6 +23,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _avg = Convert.ToDouble(dt.Compute(string.Format("Avg({0})", col), ""));
             _min = Convert.ToDouble(dt.Compute(string.Format("Min({0})", col), ""));
             _max = Convert.ToDouble(dt.Compute(string.Format("Max({0})", col), ""));
+            
+            //get number of years           
+            DateTime startDay = Convert.ToDateTime(dt.Compute(string.Format("Min({0})", SWATUnitResult.COLUMN_NAME_DATE), ""));
+            DateTime endDay = Convert.ToDateTime(dt.Compute(string.Format("Max({0})", SWATUnitResult.COLUMN_NAME_DATE), ""));
+            int years = endDay.Year - startDay.Year + 1;
             if(years > 0)
                 _annualAverage = _sum / years;   
         }
