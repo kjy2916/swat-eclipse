@@ -76,11 +76,18 @@
     <Compile Include="ArcSWAT\Spatial.cs" />
     <Compile Include="ArcSWAT\Statistics.cs" />
     <Compile Include="ArcSWAT\Subbasin.cs" />
+    <Compile Include="ArcSWAT\SWATModelType.cs" />
     <Compile Include="ArcSWAT\SWATResultIntervalType.cs" />
     <Compile Include="ArcSWAT\SWATUnit.cs" />
     <Compile Include="ArcSWAT\SWATUnitResult.cs" />
     <Compile Include="ArcSWAT\SWATUnitType.cs" />
     <Compile Include="ArcSWAT\Watershed.cs" />
+    <Compile Include="WatershedView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WatershedView.Designer.cs">
+      <DependentUpon>WatershedView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,11 +100,11 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
-    <Compile Include="HRUCtrl.cs">
+    <Compile Include="HRUList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="HRUCtrl.Designer.cs">
-      <DependentUpon>HRUCtrl.cs</DependentUpon>
+    <Compile Include="HRUList.Designer.cs">
+      <DependentUpon>HRUList.cs</DependentUpon>
     </Compile>
     <Compile Include="OutputDisplayChart.cs">
       <SubType>Component</SubType>
@@ -121,6 +128,12 @@
     <Compile Include="SubbasinView.Designer.cs">
       <DependentUpon>SubbasinView.cs</DependentUpon>
     </Compile>
+    <Compile Include="SWATSQLiteFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SWATSQLiteFrm.Designer.cs">
+      <DependentUpon>SWATSQLiteFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TableResultsCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -136,14 +149,23 @@
     <Compile Include="TimeView.Designer.cs">
       <DependentUpon>TimeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="YearCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="YearCtrl.Designer.cs">
+      <DependentUpon>YearCtrl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="WatershedView.resx">
+      <DependentUpon>WatershedView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HRUCtrl.resx">
-      <DependentUpon>HRUCtrl.cs</DependentUpon>
+    <EmbeddedResource Include="HRUList.resx">
+      <DependentUpon>HRUList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -153,9 +175,13 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SubbasinView.resx">
       <DependentUpon>SubbasinView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SWATSQLiteFrm.resx">
+      <DependentUpon>SWATSQLiteFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TableResultsCtrl.resx">
       <DependentUpon>TableResultsCtrl.cs</DependentUpon>
@@ -163,6 +189,10 @@
     <EmbeddedResource Include="TimeView.resx">
       <DependentUpon>TimeView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="YearCtrl.resx">
+      <DependentUpon>YearCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -173,7 +203,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\folder.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

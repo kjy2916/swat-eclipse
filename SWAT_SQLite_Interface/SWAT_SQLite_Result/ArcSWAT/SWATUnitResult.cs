@@ -10,6 +10,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
 {
     /// <summary>
     /// One type result of a SWAT Unit
+    /// todo 
+    /// 1. add statistics information
+    /// 2. add year control for daily result to speed up
+    /// 3. add results from table ave_annual_basin. Maybe add to other view.
     /// </summary>
     public class SWATUnitResult
     {
@@ -30,7 +34,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         public double getData(string col, DateTime date)
         {
-            DataTable dt = getDataTable(col);
+            DataTable dt = getDataTable(col,date.Year);
             if (dt.Rows.Count == 0) return ScenarioResultStructure.EMPTY_VALUE;
 
             string filter = string.Format("{0}='{1:yyyy-MM-dd}'",COLUMN_NAME_DATE,date);
@@ -41,26 +45,54 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return item.getColumnValue_Double(col);
         }
 
-        /// <summary>
-        /// Read data for given column
-        /// </summary>
-        /// <param name="col"></param>
-        /// <returns></returns>
-        public DataTable getDataTable(string col)
+        private string getIndexString(string col, int year)
+        {
+            string combineCol = col;
+            if (year >= _unit.Scenario.StartYear && year <= _unit.Scenario.EndYear)
+                combineCol += "_" + year.ToString();
+            return combineCol;
+        }
+
+        public DataTable getDataTable(string col,int year)
         {
             col = col.Trim();
-            if (_results.ContainsKey(col)) return _results[col];
 
+            //check the column name
             if (!Columns.Contains(col)) return new DataTable();
 
+            //only use year parameter for daily
+            if (Interval != SWATResultIntervalType.DAILY) year = -1;
+
+            //see if the result is already there
+            string combineCol = getIndexString(col, year);
+            if (_results.ContainsKey(combineCol)) return _results[combineCol];
+
+            //get return columns based on interval
             string cols = ScenarioResultStructure.getDateColumns(Interval);
             if (cols.Length > 0) cols += ",";
             cols += col;
 
+            //get year condition
+            string yearCondition = "";
+            if (year >= _unit.Scenario.StartYear && year <= _unit.Scenario.EndYear)
+                yearCondition = string.Format("{0}={1}", ScenarioResultStructure.COLUMN_NAME_YEAR,year);
+
+            //get id condition
+            string idCondition = "";
+            if (_unit.Type != SWATUnitType.WSHD)
+                idCondition = string.Format("{0}={1}", _unit.Type.ToString(), _unit.ID);
+
+            string condition = idCondition;
+            if (condition.Length > 0 && yearCondition.Length > 0)
+                condition += " and " + yearCondition;
+
+            if (condition.Length > 0) condition = " where " + condition;
+
             DataTable dt = _unit.Scenario.GetDataTable(
-                string.Format("select {3} from {0} where {1}={2}",
-                Name, _unit.Type.ToString(), _unit.ID, cols));
-            _results.Add(col, dt);
+                string.Format("select {2} from {0} {1}",
+                Name, condition, cols));
+
+            _results.Add(combineCol, dt);
 
             //add datetime column and calculate the date
             if (dt.Rows.Count > 0 && Interval != SWATResultIntervalType.UNKNOWN)
@@ -70,15 +102,25 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     calculateDate(r);
             }
 
-            return dt;            
+            return dt; 
         }
 
-        public Statistics getStatistics(string col)
+        /// <summary>
+        /// Read data for given column
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        public DataTable getDataTable(string col)
+        {
+            return getDataTable(col, -1);          
+        }
+
+        public Statistics getStatistics(string col,int year)
         {
             col = col.Trim();
             if (!_statistics.ContainsKey(col))
             {
-                DataTable dt = getDataTable(col);
+                DataTable dt = getDataTable(col,year);
                 _statistics.Add(col, new Statistics(dt, col));
             }
 

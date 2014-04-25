@@ -39,7 +39,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         public override string ToStringBasicInfo()
         {
-            return string.Format("Area : {0:F4} km2, Area Fraction in Watershed : {1:P2}", _area, _area_fr_wshd);
+            return string.Format("Subbasin: {2}, Area : {0:F4} km2, Area Fraction in Watershed : {1:P2}", _area, _area_fr_wshd,ID);
         }
 
         public void addHRU(HRU hru)
@@ -48,6 +48,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
             if (_hrus.ContainsKey(hru.ID)) return;
             _hrus.Add(hru.ID, hru);
         }
+
+        public Dictionary<int, HRU> HRUs { get { return _hrus; } }
 
         private Dictionary<int, HRU> _hrus = new Dictionary<int, HRU>(); //initial subbasin first and then add corresonding to subbasin
         private double _area = ScenarioResultStructure.EMPTY_VALUE;

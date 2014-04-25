@@ -38,9 +38,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         public override string ToStringBasicInfo()
         {
-            return string.Format("Subbasin: {0}, Area : {1:F4} km2, Area Fraction in Subbasin : {2:P2}, Area Fraction in Watershed : {3:P2}",
-            _sub == null ? -1 : _sub.ID, _area, _area_fr_sub, _area_fr_wshd);
+            return string.Format("HRU: {4}, Subbasin: {0}, Area : {1:F4} km2, Area Fraction in Subbasin : {2:P2}, Area Fraction in Watershed : {3:P2}",
+            _sub == null ? -1 : _sub.ID, _area, _area_fr_sub, _area_fr_wshd, ID);
         }
+
+        public double AreaFractionSub { get { return _area_fr_sub; } }
+        public Subbasin Subbasin { get { return _sub; } }
 
         private Subbasin _sub = null;
         private double _area = ScenarioResultStructure.EMPTY_VALUE;

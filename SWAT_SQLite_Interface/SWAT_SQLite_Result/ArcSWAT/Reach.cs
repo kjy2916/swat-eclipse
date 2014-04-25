@@ -35,7 +35,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         public override string ToStringBasicInfo()
         {
-            return string.Format("Contribution Area : {0:F4} km2", _area);
+            return string.Format("Reach: {1}, Contribution Area : {0:F4} km2", _area,ID);
         }
     }
 }
