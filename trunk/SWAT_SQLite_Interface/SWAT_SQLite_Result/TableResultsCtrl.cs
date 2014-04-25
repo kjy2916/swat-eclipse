@@ -101,7 +101,7 @@ namespace SWAT_SQLite_Result
             DataTable dt = _result.getDataTable(col);
             dataGridView1.DataSource = dt;
             this._chart.DrawGraph(dt.Rows, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, _result.Interval);
-            lblStatistics.Text = _result.getStatistics(col).ToString();
+            //lblStatistics.Text = _result.getStatistics(col).ToString();
         }
     }
 }

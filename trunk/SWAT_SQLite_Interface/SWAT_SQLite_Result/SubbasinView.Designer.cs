@@ -28,19 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-            this.lblInfo = new System.Windows.Forms.Label();
             this.lblStatistics = new System.Windows.Forms.Label();
+            this.lblInfo = new System.Windows.Forms.Label();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.lblDate = new System.Windows.Forms.Label();
             this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
+            this.hruList1 = new SWAT_SQLite_Result.HRUList();
             this.subbasinMap1 = new SWAT_SQLite_Result.SubbasinMap();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
             this.outputDisplayChart1 = new SWAT_SQLite_Result.OutputDisplayChart();
+            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -105,6 +108,9 @@
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.yearCtrl1);
+            this.splitContainer3.Panel1.Controls.Add(this.lblDate);
+            this.splitContainer3.Panel1.Controls.Add(this.hruList1);
             this.splitContainer3.Panel1.Controls.Add(this.lblStatistics);
             this.splitContainer3.Panel1.Controls.Add(this.lblInfo);
             // 
@@ -114,6 +120,24 @@
             this.splitContainer3.Size = new System.Drawing.Size(862, 705);
             this.splitContainer3.SplitterDistance = 76;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // lblStatistics
+            // 
+            this.lblStatistics.AutoSize = true;
+            this.lblStatistics.Location = new System.Drawing.Point(10, 24);
+            this.lblStatistics.Name = "lblStatistics";
+            this.lblStatistics.Size = new System.Drawing.Size(59, 13);
+            this.lblStatistics.TabIndex = 1;
+            this.lblStatistics.Text = "lblStatistics";
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Location = new System.Drawing.Point(10, 4);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(35, 13);
+            this.lblInfo.TabIndex = 0;
+            this.lblInfo.Text = "lblInfo";
             // 
             // splitContainer4
             // 
@@ -132,23 +156,14 @@
             this.splitContainer4.SplitterDistance = 658;
             this.splitContainer4.TabIndex = 0;
             // 
-            // lblInfo
+            // lblDate
             // 
-            this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(7, 4);
-            this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(35, 13);
-            this.lblInfo.TabIndex = 0;
-            this.lblInfo.Text = "lblInfo";
-            // 
-            // lblStatistics
-            // 
-            this.lblStatistics.AutoSize = true;
-            this.lblStatistics.Location = new System.Drawing.Point(7, 21);
-            this.lblStatistics.Name = "lblStatistics";
-            this.lblStatistics.Size = new System.Drawing.Size(59, 13);
-            this.lblStatistics.TabIndex = 1;
-            this.lblStatistics.Text = "lblStatistics";
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(10, 46);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(40, 13);
+            this.lblDate.TabIndex = 3;
+            this.lblDate.Text = "lblDate";
             // 
             // resultColumnTree1
             // 
@@ -157,6 +172,13 @@
             this.resultColumnTree1.Name = "resultColumnTree1";
             this.resultColumnTree1.Size = new System.Drawing.Size(168, 874);
             this.resultColumnTree1.TabIndex = 0;
+            // 
+            // hruList1
+            // 
+            this.hruList1.Location = new System.Drawing.Point(103, 44);
+            this.hruList1.Name = "hruList1";
+            this.hruList1.Size = new System.Drawing.Size(252, 27);
+            this.hruList1.TabIndex = 2;
             // 
             // subbasinMap1
             // 
@@ -193,20 +215,28 @@
             // 
             // outputDisplayChart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.outputDisplayChart1.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.outputDisplayChart1.ChartAreas.Add(chartArea1);
             this.outputDisplayChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.outputDisplayChart1.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.outputDisplayChart1.Legends.Add(legend1);
             this.outputDisplayChart1.Location = new System.Drawing.Point(0, 0);
             this.outputDisplayChart1.Name = "outputDisplayChart1";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.outputDisplayChart1.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.outputDisplayChart1.Series.Add(series1);
             this.outputDisplayChart1.Size = new System.Drawing.Size(862, 165);
             this.outputDisplayChart1.TabIndex = 0;
             this.outputDisplayChart1.Text = "outputDisplayChart1";
+            // 
+            // yearCtrl1
+            // 
+            this.yearCtrl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.yearCtrl1.Location = new System.Drawing.Point(666, 4);
+            this.yearCtrl1.Name = "yearCtrl1";
+            this.yearCtrl1.Size = new System.Drawing.Size(196, 73);
+            this.yearCtrl1.TabIndex = 4;
             // 
             // SubbasinView
             // 
@@ -250,5 +280,8 @@
         private OutputDisplayChart outputDisplayChart1;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label lblStatistics;
+        private HRUList hruList1;
+        private System.Windows.Forms.Label lblDate;
+        private YearCtrl yearCtrl1;
     }
 }

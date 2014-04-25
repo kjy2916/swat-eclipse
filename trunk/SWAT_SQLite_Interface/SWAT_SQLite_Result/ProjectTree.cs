@@ -6,30 +6,36 @@ using System.Windows.Forms;
 
 namespace SWAT_SQLite_Result
 {
+    public delegate void ResultLevelChangedEventHandler(ArcSWAT.ScenarioResult scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType type);
+
     class ProjectTree : System.Windows.Forms.TreeView
     {
         private ArcSWAT.Project _prj;
         private TreeNode _prjNode;
-        private ImageList _imageList;
 
-        private void createImageList()
+        public event ResultLevelChangedEventHandler onResultLevelChanged = null;
+
+        public ProjectTree()
         {
-            if (_imageList != null) return;
+            NodeMouseClick += (s, e) =>
+            {
+                if(onResultLevelChanged == null) return;
+                if (e.Node == null) return;
+                
+                ArcSWAT.SWATUnitType type = ArcSWAT.SWATUnitType.UNKNOWN;
+                if (e.Node.Text.Equals("Watershed"))
+                    type = ArcSWAT.SWATUnitType.WSHD;
+                else if (e.Node.Text.Equals("HRU"))
+                    type = ArcSWAT.SWATUnitType.HRU;
+                else if (e.Node.Text.Equals("Subbasin"))
+                    type = ArcSWAT.SWATUnitType.SUB;
+                else if (e.Node.Text.Equals("Reach"))
+                    type = ArcSWAT.SWATUnitType.RCH;
 
-            //_imageList = new ImageList();
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.draw_polygon_curves1);//small dam,0
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.button1);//holding pond,1
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.cow_head);//grazing,2
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.tractor1);//tillage,3
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.grass1);//forage,4
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.map);//scenario,5
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.info_rhombus_16x16);//project information,6
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.house);//farm level,7
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.draw_ellipse);//subbasin level,8
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.draw_points);//field level,9
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources.database_green);//project,10
-            //_imageList.Images.Add(WEBsUI2.Properties.Resources._3d_glasses_16);//result,11
-            //this.ImageList = _imageList;
+                if (type != ArcSWAT.SWATUnitType.UNKNOWN)
+                    onResultLevelChanged(e.Node.Tag as ArcSWAT.ScenarioResult, (ArcSWAT.SWATModelType)e.Node.Parent.Tag, type);
+                    
+            };       
         }
 
         public ArcSWAT.Project Project
@@ -53,7 +59,6 @@ namespace SWAT_SQLite_Result
             else
             {
                 this.Nodes.Clear();
-                createImageList();
 
                 TreeNode prjNode = this.Nodes.Add("Project:");
                 prjNode.Tag = p;                
@@ -66,7 +71,7 @@ namespace SWAT_SQLite_Result
                 foreach (ArcSWAT.Scenario s in p.Scenarios.Values)
                     addNodes(s);
 
-                prjNode.Expand();
+                prjNode.ExpandAll();
 
                 this.OnNodeMouseClick(new TreeNodeMouseClickEventArgs(prjNode, System.Windows.Forms.MouseButtons.Left,-1,-1,-1));
             }
@@ -85,23 +90,43 @@ namespace SWAT_SQLite_Result
             {
                try
                 {
-                    if (s.ResultNormal.Status == ArcSWAT.ScenarioResultStatus.NORMAL)
+                    if (s.ResultNormal.Status == ArcSWAT.ScenarioResultStatus.NORMAL ||
+                        s.ResultCanSWAT.Status == ArcSWAT.ScenarioResultStatus.NORMAL)
                     {
                         TreeNode scenNode = _prjNode.Nodes.Add(s.Name);
                         scenNode.Tag = s;
 
-                        scenNode.Nodes.Add("HRU");                                         
-                        scenNode.Nodes.Add("Subbasin");
-                        scenNode.Nodes.Add("Reach");
-                        if(s.ResultNormal.Reservoirs.Count > 0)
-                            scenNode.Nodes.Add("Reservoir");
-                    }
+                        if (s.ResultNormal.Status == ArcSWAT.ScenarioResultStatus.NORMAL)
+                        {
+                            TreeNode normalNode = scenNode.Nodes.Add("SWAT");
+                            normalNode.Tag = ArcSWAT.SWATModelType.SWAT;
+
+                            AddScenarioResult(normalNode, s.ResultNormal);
+                        }
+                        if (s.ResultCanSWAT.Status == ArcSWAT.ScenarioResultStatus.NORMAL)
+                        {
+                            TreeNode canSWATNode = scenNode.Nodes.Add("CanSWAT");
+                            canSWATNode.Tag = ArcSWAT.SWATModelType.CanSWAT;
+
+                            AddScenarioResult(canSWATNode, s.ResultCanSWAT);
+                        }
+                    }                    
                 }
                 catch (Exception e)
                 {
                     System.Diagnostics.Debug.WriteLine(e.Message);
                 }
             }
+        }
+
+        private void AddScenarioResult(TreeNode parentNode, ArcSWAT.ScenarioResult scenario)
+        {
+            parentNode.Nodes.Add("Watershed").Tag = scenario;
+            parentNode.Nodes.Add("HRU").Tag = scenario;
+            parentNode.Nodes.Add("Subbasin").Tag = scenario;
+            parentNode.Nodes.Add("Reach").Tag = scenario;
+            if (scenario.Reservoirs.Count > 0)
+                parentNode.Nodes.Add("Reservoir").Tag = scenario;
         }
     }
 }
