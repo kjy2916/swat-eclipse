@@ -59,11 +59,11 @@
       if(iprint == 0) datecol_num = 2    !!monthly
 
       !!delete existing result.db3
-      open(1234,file="result.db3",status="old",iostat=stat)
+      open(1234,file="result_canswat.db3",status="old",iostat=stat)
       if(stat .eq. 0) close(1234,status="delete")
 
       !!create the result database
-      call sqlite3_open( "result.db3", db )
+      call sqlite3_open( "result_canswat.db3", db )
 
       !!create tables
       call header_sqlite
