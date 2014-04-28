@@ -29,8 +29,14 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 _name = (new DirectoryInfo(Folder)).Name;
 
                 //Regular SWAT and CanSWAT could run one a same model 
-                _result_normal = new ScenarioResult(_modelfolder + @"\" + ScenarioResultStructure.DATABASE_NAME_NORMAL,this);
-                _result_canswat = new ScenarioResult(_modelfolder + @"\" + ScenarioResultStructure.DATABASE_NAME_CANSWAT,this);
+                _hasResults = false;
+                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
+                {
+                    SWATModelType modelType = (SWATModelType)i;
+                    ScenarioResult result = new ScenarioResult(_modelfolder + @"\" + ScenarioResultStructure.getDatabaseName(modelType), this);
+                    if(result.Status == ScenarioResultStatus.NORMAL) _hasResults = true;
+                    _results.Add(modelType,result);
+                }
             }
         }
 
@@ -40,21 +46,39 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(string.Format("Model Folder : {0}", _modelfolder));
-            sb.AppendLine("***\nNormal Result\n***");
-            sb.AppendLine(_result_normal.ToString());
-            sb.AppendLine("***\nCanSWAT Result\n***");
-            sb.AppendLine(_result_canswat.ToString());
+            //sb.AppendLine("***\nNormal Result\n***");
+            //sb.AppendLine(_result_normal.ToString());
+            //sb.AppendLine("***\nCanSWAT Result\n***");
+            //sb.AppendLine(_result_canswat.ToString());
             return sb.ToString();
         }
 
         private string _name = null;
         private string _modelfolder = null;
-        private ScenarioResult _result_normal = null;
-        private ScenarioResult _result_canswat = null;
+        private Dictionary<SWATModelType, ScenarioResult> _results = new Dictionary<SWATModelType, ScenarioResult>();
+        private bool _hasResults = false;
 
-        public ScenarioResult ResultNormal { get { return _result_normal; } }
-        public ScenarioResult ResultCanSWAT { get { return _result_canswat; } }
-        public string Name { get { return _name; } } 
+        public bool hasResults{get{return _hasResults;}}
+        public string Name { get { return _name; } }
+        public string ModelFolder { get { return _modelfolder; } }
+
+        public ScenarioResult getModelResult(SWATModelType modelType)
+        {
+            if (_results.ContainsKey(modelType)) 
+                return _results[modelType];
+            return null;
+        }
+
+        /// <summary>
+        /// Re-read results when it's simulated again.
+        /// </summary>
+        /// <param name="modelType"></param>
+        public void reReadResults(SWATModelType modelType)
+        {
+            ScenarioResult result = getModelResult(modelType);
+            if(result != null)
+                result = new ScenarioResult(_modelfolder + @"\" + ScenarioResultStructure.getDatabaseName(modelType), this);
+        }
 
         public static Dictionary<string, Scenario> FromProjectFolder(string f)
         {
