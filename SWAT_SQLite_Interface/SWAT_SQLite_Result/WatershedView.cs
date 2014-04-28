@@ -50,6 +50,8 @@ namespace SWAT_SQLite_Result
 
             //update
             updateTableAndChart();
+
+            this.tableView2.SWATResultTable = this._scenario.Watershed.AverageAnnualBasinTable;
         }
 
         private void updateTableAndChart()

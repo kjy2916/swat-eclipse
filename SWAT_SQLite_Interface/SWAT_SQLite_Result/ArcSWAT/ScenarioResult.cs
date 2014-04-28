@@ -51,18 +51,22 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private int _endYear = ScenarioResultStructure.UNKONWN_ID;
         private SWATResultIntervalType _interval = SWATResultIntervalType.UNKNOWN;
         private ScenarioResultStatus _status = ScenarioResultStatus.UNKNOWN;
+        private DateTime _generationTime = DateTime.Now;
+
+
 
         public ScenarioResultStatus Status { get { return _status; } }
         public String DatabasePath {get { return _databasePath; }}
         public int StartYear { get { return _startYear; } }
         public int EndYear { get { return _endYear; } }
         public SWATResultIntervalType Interval { get { return _interval; } }
- 
+        public DateTime SimulationTime { get { return _generationTime; } }
+
         private void checkStatus()
         {
             if (DatabasePath == null || !File.Exists(DatabasePath)) { _status = ScenarioResultStatus.NO_EXIST; return; }
 
-            DataTable dt = Query.GetDataTable("select * from ave_annual_basin", DatabasePath);
+            DataTable dt = Query.GetDataTable("select * from " + ScenarioResultStructure.TABLE_NAME_WATERSHED_AVERAGE_ANNUAL, DatabasePath);
             if (dt.Rows.Count == 0) { _status = ScenarioResultStatus.UNSUCCESS; return; }
 
             foreach (DataRow r in dt.Rows)
@@ -77,7 +81,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     _interval = (SWATResultIntervalType)(item.getColumnValue_Int("VALUE"));
                 else if (name.Equals("SUCCESS")) 
                     _status = ScenarioResultStatus.NORMAL;                
-            }             
+            }
+
+            _generationTime = (new System.IO.FileInfo(DatabasePath)).LastWriteTime;
         }
 
 #endregion

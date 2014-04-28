@@ -16,7 +16,7 @@ namespace SWAT_SQLite_Result
             InitializeComponent();
         }
 
-        private ArcSWAT.ScenarioResult _scenario = null;
+        private ArcSWAT.Scenario _scenario = null;
         private ArcSWAT.SWATModelType _modelType = ArcSWAT.SWATModelType.UNKNOWN;
         private ArcSWAT.SWATUnitType _unitType = ArcSWAT.SWATUnitType.UNKNOWN;
         private Dictionary<string, UserControl> _views = new Dictionary<string, UserControl>();
@@ -25,13 +25,27 @@ namespace SWAT_SQLite_Result
         {
             projectTree1.onResultLevelChanged += (scenario, modelType, type) =>
                 {
-                    switchView(scenario, modelType, type);
+                    switchView(scenario.Scenario, modelType, type);
+                };
+            projectTree1.onScenarioSelectionChanged += (scenario) =>
+                {
+                    ScenarioView view = new ScenarioView();
+                    view.Scenario = scenario;
+                    view.Dock = DockStyle.Fill;
+                    view.onSimulationFinished += (ArcSWAT.SWATModelType modelType) =>
+                        {
+                            removeView(scenario, modelType);
+                            scenario.reReadResults(modelType);
+                            projectTree1.update(scenario, modelType);
+                        };
+
+                    splitContainer1.Panel2.Controls.Clear();
+                    splitContainer1.Panel2.Controls.Add(view);
                 };
         }
 
-        private UserControl switchView(ArcSWAT.ScenarioResult scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
+        private UserControl switchView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
         {
-
             UserControl view = getView(scenario, modelType, unitType);
             splitContainer1.Panel2.Controls.Clear();
             splitContainer1.Panel2.Controls.Add(view);
@@ -45,17 +59,36 @@ namespace SWAT_SQLite_Result
 
         private ArcSWAT.Project _prj = null;
 
-        private UserControl getView(ArcSWAT.ScenarioResult scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
+        private void removeView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType)
         {
-            string key = string.Format("{0}_{1}_{2}",
-                scenario.Scenario.Name,modelType,unitType);
+            removeView(scenario, modelType, ArcSWAT.SWATUnitType.WSHD);
+            removeView(scenario, modelType, ArcSWAT.SWATUnitType.HRU);
+            removeView(scenario, modelType, ArcSWAT.SWATUnitType.SUB);
+            removeView(scenario, modelType, ArcSWAT.SWATUnitType.RCH);
+        }
+
+        private void removeView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
+        {
+            string key = getViewName(scenario, modelType, unitType);
+            if (_views.ContainsKey(key)) _views.Remove(key);
+        }
+
+        private string getViewName(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
+        {
+            return string.Format("{0}_{1}_{2}",
+                scenario.Name, modelType, unitType);
+        }
+
+        private UserControl getView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
+        {
+            string key = getViewName(scenario, modelType, unitType);
             if (!_views.ContainsKey(key))
             {
                 if (unitType == ArcSWAT.SWATUnitType.WSHD)
                 {
                     WatershedView view = new WatershedView();
                     view.Dock = DockStyle.Fill;
-                    view.setProjectScenario(_prj, scenario);
+                    view.setProjectScenario(_prj, scenario.getModelResult(modelType));
 
                     _views.Add(key, view);
                 }
@@ -63,7 +96,7 @@ namespace SWAT_SQLite_Result
                 {
                     SubbasinView view = new SubbasinView();
                     view.Dock = DockStyle.Fill;
-                    view.setProjectScenario(_prj,scenario,unitType);
+                    view.setProjectScenario(_prj, scenario.getModelResult(modelType), unitType);
 
                     if (unitType == ArcSWAT.SWATUnitType.SUB)
                         view.onSwitch2HRU += (hru) => 

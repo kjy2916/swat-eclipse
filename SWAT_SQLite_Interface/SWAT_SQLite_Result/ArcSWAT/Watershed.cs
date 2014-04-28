@@ -24,5 +24,29 @@ namespace SWAT_SQLite_Result.ArcSWAT
         {
             get { return SWATUnitType.WSHD; }
         }
+
+        private DataTable _aveAnnualBasinTbl = null;
+
+        public DataTable AverageAnnualBasinTable
+        {
+            get
+            {
+                if (_aveAnnualBasinTbl == null)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    foreach(string n in ScenarioResultStructure.STATUS_NAMES)
+                    {
+                        if (sb.Length > 0) sb.Append(" and ");
+                        sb.Append(string.Format("{0} not like '{1}'", 
+                            ScenarioResultStructure.COLUMN_NAME_AVE_ANNUAL_BASIN_NAME,n));
+                    }
+                    
+                    _aveAnnualBasinTbl = Query.GetDataTable(
+                        "select * from " + ScenarioResultStructure.TABLE_NAME_WATERSHED_AVERAGE_ANNUAL + " where " + sb.ToString(), 
+                        Scenario.DatabasePath);
+                }
+                return _aveAnnualBasinTbl;
+            }
+        }
     }
 }

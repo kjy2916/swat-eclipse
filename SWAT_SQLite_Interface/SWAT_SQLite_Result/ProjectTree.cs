@@ -7,6 +7,7 @@ using System.Windows.Forms;
 namespace SWAT_SQLite_Result
 {
     public delegate void ResultLevelChangedEventHandler(ArcSWAT.ScenarioResult scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType type);
+    public delegate void ScenarioSelectionChangedEventHandler(ArcSWAT.Scenario scenario);
 
     class ProjectTree : System.Windows.Forms.TreeView
     {
@@ -14,6 +15,8 @@ namespace SWAT_SQLite_Result
         private TreeNode _prjNode;
 
         public event ResultLevelChangedEventHandler onResultLevelChanged = null;
+        public event ScenarioSelectionChangedEventHandler onScenarioSelectionChanged = null;
+
 
         public ProjectTree()
         {
@@ -34,7 +37,10 @@ namespace SWAT_SQLite_Result
 
                 if (type != ArcSWAT.SWATUnitType.UNKNOWN)
                     onResultLevelChanged(e.Node.Tag as ArcSWAT.ScenarioResult, (ArcSWAT.SWATModelType)e.Node.Parent.Tag, type);
-                    
+
+                if (e.Node.Tag != null && e.Node.Tag is ArcSWAT.Scenario && onScenarioSelectionChanged != null)
+                    onScenarioSelectionChanged(e.Node.Tag as ArcSWAT.Scenario);
+
             };       
         }
 
@@ -52,28 +58,40 @@ namespace SWAT_SQLite_Result
 
         private void setProject(ArcSWAT.Project p)
         {
-            if (this.InvokeRequired)
+            this.Nodes.Clear();
+
+            TreeNode prjNode = this.Nodes.Add("Project:");
+            prjNode.Tag = p;                
+
+            //TreeNode infoNode = prjNode.Nodes.Add("Information");
+            //infoNode.Tag = p;
+
+            _prjNode = prjNode;
+
+            foreach (ArcSWAT.Scenario s in p.Scenarios.Values)
+                addNodes(s);
+
+            prjNode.ExpandAll();
+
+            //select first scenario node
+            if(prjNode.Nodes.Count > 0)
+                this.OnNodeMouseClick(
+                    new TreeNodeMouseClickEventArgs(prjNode.Nodes[0], System.Windows.Forms.MouseButtons.Left,-1,-1,-1));
+        }
+
+        public void update(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType)
+        {
+            foreach (TreeNode node in this.Nodes[0].Nodes)
             {
-                Invoke(new setProjectDelegate(setProject), new object[] { p });
-            }
-            else
-            {
-                this.Nodes.Clear();
+                if (node.Text.Equals(scenario.Name))
+                {
+                    foreach (TreeNode resultNode in node.Nodes)
+                    {
+                        if(resultNode.Text.Equals(modelType.ToString())) return;
+                    }
 
-                TreeNode prjNode = this.Nodes.Add("Project:");
-                prjNode.Tag = p;                
-
-                TreeNode infoNode = prjNode.Nodes.Add("Information");
-                infoNode.Tag = p;
-
-                _prjNode = prjNode;
-
-                foreach (ArcSWAT.Scenario s in p.Scenarios.Values)
-                    addNodes(s);
-
-                prjNode.ExpandAll();
-
-                this.OnNodeMouseClick(new TreeNodeMouseClickEventArgs(prjNode, System.Windows.Forms.MouseButtons.Left,-1,-1,-1));
+                    AddScenarioResult(node, scenario, modelType);
+                }
             }
         }
 
@@ -81,52 +99,34 @@ namespace SWAT_SQLite_Result
 
         private void addNodes(ArcSWAT.Scenario s)
         {
-            //add corresponding node
-            if (this.InvokeRequired)
+            if (s.hasResults)
             {
-                Invoke(new addNodesDelegate(addNodes), new object[] { s });
-            }
-            else
-            {
-               try
+                TreeNode scenNode = _prjNode.Nodes.Add(s.Name);
+                scenNode.Tag = s;
+
+                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
                 {
-                    if (s.ResultNormal.Status == ArcSWAT.ScenarioResultStatus.NORMAL ||
-                        s.ResultCanSWAT.Status == ArcSWAT.ScenarioResultStatus.NORMAL)
-                    {
-                        TreeNode scenNode = _prjNode.Nodes.Add(s.Name);
-                        scenNode.Tag = s;
-
-                        if (s.ResultNormal.Status == ArcSWAT.ScenarioResultStatus.NORMAL)
-                        {
-                            TreeNode normalNode = scenNode.Nodes.Add("SWAT");
-                            normalNode.Tag = ArcSWAT.SWATModelType.SWAT;
-
-                            AddScenarioResult(normalNode, s.ResultNormal);
-                        }
-                        if (s.ResultCanSWAT.Status == ArcSWAT.ScenarioResultStatus.NORMAL)
-                        {
-                            TreeNode canSWATNode = scenNode.Nodes.Add("CanSWAT");
-                            canSWATNode.Tag = ArcSWAT.SWATModelType.CanSWAT;
-
-                            AddScenarioResult(canSWATNode, s.ResultCanSWAT);
-                        }
-                    }                    
+                    ArcSWAT.SWATModelType modelType = (ArcSWAT.SWATModelType)i;
+                    AddScenarioResult(scenNode, s, modelType);
                 }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine(e.Message);
-                }
-            }
-        }
+            }                    
+        }        
 
-        private void AddScenarioResult(TreeNode parentNode, ArcSWAT.ScenarioResult scenario)
+        private void AddScenarioResult(TreeNode scenNode, ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType)
         {
-            parentNode.Nodes.Add("Watershed").Tag = scenario;
-            parentNode.Nodes.Add("HRU").Tag = scenario;
-            parentNode.Nodes.Add("Subbasin").Tag = scenario;
-            parentNode.Nodes.Add("Reach").Tag = scenario;
-            if (scenario.Reservoirs.Count > 0)
-                parentNode.Nodes.Add("Reservoir").Tag = scenario;
+            ArcSWAT.ScenarioResult result = scenario.getModelResult(modelType);
+            if (result == null) return;
+            if (result.Status != ArcSWAT.ScenarioResultStatus.NORMAL) return;
+
+            TreeNode resultNode = scenNode.Nodes.Add(modelType.ToString());
+            resultNode.Tag = modelType;
+
+            resultNode.Nodes.Add("Watershed").Tag = result;
+            resultNode.Nodes.Add("HRU").Tag = result;
+            resultNode.Nodes.Add("Subbasin").Tag = result;
+            resultNode.Nodes.Add("Reach").Tag = result;
+            if (result.Reservoirs.Count > 0)
+                resultNode.Nodes.Add("Reservoir").Tag = result;
         }
     }
 }

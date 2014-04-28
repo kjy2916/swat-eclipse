@@ -18,8 +18,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static int UNKONWN_ID = -1;
         public static double EMPTY_VALUE = -99.0;
 
+        public static string EXE_NAME_SWAT = "swat_sqlite.exe";
+        public static string EXE_NAME_CANSWAT = "canswat_sqlite.exe";
+
         public static string DATABASE_NAME_NORMAL = "result.db3";
-        public static string DATABASE_NAME_CANSWAT = "result_can.db3";
+        public static string DATABASE_NAME_CANSWAT = "result_canswat.db3";
 
         public static string INFO_TABLE_NAME_HRU = "hru_info";
         public static string INFO_TABLE_NAME_SUB = "sub_info";
@@ -36,6 +39,14 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static string COLUMN_NAME_AREA_KM2 = "AREA_KM2";
         public static string COLUMN_NAME_AREA_FR_SUB = "AREA_FR_SUB";
         public static string COLUMN_NAME_AREA_FR_WSHD = "AREA_FR_WSHD";
+        public static string COLUMN_NAME_AVE_ANNUAL_BASIN_NAME = "NAME";
+
+        public static string NAME_STATUS_START_YEAR = "START_YEAR";
+        public static string NAME_STATUS_END_YEAR = "END_YEAR";
+        public static string NAME_STATUS_OUTPUT_INTERVAL = "OUTPUT_INTERVAL";
+        public static string NAME_STATUS_SUCCESS = "SUCCESS";
+
+        public static string[] STATUS_NAMES = new string[] { NAME_STATUS_START_YEAR, NAME_STATUS_END_YEAR, NAME_STATUS_OUTPUT_INTERVAL, NAME_STATUS_SUCCESS };
 
         public static string TABLE_NAME_HRU = "hru";
         public static string TABLE_NAME_HRU_DEPRESSION = "wtr";
@@ -54,7 +65,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static string TABLE_NAME_WATERSHED_DAILY = "watershed_daily";
         public static string TABLE_NAME_WATERSHED_MONTHLY = "watershed_monthly";
         public static string TABLE_NAME_WATERSHED_YEARLY = "watershed_yearly";
-        //public static string TABLE_NAME_REACH_SEDIMENT = "ave_annual_basin";
+        
+        public static string TABLE_NAME_WATERSHED_AVERAGE_ANNUAL = "ave_annual_basin";
 
         public static string[] DAILY_TABLES = new string[] { TABLE_NAME_WATERSHED_DAILY, TABLE_NAME_HRU_MGT, TABLE_NAME_HRU_SOIL_NUTRIENT, TABLE_NAME_HRU_SOIL_WATER };
         public static string[] MONTHLY_TABLES = new string[] { TABLE_NAME_WATERSHED_MONTHLY };
@@ -98,6 +110,26 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private ScenarioResult _scenario = null;
 
         private Dictionary<string, StringCollection> _columns = new Dictionary<string, StringCollection>();
+
+        public static string getDatabaseName(SWATModelType modelType)
+        {
+            switch(modelType)
+            {
+                case SWATModelType.SWAT: return DATABASE_NAME_NORMAL;
+                case SWATModelType.CanSWAT: return DATABASE_NAME_CANSWAT;
+                default: return "";
+            }
+        }
+
+        public static string getSWATExecutableName(SWATModelType modelType)
+        {
+            switch (modelType)
+            {
+                case SWATModelType.SWAT: return EXE_NAME_SWAT;
+                case SWATModelType.CanSWAT: return EXE_NAME_CANSWAT;
+                default: return "";
+            }
+        }
 
         /// <summary>
         /// Retrieve data columns from table name

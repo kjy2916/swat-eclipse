@@ -82,6 +82,25 @@
     <Compile Include="ArcSWAT\SWATUnitResult.cs" />
     <Compile Include="ArcSWAT\SWATUnitType.cs" />
     <Compile Include="ArcSWAT\Watershed.cs" />
+    <Compile Include="AverageAnnualView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AverageAnnualView.Designer.cs">
+      <DependentUpon>AverageAnnualView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ResultInformationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ResultInformationView.Designer.cs">
+      <DependentUpon>ResultInformationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ScenarioView.Designer.cs">
+      <DependentUpon>ScenarioView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SWAT_SQLite.cs" />
     <Compile Include="WatershedView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -155,6 +174,15 @@
     <Compile Include="YearCtrl.Designer.cs">
       <DependentUpon>YearCtrl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AverageAnnualView.resx">
+      <DependentUpon>AverageAnnualView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResultInformationView.resx">
+      <DependentUpon>ResultInformationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScenarioView.resx">
+      <DependentUpon>ScenarioView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WatershedView.resx">
       <DependentUpon>WatershedView.cs</DependentUpon>
     </EmbeddedResource>
