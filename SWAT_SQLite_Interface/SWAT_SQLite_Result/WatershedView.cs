@@ -20,6 +20,7 @@ namespace SWAT_SQLite_Result
         private string _resultType = null;
         private string _col = null;
         private DateTime _date = DateTime.Now;
+        private ArcSWAT.ScenarioResult _compareResult = null;
 
         private ArcSWAT.Project _project = null;
         private ArcSWAT.ScenarioResult _scenario = null;
@@ -54,10 +55,15 @@ namespace SWAT_SQLite_Result
 
                 };
 
+            //compare control
+            compareCtrl1.ScenarioResult = scenario;
+            compareCtrl1.onCompareResultChanged += (ss, ee) => { _compareResult = compareCtrl1.CompareResult; updateTableAndChart(); };
+
+
             //update
             updateTableAndChart();
 
-            this.tableView2.SWATResultTable = this._scenario.Watershed.AverageAnnualBasinTable;
+            this.tableView2.DataTable = this._scenario.Watershed.AverageAnnualBasinTable;
         }
 
         private void updateTableAndChart()
@@ -72,14 +78,29 @@ namespace SWAT_SQLite_Result
             int year = -1;
             if (result.Interval == ArcSWAT.SWATResultIntervalType.DAILY && yearCtrl1.DisplayByYear)
                 year = yearCtrl1.Year;
-            DataTable dt = result.getDataTable(_col, year);
 
-            this.tableView1.SWATResultTable = dt;            
-
-            StringCollection cols = new StringCollection() { _col };
-            this.outputDisplayChart1.DrawGraph(dt, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, result.Interval);
-
-            this.lblStatistics.Text = "Statistics :" + result.getStatistics(_col,year).ToString();           
+            if (_compareResult == null) //don't compare
+            {
+                ArcSWAT.SWATUnitColumnYearResult oneResult = result.getResult(_col, year);
+ 
+                this.tableView1.Result = oneResult;
+                this.outputDisplayChart1.Result = oneResult;
+                this.lblStatistics.Text = "Statistics :" + oneResult.Statistics.ToString();
+            }
+            else //compare
+            {
+                try
+                {
+                    ArcSWAT.SWATUnitColumnYearCompareResult compare =
+                        result.getResult(_col, year).Compare(_compareResult);
+                    this.tableView1.CompareResult = compare;
+                    this.outputDisplayChart1.CompareResult = compare;
+                }
+                catch (System.Exception e)
+                {
+                    SWAT_SQLite.showInformationWindow(e.ToString());
+                }
+            }
         }
     }
 }

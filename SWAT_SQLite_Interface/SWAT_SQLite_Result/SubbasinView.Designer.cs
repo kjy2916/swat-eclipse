@@ -32,18 +32,19 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.compareCtrl1 = new SWAT_SQLite_Result.CompareCtrl();
+            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.hruList1 = new SWAT_SQLite_Result.HRUList();
             this.lblStatistics = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-            this.lblDate = new System.Windows.Forms.Label();
-            this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
-            this.hruList1 = new SWAT_SQLite_Result.HRUList();
             this.subbasinMap1 = new SWAT_SQLite_Result.SubbasinMap();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
             this.outputDisplayChart1 = new SWAT_SQLite_Result.OutputDisplayChart();
-            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -81,6 +82,14 @@
             this.splitContainer1.SplitterDistance = 168;
             this.splitContainer1.TabIndex = 0;
             // 
+            // resultColumnTree1
+            // 
+            this.resultColumnTree1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultColumnTree1.Location = new System.Drawing.Point(0, 0);
+            this.resultColumnTree1.Name = "resultColumnTree1";
+            this.resultColumnTree1.Size = new System.Drawing.Size(168, 874);
+            this.resultColumnTree1.TabIndex = 0;
+            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -108,6 +117,7 @@
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.compareCtrl1);
             this.splitContainer3.Panel1.Controls.Add(this.yearCtrl1);
             this.splitContainer3.Panel1.Controls.Add(this.lblDate);
             this.splitContainer3.Panel1.Controls.Add(this.hruList1);
@@ -120,6 +130,38 @@
             this.splitContainer3.Size = new System.Drawing.Size(862, 705);
             this.splitContainer3.SplitterDistance = 76;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // compareCtrl1
+            // 
+            this.compareCtrl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.compareCtrl1.Location = new System.Drawing.Point(453, 19);
+            this.compareCtrl1.Name = "compareCtrl1";
+            this.compareCtrl1.Size = new System.Drawing.Size(200, 52);
+            this.compareCtrl1.TabIndex = 5;
+            // 
+            // yearCtrl1
+            // 
+            this.yearCtrl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.yearCtrl1.Location = new System.Drawing.Point(659, 4);
+            this.yearCtrl1.Name = "yearCtrl1";
+            this.yearCtrl1.Size = new System.Drawing.Size(200, 73);
+            this.yearCtrl1.TabIndex = 4;
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(10, 46);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(40, 13);
+            this.lblDate.TabIndex = 3;
+            this.lblDate.Text = "lblDate";
+            // 
+            // hruList1
+            // 
+            this.hruList1.Location = new System.Drawing.Point(103, 44);
+            this.hruList1.Name = "hruList1";
+            this.hruList1.Size = new System.Drawing.Size(252, 27);
+            this.hruList1.TabIndex = 2;
             // 
             // lblStatistics
             // 
@@ -155,30 +197,6 @@
             this.splitContainer4.Size = new System.Drawing.Size(862, 625);
             this.splitContainer4.SplitterDistance = 658;
             this.splitContainer4.TabIndex = 0;
-            // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(10, 46);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(40, 13);
-            this.lblDate.TabIndex = 3;
-            this.lblDate.Text = "lblDate";
-            // 
-            // resultColumnTree1
-            // 
-            this.resultColumnTree1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.resultColumnTree1.Location = new System.Drawing.Point(0, 0);
-            this.resultColumnTree1.Name = "resultColumnTree1";
-            this.resultColumnTree1.Size = new System.Drawing.Size(168, 874);
-            this.resultColumnTree1.TabIndex = 0;
-            // 
-            // hruList1
-            // 
-            this.hruList1.Location = new System.Drawing.Point(103, 44);
-            this.hruList1.Name = "hruList1";
-            this.hruList1.Size = new System.Drawing.Size(252, 27);
-            this.hruList1.TabIndex = 2;
             // 
             // subbasinMap1
             // 
@@ -230,14 +248,6 @@
             this.outputDisplayChart1.TabIndex = 0;
             this.outputDisplayChart1.Text = "outputDisplayChart1";
             // 
-            // yearCtrl1
-            // 
-            this.yearCtrl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.yearCtrl1.Location = new System.Drawing.Point(666, 4);
-            this.yearCtrl1.Name = "yearCtrl1";
-            this.yearCtrl1.Size = new System.Drawing.Size(196, 73);
-            this.yearCtrl1.TabIndex = 4;
-            // 
             // SubbasinView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -283,5 +293,6 @@
         private HRUList hruList1;
         private System.Windows.Forms.Label lblDate;
         private YearCtrl yearCtrl1;
+        private CompareCtrl compareCtrl1;
     }
 }

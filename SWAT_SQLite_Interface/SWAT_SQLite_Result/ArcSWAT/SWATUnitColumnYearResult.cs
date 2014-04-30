@@ -56,6 +56,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return _compares[tableID];      
         }
 
+        public SWATUnitColumnYearCompareResult Compare(ScenarioResult result)
+        {
+            return Compare(result.Scenario, result.ModelType);
+        }
+
         public SWATUnitColumnYearCompareResult Compare(string scenarioName)
         {
             if (_result.Unit.Scenario.Scenario.Name.Equals(scenarioName)) throw new Exception("Scenario " + scenarioName + " is same with current scenario.");

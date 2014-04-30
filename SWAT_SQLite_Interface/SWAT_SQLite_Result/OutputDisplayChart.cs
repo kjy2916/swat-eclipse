@@ -87,7 +87,17 @@ namespace SWAT_SQLite_Result
 
         }
 
-        public void DrawGraph(DataTable dt, string xColName, StringCollection yColNames, ArcSWAT.SWATResultIntervalType interval)
+        public ArcSWAT.SWATUnitColumnYearResult Result
+        {
+            set
+            {
+                StringCollection cols = new StringCollection() { value.Column };
+                DrawGraph(value.Table, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
+                    cols, value.UnitResult.Interval);
+            }
+        }
+
+        private void DrawGraph(DataTable dt, string xColName, StringCollection yColNames, ArcSWAT.SWATResultIntervalType interval)
         {
             if (_chartArea == null)
             {
@@ -116,7 +126,11 @@ namespace SWAT_SQLite_Result
             }
 
             foreach (Series line in this.Series)
+            {
                 line.Points.Clear();
+                line.XValueMember = "";
+                line.YValueMembers = "";
+            }
             _chartArea.AxisY.Title = "";
 
 
