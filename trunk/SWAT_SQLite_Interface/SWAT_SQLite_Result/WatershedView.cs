@@ -23,20 +23,26 @@ namespace SWAT_SQLite_Result
 
         private ArcSWAT.Project _project = null;
         private ArcSWAT.ScenarioResult _scenario = null;
-        private ArcSWAT.SWATUnitType _type = ArcSWAT.SWATUnitType.UNKNOWN;
  
         public void setProjectScenario(ArcSWAT.Project project, ArcSWAT.ScenarioResult scenario)
         {
             _project = project;
             _scenario = scenario;
-            _type = ArcSWAT.SWATUnitType.WSHD;
             _date = new DateTime(scenario.StartYear, 1, 1);
+
+            //year control
+            yearCtrl1.Scenario = scenario;
+            yearCtrl1.onYearChanged += (s, e) => { updateTableAndChart(); };
+            yearCtrl1.onYearDisplayTypeChanged += (s, e) => { updateTableAndChart(); };
 
             //columns
             resultColumnTree1.onResultTypeAndColumnChanged += (resultType, col) =>
             {
                 _resultType = resultType;
                 _col = col;
+
+                //only for daily
+                this.yearCtrl1.Visible = _scenario.Structure.getInterval(_resultType) == ArcSWAT.SWATResultIntervalType.DAILY;
 
                 updateTableAndChart();
             };
@@ -63,14 +69,17 @@ namespace SWAT_SQLite_Result
             ArcSWAT.SWATUnitResult result = this._scenario.Watershed.Results[_resultType];
             if (!result.Columns.Contains(_col)) return;
 
-            DataTable dt = result.getDataTable(_col);
+            int year = -1;
+            if (result.Interval == ArcSWAT.SWATResultIntervalType.DAILY && yearCtrl1.DisplayByYear)
+                year = yearCtrl1.Year;
+            DataTable dt = result.getDataTable(_col, year);
 
             this.tableView1.SWATResultTable = dt;            
 
             StringCollection cols = new StringCollection() { _col };
             this.outputDisplayChart1.DrawGraph(dt.Rows, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, result.Interval);
 
-            //this.lblStatistics.Text = "Statistics :" + result.getStatistics(_col,year).ToString();           
+            this.lblStatistics.Text = "Statistics :" + result.getStatistics(_col,year).ToString();           
         }
     }
 }

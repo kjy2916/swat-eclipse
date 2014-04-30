@@ -10,10 +10,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
 {
     /// <summary>
     /// One type result of a SWAT Unit
-    /// todo 
-    /// 1. add statistics information
-    /// 2. add year control for daily result to speed up
-    /// 3. add results from table ave_annual_basin. Maybe add to other view.
     /// </summary>
     public class SWATUnitResult
     {
@@ -22,8 +18,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private SWATUnit _unit = null;
         private string _tableName = null;
         private SWATResultIntervalType _interval = SWATResultIntervalType.UNKNOWN;
-        private Dictionary<string, DataTable> _results = new Dictionary<string, DataTable>();
-        private Dictionary<string, Statistics> _statistics = new Dictionary<string, Statistics>();
+        private Dictionary<string, SWATUnitColumnYearResult> _results = new Dictionary<string, SWATUnitColumnYearResult>();
+        
         private StringCollection _columns = null;
 
         public SWATUnitResult(string tableName, SWATUnit parentUnit)
@@ -32,6 +28,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _unit = parentUnit;
         }
 
+        /// <summary>
+        /// read result for given column and date
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public double getData(string col, DateTime date)
         {
             DataTable dt = getDataTable(col,date.Year);
@@ -45,68 +47,25 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return item.getColumnValue_Double(col);
         }
 
-        private string getIndexString(string col, int year)
+
+        public DataTable getDataTable_Compared(string col,int year, SWATModelType modelType)
         {
-            string combineCol = col;
-            if (year >= _unit.Scenario.StartYear && year <= _unit.Scenario.EndYear)
-                combineCol += "_" + year.ToString();
-            return combineCol;
-        }
-
-        public DataTable getDataTable(string col,int year)
-        {
-            col = col.Trim();
-
-            //check the column name
-            if (!Columns.Contains(col)) return new DataTable();
-
-            //only use year parameter for daily
-            if (Interval != SWATResultIntervalType.DAILY) year = -1;
-
-            //see if the result is already there
-            string combineCol = getIndexString(col, year);
-            if (_results.ContainsKey(combineCol)) return _results[combineCol];
-
-            //get return columns based on interval
-            string cols = ScenarioResultStructure.getDateColumns(Interval);
-            if (cols.Length > 0) cols += ",";
-            cols += col;
-
-            //get year condition
-            string yearCondition = "";
-            if (year >= _unit.Scenario.StartYear && year <= _unit.Scenario.EndYear)
-                yearCondition = string.Format("{0}={1}", ScenarioResultStructure.COLUMN_NAME_YEAR,year);
-
-            //get id condition
-            string idCondition = "";
-            if (_unit.Type != SWATUnitType.WSHD)
-                idCondition = string.Format("{0}={1}", _unit.Type.ToString(), _unit.ID);
-
-            string condition = idCondition;
-            if (condition.Length > 0 && yearCondition.Length > 0)
-                condition += " and " + yearCondition;
-
-            if (condition.Length > 0) condition = " where " + condition;
-
-            DataTable dt = _unit.Scenario.GetDataTable(
-                string.Format("select {2} from {0} {1}",
-                Name, condition, cols));
-
-            _results.Add(combineCol, dt);
-
-            //add datetime column and calculate the date
-            if (dt.Rows.Count > 0 && Interval != SWATResultIntervalType.UNKNOWN)
-            {
-                dt.Columns.Add(COLUMN_NAME_DATE, typeof(DateTime));
-                foreach (DataRow r in dt.Rows)
-                    calculateDate(r);
-            }
-
-            return dt; 
+            return getResult(col, year).getCompareTable(modelType);
         }
 
         /// <summary>
-        /// Read data for given column
+        /// read result for given column and year
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public DataTable getDataTable(string col,int year)
+        {
+            return getResult(col, year).Table;
+        }
+
+        /// <summary>
+        /// Read result for given column
         /// </summary>
         /// <param name="col"></param>
         /// <returns></returns>
@@ -115,31 +74,17 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return getDataTable(col, -1);          
         }
 
-        public Statistics getStatistics(string col,int year)
+        public Statistics getStatistics(string col, int year)
         {
-            col = col.Trim();
-            if (!_statistics.ContainsKey(col))
-            {
-                DataTable dt = getDataTable(col,year);
-                _statistics.Add(col, new Statistics(dt, col));
-            }
-
-            return _statistics[col];
+            return getResult(col, year).Statistics;
         }
 
-        private void calculateDate(DataRow r)
+        public SWATUnitColumnYearResult getResult(string col, int year)
         {
-            DateTime d = DateTime.Now;
-            RowItem item = new RowItem(r);
-            int year = item.getColumnValue_Int(ScenarioResultStructure.COLUMN_NAME_YEAR);
-            int month = 1;
-            int day = 1;
-            if (Interval == SWATResultIntervalType.MONTHLY || Interval == SWATResultIntervalType.DAILY)
-                month = item.getColumnValue_Int(ScenarioResultStructure.COLUMN_NAME_MONTH);
-            if (Interval == SWATResultIntervalType.DAILY)
-                day = item.getColumnValue_Int(ScenarioResultStructure.COLUMN_NAME_DAY);
-
-            r[COLUMN_NAME_DATE] = new DateTime(year,month,day);
+            //see if the result is already there
+            string id = SWATUnitColumnYearResult.getUniqueResultID(col, year);
+            if (!_results.ContainsKey(id)) _results.Add(id, new SWATUnitColumnYearResult(col, year, this));
+            return _results[id];
         }
 
         /// <summary>

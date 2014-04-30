@@ -7,11 +7,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
 {
     public enum SWATUnitType
     {
-        UNKNOWN,
-        HRU,
-        SUB,
-        RCH,
-        RES,
-        WSHD
+        UNKNOWN = -1,
+        HRU = 1,
+        SUB = 2,
+        RCH = 3,
+        RES = 4,
+        WSHD = 5
     }
 }

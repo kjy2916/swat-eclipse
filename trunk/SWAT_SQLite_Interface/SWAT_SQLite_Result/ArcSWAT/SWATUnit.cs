@@ -52,6 +52,13 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         public Dictionary<string, SWATUnitResult> Results { get { return _results; } }
 
+        public SWATUnitResult getResult(string tableName)
+        {
+            tableName = tableName.ToLower();
+            if (Results.ContainsKey(tableName)) return Results[tableName];
+            return null;
+        }
+
         private void loadResults()
         {            
             foreach (string t in ResultTableNames)

@@ -10,10 +10,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
     public class ScenarioResult
     {      
 
-        public ScenarioResult(string databasePath,Scenario scen)
+        public ScenarioResult(string databasePath,Scenario scen, SWATModelType modelType)
         {
             _databasePath = databasePath;
             _parentScenario = scen;
+            _modelType = modelType;
             checkStatus();
             if (Status == ScenarioResultStatus.NORMAL)
                  loadModelStructure();
@@ -52,7 +53,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private SWATResultIntervalType _interval = SWATResultIntervalType.UNKNOWN;
         private ScenarioResultStatus _status = ScenarioResultStatus.UNKNOWN;
         private DateTime _generationTime = DateTime.Now;
-
+        private SWATModelType _modelType = SWATModelType.UNKNOWN;
 
 
         public ScenarioResultStatus Status { get { return _status; } }
@@ -61,6 +62,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public int EndYear { get { return _endYear; } }
         public SWATResultIntervalType Interval { get { return _interval; } }
         public DateTime SimulationTime { get { return _generationTime; } }
+        public SWATModelType ModelType { get { return _modelType; } }
 
         private void checkStatus()
         {
@@ -93,14 +95,25 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private Dictionary<int, SWATUnit> _hrus = new Dictionary<int, SWATUnit>();
         private Dictionary<int, SWATUnit> _subbasins = new Dictionary<int, SWATUnit>();
         private Dictionary<int, SWATUnit> _reaches = new Dictionary<int, SWATUnit>();
-        private Dictionary<int, SWATUnit> _reservoirs = new Dictionary<int, SWATUnit>();        
+        private Dictionary<int, SWATUnit> _reservoirs = new Dictionary<int, SWATUnit>();
+        public Dictionary<SWATUnitType, Dictionary<int, SWATUnit>> _units = new Dictionary<SWATUnitType, Dictionary<int, SWATUnit>>();
         private Watershed _watershed = null;
 
         public Dictionary<int, SWATUnit> HRUs { get { return _hrus; } }
         public Dictionary<int, SWATUnit> Subbasins { get { return _subbasins; } }
         public Dictionary<int, SWATUnit> Reaches { get { return _reaches; } }
         public Dictionary<int, SWATUnit> Reservoirs { get { return _reservoirs; } }
+        
         public Watershed Watershed { get { return _watershed; } }
+
+        public SWATUnit getSWATUnit(SWATUnitType type, int id)
+        {
+            if (type == SWATUnitType.WSHD) return _watershed;
+
+            Dictionary<int, SWATUnit> units = _units[type];
+            if (units.ContainsKey(id)) return units[id];
+            return null;
+        }
 
         private void loadModelStructure()
         {
@@ -112,6 +125,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _reaches = readUnitBasicInfo(SWATUnitType.RCH);
             _reservoirs = readUnitBasicInfo(SWATUnitType.RES);
             _watershed = new Watershed(this);
+
+            _units.Clear();
+            _units.Add(SWATUnitType.HRU, _hrus);
+            _units.Add(SWATUnitType.SUB, _subbasins);
+            _units.Add(SWATUnitType.RCH, _reaches);
+            _units.Add(SWATUnitType.RES, _reservoirs);
         }
 
         private Dictionary<int, SWATUnit> readUnitBasicInfo(SWATUnitType type)
@@ -176,5 +195,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
             return sb.ToString();
         }
+
     }
 }

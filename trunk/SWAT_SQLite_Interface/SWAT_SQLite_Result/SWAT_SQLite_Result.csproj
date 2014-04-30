@@ -79,6 +79,7 @@
     <Compile Include="ArcSWAT\SWATModelType.cs" />
     <Compile Include="ArcSWAT\SWATResultIntervalType.cs" />
     <Compile Include="ArcSWAT\SWATUnit.cs" />
+    <Compile Include="ArcSWAT\SWATUnitColumnYearResult.cs" />
     <Compile Include="ArcSWAT\SWATUnitResult.cs" />
     <Compile Include="ArcSWAT\SWATUnitType.cs" />
     <Compile Include="ArcSWAT\Watershed.cs" />
@@ -224,6 +225,7 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

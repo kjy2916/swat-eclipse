@@ -42,6 +42,14 @@ namespace SWAT_SQLite_Result
                     splitContainer1.Panel2.Controls.Clear();
                     splitContainer1.Panel2.Controls.Add(view);
                 };
+
+            if (Properties.Settings.Default.Projects == null)
+                Properties.Settings.Default.Projects = new System.Collections.Specialized.StringCollection();
+ 
+            foreach (string p in Properties.Settings.Default.Projects)
+                cmbProjects.Items.Add(p);
+
+            cmbProjects.SelectedIndexChanged += (ss, ee) => { openProject(cmbProjects.SelectedItem.ToString()); };
         }
 
         private UserControl switchView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
@@ -110,26 +118,36 @@ namespace SWAT_SQLite_Result
             return _views[key];
         }
 
+        private void openProject(string prjPath)
+        {
+            if (_prj != null && prjPath.Equals(_prj.Folder)) return;
+
+            _prj = new ArcSWAT.Project(prjPath);
+            if (!_prj.IsValid)
+            {
+                _prj = null;
+                System.Windows.Forms.MessageBox.Show(folderBrowserDialog1.SelectedPath + " is not a valid ArcSWAT project folder.");
+                return;
+            }
+
+            projectTree1.Project = _prj;
+
+            //save current path
+            Properties.Settings.Default.PreviousProjectFolder = prjPath;
+            if (!Properties.Settings.Default.Projects.Contains(prjPath))
+            {
+                Properties.Settings.Default.Projects.Add(prjPath);
+                cmbProjects.Items.Add(prjPath);
+                cmbProjects.SelectedIndex = cmbProjects.Items.Count - 1;
+            }
+
+            Properties.Settings.Default.Save();
+        }
         
         private void bOpen_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.SelectedPath = Properties.Settings.Default.PreviousProjectFolder;
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-            {
-                _prj = new ArcSWAT.Project(folderBrowserDialog1.SelectedPath);
-                if (!_prj.IsValid)
-                {
-                    _prj = null;
-                    System.Windows.Forms.MessageBox.Show(folderBrowserDialog1.SelectedPath + " is not a valid ArcSWAT project folder.");
-                    return;
-                }
-
-                projectTree1.Project = _prj;
-
-                //save current path
-                Properties.Settings.Default.PreviousProjectFolder = folderBrowserDialog1.SelectedPath;
-                Properties.Settings.Default.Save();
-            }
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) openProject(folderBrowserDialog1.SelectedPath);
         }
     }
 }
