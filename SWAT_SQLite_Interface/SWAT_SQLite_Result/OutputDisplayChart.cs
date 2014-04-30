@@ -36,12 +36,12 @@ namespace SWAT_SQLite_Result
 
         public event EventHandler onExport;
 
-        private void setChartArea(DataRowCollection rows, ArcSWAT.SWATResultIntervalType interval)
+        private void setChartArea(DataTable dt, ArcSWAT.SWATResultIntervalType interval)
         {
             if (interval == ArcSWAT.SWATResultIntervalType.MONTHLY) //monthly
             {
                 _chartArea.AxisX.Title = "Time (monthly)";
-                if (rows.Count == 12) //for one year
+                if (dt.Rows.Count == 12) //for one year
                 {
                     _chartArea.AxisX.LabelStyle.Format = "yyyy/MM";
                     _chartArea.AxisX.LabelStyle.Angle = 0;
@@ -64,7 +64,7 @@ namespace SWAT_SQLite_Result
                 _chartArea.AxisX.LabelStyle.Format = "yyyy-MM-dd";
                 //_chartArea.AxisX.LabelStyle.Angle = -45;
 
-                if (rows.Count == 365 || rows.Count == 366) //for one year
+                if (dt.Rows.Count == 365 || dt.Rows.Count == 366) //for one year
                 {
                     _chartArea.AxisX.MajorTickMark.Interval = 1;
                     _chartArea.AxisX.MajorTickMark.IntervalType = DateTimeIntervalType.Months;
@@ -77,7 +77,17 @@ namespace SWAT_SQLite_Result
             }
         }
 
-        public void DrawGraph(DataRowCollection rows, string xColName, StringCollection yColNames, ArcSWAT.SWATResultIntervalType interval)
+        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult
+        {
+            set
+            {
+                DrawGraph(value.Table, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
+                    value.Columns, value.Interval);
+            }
+
+        }
+
+        public void DrawGraph(DataTable dt, string xColName, StringCollection yColNames, ArcSWAT.SWATResultIntervalType interval)
         {
             if (_chartArea == null)
             {
@@ -109,11 +119,12 @@ namespace SWAT_SQLite_Result
                 line.Points.Clear();
             _chartArea.AxisY.Title = "";
 
-            if (rows == null || rows.Count == 0) return;
+
+            if (dt.Rows == null || dt.Rows.Count == 0) return;
             if(yColNames == null || yColNames.Count == 0) return;
             if (interval == ArcSWAT.SWATResultIntervalType.UNKNOWN) return;
 
-            this.DataSource = rows;
+            this.DataSource = dt.Rows;
             if(yColNames.Count == 1)
                 _chartArea.AxisY.Title = yColNames[0];
 
@@ -139,7 +150,7 @@ namespace SWAT_SQLite_Result
                 }
                 index++;
             }
-            setChartArea(rows, interval);
+            setChartArea(dt, interval);
 
             this.DataBind();
         }

@@ -155,23 +155,20 @@ namespace SWAT_SQLite_Result
             //if (dt.Rows.Count == 0 && _type == ArcSWAT.SWATUnitType.HRU)
             //    MessageBox.Show("No results for HRU " + _unit.ID.ToString() + ". For more results, please modify file.cio.");
 
-            //this.tableView1.SWATResultTable = dt;            
+            //this.tableView1.SWATResultTable = dt;
 
             //StringCollection cols = new StringCollection() { _col };
             //this.outputDisplayChart1.DrawGraph(dt.Rows, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, result.Interval);
 
-            //this.lblStatistics.Text = "Statistics :" + result.getStatistics(_col,year).ToString(); 
-          
-            //DataTable combineTable = combineComparedResults(dt,_scenario.ModelType,
-            //    result.getDataTable_Compared(_col,year, ArcSWAT.SWATModelType.CanSWAT), ArcSWAT.SWATModelType.CanSWAT, _col);
+            //this.lblStatistics.Text = "Statistics :" + result.getStatistics(_col, year).ToString();
 
-            StringCollection cols = new StringCollection() { _col + "_" + ArcSWAT.SWATModelType.SWAT,_col + "_" + ArcSWAT.SWATModelType.CanSWAT };
+            //return;
+
             try
             {
-                DataTable combineTable = result.getResult(_col, year).getComparedCombineTable(ArcSWAT.SWATModelType.CanSWAT);
-                this.tableView1.setResultTable(combineTable, cols);
-
-                this.outputDisplayChart1.DrawGraph(combineTable.Rows, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, result.Interval);
+                ArcSWAT.SWATUnitColumnYearCompareResult compare = result.getResult(_col, year).Compare(ArcSWAT.SWATModelType.CanSWAT);
+                this.tableView1.CompareResult = compare;
+                this.outputDisplayChart1.CompareResult = compare;
 
             }
             catch (System.Exception e)

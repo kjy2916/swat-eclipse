@@ -77,7 +77,7 @@ namespace SWAT_SQLite_Result
             this.tableView1.SWATResultTable = dt;            
 
             StringCollection cols = new StringCollection() { _col };
-            this.outputDisplayChart1.DrawGraph(dt.Rows, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, result.Interval);
+            this.outputDisplayChart1.DrawGraph(dt, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, result.Interval);
 
             this.lblStatistics.Text = "Statistics :" + result.getStatistics(_col,year).ToString();           
         }

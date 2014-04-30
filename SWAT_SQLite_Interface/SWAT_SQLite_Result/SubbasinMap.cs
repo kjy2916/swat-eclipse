@@ -38,6 +38,7 @@ namespace SWAT_SQLite_Result
 
             this.MapFrame.ProjectionModeDefine = DotSpatial.Controls.ActionMode.Always;
             this.MapFrame.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Never;
+            this.Resized += (ss, ee) => { this.ZoomToMaxExtent(); };
 
             this.Layers.Clear();
 
