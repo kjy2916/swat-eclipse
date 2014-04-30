@@ -82,7 +82,7 @@ namespace SWAT_SQLite_Result
             set
             {
                 DrawGraph(value.Table, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
-                    value.Columns, value.Interval);
+                    value.ChartColumns, value.Interval);
             }
 
         }

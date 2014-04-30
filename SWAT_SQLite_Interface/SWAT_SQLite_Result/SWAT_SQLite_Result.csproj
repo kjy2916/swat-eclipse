@@ -74,6 +74,7 @@
     <Compile Include="ArcSWAT\ScenarioResultStatus.cs" />
     <Compile Include="ArcSWAT\ScenarioResultStructure.cs" />
     <Compile Include="ArcSWAT\Spatial.cs" />
+    <Compile Include="ArcSWAT\StatisticCompare.cs" />
     <Compile Include="ArcSWAT\Statistics.cs" />
     <Compile Include="ArcSWAT\Subbasin.cs" />
     <Compile Include="ArcSWAT\SWATModelType.cs" />

@@ -65,7 +65,7 @@ namespace SWAT_SQLite_Result
         /// <summary>
         /// compare result
         /// </summary>
-        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult{set{setDataColumn(value.Table, value.Columns);}}
+        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult{set{setDataColumn(value.Table, value.TableColumns);}}
 
         /// <summary>
         /// regular result
