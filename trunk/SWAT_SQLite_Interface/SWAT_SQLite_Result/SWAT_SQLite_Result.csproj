@@ -79,6 +79,7 @@
     <Compile Include="ArcSWAT\SWATModelType.cs" />
     <Compile Include="ArcSWAT\SWATResultIntervalType.cs" />
     <Compile Include="ArcSWAT\SWATUnit.cs" />
+    <Compile Include="ArcSWAT\SWATUnitColumnYearCompareResult.cs" />
     <Compile Include="ArcSWAT\SWATUnitColumnYearResult.cs" />
     <Compile Include="ArcSWAT\SWATUnitResult.cs" />
     <Compile Include="ArcSWAT\SWATUnitType.cs" />
@@ -88,6 +89,12 @@
     </Compile>
     <Compile Include="AverageAnnualView.Designer.cs">
       <DependentUpon>AverageAnnualView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompareCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CompareCtrl.Designer.cs">
+      <DependentUpon>CompareCtrl.cs</DependentUpon>
     </Compile>
     <Compile Include="ResultInformationView.cs">
       <SubType>UserControl</SubType>
@@ -177,6 +184,9 @@
     </Compile>
     <EmbeddedResource Include="AverageAnnualView.resx">
       <DependentUpon>AverageAnnualView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompareCtrl.resx">
+      <DependentUpon>CompareCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ResultInformationView.resx">
       <DependentUpon>ResultInformationView.cs</DependentUpon>

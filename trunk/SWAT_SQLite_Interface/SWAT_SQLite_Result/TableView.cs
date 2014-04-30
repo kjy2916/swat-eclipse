@@ -30,36 +30,42 @@ namespace SWAT_SQLite_Result
                 };
         }
 
-        public void setResultTable(DataTable dt, StringCollection cols)
+        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult
         {
-            DataSource = null;
-            Columns.Clear();
-
-            if (dt.Columns.Contains(ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE))
+            set
             {
-                ColumnCount = cols.Count + 1;
+                DataSource = null;
+                Columns.Clear();
 
-                Columns[0].Name = "DATE";
-                Columns[0].DataPropertyName = ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE;
-                Columns[0].DefaultCellStyle.Format = "yyyy-MM-dd"; //format the date
-
-                for(int i=0;i<cols.Count;i++)
+                DataTable dt = value.Table;
+                StringCollection cols = value.Columns;
+                if (dt.Columns.Contains(ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE))
                 {
-                    Columns[1 + i].Name = cols[i];
-                    Columns[1 + i].DataPropertyName = cols[i];
-                    Columns[1 + i].DefaultCellStyle.Format = "F2"; //format the value
+                    ColumnCount = cols.Count + 1;
+
+                    Columns[0].Name = "DATE";
+                    Columns[0].DataPropertyName = ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE;
+                    Columns[0].DefaultCellStyle.Format = "yyyy-MM-dd"; //format the date
+
+                    for(int i=0;i<cols.Count;i++)
+                    {
+                        Columns[1 + i].Name = cols[i];
+                        Columns[1 + i].DataPropertyName = cols[i];
+                        Columns[1 + i].DefaultCellStyle.Format = "F2"; //format the value
+                    }
+
+                    AutoGenerateColumns = false; //don't generate other columns automatically                 
                 }
+                else
+                {
+                    //if (Columns.Count >= 2)
+                    //    Columns[1].DefaultCellStyle.Format = "F2"; //format the value
+                }
+                DataSource = dt;
 
-                AutoGenerateColumns = false; //don't generate other columns automatically                 
+                AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells); //resize the column width
             }
-            else
-            {
-                //if (Columns.Count >= 2)
-                //    Columns[1].DefaultCellStyle.Format = "F2"; //format the value
-            }
-            DataSource = dt;
 
-            AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells); //resize the column width
         }
 
         public DataTable SWATResultTable
