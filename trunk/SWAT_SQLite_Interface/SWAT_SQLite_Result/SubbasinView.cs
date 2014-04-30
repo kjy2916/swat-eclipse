@@ -175,6 +175,7 @@ namespace SWAT_SQLite_Result
                         result.getResult(_col, year).Compare(_compareResult);
                     this.tableView1.CompareResult = compare;
                     this.outputDisplayChart1.CompareResult = compare;
+                    this.lblStatistics.Text = "Statistics :" + compare.Statistics.ToString();
                 }
                 catch (System.Exception e)
                 {

@@ -7,13 +7,19 @@ using System.Data;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
+    /// <summary>
+    /// Compare result between two different model in same scenario or same model in different scenario
+    /// todo: calculate the difference
+    /// </summary>
     public class SWATUnitColumnYearCompareResult
     {
         private SWATUnitColumnYearResult _result1 = null;
         private SWATUnitColumnYearResult _result2 = null;
         private DataTable _combineCompareTable = null;
-        private StringCollection _dataColumns = new StringCollection();
+        private StringCollection _tableColumns = new StringCollection();
+        private StringCollection _chartColumns = new StringCollection();
         private SWATResultIntervalType _interval = SWATResultIntervalType.UNKNOWN;
+        private StatisticCompare _statistic = null;
 
         public SWATUnitColumnYearCompareResult(SWATUnitColumnYearResult result1, SWATUnitColumnYearResult result2)
         {
@@ -42,13 +48,21 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _result2 = result2;
 
             _interval = _result1.UnitResult.Interval;
-            _dataColumns.Add(_result1.ColumnCompare);
-            _dataColumns.Add(_result2.ColumnCompare);
+            _chartColumns.Add(_result1.ColumnCompare);
+            _chartColumns.Add(_result2.ColumnCompare);
+
+            _tableColumns.Add(_result1.ColumnCompare);
+            _tableColumns.Add(_result2.ColumnCompare);
+            _tableColumns.Add("ABSOLUTE");
+            _tableColumns.Add("RELATIVE");
+
+            _statistic = new StatisticCompare(this);
         }
 
         public SWATResultIntervalType Interval { get { return _interval; } }
-        public StringCollection Columns { get { return _dataColumns; } }
-
+        public StringCollection TableColumns { get { return _tableColumns; } }
+        public StringCollection ChartColumns { get { return _chartColumns; } }
+        public StatisticCompare Statistics { get { return _statistic; } }
         public DataTable Table
         {
             get
@@ -77,6 +91,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
                         ArcSWAT.RowItem item = new ArcSWAT.RowItem(_result2.Table.Rows[i]);
                         dt.Rows[i][newColIndex] = item.getColumnValue_Double(_result2.Column);
                     }
+
+                    //add two column for absolute change and relative change
+                    dt.Columns.Add("ABSOLUTE", typeof(double)).Expression = string.Format("{0} - {1}",_result1.ColumnCompare,_result2.ColumnCompare);
+                    dt.Columns.Add("RELATIVE", typeof(double)).Expression = string.Format("ABSOLUTE/{0}", _result1.ColumnCompare);
+
                     _combineCompareTable = dt;
                 }
                 return _combineCompareTable;
