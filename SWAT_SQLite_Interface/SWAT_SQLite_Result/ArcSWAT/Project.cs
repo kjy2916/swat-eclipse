@@ -14,8 +14,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
     {
         private static string DEFAULT_WATERSHED_FOLDER = @"\Watershed";
         private static string DEFAULT_SCENARIOS_FOLDER = @"\Scenarios";
-        private static string DEFAULT_ARCSWAT_DATABASE_2009 = @"\swat2009.mdb";
-        private static string DEFAULT_ARCSWAT_DATABASE_2012 = @"\swat2012.mdb";
 
         private Dictionary<string, Scenario> _scenarios = null;
         private Spatial _spatial = null;
@@ -29,7 +27,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _spatial = new Spatial(Folder + DEFAULT_WATERSHED_FOLDER);
             if (!_spatial.IsValid) { _isValid = false; _error = _spatial.Error; return; }
 
-            _scenarios = Scenario.FromProjectFolder(Folder + DEFAULT_SCENARIOS_FOLDER);
+            _scenarios = Scenario.FromProjectFolder(Folder + DEFAULT_SCENARIOS_FOLDER,this);
             if (_scenarios.Count == 0) { _isValid = false; _error = "No Scenarios found!"; return; }
         }
 
@@ -55,6 +53,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public Dictionary<string, Scenario> Scenarios
         {
             get { return _scenarios; }
+        }
+
+        public Scenario getScenario(string scenarioName)
+        {
+            if (_scenarios.ContainsKey(scenarioName)) return _scenarios[scenarioName];
+            return null;
         }
 
         public Spatial Spatial { get { return _spatial; } }

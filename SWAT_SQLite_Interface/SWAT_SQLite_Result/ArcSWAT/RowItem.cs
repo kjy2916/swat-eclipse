@@ -39,6 +39,15 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return -1;
         }
 
+        public double getColumnValue_Double(int columnIndex)
+        {
+            string v = getColumnValue_String(columnIndex);
+
+            double v_double = -99.0;
+            if (double.TryParse(v, out v_double)) return v_double;
+            return -99.0;
+        }
+
         private bool isColumnValueInvalid(string columnName)
         {
             if (_row == null) return false;

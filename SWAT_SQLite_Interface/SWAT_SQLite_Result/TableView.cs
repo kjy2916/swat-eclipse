@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -27,6 +28,38 @@ namespace SWAT_SQLite_Result
                     bool isDate = DateTime.TryParse(this.Rows[e.RowIndex].Cells[0].Value.ToString(), out date);
                     if(isDate)  onDateChanged(date);
                 };
+        }
+
+        public void setResultTable(DataTable dt, StringCollection cols)
+        {
+            DataSource = null;
+            Columns.Clear();
+
+            if (dt.Columns.Contains(ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE))
+            {
+                ColumnCount = cols.Count + 1;
+
+                Columns[0].Name = "DATE";
+                Columns[0].DataPropertyName = ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE;
+                Columns[0].DefaultCellStyle.Format = "yyyy-MM-dd"; //format the date
+
+                for(int i=0;i<cols.Count;i++)
+                {
+                    Columns[1 + i].Name = cols[i];
+                    Columns[1 + i].DataPropertyName = cols[i];
+                    Columns[1 + i].DefaultCellStyle.Format = "F2"; //format the value
+                }
+
+                AutoGenerateColumns = false; //don't generate other columns automatically                 
+            }
+            else
+            {
+                //if (Columns.Count >= 2)
+                //    Columns[1].DefaultCellStyle.Format = "F2"; //format the value
+            }
+            DataSource = dt;
+
+            AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells); //resize the column width
         }
 
         public DataTable SWATResultTable

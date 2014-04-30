@@ -34,5 +34,16 @@ namespace SWAT_SQLite_Result.Properties {
                 this["PreviousProjectFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection Projects {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Projects"]));
+            }
+            set {
+                this["Projects"] = value;
+            }
+        }
     }
 }

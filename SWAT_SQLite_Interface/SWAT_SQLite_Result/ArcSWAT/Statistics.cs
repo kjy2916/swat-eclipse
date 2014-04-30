@@ -6,6 +6,10 @@ using System.Data;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
+    /// <summary>
+    /// Statistic information
+    /// TODO: Add more statistic in the future.
+    /// </summary>
     public class Statistics
     {
         private double _sum = ScenarioResultStructure.EMPTY_VALUE;

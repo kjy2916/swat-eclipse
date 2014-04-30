@@ -150,17 +150,35 @@ namespace SWAT_SQLite_Result
             int year = -1;
             if (result.Interval == ArcSWAT.SWATResultIntervalType.DAILY && yearCtrl1.DisplayByYear)
                 year = yearCtrl1.Year;
-            DataTable dt = result.getDataTable(_col, year);
+            //DataTable dt = result.getDataTable(_col, year);
 
-            if (dt.Rows.Count == 0 && _type == ArcSWAT.SWATUnitType.HRU)
-                MessageBox.Show("No results for HRU " + _unit.ID.ToString() + ". For more results, please modify file.cio.");
+            //if (dt.Rows.Count == 0 && _type == ArcSWAT.SWATUnitType.HRU)
+            //    MessageBox.Show("No results for HRU " + _unit.ID.ToString() + ". For more results, please modify file.cio.");
 
-            this.tableView1.SWATResultTable = dt;            
+            //this.tableView1.SWATResultTable = dt;            
 
-            StringCollection cols = new StringCollection() { _col };
-            this.outputDisplayChart1.DrawGraph(dt.Rows, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, result.Interval);
+            //StringCollection cols = new StringCollection() { _col };
+            //this.outputDisplayChart1.DrawGraph(dt.Rows, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, result.Interval);
 
-            this.lblStatistics.Text = "Statistics :" + result.getStatistics(_col,year).ToString();           
+            //this.lblStatistics.Text = "Statistics :" + result.getStatistics(_col,year).ToString(); 
+          
+            //DataTable combineTable = combineComparedResults(dt,_scenario.ModelType,
+            //    result.getDataTable_Compared(_col,year, ArcSWAT.SWATModelType.CanSWAT), ArcSWAT.SWATModelType.CanSWAT, _col);
+
+            StringCollection cols = new StringCollection() { _col + "_" + ArcSWAT.SWATModelType.SWAT,_col + "_" + ArcSWAT.SWATModelType.CanSWAT };
+            try
+            {
+                DataTable combineTable = result.getResult(_col, year).getComparedCombineTable(ArcSWAT.SWATModelType.CanSWAT);
+                this.tableView1.setResultTable(combineTable, cols);
+
+                this.outputDisplayChart1.DrawGraph(combineTable.Rows, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE, cols, result.Interval);
+
+            }
+            catch (System.Exception e)
+            {
+                SWAT_SQLite.showInformationWindow(e.ToString());
+            }
+            
         }
     }
 }
