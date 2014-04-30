@@ -30,74 +30,51 @@ namespace SWAT_SQLite_Result
                 };
         }
 
-        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult
+        private void setDataColumn(DataTable dt,StringCollection cols)
         {
-            set
+            DataSource = null;
+            Columns.Clear();
+
+            if (dt.Columns.Contains(ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE) &&
+                cols != null && cols.Count > 0)
             {
-                DataSource = null;
-                Columns.Clear();
+                ColumnCount = cols.Count + 1;
 
-                DataTable dt = value.Table;
-                StringCollection cols = value.Columns;
-                if (dt.Columns.Contains(ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE))
+                Columns[0].Name = "DATE";
+                Columns[0].DataPropertyName = ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE;
+                Columns[0].DefaultCellStyle.Format = "yyyy-MM-dd"; //format the date
+
+                for (int i = 0; i < cols.Count; i++)
                 {
-                    ColumnCount = cols.Count + 1;
-
-                    Columns[0].Name = "DATE";
-                    Columns[0].DataPropertyName = ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE;
-                    Columns[0].DefaultCellStyle.Format = "yyyy-MM-dd"; //format the date
-
-                    for(int i=0;i<cols.Count;i++)
-                    {
-                        Columns[1 + i].Name = cols[i];
-                        Columns[1 + i].DataPropertyName = cols[i];
-                        Columns[1 + i].DefaultCellStyle.Format = "F2"; //format the value
-                    }
-
-                    AutoGenerateColumns = false; //don't generate other columns automatically                 
+                    Columns[1 + i].Name = cols[i];
+                    Columns[1 + i].DataPropertyName = cols[i];
+                    Columns[1 + i].DefaultCellStyle.Format = "F2"; //format the value
                 }
-                else
-                {
-                    //if (Columns.Count >= 2)
-                    //    Columns[1].DefaultCellStyle.Format = "F2"; //format the value
-                }
-                DataSource = dt;
 
-                AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells); //resize the column width
+                AutoGenerateColumns = false; //don't generate other columns automatically  
             }
-
-        }
-
-        public DataTable SWATResultTable
-        {
-            set
-            {                
-                DataSource = null;
-
-                Columns.Clear();
-
-                if (value.Columns.Contains(ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE))
-                {
-                    ColumnCount = 2;
-                    Columns[0].Name = "DATE";
-                    Columns[0].DataPropertyName = ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE;
-                    Columns[0].DefaultCellStyle.Format = "yyyy-MM-dd"; //format the date
-
-                    string col = value.Columns[value.Columns.Count - 2].ColumnName;
-                    Columns[1].Name = col;
-                    Columns[1].DataPropertyName = col;
-                    //Columns[1].DefaultCellStyle.Format = "F2"; //format the value
-
-                    AutoGenerateColumns = false; //don't generate other columns automatically                 
-                }
-                DataSource = value;
-
+            else
+            {
                 if (Columns.Count >= 2)
                     Columns[1].DefaultCellStyle.Format = "F2"; //format the value
-
-                AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells); //resize the column width
-
             }
+            DataSource = dt;
+            AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells); //resize the column width
         }
+
+        /// <summary>
+        /// compare result
+        /// </summary>
+        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult{set{setDataColumn(value.Table, value.Columns);}}
+
+        /// <summary>
+        /// regular result
+        /// </summary>
+        public ArcSWAT.SWATUnitColumnYearResult Result {set{setDataColumn(value.Table, new StringCollection() { value.Column});}}
+
+        /// <summary>
+        /// normal datatable
+        /// </summary>
+        public DataTable DataTable { set { setDataColumn(value, null); } }
     }
 }

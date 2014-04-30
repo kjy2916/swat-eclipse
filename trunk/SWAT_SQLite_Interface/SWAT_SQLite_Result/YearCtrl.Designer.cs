@@ -71,9 +71,10 @@
             this.groupBox1.Controls.Add(this.rdbEachYear);
             this.groupBox1.Controls.Add(this.tbYear);
             this.groupBox1.Controls.Add(this.rdbAllYears);
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 66);
+            this.groupBox1.Size = new System.Drawing.Size(200, 73);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Year";
@@ -84,7 +85,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "YearCtrl";
-            this.Size = new System.Drawing.Size(196, 73);
+            this.Size = new System.Drawing.Size(200, 73);
             ((System.ComponentModel.ISupportInitialize)(this.tbYear)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
