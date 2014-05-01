@@ -8,7 +8,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 {
     public class SWATUnitColumnYearResult : ColumnYearData
     {
-        private string _colCompare = null;
+        
         private SWATUnitResult _result = null;
         private Dictionary<string, SWATUnitColumnYearCompareResult> _compares = new Dictionary<string, SWATUnitColumnYearCompareResult>();
 
@@ -19,15 +19,38 @@ namespace SWAT_SQLite_Result.ArcSWAT
         }
 
         public SWATUnitResult UnitResult { get { return _result; } }
-        public string ColumnCompare { get { return _colCompare; } }
 
-        #region Compare Table
+        #region Compare with Observed Data
+
+
+        private SWATUnitColumnYearCompareResult _compareWithObserved = null;
+
+        public SWATUnitColumnYearCompareResult CompareWithObserved
+        {
+            get
+            {
+                if (ObservedData == null) return null;
+                if (_compareWithObserved == null)
+                    _compareWithObserved = new SWATUnitColumnYearCompareResult(this);
+                return _compareWithObserved;
+            }
+        }
+
+        /// <summary>
+        /// Corresponding observed data
+        /// </summary>
+        public SWATUnitColumnYearObservationData ObservedData{get{return _result.Unit.Scenario.Scenario.Project.Observation.getObservedData(this);}}
+        
+        #endregion
+
+        #region Compare With Other Scenario or Model
 
         private SWATUnitColumnYearCompareResult Compare(Scenario scenario, SWATModelType modelType)
         {
             string tableID = string.Format("{0}_{1}", scenario.Name, modelType);
             if (!_compares.ContainsKey(tableID))
-                  _compares.Add(tableID,new SWATUnitColumnYearCompareResult(this, this.getCompareResult(scenario,modelType)));
+                  _compares.Add(tableID,
+                      new SWATUnitColumnYearCompareResult(this, this.getCompareResult(scenario,modelType)));
 
             return _compares[tableID];      
         }

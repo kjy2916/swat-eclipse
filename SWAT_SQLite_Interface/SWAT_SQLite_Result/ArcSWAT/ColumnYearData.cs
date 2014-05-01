@@ -20,7 +20,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
         protected string _id = null;
         protected DataTable _table = null;
         protected Statistics _stat = null;
+        protected string _colCompare = null;
 
+        public string ColumnCompare { get { return _colCompare; } }
         public string Column { get { return _col; } }
         public string ID { get { return _id; } }
         public int Year { get { return _year; } }
