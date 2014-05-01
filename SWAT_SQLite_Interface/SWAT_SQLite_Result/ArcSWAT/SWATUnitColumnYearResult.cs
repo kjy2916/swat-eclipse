@@ -6,43 +6,20 @@ using System.Data;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
-    public class SWATUnitColumnYearResult
+    public class SWATUnitColumnYearResult : ColumnYearData
     {
-        private string _col = null;
         private string _colCompare = null;
-        private int _year = -1;
-        private string _id = null;
         private SWATUnitResult _result = null;
-        private Statistics _stat = null;
-        private int _dateIndex = -1;
-        private int _colIndex = -1;
         private Dictionary<string, SWATUnitColumnYearCompareResult> _compares = new Dictionary<string, SWATUnitColumnYearCompareResult>();
 
-        public SWATUnitColumnYearResult(string col, int year, SWATUnitResult result)
+        public SWATUnitColumnYearResult(string col, int year, SWATUnitResult result) : base(col,year)
         {            
-            _col = col;
-            _year = year;
-            _id = getUniqueResultID(col, year);
             _result = result;
             _colCompare = string.Format("{0}_{1}", _col, _result.Unit.Scenario.ModelType);
         }
 
-        private DataTable _table = null;
-
-        public DataTable Table
-        {
-            get
-            {
-                read();
-                return _table;
-            }
-        }
         public SWATUnitResult UnitResult { get { return _result; } }
-        public string Column { get { return _col; } }
         public string ColumnCompare { get { return _colCompare; } }
-        public int Year { get { return _year; } }
-
-        public Statistics Statistics { get { if (_stat == null) _stat = new Statistics(Table, _col); return _stat; } }
 
         #region Compare Table
 
@@ -114,10 +91,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         #endregion
 
-
-        public string ID { get { return _id; } }
-
-        private void read()
+        protected override void read()
         {
             if (_table != null) return;
 
@@ -154,13 +128,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
             DataTable dt = _result.Unit.Scenario.GetDataTable(
                 string.Format("select {2} from {0} {1}",
                 _result.Name, condition, cols));
-            _colIndex = dt.Columns.IndexOf(_col);
 
             //add datetime column and calculate the date
             if (dt.Rows.Count > 0 && _result.Interval != SWATResultIntervalType.UNKNOWN)
             {
                 dt.Columns.Add(SWATUnitResult.COLUMN_NAME_DATE, typeof(DateTime));
-                _dateIndex = dt.Columns.Count - 1;
                 foreach (DataRow r in dt.Rows)
                     calculateDate(r);
             }
@@ -181,13 +153,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 day = item.getColumnValue_Int(ScenarioResultStructure.COLUMN_NAME_DAY);
 
             r[SWATUnitResult.COLUMN_NAME_DATE] = new DateTime(year, month, day);
-        }
-
-        public static string getUniqueResultID(string col, int year)
-        {
-            string combineCol = col.Trim();
-            if (year > 0) combineCol += "_" + year.ToString();
-            return combineCol;
         }
     }
 }
