@@ -47,12 +47,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return item.getColumnValue_Double(col);
         }
 
-
-        public DataTable getDataTable_Compared(string col,int year, SWATModelType modelType)
-        {
-            return getResult(col, year).getCompareTable(modelType);
-        }
-
         /// <summary>
         /// read result for given column and year
         /// </summary>
