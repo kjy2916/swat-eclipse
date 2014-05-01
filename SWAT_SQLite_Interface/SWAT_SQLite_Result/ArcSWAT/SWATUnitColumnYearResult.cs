@@ -17,7 +17,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private int _dateIndex = -1;
         private int _colIndex = -1;
         private Dictionary<string, SWATUnitColumnYearCompareResult> _compares = new Dictionary<string, SWATUnitColumnYearCompareResult>();
-        private Dictionary<string, DataTable> _compareCombineTable = new Dictionary<string, DataTable>();
 
         public SWATUnitColumnYearResult(string col, int year, SWATUnitResult result)
         {            
@@ -80,86 +79,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return Compare(_result.Unit.Scenario.Scenario, modelType);
         }
 
-        public DataTable getComparedCombineTable(string scenarioName)
-        {
-            if (_result.Unit.Scenario.Scenario.Name.Equals(scenarioName)) throw new Exception("Scenario " + scenarioName + " is same with current scenario.");
-
-            Scenario scenario = _result.Unit.Scenario.Scenario.Project.getScenario(scenarioName);
-            if (scenario == null) throw new Exception("Can't find scenario " + scenarioName + " in current project.");
-
-            return getComparedCombineTable(scenario, _result.Unit.Scenario.ModelType);
-        }
-
-        public DataTable getComparedCombineTable(SWATModelType modelType)
-        {
-            if (modelType == SWATModelType.UNKNOWN) throw new Exception("Unknown model type!");
-            if (_result.Unit.Scenario.ModelType == modelType)
-                throw new Exception("Compared model type is same with current scenario.");
-
-            return getComparedCombineTable(_result.Unit.Scenario.Scenario, modelType);
-        }
-
-        private DataTable getComparedCombineTable(Scenario scenario, SWATModelType modelType)
-        {
-            string tableID = string.Format("{0}_{1}", scenario.Name, modelType);
-            if (!_compareCombineTable.ContainsKey(tableID))
-            {
-                if (Table.Rows.Count == 0)
-                    throw new Exception("There is no result.");
-
-                DataTable comparaTable = getCompareTable(scenario, modelType);
-                if (comparaTable.Rows.Count != Table.Rows.Count)
-                    throw new Exception("The number of results are different.");
-
-                DataTable dt = Table.Copy();
-                dt.Columns[_colIndex].ColumnName =
-                    string.Format("{0}_{1}", _col, _result.Unit.Scenario.ModelType);
-                
-                dt.Columns.Add(string.Format("{0}_{1}", _col, modelType), typeof(double));
-                int newColIndex = dt.Columns.Count - 1;
-                int colIndex2 = comparaTable.Columns.IndexOf(_col);
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    ArcSWAT.RowItem item = new ArcSWAT.RowItem(comparaTable.Rows[i]);
-                    dt.Rows[i][newColIndex] = item.getColumnValue_Double(colIndex2);
-                }
-                _compareCombineTable.Add(tableID, dt);
-            }
-            return _compareCombineTable[tableID];            
-        }
-
-        /// <summary>
-        /// get compare data table for given scenario with same model type
-        /// </summary>
-        /// <param name="scenario"></param>
-        /// <returns></returns>
-        /// <remarks>To compare between scenarios</remarks>
-        public DataTable getCompareTable(string scenarioName)
-        {
-            if (_result.Unit.Scenario.Scenario.Name.Equals(scenarioName)) throw new Exception("Scenario " + scenarioName + " is same with current scenario.");
-
-            Scenario scenario = _result.Unit.Scenario.Scenario.Project.getScenario(scenarioName);
-            if (scenario == null) throw new Exception("Can't find scenario " + scenarioName + " in current project.");
-
-            return getCompareTable(scenario, _result.Unit.Scenario.ModelType);
-        }
-
-        /// <summary>
-        /// get compare data table for given model type within same scenario
-        /// </summary>
-        /// <param name="modelType"></param>
-        /// <returns></returns>
-        /// <remarks>To compare between models</remarks>
-        public DataTable getCompareTable(SWATModelType modelType)
-        {
-            if (modelType == SWATModelType.UNKNOWN) throw new Exception("Unknown model type!");
-            if (_result.Unit.Scenario.ModelType == modelType)
-                throw new Exception("Compared model type is same with current scenario.");
-
-            return getCompareTable(_result.Unit.Scenario.Scenario, modelType);
-        }
-
         /// <summary>
         /// get compare table for given scenario and model type 
         /// </summary>
@@ -192,18 +111,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
             return unitResult.getResult(_col, _year);
         }
-
-        /// <summary>
-        /// get compare table for given scenario and model type 
-        /// </summary>
-        /// <param name="scenario"></param>
-        /// <param name="modelType"></param>
-        /// <returns></returns>
-        private DataTable getCompareTable(Scenario scenario, SWATModelType modelType)
-        {
-            return getCompareResult(scenario, modelType).Table;
-        }
-
 
         #endregion
 
