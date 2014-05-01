@@ -151,7 +151,7 @@ namespace SWAT_SQLite_Result
                 line.LegendText = yColName;
                 if (interval == ArcSWAT.SWATResultIntervalType.MONTHLY) //monthly
                 {
-                    line.ToolTip = "#VALY(#VALX{yyyy/MM})";
+                    line.ToolTip = "#VALY{F4}(#VALX{yyyy/MM})";
                     //if (rows.Length == 12) //for one year
                     //    line.IsValueShownAsLabel = true;                    
                     //else
@@ -159,9 +159,12 @@ namespace SWAT_SQLite_Result
                 }
                 else if (interval == ArcSWAT.SWATResultIntervalType.DAILY) //daily
                 {
-                    line.ToolTip = "#VALY(#VALX{yyyy-MM-dd})"; 
+                    line.ToolTip = "#VALY{F4}(#VALX{yyyy-MM-dd})"; 
                     //line.IsValueShownAsLabel = false;                             
                 }
+                if (yColNames.Count > 1)
+                    line.ToolTip = yColName + ":" + line.ToolTip;
+
                 index++;
             }
             setChartArea(dt, interval);
