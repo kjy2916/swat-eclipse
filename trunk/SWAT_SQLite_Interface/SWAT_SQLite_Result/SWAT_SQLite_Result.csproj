@@ -64,8 +64,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArcSWAT\ColumnYearData.cs" />
     <Compile Include="ArcSWAT\FolderBase.cs" />
     <Compile Include="ArcSWAT\HRU.cs" />
+    <Compile Include="ArcSWAT\ObservationData.cs" />
+    <Compile Include="ArcSWAT\SWATUnitColumnYearObservationData.cs" />
+    <Compile Include="ArcSWAT\SWATUnitObservationData.cs" />
+    <Compile Include="ArcSWAT\ObservationDataType.cs" />
     <Compile Include="ArcSWAT\Reach.cs" />
     <Compile Include="ArcSWAT\Reservoir.cs" />
     <Compile Include="ArcSWAT\RowItem.cs" />
@@ -96,6 +101,12 @@
     </Compile>
     <Compile Include="CompareCtrl.Designer.cs">
       <DependentUpon>CompareCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProjectView.Designer.cs">
+      <DependentUpon>ProjectView.cs</DependentUpon>
     </Compile>
     <Compile Include="ResultInformationView.cs">
       <SubType>UserControl</SubType>
@@ -188,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CompareCtrl.resx">
       <DependentUpon>CompareCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectView.resx">
+      <DependentUpon>ProjectView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ResultInformationView.resx">
       <DependentUpon>ResultInformationView.cs</DependentUpon>

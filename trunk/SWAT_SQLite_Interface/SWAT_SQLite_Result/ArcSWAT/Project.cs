@@ -14,9 +14,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
     {
         private static string DEFAULT_WATERSHED_FOLDER = @"\Watershed";
         private static string DEFAULT_SCENARIOS_FOLDER = @"\Scenarios";
+        private static string DEFAULT_OBSERVATION_DATA_FILE = DEFAULT_SCENARIOS_FOLDER + @"\observation.db3";
 
         private Dictionary<string, Scenario> _scenarios = null;
         private Spatial _spatial = null;
+        private ObservationData _observation = null;
 
         public Project(string prj) : base(prj)
         {
@@ -29,6 +31,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
             _scenarios = Scenario.FromProjectFolder(Folder + DEFAULT_SCENARIOS_FOLDER,this);
             if (_scenarios.Count == 0) { _isValid = false; _error = "No Scenarios found!"; return; }
+
+            _observation = new ObservationData(Folder + DEFAULT_OBSERVATION_DATA_FILE);
         }
 
         public override string ToString()
@@ -62,5 +66,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         }
 
         public Spatial Spatial { get { return _spatial; } }
+
+        public ObservationData Observation { get { return _observation; } }
     }
 }

@@ -272,6 +272,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <returns>A dataset of type System.Data.DataTable.</returns>
         public static DataTable GetDataTable(string query, string path, string tableName = null)
         {
+            //debug output the query string
+            System.Diagnostics.Debug.WriteLine(query);
+
             //Build the data table;
             DataTable fetchedTable = null;
  
@@ -290,6 +293,19 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 return fetchedTable;
             else
                 return new DataTable();
+        }
+
+        public static StringCollection GetDataColumns(string path, string table)
+        {
+            DataTable dt = GetDataTable(string.Format("PRAGMA table_info({0})", table),path);
+            StringCollection cols = new StringCollection();
+            foreach (DataRow r in dt.Rows)
+            {
+                RowItem item = new RowItem(r);
+                if (item.getColumnValue_String("type").ToLower().Equals("float"))
+                    cols.Add(item.getColumnValue_String("name"));
+            }
+            return cols;
         }
     }
 
