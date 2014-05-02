@@ -105,6 +105,12 @@
     <Compile Include="CompareCtrl.Designer.cs">
       <DependentUpon>CompareCtrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="PerformanceView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PerformanceView.Designer.cs">
+      <DependentUpon>PerformanceView.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProjectView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -116,6 +122,12 @@
     </Compile>
     <Compile Include="ResultInformationView.Designer.cs">
       <DependentUpon>ResultInformationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioComparasionReportView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ScenarioComparasionReportView.Designer.cs">
+      <DependentUpon>ScenarioComparasionReportView.cs</DependentUpon>
     </Compile>
     <Compile Include="ScenarioView.cs">
       <SubType>UserControl</SubType>
@@ -203,11 +215,17 @@
     <EmbeddedResource Include="CompareCtrl.resx">
       <DependentUpon>CompareCtrl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PerformanceView.resx">
+      <DependentUpon>PerformanceView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProjectView.resx">
       <DependentUpon>ProjectView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ResultInformationView.resx">
       <DependentUpon>ResultInformationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScenarioComparasionReportView.resx">
+      <DependentUpon>ScenarioComparasionReportView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ScenarioView.resx">
       <DependentUpon>ScenarioView.cs</DependentUpon>
