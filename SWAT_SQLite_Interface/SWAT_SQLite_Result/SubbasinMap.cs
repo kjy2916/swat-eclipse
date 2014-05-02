@@ -50,7 +50,8 @@ namespace SWAT_SQLite_Result
             else if (type == ArcSWAT.SWATUnitType.RCH)
             {
                 this.addLayer(project.Spatial.SubbasinShapefile, "Subbasin", false);
-                _workingLayer = this.addLayer(project.Spatial.ReachShapefile, "Reach", true);
+                _workingLayer = this.addLayer(project.Spatial.ReachShapefile, "Reach", scenario != null);
+                _workingLayer.SelectionEnabled = true;
             }
             else if (type == ArcSWAT.SWATUnitType.HRU)
             {
@@ -76,8 +77,6 @@ namespace SWAT_SQLite_Result
                     onLayerSelectionChanged(id);
                 };
             }
-
-            _workingLayer.Select(0);
             this.FunctionMode = DotSpatial.Controls.FunctionMode.Select;
         }
 
@@ -141,7 +140,7 @@ namespace SWAT_SQLite_Result
                 }
                 else if (layer.DataSet.FeatureType == DotSpatial.Topology.FeatureType.Line) //reach
                 {
-                    layer.Symbolizer = new LineSymbolizer(System.Drawing.Color.Black, 1.5);
+                    layer.Symbolizer = new LineSymbolizer(System.Drawing.Color.Blue, 3.0);
                 }
             }
 
@@ -166,7 +165,7 @@ namespace SWAT_SQLite_Result
         {
             if (_type != ArcSWAT.SWATUnitType.SUB && _type != ArcSWAT.SWATUnitType.RCH) return;
             if (_workingLayer == null) return;
-            if (_unitList == null)
+            if (_unitList == null && _scenario != null)
             {
                 if (_type == ArcSWAT.SWATUnitType.SUB) _unitList = _scenario.Subbasins;
                 if (_type == ArcSWAT.SWATUnitType.RCH) _unitList = _scenario.Reaches;

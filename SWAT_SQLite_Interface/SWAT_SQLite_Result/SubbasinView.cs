@@ -21,7 +21,6 @@ namespace SWAT_SQLite_Result
 
         private string _resultType = null;
         private string _col = null;
-        private ArcSWAT.ScenarioResult _compareResult = null;
         private ArcSWAT.SWATUnit _unit = null;
         private DateTime _date = DateTime.Now;
 
@@ -30,7 +29,7 @@ namespace SWAT_SQLite_Result
         private ArcSWAT.SWATUnitType _type = ArcSWAT.SWATUnitType.UNKNOWN;
         private Dictionary<int, ArcSWAT.SWATUnit> _unitList = null;
         public event SwitchFromSubbasin2HRUEventHandler onSwitch2HRU = null;
- 
+
         public void setProjectScenario(ArcSWAT.Project project, ArcSWAT.ScenarioResult scenario,ArcSWAT.SWATUnitType type)
         {
             _project = project;
@@ -120,7 +119,10 @@ namespace SWAT_SQLite_Result
 
             //compare control
             compareCtrl1.ScenarioResult = scenario;
-            compareCtrl1.onCompareResultChanged += (ss, ee) => { _compareResult = compareCtrl1.CompareResult; updateTableAndChart(); };
+            compareCtrl1.onCompareResultChanged += (ss, ee) => 
+            {
+                updateTableAndChart(); 
+            };
 
             //update
             updateMap();
@@ -156,10 +158,15 @@ namespace SWAT_SQLite_Result
             if (result.Interval == ArcSWAT.SWATResultIntervalType.DAILY && yearCtrl1.DisplayByYear)
                 year = yearCtrl1.Year;
 
-            if (_compareResult == null) //don't compare
-            {
-                ArcSWAT.SWATUnitColumnYearResult oneResult = result.getResult(_col, year);
+            //current working result
+            ArcSWAT.SWATUnitColumnYearResult oneResult = result.getResult(_col, year);
 
+            //set compare control
+            compareCtrl1.HasObervedData = (oneResult.ObservedData != null);
+
+            //do the update
+            if (compareCtrl1.CompareResult == null && !compareCtrl1.IsObservedDataSelected) //don't compare
+            {              
                 if (oneResult.Table.Rows.Count == 0 && _type == ArcSWAT.SWATUnitType.HRU)
                     MessageBox.Show("No results for HRU " + _unit.ID.ToString() + ". For more results, please modify file.cio.");
 
@@ -171,8 +178,11 @@ namespace SWAT_SQLite_Result
             {
                 try
                 {
-                    ArcSWAT.SWATUnitColumnYearCompareResult compare = 
-                        result.getResult(_col, year).Compare(_compareResult);
+                    ArcSWAT.SWATUnitColumnYearCompareResult compare = null;
+                    if (compareCtrl1.CompareResult != null)
+                        compare = oneResult.Compare(compareCtrl1.CompareResult);
+                    else
+                        compare = oneResult.CompareWithObserved;
                     this.tableView1.CompareResult = compare;
                     this.outputDisplayChart1.CompareResult = compare;
                     this.lblStatistics.Text = "Statistics :" + compare.Statistics.ToString();

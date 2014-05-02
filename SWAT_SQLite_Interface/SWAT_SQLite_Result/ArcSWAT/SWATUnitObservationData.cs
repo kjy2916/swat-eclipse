@@ -31,14 +31,14 @@ namespace SWAT_SQLite_Result.ArcSWAT
         }
 
         public SWATUnitObservationData(int id, SWATUnitType unitType, 
-            ObservationDataType dataType,
+            string dataType,
             int startYear, int endYear,
             ObservationData parent)
         {
             _parentData = parent;
             _id = id;
             _unitType = unitType;
-            _col = dataType.ToString();
+            _col = dataType;
             _startYear = startYear;
             _endYear = endYear;
         }

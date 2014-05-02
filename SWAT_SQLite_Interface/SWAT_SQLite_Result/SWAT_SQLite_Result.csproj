@@ -46,6 +46,9 @@
     <Reference Include="DotSpatial.Topology">
       <HintPath>..\DotSpatial.Core.1.6\DotSpatial.Topology.dll</HintPath>
     </Reference>
+    <Reference Include="LumenWorks.Framework.IO">
+      <HintPath>..\LumenWorks.Framework.IO.CSV.CsvReader\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">

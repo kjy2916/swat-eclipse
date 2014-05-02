@@ -314,6 +314,37 @@ namespace SWAT_SQLite_Result.ArcSWAT
     /// </summary>
     public static class SQLite
     {
+        public static void insert(string pathDB, string sql)
+        {
+            if (string.IsNullOrEmpty(sql)) return;
+
+            SQLiteConnection conn = Query.OpenConnection(pathDB) as SQLiteConnection;
+            if (conn != null)
+                using (SQLiteTransaction t = conn.BeginTransaction())
+                {
+                    string[] sqls = sql.Split(';');
+
+
+                    using (SQLiteCommand c = new SQLiteCommand("", conn, t))
+                    {
+                        foreach (string s in sqls)
+                        {
+                            try
+                            {
+                                c.CommandText = s;
+                                c.ExecuteNonQuery();
+                            }
+                            catch(System.Exception e)
+                            {
+                                System.Diagnostics.Debug.WriteLine(e.Message);
+                            }
+                        }
+                    }
+
+                    t.Commit();
+                }
+        }
+
         /// <summary>
         /// Insert a table into the project database .
         /// </summary>
@@ -626,7 +657,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
                         return true;
                     }
-                    catch { return false; }
+                    catch(System.Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine(e.Message);
+                        return false; 
+                    }
             }
 
             //Return false if the command did not execute successfully;
