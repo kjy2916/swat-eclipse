@@ -49,8 +49,10 @@ namespace SWAT_SQLite_Result
                     tblNode.Nodes.Add(col);
 
                 tblNode.ExpandAll();
-            }        
-            onResultTypeAndColumnChanged(Nodes[0].Text, Nodes[0].Nodes[0].Text);
+            }
+            if (Nodes.Count > 0 && Nodes[0].Nodes.Count > 0)
+                OnNodeMouseClick(new TreeNodeMouseClickEventArgs(
+                    Nodes[0].Nodes[0], System.Windows.Forms.MouseButtons.Left, -1, -1, -1));
         }
     }
 

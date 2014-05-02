@@ -20,6 +20,7 @@ namespace SWAT_SQLite_Result
         private ArcSWAT.SWATModelType _modelType = ArcSWAT.SWATModelType.UNKNOWN;
         private ArcSWAT.SWATUnitType _unitType = ArcSWAT.SWATUnitType.UNKNOWN;
         private Dictionary<string, UserControl> _views = new Dictionary<string, UserControl>();
+        private ProjectView _projectView = null;
 
         private void SWATSQLiteFrm_Load(object sender, EventArgs e)
         {
@@ -41,6 +42,17 @@ namespace SWAT_SQLite_Result
 
                     splitContainer1.Panel2.Controls.Clear();
                     splitContainer1.Panel2.Controls.Add(view);
+                };
+            projectTree1.onProjectNodeSelected += (ss, ee) =>
+                {
+                    if (_projectView == null)
+                    {
+                        _projectView = new ProjectView();
+                        _projectView.Dock = DockStyle.Fill;
+                        _projectView.Project = _prj;
+                    }
+                    splitContainer1.Panel2.Controls.Clear();
+                    splitContainer1.Panel2.Controls.Add(_projectView);
                 };
 
             if (Properties.Settings.Default.Projects == null)

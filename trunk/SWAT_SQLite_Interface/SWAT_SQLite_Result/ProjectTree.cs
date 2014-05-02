@@ -15,7 +15,7 @@ namespace SWAT_SQLite_Result
 
         public event ResultLevelChangedEventHandler onResultLevelChanged = null;
         public event ScenarioSelectionChangedEventHandler onScenarioSelectionChanged = null;
-
+        public event EventHandler onProjectNodeSelected = null;
 
         public ProjectTree()
         {
@@ -44,6 +44,10 @@ namespace SWAT_SQLite_Result
                 //click on model node
                 if (e.Node.Tag != null && e.Node.Tag is ArcSWAT.SWATModelType && e.Node.Nodes.Count > 0 && e.Node.Nodes[0].Tag != null && e.Node.Nodes[0].Tag is ArcSWAT.ScenarioResult)
                     onResultLevelChanged(e.Node.Nodes[0].Tag as ArcSWAT.ScenarioResult, (ArcSWAT.SWATModelType)e.Node.Tag, ArcSWAT.SWATUnitType.WSHD);
+
+                //click on project node
+                if (e.Node.Tag != null && e.Node.Tag is ArcSWAT.Project && onProjectNodeSelected != null)
+                    onProjectNodeSelected(this, new EventArgs());
             };       
         }
 
@@ -55,6 +59,10 @@ namespace SWAT_SQLite_Result
                 _prj = value;
                 setProject(value);
              }
+            get
+            {
+                return _prj;
+            }
         }
 
         private delegate void setProjectDelegate(ArcSWAT.Project p);

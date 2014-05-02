@@ -35,6 +35,8 @@ namespace SWAT_SQLite_Result
             DataSource = null;
             Columns.Clear();
 
+            if (dt == null) return;
+
             if (dt.Columns.Contains(ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE) &&
                 cols != null && cols.Count > 0)
             {
@@ -65,12 +67,18 @@ namespace SWAT_SQLite_Result
         /// <summary>
         /// compare result
         /// </summary>
-        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult{set{setDataColumn(value.Table, value.TableColumns);}}
+        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult { set { if (value == null) DataTable = null; else setDataColumn(value.Table, value.TableColumns); } }
 
         /// <summary>
         /// regular result
         /// </summary>
-        public ArcSWAT.SWATUnitColumnYearResult Result {set{setDataColumn(value.Table, new StringCollection() { value.Column});}}
+        public ArcSWAT.SWATUnitColumnYearResult Result { set { if (value == null) DataTable = null; else setDataColumn(value.Table, new StringCollection() { value.Column }); } }
+
+        /// <summary>
+        /// Observed data
+        /// </summary>
+        public ArcSWAT.SWATUnitColumnYearObservationData ObservedData { set { if (value == null) DataTable = null; else setDataColumn(value.Table, new StringCollection() { value.Column }); } }
+
 
         /// <summary>
         /// normal datatable

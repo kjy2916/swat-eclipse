@@ -81,6 +81,7 @@ namespace SWAT_SQLite_Result
         {
             set
             {
+                if (value == null) { clear(); return; }
                 DrawGraph(value.Table, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
                     value.ChartColumns, value.Interval);
             }
@@ -91,10 +92,36 @@ namespace SWAT_SQLite_Result
         {
             set
             {
+                if (value == null) { clear(); return; }
                 StringCollection cols = new StringCollection() { value.Column };
                 DrawGraph(value.Table, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
                     cols, value.UnitResult.Interval);
             }
+        }
+
+        public ArcSWAT.SWATUnitColumnYearObservationData ObservedData
+        {
+            set
+            {
+                if (value == null) { clear(); return; }
+                StringCollection cols = new StringCollection() { value.Column };
+                DrawGraph(value.Table, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
+                    cols, ArcSWAT.SWATResultIntervalType.DAILY);
+            }
+        }
+
+        private void clear()
+        {
+            foreach (Series line in this.Series)
+            {
+                line.Points.Clear();
+                line.XValueMember = "";
+                line.YValueMembers = "";
+            }
+            if(_chartArea != null)
+                _chartArea.AxisY.Title = "";
+
+            this.DataSource = null;
         }
 
         private void DrawGraph(DataTable dt, string xColName, StringCollection yColNames, ArcSWAT.SWATResultIntervalType interval)
@@ -125,14 +152,7 @@ namespace SWAT_SQLite_Result
                 this.ContextMenuStrip.Items.Add(exportMenu);
             }
 
-            foreach (Series line in this.Series)
-            {
-                line.Points.Clear();
-                line.XValueMember = "";
-                line.YValueMembers = "";
-            }
-            _chartArea.AxisY.Title = "";
-
+            clear();
 
             if (dt.Rows == null || dt.Rows.Count == 0) return;
             if(yColNames == null || yColNames.Count == 0) return;
