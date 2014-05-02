@@ -42,6 +42,7 @@ namespace SWAT_SQLite_Result
 
                     splitContainer1.Panel2.Controls.Clear();
                     splitContainer1.Panel2.Controls.Add(view);
+                    Map = null;
                 };
             projectTree1.onProjectNodeSelected += (ss, ee) =>
                 {
@@ -53,6 +54,7 @@ namespace SWAT_SQLite_Result
                     }
                     splitContainer1.Panel2.Controls.Clear();
                     splitContainer1.Panel2.Controls.Add(_projectView);
+                    Map = _projectView.Map;
                 };
 
             if (Properties.Settings.Default.Projects == null)
@@ -62,6 +64,8 @@ namespace SWAT_SQLite_Result
                 cmbProjects.Items.Add(p);
 
             cmbProjects.SelectedIndexChanged += (ss, ee) => { openProject(cmbProjects.SelectedItem.ToString()); };
+        
+            Map = null;
         }
 
         private UserControl switchView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
@@ -69,6 +73,11 @@ namespace SWAT_SQLite_Result
             UserControl view = getView(scenario, modelType, unitType);
             splitContainer1.Panel2.Controls.Clear();
             splitContainer1.Panel2.Controls.Add(view);
+
+            if (view is SubbasinView)
+                Map = (view as SubbasinView).Map;
+            else
+                Map = null;
 
             _scenario = scenario;
             _modelType = modelType;
@@ -160,6 +169,48 @@ namespace SWAT_SQLite_Result
         {
             folderBrowserDialog1.SelectedPath = Properties.Settings.Default.PreviousProjectFolder;
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) openProject(folderBrowserDialog1.SelectedPath);
+        }
+
+        private DotSpatial.Controls.Map _map = null;
+
+        private DotSpatial.Controls.Map Map
+        {
+            get { return _map; }
+            set
+            {
+                _map = value;
+
+                bPan.Enabled = _map != null;
+                bZoomIn.Enabled = _map != null;
+                bZoomOut.Enabled = _map != null;
+                bZoomExtent.Enabled = _map != null;
+                bSelect.Enabled = _map != null;
+            }
+        }
+
+        private void bPan_Click(object sender, EventArgs e)
+        {
+            if (Map != null) Map.FunctionMode = DotSpatial.Controls.FunctionMode.Pan;
+        }
+
+        private void bZoomIn_Click(object sender, EventArgs e)
+        {
+            if (Map != null) Map.FunctionMode = DotSpatial.Controls.FunctionMode.ZoomIn;
+        }
+
+        private void bZoomOut_Click(object sender, EventArgs e)
+        {
+            if (Map != null) Map.FunctionMode = DotSpatial.Controls.FunctionMode.ZoomOut;
+        }
+
+        private void bZoomExtent_Click(object sender, EventArgs e)
+        {
+            if (Map != null) Map.ZoomToMaxExtent();
+        }
+
+        private void bSelect_Click(object sender, EventArgs e)
+        {
+            if (Map != null) Map.FunctionMode = DotSpatial.Controls.FunctionMode.Select;
         }
     }
 }
