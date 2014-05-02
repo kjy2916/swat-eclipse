@@ -195,5 +195,7 @@ namespace SWAT_SQLite_Result
 
             
         }
+
+        public DotSpatial.Controls.Map Map { get { return subbasinMap1; } }
     }
 }
