@@ -19,15 +19,6 @@ namespace SWAT_SQLite_Result
         private bool _hasObservedData = false;
         private List<ArcSWAT.ScenarioResult> _comparableResult = new List<ArcSWAT.ScenarioResult>();
 
-        private void addComparableResult(ArcSWAT.ScenarioResult result)
-        {
-            if (result == null) return;
-
-            string id = string.Format("{0}.{1}", result.Scenario.Name, result.ModelType);
-            cmbCompareResults.Items.Add(id);
-            _comparableResult.Add(result);
-        }
-
         public bool HasObervedData
         {
             set
@@ -60,23 +51,13 @@ namespace SWAT_SQLite_Result
                 cmbCompareResults.Items.Clear();
                 _comparableResult.Clear();              
 
-                //look for results in same scenario
-                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
-                {
-                    ArcSWAT.SWATModelType modelType = (ArcSWAT.SWATModelType)i;
-                    if (modelType == value.ModelType) continue;
+                if (value == null) return;
 
-                    addComparableResult(value.Scenario.getModelResult(modelType));
-                }
+                _comparableResult = value.ComparableScenarioResults;
+                foreach (ArcSWAT.ScenarioResult r in _comparableResult)
+                    cmbCompareResults.Items.Add(string.Format("{0}.{1}", r.Scenario.Name, r.ModelType));
 
-                //look for results in other scenario
-                foreach (string scenName in value.Scenario.Project.Scenarios.Keys)
-                {
-                    ArcSWAT.Scenario compareScenario = value.Scenario.Project.Scenarios[scenName];
-                    if (value.Scenario == compareScenario) continue;
-
-                    addComparableResult(compareScenario.getModelResult(value.ModelType));
-                }
+                this.Enabled = cmbCompareResults.Items.Count > 0;
             }
         }
 

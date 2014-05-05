@@ -183,6 +183,103 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
 #endregion
 
+        #region Difference compared with other scenario
+
+        /// <summary>
+        /// Scenario results which is comparable with current result.
+        /// </summary>
+        /// <remarks>
+        /// 1. Results of other model type in same scenario; 
+        /// 2. Results of same model type in other scenarios;
+        /// 3. Must have reasult database in place.
+        /// </remarks>
+        public List<ScenarioResult> ComparableScenarioResults
+        {
+            get
+            {
+                List<ScenarioResult> results = new List<ScenarioResult>();
+
+                //look for results in same scenario
+                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
+                {
+                    ArcSWAT.SWATModelType modelType = (ArcSWAT.SWATModelType)i;
+                    if (modelType == ModelType) continue;
+
+                    ScenarioResult r = Scenario.getModelResult(modelType);
+                    if (r == null || r.Status != ScenarioResultStatus.NORMAL) continue;
+                    results.Add(r);
+                }
+
+                //look for results in other scenario
+                foreach (string scenName in Scenario.Project.Scenarios.Keys)
+                {
+                    ArcSWAT.Scenario compareScenario = Scenario.Project.Scenarios[scenName];
+                    if (Scenario == compareScenario) continue;
+
+                    ScenarioResult r = compareScenario.getModelResult(ModelType);
+                    if (r == null || r.Status != ScenarioResultStatus.NORMAL) continue;
+                    results.Add(r);
+                }
+
+                return results;
+            }
+        }
+
+        private DataSet _differenceDataset = new System.Data.DataSet();
+
+        /// <summary>
+        /// Retrieve difference data table between two scenarios
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="resultType"></param>
+        /// <param name="col"></param>
+        /// <param name="compareScenario"></param>
+        /// <returns></returns>
+        public DataTable getDifference(ArcSWAT.SWATUnitType type, string resultType, string col,
+            ArcSWAT.ScenarioResult compareScenario)
+        {
+            string tableId = string.Format("{0}_{1}_{2}_{3}_{4}", type, resultType, col,
+                compareScenario.ModelType, compareScenario.Scenario.Name);
+
+            if (!_differenceDataset.Tables.Contains(tableId))
+            {
+                List<int> ids = getSWATUnitIDs(type);
+
+                DataTable dt = new System.Data.DataTable(tableId);
+                dt.Columns.Add("ID", typeof(int));
+                dt.Columns.Add("R2", typeof(double));
+                foreach (int id in ids)
+                {
+                    ArcSWAT.SWATUnit unit = getSWATUnit(type, id);
+                    if (unit == null) continue;
+
+                    ArcSWAT.SWATUnitResult unitResult = unit.getResult(resultType);
+                    if (unitResult == null) continue;
+
+                    ArcSWAT.SWATUnitColumnYearResult oneUnitResult = unitResult.getResult(col, -1);
+                    if (oneUnitResult == null) continue;
+
+                    try
+                    {
+                        DataRow r = dt.NewRow();
+                        r[0] = id;
+                        r[1] = oneUnitResult.Compare(compareScenario).Statistics.R2;
+                        dt.Rows.Add(r);
+                    }
+                    catch (System.Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine(e.Message);
+                    }
+                }
+                _differenceDataset.Tables.Add(dt);
+            }
+            return _differenceDataset.Tables[tableId];
+        }
+
+        #endregion
+
+        
+
         public override string ToString()
         {
             if (Status != ScenarioResultStatus.NORMAL) return Status.ToString();
