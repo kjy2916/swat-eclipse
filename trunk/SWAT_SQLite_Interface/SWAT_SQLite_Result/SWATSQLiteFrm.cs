@@ -56,6 +56,16 @@ namespace SWAT_SQLite_Result
                     splitContainer1.Panel2.Controls.Add(_projectView);
                     Map = _projectView.Map;
                 };
+            projectTree1.onDifferenceNodeSelected += (ss, ee) =>
+                {
+                    ScenarioComparasionReportView compareView = new ScenarioComparasionReportView();
+                    compareView.Result = projectTree1.ScenarioResult;
+                    compareView.Dock = DockStyle.Fill;
+
+                    splitContainer1.Panel2.Controls.Clear();
+                    splitContainer1.Panel2.Controls.Add(compareView);
+                    Map = null;
+                };
 
             if (Properties.Settings.Default.Projects == null)
                 Properties.Settings.Default.Projects = new System.Collections.Specialized.StringCollection();

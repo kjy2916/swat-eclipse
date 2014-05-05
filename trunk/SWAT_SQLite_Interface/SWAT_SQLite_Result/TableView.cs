@@ -54,13 +54,15 @@ namespace SWAT_SQLite_Result
                 }
 
                 AutoGenerateColumns = false; //don't generate other columns automatically  
+                DataSource = dt;
             }
             else
             {
+                DataSource = dt;
                 if (Columns.Count >= 2)
                     Columns[1].DefaultCellStyle.Format = "F2"; //format the value
             }
-            DataSource = dt;
+            
             AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells); //resize the column width
         }
 

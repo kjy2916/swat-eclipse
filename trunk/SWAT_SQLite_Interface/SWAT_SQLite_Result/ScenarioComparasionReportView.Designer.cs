@@ -28,16 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.cmbReach = new System.Windows.Forms.RadioButton();
+            this.cmbSubbasin = new System.Windows.Forms.RadioButton();
+            this.cmbHRU = new System.Windows.Forms.RadioButton();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.cmbCompareResults = new System.Windows.Forms.ComboBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
+            this.tableView1 = new SWAT_SQLite_Result.TableView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tableView1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -49,58 +66,132 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.radioButton3);
-            this.splitContainer1.Panel1.Controls.Add(this.radioButton2);
-            this.splitContainer1.Panel1.Controls.Add(this.radioButton1);
+            this.splitContainer1.Panel1.Controls.Add(this.cmbCompareResults);
+            this.splitContainer1.Panel1.Controls.Add(this.cmbReach);
+            this.splitContainer1.Panel1.Controls.Add(this.cmbSubbasin);
+            this.splitContainer1.Panel1.Controls.Add(this.cmbHRU);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(843, 814);
             this.splitContainer1.SplitterDistance = 26;
             this.splitContainer1.TabIndex = 0;
             // 
-            // radioButton1
+            // cmbReach
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(4, 4);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(49, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "HRU";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.cmbReach.AutoSize = true;
+            this.cmbReach.Location = new System.Drawing.Point(134, 4);
+            this.cmbReach.Name = "cmbReach";
+            this.cmbReach.Size = new System.Drawing.Size(57, 17);
+            this.cmbReach.TabIndex = 0;
+            this.cmbReach.TabStop = true;
+            this.cmbReach.Text = "Reach";
+            this.cmbReach.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // cmbSubbasin
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(59, 4);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(69, 17);
-            this.radioButton2.TabIndex = 0;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Subbasin";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.cmbSubbasin.AutoSize = true;
+            this.cmbSubbasin.Location = new System.Drawing.Point(59, 4);
+            this.cmbSubbasin.Name = "cmbSubbasin";
+            this.cmbSubbasin.Size = new System.Drawing.Size(69, 17);
+            this.cmbSubbasin.TabIndex = 0;
+            this.cmbSubbasin.TabStop = true;
+            this.cmbSubbasin.Text = "Subbasin";
+            this.cmbSubbasin.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // cmbHRU
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(134, 4);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(57, 17);
-            this.radioButton3.TabIndex = 0;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Reach";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.cmbHRU.AutoSize = true;
+            this.cmbHRU.Location = new System.Drawing.Point(4, 4);
+            this.cmbHRU.Name = "cmbHRU";
+            this.cmbHRU.Size = new System.Drawing.Size(49, 17);
+            this.cmbHRU.TabIndex = 0;
+            this.cmbHRU.TabStop = true;
+            this.cmbHRU.Text = "HRU";
+            this.cmbHRU.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // splitContainer2
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(843, 784);
-            this.dataGridView1.TabIndex = 0;
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.resultColumnTree1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
+            this.splitContainer2.Size = new System.Drawing.Size(843, 784);
+            this.splitContainer2.SplitterDistance = 161;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.chart1);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.tableView1);
+            this.splitContainer3.Size = new System.Drawing.Size(678, 784);
+            this.splitContainer3.SplitterDistance = 469;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // cmbCompareResults
+            // 
+            this.cmbCompareResults.FormattingEnabled = true;
+            this.cmbCompareResults.Location = new System.Drawing.Point(214, 4);
+            this.cmbCompareResults.Name = "cmbCompareResults";
+            this.cmbCompareResults.Size = new System.Drawing.Size(121, 21);
+            this.cmbCompareResults.TabIndex = 1;
+            // 
+            // chart1
+            // 
+            chartArea1.AxisY.Maximum = 1D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(0, 0);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueMember = "ID";
+            series1.YValueMembers = "R2";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(469, 784);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            // 
+            // resultColumnTree1
+            // 
+            this.resultColumnTree1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultColumnTree1.Location = new System.Drawing.Point(0, 0);
+            this.resultColumnTree1.Name = "resultColumnTree1";
+            this.resultColumnTree1.Size = new System.Drawing.Size(161, 784);
+            this.resultColumnTree1.TabIndex = 0;
+            // 
+            // tableView1
+            // 
+            this.tableView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableView1.Location = new System.Drawing.Point(0, 0);
+            this.tableView1.Name = "tableView1";
+            this.tableView1.ReadOnly = true;
+            this.tableView1.RowHeadersVisible = false;
+            this.tableView1.Size = new System.Drawing.Size(205, 784);
+            this.tableView1.TabIndex = 0;
             // 
             // ScenarioComparasionReportView
             // 
@@ -114,7 +205,16 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tableView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -122,10 +222,15 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.RadioButton cmbReach;
+        private System.Windows.Forms.RadioButton cmbSubbasin;
+        private System.Windows.Forms.RadioButton cmbHRU;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private ResultColumnTree resultColumnTree1;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private TableView tableView1;
+        private System.Windows.Forms.ComboBox cmbCompareResults;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
 
     }
 }
