@@ -96,7 +96,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private Dictionary<int, SWATUnit> _subbasins = new Dictionary<int, SWATUnit>();
         private Dictionary<int, SWATUnit> _reaches = new Dictionary<int, SWATUnit>();
         private Dictionary<int, SWATUnit> _reservoirs = new Dictionary<int, SWATUnit>();
-        public Dictionary<SWATUnitType, Dictionary<int, SWATUnit>> _units = new Dictionary<SWATUnitType, Dictionary<int, SWATUnit>>();
+        private Dictionary<SWATUnitType, Dictionary<int, SWATUnit>> _units = new Dictionary<SWATUnitType, Dictionary<int, SWATUnit>>();
+        private Dictionary<SWATUnitType, List<int>> _unitIds = new Dictionary<SWATUnitType, List<int>>();
+
         private Watershed _watershed = null;
 
         public Dictionary<int, SWATUnit> HRUs { get { return _hrus; } }
@@ -105,6 +107,16 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public Dictionary<int, SWATUnit> Reservoirs { get { return _reservoirs; } }
         
         public Watershed Watershed { get { return _watershed; } }
+
+        public List<int> getSWATUnitIDs(SWATUnitType type)
+        {
+            List<int> ids = new List<int>();
+            if (type == SWATUnitType.UNKNOWN || type == SWATUnitType.WSHD) return ids;
+
+            if (_unitIds == null || !_unitIds.ContainsKey(type)) return ids;
+
+            return _unitIds[type];
+        }
 
         public SWATUnit getSWATUnit(SWATUnitType type, int id)
         {
@@ -119,23 +131,21 @@ namespace SWAT_SQLite_Result.ArcSWAT
         {
             _structure = new ScenarioResultStructure(this);
 
+            _units.Clear();
+            _unitIds.Clear();
+
             //subbasin first and then HRUs to add hru to subbasin
             _subbasins = readUnitBasicInfo(SWATUnitType.SUB);
             _hrus = readUnitBasicInfo(SWATUnitType.HRU);
             _reaches = readUnitBasicInfo(SWATUnitType.RCH);
             _reservoirs = readUnitBasicInfo(SWATUnitType.RES);
             _watershed = new Watershed(this);
-
-            _units.Clear();
-            _units.Add(SWATUnitType.HRU, _hrus);
-            _units.Add(SWATUnitType.SUB, _subbasins);
-            _units.Add(SWATUnitType.RCH, _reaches);
-            _units.Add(SWATUnitType.RES, _reservoirs);
         }
 
         private Dictionary<int, SWATUnit> readUnitBasicInfo(SWATUnitType type)
         {
             Dictionary<int, SWATUnit> units = new Dictionary<int, SWATUnit>();
+            List<int> ids = new List<int>();
 
             DataTable dt = GetDataTable("select * from " + getInfoTableFromType(type));
             foreach (DataRow r in dt.Rows)
@@ -148,9 +158,16 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     case SWATUnitType.RCH: unit = new Reach(r, this); break;
                     case SWATUnitType.RES: unit = new Reservoir(r, this); break;
                 }
-                if (unit != null && unit.ID != ScenarioResultStructure.UNKONWN_ID && !units.ContainsKey(unit.ID)) 
+                if (unit != null && unit.ID != ScenarioResultStructure.UNKONWN_ID && !units.ContainsKey(unit.ID))
+                {
                     units.Add(unit.ID, unit);
+                    ids.Add(unit.ID);
+                }
             }
+
+            _units.Add(type,units);
+            _unitIds.Add(type, ids);
+
             return units;
         }
 

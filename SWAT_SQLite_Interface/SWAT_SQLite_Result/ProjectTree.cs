@@ -16,12 +16,15 @@ namespace SWAT_SQLite_Result
         public event ResultLevelChangedEventHandler onResultLevelChanged = null;
         public event ScenarioSelectionChangedEventHandler onScenarioSelectionChanged = null;
         public event EventHandler onProjectNodeSelected = null;
+        public event EventHandler onDifferenceNodeSelected = null;
 
         public ProjectTree()
         {
             NodeMouseClick += (s, e) =>
             {
                 if(onResultLevelChanged == null) return;
+                _scenarioResult = null;
+
                 if (e.Node == null) return;
                 
                 ArcSWAT.SWATUnitType type = ArcSWAT.SWATUnitType.UNKNOWN;
@@ -48,7 +51,21 @@ namespace SWAT_SQLite_Result
                 //click on project node
                 if (e.Node.Tag != null && e.Node.Tag is ArcSWAT.Project && onProjectNodeSelected != null)
                     onProjectNodeSelected(this, new EventArgs());
+
+                //click on difference node
+                if (e.Node.Text.Equals("Difference") && e.Node.Tag != null && e.Node.Tag is ArcSWAT.ScenarioResult && onDifferenceNodeSelected != null)
+                {
+                    _scenarioResult = e.Node.Tag as ArcSWAT.ScenarioResult;
+                    onDifferenceNodeSelected(this, new EventArgs());
+                }
             };       
+        }
+
+        private ArcSWAT.ScenarioResult _scenarioResult = null;
+
+        public ArcSWAT.ScenarioResult ScenarioResult
+        {
+            get { return _scenarioResult; }
         }
 
         public ArcSWAT.Project Project
@@ -145,6 +162,7 @@ namespace SWAT_SQLite_Result
                 resultNode.Nodes.Add("Reach").Tag = result;
                 if (result.Reservoirs.Count > 0)
                     resultNode.Nodes.Add("Reservoir").Tag = result;
+                resultNode.Nodes.Add("Difference").Tag = result;
 
                 scenNode.ExpandAll();
             }

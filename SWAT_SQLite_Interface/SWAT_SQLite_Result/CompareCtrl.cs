@@ -21,6 +21,8 @@ namespace SWAT_SQLite_Result
 
         private void addComparableResult(ArcSWAT.ScenarioResult result)
         {
+            if (result == null) return;
+
             string id = string.Format("{0}.{1}", result.Scenario.Name, result.ModelType);
             cmbCompareResults.Items.Add(id);
             _comparableResult.Add(result);
