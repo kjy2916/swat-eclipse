@@ -59,35 +59,14 @@ namespace SWAT_SQLite_Result
 
             if (_scenarioResult == null) return;
 
-            //look for results in same scenario
-            for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
-            {
-                ArcSWAT.SWATModelType modelType = (ArcSWAT.SWATModelType)i;
-                if (modelType == _scenarioResult.ModelType) continue;
-
-                addComparableResult(_scenarioResult.Scenario.getModelResult(modelType));
-            }
-
-            //look for results in other scenario
-            foreach (string scenName in _scenarioResult.Scenario.Project.Scenarios.Keys)
-            {
-                ArcSWAT.Scenario compareScenario = _scenarioResult.Scenario.Project.Scenarios[scenName];
-                if (_scenarioResult.Scenario == compareScenario) continue;
-
-                addComparableResult(compareScenario.getModelResult(_scenarioResult.ModelType));
-            }
+            _comparableResult = _scenarioResult.ComparableScenarioResults;
+            foreach (ArcSWAT.ScenarioResult r in _comparableResult)
+                cmbCompareResults.Items.Add(string.Format("{0}.{1}", r.Scenario.Name, r.ModelType));
 
             if (cmbCompareResults.Items.Count > 0)
                 cmbCompareResults.SelectedIndex = 0;
-        }
-
-        private void addComparableResult(ArcSWAT.ScenarioResult result)
-        {
-            if (result == null) return;
-
-            string id = string.Format("{0}.{1}", result.Scenario.Name, result.ModelType);
-            cmbCompareResults.Items.Add(id);
-            _comparableResult.Add(result);
+            else
+                SWAT_SQLite.showInformationWindow("No comparable scenarios!");
         }
 
         private ArcSWAT.ScenarioResult CompareResult
@@ -125,61 +104,10 @@ namespace SWAT_SQLite_Result
             ArcSWAT.ScenarioResult compare = CompareResult;
             if (compare == null) return;
 
-            DataTable dt = calculateDifference(UnitType, _resultType, _col, compare);
+            DataTable dt = _scenarioResult.getDifference(UnitType, _resultType, _col, compare);
             tableView1.DataTable = dt;
             chart1.DataSource = dt;
             chart1.Invalidate();
-        }
-
-        private DataSet _differenceDataset = new System.Data.DataSet();
-
-        private DataTable calculateDifference(ArcSWAT.SWATUnitType type,string resultType, string col, 
-            ArcSWAT.ScenarioResult compareScenario)
-        {            
-            string tableId = string.Format("{0}_{1}_{2}_{3}_{4}",type,resultType,col,
-                compareScenario.ModelType, compareScenario.Scenario.Name);
-            if (!_differenceDataset.Tables.Contains(tableId))
-            {
-                List<int> ids = _scenarioResult.getSWATUnitIDs(type);
-
-                DataTable dt = createDifferentDataTable(tableId);
-                foreach (int id in ids)
-                {
-                    ArcSWAT.SWATUnit unit = _scenarioResult.getSWATUnit(type, id);
-                    if (unit == null) continue;
-
-                    ArcSWAT.SWATUnitResult unitResult = unit.getResult(resultType);
-                    if (unitResult == null) continue;
-
-                    ArcSWAT.SWATUnitColumnYearResult oneUnitResult = unitResult.getResult(col, -1);
-                    if (oneUnitResult == null) continue;
-
-                    try
-                    {
-                        DataRow r = dt.NewRow();
-                        r[0] = id;
-                        r[1] = oneUnitResult.Compare(compareScenario).Statistics.R2;
-                        dt.Rows.Add(r);
-                    }
-                    catch (System.Exception e)
-                    {
-                        System.Diagnostics.Debug.WriteLine(e.Message);
-                    }
-                }
-                _differenceDataset.Tables.Add(dt);
-            }
-            return _differenceDataset.Tables[tableId];
-        }
-
-       
-
-        private DataTable createDifferentDataTable(string tableName)
-        {
-            DataTable dt = new System.Data.DataTable(tableName);
-            dt.Columns.Add("ID", typeof(int));
-            dt.Columns.Add("R2", typeof(double));
-
-            return dt;
         }
     }
 }
