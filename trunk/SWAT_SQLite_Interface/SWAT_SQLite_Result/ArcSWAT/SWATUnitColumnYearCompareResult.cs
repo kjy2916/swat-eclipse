@@ -104,7 +104,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     if (_result1.Table.Rows.Count == 0)
                         throw new Exception("There is no result in result 1.");
 
-                    if (_result1.Table.Rows.Count != _data2.Table.Rows.Count)
+                    if (_result1.Table.Rows.Count != _data2.Table.Rows.Count &&
+                        _data2 is SWATUnitColumnYearResult) //only applied when two results are compared
+                                                            //Oberserved data may has some missing data, so this should not apply.
                         throw new Exception("The number of results are different.");
 
                     DataTable dt = _result1.Table.Copy();
@@ -114,11 +116,24 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     dt.Columns.Add(_data2.ColumnCompare, typeof(double));
 
                     //copy data from result2 to the combine table
-                    int newColIndex = dt.Columns.Count - 1;
+                    int newColIndex = dt.Columns.Count - 1;                
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        ArcSWAT.RowItem item = new ArcSWAT.RowItem(_data2.Table.Rows[i]);
-                        dt.Rows[i][newColIndex] = item.getColumnValue_Double(_data2.Column);
+                        if (_data2 is SWATUnitColumnYearResult)
+                        {
+                            ArcSWAT.RowItem item = new ArcSWAT.RowItem(_data2.Table.Rows[i]);
+                            dt.Rows[i][newColIndex] = item.getColumnValue_Double(_data2.Column);
+                        }
+                        else if (_data2 is SWATUnitColumnYearObservationData)
+                        {
+                            //see if the oberved data is missing
+                            DateTime d = DateTime.Parse(dt.Rows[i][SWATUnitResult.COLUMN_NAME_DATE].ToString());
+                            DataRow[] rs = _data2.Table.Select(string.Format("{0}='{1:yyyy-MM-dd}'", SWATUnitResult.COLUMN_NAME_DATE,d));
+                            if (rs != null && rs.Length > 0)
+                                dt.Rows[i][newColIndex] = double.Parse(rs[0][_data2.Column].ToString());
+                            else
+                                dt.Rows[i][newColIndex] = 0.0; //missing observed data
+                        }                        
                     }
 
                     //add two column for absolute change and relative change
