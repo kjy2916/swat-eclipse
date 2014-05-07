@@ -161,6 +161,10 @@ namespace SWAT_SQLite_Result
                 return;
             }
 
+            //clear views
+            _projectView = null;
+            _views.Clear();
+
             projectTree1.Project = _prj;
 
             //save current path
