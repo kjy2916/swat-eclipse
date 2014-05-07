@@ -25,9 +25,21 @@ namespace SWAT_SQLite_Result
             cmbReach.CheckedChanged += (s, e) => { updateUnitType(); };
             cmbSubbasin.CheckedChanged += (s, e) => { updateUnitType(); };
 
-            resultColumnTree1.onResultTypeAndColumnChanged += (resultType, col) => { _resultType = resultType; _col = col; updateTableAndChart(); };
-            cmbCompareResults.SelectedIndexChanged += (s, e) => { updateTableAndChart(); };
-            
+            resultColumnTree1.onResultTypeAndColumnChanged += (resultType, col) => { _resultType = resultType; _col = col; this.backgroundWorker1.RunWorkerAsync(); };
+            cmbCompareResults.SelectedIndexChanged += (s, e) => { _compareResult = CompareResult; this.backgroundWorker1.RunWorkerAsync(); };
+
+            backgroundWorker1.DoWork += (s, e) => { updateTableAndChart(); };
+            backgroundWorker1.ProgressChanged += (s, e) => { richTextBox1.AppendText(e.UserState.ToString() + "\n"); richTextBox1.SelectionStart = richTextBox1.Text.Length; richTextBox1.ScrollToCaret(); };
+            backgroundWorker1.RunWorkerCompleted += (s, e) => 
+            {
+                tableView1.DataTable = _differentTable;
+                chart1.DataSource = _differentTable;
+                chart1.Invalidate();
+
+                if (_differentTable == null) return;
+                richTextBox1.AppendText("Finished.\n"); 
+            };
+
             //default select reach
             cmbReach.Checked = true;
         }
@@ -85,7 +97,7 @@ namespace SWAT_SQLite_Result
         public ArcSWAT.ScenarioResult Result
         {
             set
-            {
+            {                
                 _scenarioResult = value;
                 updateUnitType();
                 addCompareResults();
@@ -94,20 +106,21 @@ namespace SWAT_SQLite_Result
 
         private string _resultType = null;
         private string _col = null;
+        private ArcSWAT.ScenarioResult _compareResult = null;
+        private DataTable _differentTable = null;
 
         private void updateTableAndChart()
         {
+            _differentTable = null;
+
             if (_scenarioResult == null) return;
             if (_resultType == null) return;
             if (_col == null) return;
+            if (_compareResult == null) return;
 
-            ArcSWAT.ScenarioResult compare = CompareResult;
-            if (compare == null) return;
-
-            DataTable dt = _scenarioResult.getDifference(UnitType, _resultType, _col, compare);
-            tableView1.DataTable = dt;
-            chart1.DataSource = dt;
-            chart1.Invalidate();
+            _differentTable = _scenarioResult.getDifference(
+                UnitType, _resultType, _col, 
+                _compareResult, backgroundWorker1);
         }
     }
 }

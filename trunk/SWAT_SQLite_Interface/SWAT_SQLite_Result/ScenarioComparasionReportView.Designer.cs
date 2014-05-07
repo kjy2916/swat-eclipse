@@ -32,15 +32,18 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.cmbCompareResults = new System.Windows.Forms.ComboBox();
             this.cmbReach = new System.Windows.Forms.RadioButton();
             this.cmbSubbasin = new System.Windows.Forms.RadioButton();
             this.cmbHRU = new System.Windows.Forms.RadioButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.cmbCompareResults = new System.Windows.Forms.ComboBox();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -49,6 +52,10 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
+            this.splitContainer4.Panel1.SuspendLayout();
+            this.splitContainer4.Panel2.SuspendLayout();
+            this.splitContainer4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
@@ -77,6 +84,14 @@
             this.splitContainer1.Size = new System.Drawing.Size(843, 814);
             this.splitContainer1.SplitterDistance = 26;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // cmbCompareResults
+            // 
+            this.cmbCompareResults.FormattingEnabled = true;
+            this.cmbCompareResults.Location = new System.Drawing.Point(214, 4);
+            this.cmbCompareResults.Name = "cmbCompareResults";
+            this.cmbCompareResults.Size = new System.Drawing.Size(121, 21);
+            this.cmbCompareResults.TabIndex = 1;
             // 
             // cmbReach
             // 
@@ -119,7 +134,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.resultColumnTree1);
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer4);
             // 
             // splitContainer2.Panel2
             // 
@@ -127,6 +142,41 @@
             this.splitContainer2.Size = new System.Drawing.Size(843, 784);
             this.splitContainer2.SplitterDistance = 161;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.resultColumnTree1);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.richTextBox1);
+            this.splitContainer4.Size = new System.Drawing.Size(161, 784);
+            this.splitContainer4.SplitterDistance = 537;
+            this.splitContainer4.TabIndex = 1;
+            // 
+            // resultColumnTree1
+            // 
+            this.resultColumnTree1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultColumnTree1.Location = new System.Drawing.Point(0, 0);
+            this.resultColumnTree1.Name = "resultColumnTree1";
+            this.resultColumnTree1.Size = new System.Drawing.Size(161, 537);
+            this.resultColumnTree1.TabIndex = 0;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(161, 243);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
             // 
             // splitContainer3
             // 
@@ -145,14 +195,6 @@
             this.splitContainer3.SplitterDistance = 469;
             this.splitContainer3.TabIndex = 0;
             // 
-            // cmbCompareResults
-            // 
-            this.cmbCompareResults.FormattingEnabled = true;
-            this.cmbCompareResults.Location = new System.Drawing.Point(214, 4);
-            this.cmbCompareResults.Name = "cmbCompareResults";
-            this.cmbCompareResults.Size = new System.Drawing.Size(121, 21);
-            this.cmbCompareResults.TabIndex = 1;
-            // 
             // chart1
             // 
             chartArea1.AxisY.Maximum = 1D;
@@ -167,20 +209,13 @@
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
+            series1.ToolTip = "#VALX : #VALY{F4} ";
             series1.XValueMember = "ID";
             series1.YValueMembers = "R2";
             this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(469, 784);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
-            // 
-            // resultColumnTree1
-            // 
-            this.resultColumnTree1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.resultColumnTree1.Location = new System.Drawing.Point(0, 0);
-            this.resultColumnTree1.Name = "resultColumnTree1";
-            this.resultColumnTree1.Size = new System.Drawing.Size(161, 784);
-            this.resultColumnTree1.TabIndex = 0;
             // 
             // tableView1
             // 
@@ -192,6 +227,10 @@
             this.tableView1.RowHeadersVisible = false;
             this.tableView1.Size = new System.Drawing.Size(205, 784);
             this.tableView1.TabIndex = 0;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
             // 
             // ScenarioComparasionReportView
             // 
@@ -209,6 +248,10 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.splitContainer4.Panel1.ResumeLayout(false);
+            this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
+            this.splitContainer4.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
@@ -231,6 +274,9 @@
         private TableView tableView1;
         private System.Windows.Forms.ComboBox cmbCompareResults;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.SplitContainer splitContainer4;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
     }
 }
