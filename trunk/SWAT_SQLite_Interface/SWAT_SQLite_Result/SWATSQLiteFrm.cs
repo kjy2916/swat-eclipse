@@ -157,6 +157,14 @@ namespace SWAT_SQLite_Result
             if (!_prj.IsValid)
             {
                 _prj = null;
+
+                //remove the path if it's not there anymore
+                if (Properties.Settings.Default.Projects.Contains(prjPath))
+                {
+                    Properties.Settings.Default.Projects.Remove(prjPath);
+                    Properties.Settings.Default.Save();
+                    cmbProjects.Items.Remove(prjPath);
+                }
                 System.Windows.Forms.MessageBox.Show(folderBrowserDialog1.SelectedPath + " is not a valid ArcSWAT project folder.");
                 return;
             }
