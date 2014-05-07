@@ -123,7 +123,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
             //only use year parameter for daily
             int year = _year;
-            if (_result.Interval != SWATResultIntervalType.DAILY) year = -1;
+            if (_result.Interval != SWATResultIntervalType.DAILY &&
+                _result.Interval != SWATResultIntervalType.MONTHLY) year = -1;
 
             //get return columns based on interval
             string cols = ScenarioResultStructure.getDateColumns(_result.Interval);
