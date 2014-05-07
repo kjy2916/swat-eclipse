@@ -8,8 +8,7 @@ using System.Data;
 namespace SWAT_SQLite_Result.ArcSWAT
 {
     public class ScenarioResult
-    {      
-
+    {  
         public ScenarioResult(string databasePath,Scenario scen, SWATModelType modelType)
         {
             _databasePath = databasePath;
@@ -236,7 +235,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <param name="compareScenario"></param>
         /// <returns></returns>
         public DataTable getDifference(ArcSWAT.SWATUnitType type, string resultType, string col,
-            ArcSWAT.ScenarioResult compareScenario)
+            ArcSWAT.ScenarioResult compareScenario, System.ComponentModel.BackgroundWorker worker = null)
         {
             string tableId = string.Format("{0}_{1}_{2}_{3}_{4}", type, resultType, col,
                 compareScenario.ModelType, compareScenario.Scenario.Name);
@@ -250,6 +249,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 dt.Columns.Add("R2", typeof(double));
                 foreach (int id in ids)
                 {
+                    if (worker != null)
+                        worker.ReportProgress(0, string.Format("{0}:{1}",type,id));
+
                     ArcSWAT.SWATUnit unit = getSWATUnit(type, id);
                     if (unit == null) continue;
 
@@ -276,9 +278,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return _differenceDataset.Tables[tableId];
         }
 
-        #endregion
-
-        
+        #endregion        
 
         public override string ToString()
         {
