@@ -32,6 +32,8 @@ namespace SWAT_SQLite_Result
                         _prj.Observation.LoadData(_unitType, _id, _col);
                         updateTableAndChart();
                     }
+                    SWAT_SQLite.showInformationWindow(
+                        string.Format("Data is successfully loaded to {0} {1}.",_unitType,_id));
                 }
                 catch (System.Exception ee)
                 {

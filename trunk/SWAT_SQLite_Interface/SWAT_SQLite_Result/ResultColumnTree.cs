@@ -50,9 +50,9 @@ namespace SWAT_SQLite_Result
 
                 tblNode.ExpandAll();
             }
-            if (Nodes.Count > 0 && Nodes[0].Nodes.Count > 0)
-                OnNodeMouseClick(new TreeNodeMouseClickEventArgs(
-                    Nodes[0].Nodes[0], System.Windows.Forms.MouseButtons.Left, -1, -1, -1));
+            //if (Nodes.Count > 0 && Nodes[0].Nodes.Count > 0)
+            //    OnNodeMouseClick(new TreeNodeMouseClickEventArgs(
+            //        Nodes[0].Nodes[0], System.Windows.Forms.MouseButtons.Left, -1, -1, -1));
         }
     }
 

@@ -185,6 +185,11 @@ namespace SWAT_SQLite_Result
                 if (yColNames.Count > 1)
                     line.ToolTip = yColName + ":" + line.ToolTip;
 
+                if (index == 0)
+                    line.Color = System.Drawing.Color.Red;
+                else
+                    line.Color = System.Drawing.Color.Green;
+
                 index++;
             }
             setChartArea(dt, interval);

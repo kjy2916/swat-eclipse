@@ -61,6 +61,11 @@ namespace SWAT_SQLite_Result
                     if (agrs.Data != null) updateMessage(agrs.Data);
 
                 };
+                myProcess.ErrorDataReceived += (sender, agrs) =>
+                {
+                    if (agrs.Data != null) updateMessage(agrs.Data);
+
+                };
                 myProcess.Exited += (send, agrs) =>
                     {
                         //update the results
