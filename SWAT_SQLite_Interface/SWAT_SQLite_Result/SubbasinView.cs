@@ -77,8 +77,9 @@ namespace SWAT_SQLite_Result
                 _resultType = resultType;
                 _col = col;
 
-                //only for daily
-                this.yearCtrl1.Visible = _scenario.Structure.getInterval(_resultType) == ArcSWAT.SWATResultIntervalType.DAILY;
+                //only for daily and monthly
+                this.yearCtrl1.Visible = _scenario.Structure.getInterval(_resultType) == ArcSWAT.SWATResultIntervalType.DAILY ||
+                    _scenario.Structure.getInterval(_resultType) == ArcSWAT.SWATResultIntervalType.MONTHLY;
 
                 updateMap();
                 updateTableAndChart();
@@ -155,7 +156,7 @@ namespace SWAT_SQLite_Result
             if (!result.Columns.Contains(_col)) return;
 
             int year = -1;
-            if (result.Interval == ArcSWAT.SWATResultIntervalType.DAILY && yearCtrl1.DisplayByYear)
+            if ((result.Interval == ArcSWAT.SWATResultIntervalType.DAILY || result.Interval == ArcSWAT.SWATResultIntervalType.MONTHLY) && yearCtrl1.DisplayByYear)
                 year = yearCtrl1.Year;
 
             //current working result

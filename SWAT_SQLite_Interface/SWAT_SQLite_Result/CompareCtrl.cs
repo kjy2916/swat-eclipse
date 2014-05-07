@@ -27,16 +27,22 @@ namespace SWAT_SQLite_Result
                 {
                     cmbCompareResults.Items.Add("Observed Data");
                     _hasObservedData = value;
+
+                    if (chbCompare.Checked && cmbCompareResults.Items.Count > 0 && cmbCompareResults.SelectedIndex == -1)
+                        cmbCompareResults.SelectedIndex = 0;                                        
                 }
                 if (_hasObservedData && !value)
                 {
                     int selectIndex = cmbCompareResults.SelectedIndex;
                     cmbCompareResults.Items.RemoveAt(cmbCompareResults.Items.Count - 1);
-                    if (selectIndex == cmbCompareResults.Items.Count && 
+                    if (selectIndex == cmbCompareResults.Items.Count &&
                         cmbCompareResults.Items.Count > 0)
                         selectIndex = 0;
+                    else
+                        cmbCompareResults.Text = "";
                     _hasObservedData = value;
                 }
+                this.Enabled = cmbCompareResults.Items.Count > 0;
             }
             get
             {
@@ -72,6 +78,9 @@ namespace SWAT_SQLite_Result
             chbCompare.CheckedChanged += (ss, ee) =>
                 {
                     cmbCompareResults.Enabled = chbCompare.Checked;
+                    if (chbCompare.Checked && cmbCompareResults.Items.Count > 0 && cmbCompareResults.SelectedIndex == -1)
+                        cmbCompareResults.SelectedIndex = 0;
+
                     if (onCompareResultChanged != null) onCompareResultChanged(this, new EventArgs()); 
                 };
             cmbCompareResults.Enabled = chbCompare.Checked;
