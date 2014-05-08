@@ -16,6 +16,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private SWATUnitColumnYearResult _result1 = null;
         private ColumnYearData _data2 = null;
         private DataTable _combineCompareTable = null;
+        private DataTable _combineCompareTableForStatistics = null;
         private StringCollection _tableColumns = new StringCollection();
         private StringCollection _chartColumns = new StringCollection();
         private SWATResultIntervalType _interval = SWATResultIntervalType.UNKNOWN;
@@ -92,6 +93,27 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public StringCollection TableColumns { get { return _tableColumns; } }
         public StringCollection ChartColumns { get { return _chartColumns; } }
         public StatisticCompare Statistics { get { return _statistic; } }
+        
+        /// <summary>
+        /// Data table only used to calculate NSE when compared with observed data. The missing data is not accounted in the calculation. 
+        /// For sediment and nutrient, this is very important.
+        /// </summary>
+        public DataTable TableForStatistics
+        {
+            get
+            {
+                if (_data2 is SWATUnitColumnYearResult) return Table;
+
+                //observed, remove missing data 
+                if (_combineCompareTableForStatistics == null)
+                {
+                    DataView view = Table.DefaultView;
+                    view.RowFilter = _data2.ColumnCompare + " > 0";
+                    _combineCompareTableForStatistics = view.ToTable();                    
+                }
+                return _combineCompareTableForStatistics;
+            }
+        }
         public DataTable Table
         {
             get
@@ -137,8 +159,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     }
 
                     //add two column for absolute change and relative change
-                    dt.Columns.Add("ABSOLUTE", typeof(double)).Expression = string.Format("{0} - {1}", _result1.ColumnCompare, _data2.ColumnCompare);
-                    dt.Columns.Add("RELATIVE", typeof(double)).Expression = string.Format("ABSOLUTE/{0}", _result1.ColumnCompare);
+                    //don't calculate relative change when first result is 0
+                    dt.Columns.Add("ABSOLUTE", typeof(double)).Expression = 
+                        string.Format("{0} - {1}", _result1.ColumnCompare, _data2.ColumnCompare);
+                    dt.Columns.Add("RELATIVE", typeof(double)).Expression =
+                        string.Format("IIF({0} = 0, 0.0,ABSOLUTE/{0})", _result1.ColumnCompare);
 
                     _combineCompareTable = dt;
                 }

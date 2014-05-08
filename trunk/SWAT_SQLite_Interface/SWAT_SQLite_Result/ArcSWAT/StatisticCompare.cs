@@ -32,7 +32,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             get
             {
                 if (_nse == ScenarioResultStructure.EMPTY_VALUE)
-                    _nse = CalculateNSE(_result.Table, _result.ChartColumns[1], _result.ChartColumns[0]);
+                    _nse = CalculateNSE(_result.TableForStatistics, _result.ChartColumns[1], _result.ChartColumns[0]);
                 return _nse;
             }
         }
