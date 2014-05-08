@@ -306,6 +306,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     throw new Exception("The given file is empty!");
 
                 SQLite.insert(_databasePath,sb.ToString());
+
+                //update the file status. It may not exist before the data is loaded.
+                _exist = System.IO.File.Exists(_databasePath);
                 return true;
             }
         }
