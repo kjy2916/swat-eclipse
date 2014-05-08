@@ -54,6 +54,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         private static double CalculateR2(DataTable dt, string col_observed, string col_simulated)
         {
+            //consider missing value in observed data
+            //some year just doesn't have data
+            if (dt == null || dt.Rows.Count == 0) 
+                return ScenarioResultStructure.EMPTY_VALUE;
+
             double ave_observed = Average(dt, col_observed);
             double ave_simulated = Average(dt, col_simulated);
 
@@ -82,6 +87,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         private static double CalculateNSE(DataTable dt, string col_observed, string col_simulated)
         {
+            //consider missing value in observed data
+            //some year just doesn't have data
+            if (dt == null || dt.Rows.Count == 0)
+                return ScenarioResultStructure.EMPTY_VALUE;
+
             //top part [sum(Oi-Pi)^2)]
             //add a new colum NSE_TOP for [(Oi-Pi)^2]
             string col_top = "NSE_TOP";
