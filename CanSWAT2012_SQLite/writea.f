@@ -324,7 +324,7 @@
               if (iscen == 1 .and. isproj == 0) then
                 if(ioutput == 1) then
                     !!~~~ SQLite ~~~
-                call sqlite3_set_column( colrsv(1), j )
+                call sqlite3_set_column( colrsv(1), res_sub(j) )
                 call sqlite3_set_column( colrsv(2), iyr )
 
                 call sqlite3_set_column( colrsv(3), res_vol(j) )

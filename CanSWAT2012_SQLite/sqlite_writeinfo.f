@@ -92,7 +92,7 @@
      &                                                     tbl,"RES",0)
 
           do j = 1,nres
-            call sqlite3_set_column( col(1), j )
+            call sqlite3_set_column( col(1), res_sub(j) )
             call sqlite3_insert(db,tbl,col)
           end do
           deallocate(col)
