@@ -322,7 +322,7 @@
             resouty(41,j) = resouty(41,j) / Real(idlast)
             if (iyr >= iyres(j)) then
               if (iscen == 1 .and. isproj == 0) then
-                if(ioutput == 1) then
+                if(ioutput == 1 .AND. iprint == 2) then
                     !!~~~ SQLite ~~~
                 call sqlite3_set_column( colrsv(1), res_sub(j) )
                 call sqlite3_set_column( colrsv(2), iyr )
