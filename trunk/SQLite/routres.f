@@ -389,7 +389,9 @@
         if (iscen == 1.and. isproj == 0) then
             if(ioutput == 1) then
                 !!~~~ SQLite ~~~
-                call sqlite3_set_column( colrsv(1), jres )
+                !!use subbasin id instead reservoir id to make reservoir
+                !!selection in interface more easier
+                call sqlite3_set_column( colrsv(1), res_sub(jres) )
                 call sqlite3_set_column( colrsv(2), iyr )
                 call sqlite3_set_column( colrsv(3), i_mo )
                 call sqlite3_set_column( colsed(4), icl(iida) )
