@@ -58,7 +58,8 @@ namespace SWAT_SQLite_Result
         /// <param name="type"></param>
         public void setProjectScenario(ArcSWAT.Project project, ArcSWAT.ScenarioResult scenario, ArcSWAT.SWATUnitType type)
         {
-            if (type != ArcSWAT.SWATUnitType.SUB && type != ArcSWAT.SWATUnitType.RCH && type != ArcSWAT.SWATUnitType.HRU) return;
+            if (type != ArcSWAT.SWATUnitType.SUB && type != ArcSWAT.SWATUnitType.RCH && 
+                type != ArcSWAT.SWATUnitType.HRU && type != ArcSWAT.SWATUnitType.RES) return;
 
             _project = project;
             _scenario = scenario;
@@ -72,18 +73,24 @@ namespace SWAT_SQLite_Result
 
             if (type == ArcSWAT.SWATUnitType.SUB)
             {
-                _workingLayer = this.addLayer(project.Spatial.SubbasinShapefile, "Subbasin", false, true);
-                this.addLayer(project.Spatial.ReachShapefile, "Reach", false, false);
+                _workingLayer = addLayer(project.Spatial.SubbasinShapefile, "Subbasin", false, true);
+                addLayer(project.Spatial.ReachShapefile, "Reach", false, false);
             }
             else if (type == ArcSWAT.SWATUnitType.RCH)
             {
-                this.addLayer(project.Spatial.SubbasinShapefile, "Subbasin", false, false);
-                _workingLayer = this.addLayer(project.Spatial.ReachShapefile, "Reach", false, true);               
+                addLayer(project.Spatial.SubbasinShapefile, "Subbasin", false, false);
+                _workingLayer = addLayer(project.Spatial.ReachShapefile, "Reach", false, true);               
             }
             else if (type == ArcSWAT.SWATUnitType.HRU)
             {
-                _workingLayer = this.addLayer(project.Spatial.SubbasinShapefile, "Subbasin", false, true);
-                this.addLayer(project.Spatial.ReachShapefile, "Reach", false, false);
+                _workingLayer = addLayer(project.Spatial.SubbasinShapefile, "Subbasin", false, true);
+                addLayer(project.Spatial.ReachShapefile, "Reach", false, false);
+            }
+            else if (type == ArcSWAT.SWATUnitType.RES)
+            {
+                addLayer(project.Spatial.SubbasinShapefile, "Subbasin", false, false);
+                addLayer(project.Spatial.ReachShapefile, "Reach", false, false);
+                _workingLayer = addLayer(project.Spatial.MonitoringShapefile, "Reservoir", false, true);
             }
             this.FunctionMode = DotSpatial.Controls.FunctionMode.Select;
         }
