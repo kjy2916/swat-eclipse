@@ -87,7 +87,7 @@ namespace SWAT_SQLite_Result
             resultColumnTree1.setScenarioAndUnit(scenario, type);
 
             //map            
-            subbasinMap1.onLayerSelectionChanged += (id) =>
+            subbasinMap1.onLayerSelectionChanged += (unitType, id) =>
             {
                 if (type != ArcSWAT.SWATUnitType.SUB && type != ArcSWAT.SWATUnitType.RCH && type != ArcSWAT.SWATUnitType.HRU && _unitList != null) return;
 
