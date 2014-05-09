@@ -6,9 +6,17 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DotSpatial.Symbology;
+using DotSpatial.Controls;
 
 namespace SWAT_SQLite_Result
 {
+    /// <summary>
+    /// TODO
+    /// 1. Add a list to show all the reaches, reservoirs which has observed data.
+    /// 2. Add reservoir layer to select
+    /// 3. Set selection color as read and same width with unselect feature.
+    /// </summary>
     public partial class ProjectView : UserControl
     {
         public ProjectView()
@@ -28,12 +36,38 @@ namespace SWAT_SQLite_Result
                 {
                     if (_prj.Observation.loadCSV(openFileDialog1.FileName,
                         _unitType, _id, _col))
-                    {
-                        _prj.Observation.LoadData(_unitType, _id, _col);
+                    {                        
                         updateTableAndChart();
+                        subbasinMap1.updateObservedStatus(_unitType, _id);
+                        SWAT_SQLite.showInformationWindow(
+                            string.Format("Data is successfully loaded to {0} {1}.", _unitType, _id));
+
                     }
-                    SWAT_SQLite.showInformationWindow(
-                        string.Format("Data is successfully loaded to {0} {1}.",_unitType,_id));
+                }
+                catch (System.Exception ee)
+                {
+                    SWAT_SQLite.showInformationWindow(ee.Message);
+                }
+            }
+        }
+
+        private void bDeleteObservationData_Click(object sender, EventArgs e)
+        {
+            if (_col != null && _id > 0 && tableView1.DataSource != null)
+            {
+                try
+                {
+                    if (System.Windows.Forms.MessageBox.Show(
+                        string.Format("Do you really want to delete the observed data for {0} {1} {2}?", _unitType, _id, _col),
+                        SWAT_SQLite.NAME, MessageBoxButtons.YesNo) == DialogResult.No) return;
+
+                    if (_prj.Observation.delete(_unitType, _id, _col))
+                    {
+                        updateTableAndChart();
+                        subbasinMap1.updateObservedStatus(_unitType, _id);
+                        SWAT_SQLite.showInformationWindow(
+                            string.Format("Data for {0} {1} is successfully deleted.", _unitType, _id));
+                    }
                 }
                 catch (System.Exception ee)
                 {
@@ -47,7 +81,7 @@ namespace SWAT_SQLite_Result
             set
             {
                 _prj = value;
-                subbasinMap1.setProjectScenario(value, null, _unitType);                
+                subbasinMap1.setProject(value);   
             }
         }
 
@@ -67,9 +101,10 @@ namespace SWAT_SQLite_Result
 
                 };
             
-            subbasinMap1.onLayerSelectionChanged += (id) =>
+            subbasinMap1.onLayerSelectionChanged += (unitType, id) =>
             {
                 _id = id;
+                _unitType = unitType;
                 cmbObservedColumns.DataSource = null;
                 cmbObservedColumns.DataSource = 
                     ArcSWAT.ObservationData.getObservationDataColumns(_unitType);
@@ -96,5 +131,7 @@ namespace SWAT_SQLite_Result
         }
 
         public DotSpatial.Controls.Map Map { get { return subbasinMap1; } }
+
+
     }
 }
