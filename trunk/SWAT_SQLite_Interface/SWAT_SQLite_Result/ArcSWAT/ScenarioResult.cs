@@ -216,7 +216,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     if (Scenario == compareScenario) continue;
 
                     ScenarioResult r = compareScenario.getModelResult(ModelType);
-                    if (r == null || r.Status != ScenarioResultStatus.NORMAL) continue;
+                    if (r == null || r.Status != ScenarioResultStatus.NORMAL || r.Interval != this.Interval) continue;
                     results.Add(r);
                 }
 
