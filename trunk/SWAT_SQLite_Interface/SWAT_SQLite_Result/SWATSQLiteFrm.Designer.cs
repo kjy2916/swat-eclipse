@@ -32,15 +32,15 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.cmbProjects = new System.Windows.Forms.ToolStripComboBox();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.bOpen = new System.Windows.Forms.ToolStripButton();
+            this.cmbProjects = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.bPan = new System.Windows.Forms.ToolStripButton();
             this.bZoomIn = new System.Windows.Forms.ToolStripButton();
             this.bZoomOut = new System.Windows.Forms.ToolStripButton();
             this.bZoomExtent = new System.Windows.Forms.ToolStripButton();
             this.bSelect = new System.Windows.Forms.ToolStripButton();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.projectTree1 = new SWAT_SQLite_Result.ProjectTree();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -110,23 +110,8 @@
             this.bSelect});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(567, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(667, 39);
             this.toolStrip1.TabIndex = 0;
-            // 
-            // cmbProjects
-            // 
-            this.cmbProjects.Name = "cmbProjects";
-            this.cmbProjects.Size = new System.Drawing.Size(300, 39);
-            this.cmbProjects.ToolTipText = "Recently Opened Project";
-            // 
-            // folderBrowserDialog1
-            // 
-            this.folderBrowserDialog1.Description = "Please Locate the ArcSWAT Project Folder";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
             // 
             // bOpen
             // 
@@ -137,6 +122,17 @@
             this.bOpen.Size = new System.Drawing.Size(36, 36);
             this.bOpen.Text = "Open ArcSWAT Project";
             this.bOpen.Click += new System.EventHandler(this.bOpen_Click);
+            // 
+            // cmbProjects
+            // 
+            this.cmbProjects.Name = "cmbProjects";
+            this.cmbProjects.Size = new System.Drawing.Size(400, 39);
+            this.cmbProjects.ToolTipText = "Recently Opened Project";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
             // 
             // bPan
             // 
@@ -192,6 +188,10 @@
             this.bSelect.Text = "toolStripButton5";
             this.bSelect.ToolTipText = "Select";
             this.bSelect.Click += new System.EventHandler(this.bSelect_Click);
+            // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.Description = "Please Locate the ArcSWAT Project Folder";
             // 
             // projectTree1
             // 
