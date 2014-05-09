@@ -39,10 +39,12 @@ namespace SWAT_SQLite_Result
             lblDate.Text = "Map:" + _date.ToString("yyyy-MM-dd");
             if (type == ArcSWAT.SWATUnitType.SUB)
                 _unitList = _scenario.Subbasins;
-            if (type == ArcSWAT.SWATUnitType.RCH)
+            else if (type == ArcSWAT.SWATUnitType.RCH)
                 _unitList = _scenario.Reaches;
-            if (type == ArcSWAT.SWATUnitType.HRU)
+            else if (type == ArcSWAT.SWATUnitType.HRU)
                 _unitList = _scenario.HRUs;
+            else if (type == ArcSWAT.SWATUnitType.RES)
+                _unitList = _scenario.Reservoirs;
 
             //year control
             yearCtrl1.Scenario = scenario;
@@ -89,7 +91,7 @@ namespace SWAT_SQLite_Result
             //map            
             subbasinMap1.onLayerSelectionChanged += (unitType, id) =>
             {
-                if (type != ArcSWAT.SWATUnitType.SUB && type != ArcSWAT.SWATUnitType.RCH && type != ArcSWAT.SWATUnitType.HRU && _unitList != null) return;
+                if (type != ArcSWAT.SWATUnitType.SUB && type != ArcSWAT.SWATUnitType.RCH && type != ArcSWAT.SWATUnitType.HRU && type != ArcSWAT.SWATUnitType.RES && _unitList != null) return;
 
                 if (type == ArcSWAT.SWATUnitType.HRU)
                     _unit = (_scenario.Subbasins[id] as ArcSWAT.Subbasin).HRUs.First().Value;

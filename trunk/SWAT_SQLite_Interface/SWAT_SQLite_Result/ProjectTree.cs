@@ -36,6 +36,8 @@ namespace SWAT_SQLite_Result
                     type = ArcSWAT.SWATUnitType.SUB;
                 else if (e.Node.Text.Equals("Reach"))
                     type = ArcSWAT.SWATUnitType.RCH;
+                else if (e.Node.Text.Equals("Reservoir"))
+                    type = ArcSWAT.SWATUnitType.RES;
 
                 if (type != ArcSWAT.SWATUnitType.UNKNOWN)
                     onResultLevelChanged(e.Node.Tag as ArcSWAT.ScenarioResult, (ArcSWAT.SWATModelType)e.Node.Parent.Tag, type);
