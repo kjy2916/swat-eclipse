@@ -12,7 +12,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
     public class Spatial : FolderBase
     {
         private static string DEFAULT_SUBBASIN_PATH = @"\Shapes\subs1.shp";
-        private static string DEFAULT_MONITORING_POINTS_PATH = @"\Shapes\monitoring_points1.shp";
+
+        //The monitoring_points1.shp in shapes folder doesn't include reservoirs. 
+        //monitoring_points2.shp is exported from GeoDatabase.
+        private static string DEFAULT_MONITORING_POINTS_PATH = @"\Shapes\monitoring_points2.shp"; 
         private static string DEFAULT_REACH_PATH = @"\Shapes\riv1.shp";
 
         private string _subbasinShapefile = null;
