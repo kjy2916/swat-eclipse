@@ -112,11 +112,13 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <remarks>could add other types in the future</remarks>
         private void loadData()
         {
-            LoadData(SWATUnitType.RCH);
-            LoadData(SWATUnitType.RES);            
+            _allData.Clear();
+            _allData_display.Clear();
+            loadData(SWATUnitType.RCH);
+            loadData(SWATUnitType.RES);            
         }
 
-        public void LoadData(SWATUnitType type, int id, string col)
+        private void loadData(SWATUnitType type, int id, string col)
         {
             if (!_exist) return;
 
@@ -158,7 +160,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             }
         }
 
-        private void LoadData(SWATUnitType type)
+        private void loadData(SWATUnitType type)
         {
             if (!_exist) return;
 
@@ -262,6 +264,21 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private string INSERT_SQL_FORMAT = "insert into {0} (" +
             OBSERVATION_COLUMN_DATE + "," + OBSERVATION_COLUMN_VALUE + ") values ('{1:yyyy-MM-dd}',{2});";
 
+        public bool delete(SWATUnitType unitType, int id, string col)
+        {
+            if (getObservedData(unitType, id, col) == null) return true;
+
+            //empty the table, but not drop the table
+            string tableName = "[" + getTableName(unitType, id, col) + "]";
+            SQLite.PrepareTable(_databasePath, tableName,
+                OBSERVED_TABLE_DATE_COLUMN, OBSERVED_TABLE_VALUE_COLUMN);
+
+            //reload all observed data
+            loadData();
+
+            return true;
+        }
+
         /// <summary>
         /// Load given csv file into the database
         /// </summary>
@@ -309,6 +326,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
                 //update the file status. It may not exist before the data is loaded.
                 _exist = System.IO.File.Exists(_databasePath);
+
+                //reload the data
+                loadData(unitType, id, col);
+
                 return true;
             }
         }
