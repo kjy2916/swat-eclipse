@@ -394,7 +394,7 @@
                 call sqlite3_set_column( colrsv(1), res_sub(jres) )
                 call sqlite3_set_column( colrsv(2), iyr )
                 call sqlite3_set_column( colrsv(3), i_mo )
-                call sqlite3_set_column( colsed(4), icl(iida) )
+                call sqlite3_set_column( colrsv(4), icl(iida) )
 
                 call sqlite3_set_column( colrsv(5), res_vol(jres) )
                 call sqlite3_set_column( colrsv(6), resflwi / 86400. )
