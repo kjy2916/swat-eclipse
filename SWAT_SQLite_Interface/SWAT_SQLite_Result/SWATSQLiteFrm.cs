@@ -139,7 +139,7 @@ namespace SWAT_SQLite_Result
             if (view != null && view is SubbasinView)
                 lblMapTime.Text = string.Format("Map Display Time: {0:yyyy-MM-dd}", (view as SubbasinView).MapTime);
             else
-                lblMapTime.Text = "";
+                lblMapTime.Text = "Map Display Time:";
         }
 
         private void onMapSelectionChanged(UserControl view)

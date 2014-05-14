@@ -217,7 +217,8 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblMapTime.Name = "lblMapTime";
-            this.lblMapTime.Size = new System.Drawing.Size(4, 19);
+            this.lblMapTime.Size = new System.Drawing.Size(109, 19);
+            this.lblMapTime.Text = "Map Display Time:";
             this.lblMapTime.ToolTipText = "Map Display Time";
             // 
             // lblStatistics
@@ -226,7 +227,7 @@
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lblStatistics.Name = "lblStatistics";
-            this.lblStatistics.Size = new System.Drawing.Size(915, 19);
+            this.lblStatistics.Size = new System.Drawing.Size(810, 19);
             this.lblStatistics.Spring = true;
             this.lblStatistics.Text = "No Statistics Data Available";
             this.lblStatistics.ToolTipText = "Statistic Information";
