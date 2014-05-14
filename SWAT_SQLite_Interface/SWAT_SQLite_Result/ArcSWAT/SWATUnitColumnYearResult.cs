@@ -158,7 +158,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             {
                 dt.Columns.Add(SWATUnitResult.COLUMN_NAME_DATE, typeof(DateTime));
                 foreach (DataRow r in dt.Rows)
-                    calculateDate(r);
+                    calculateDate(r);                                
             }
 
             _table = dt;
