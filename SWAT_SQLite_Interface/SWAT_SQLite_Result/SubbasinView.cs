@@ -23,12 +23,36 @@ namespace SWAT_SQLite_Result
         private string _col = null;
         private ArcSWAT.SWATUnit _unit = null;
         private DateTime _date = DateTime.Now;
+        private string _statistics = "No Statistics Data Available";
 
         private ArcSWAT.Project _project = null;
         private ArcSWAT.ScenarioResult _scenario = null;
         private ArcSWAT.SWATUnitType _type = ArcSWAT.SWATUnitType.UNKNOWN;
         private Dictionary<int, ArcSWAT.SWATUnit> _unitList = null;
+
+        /// <summary>
+        /// Happens when go button is clicked
+        /// </summary>
         public event SwitchFromSubbasin2HRUEventHandler onSwitch2HRU = null;
+
+        /// <summary>
+        /// Happens when new feature is selected
+        /// </summary>
+        public event EventHandler onMapSelectionChanged = null;
+
+        /// <summary>
+        /// Happens when time is changed
+        /// </summary>
+        public event EventHandler onMapTimeChanged = null;
+
+        /// <summary>
+        /// Happens when statistic information is changed
+        /// </summary>
+        public event EventHandler onDataStatisticsChanged = null;
+
+        public DateTime MapTime { get { return _date; } }
+        public ArcSWAT.SWATUnit MapSelection { get { return _unit; } }
+        public string Statistics { get { return _statistics; } }
 
         public void setProjectScenario(ArcSWAT.Project project, ArcSWAT.ScenarioResult scenario,ArcSWAT.SWATUnitType type)
         {
@@ -36,7 +60,9 @@ namespace SWAT_SQLite_Result
             _scenario = scenario;            
             _type = type;
             _date = new DateTime(scenario.StartYear, 1, 1);
-            lblDate.Text = "Map:" + _date.ToString("yyyy-MM-dd");
+            if (onMapTimeChanged != null)
+                onMapTimeChanged(this, new EventArgs());
+            
             if (type == ArcSWAT.SWATUnitType.SUB)
                 _unitList = _scenario.Subbasins;
             else if (type == ArcSWAT.SWATUnitType.RCH)
@@ -45,6 +71,8 @@ namespace SWAT_SQLite_Result
                 _unitList = _scenario.HRUs;
             else if (type == ArcSWAT.SWATUnitType.RES)
                 _unitList = _scenario.Reservoirs;
+
+            this.Resize += (ss, ee) => { splitContainer3.SplitterDistance = 72; };
 
             //season control
             seasonCtrl1.onSeasonTypeChanged += (s, e) => { tableView1.Season = seasonCtrl1.Season; outputDisplayChart1.Season = seasonCtrl1.Season; updateTableAndChart(); };
@@ -65,7 +93,8 @@ namespace SWAT_SQLite_Result
                         _unit = hruList1.HRU;
 
                         //show basic information
-                        this.lblInfo.Text = "Information: " + _unit.ToStringBasicInfo();
+                        if (onMapSelectionChanged != null)
+                            onMapSelectionChanged(this, new EventArgs());
 
                         //update table and chart
                         updateTableAndChart(); 
@@ -93,22 +122,30 @@ namespace SWAT_SQLite_Result
 
             //map            
             subbasinMap1.onLayerSelectionChanged += (unitType, id) =>
-            {
+            {                
                 if (type != ArcSWAT.SWATUnitType.SUB && type != ArcSWAT.SWATUnitType.RCH && type != ArcSWAT.SWATUnitType.HRU && type != ArcSWAT.SWATUnitType.RES && _unitList != null) return;
-
-                if (type == ArcSWAT.SWATUnitType.HRU)
-                    _unit = (_scenario.Subbasins[id] as ArcSWAT.Subbasin).HRUs.First().Value;
+                if (id <= 0)
+                    _unit = null;
                 else
-                    _unit = _unitList[id];
+                {
+                    if (type == ArcSWAT.SWATUnitType.HRU)
+                        _unit = (_scenario.Subbasins[id] as ArcSWAT.Subbasin).HRUs.First().Value;
+                    else
+                        _unit = _unitList[id];
+                }
 
                 //show basic information
-                this.lblInfo.Text = "Information: " + _unit.ToStringBasicInfo();
+                if (onMapSelectionChanged != null)
+                    onMapSelectionChanged(this, new EventArgs());
 
-                //get hrus
-                if(type == ArcSWAT.SWATUnitType.SUB)
-                    hruList1.Subbasin = _unit as ArcSWAT.Subbasin;
-                if(type == ArcSWAT.SWATUnitType.HRU)
-                    hruList1.Subbasin = (_unit as ArcSWAT.HRU).Subbasin;
+                if (_unit != null)
+                {
+                    //get hrus
+                    if(type == ArcSWAT.SWATUnitType.SUB)
+                        hruList1.Subbasin = _unit as ArcSWAT.Subbasin;
+                    if(type == ArcSWAT.SWATUnitType.HRU)
+                        hruList1.Subbasin = (_unit as ArcSWAT.HRU).Subbasin;
+                }
 
                 updateTableAndChart();
             };
@@ -121,7 +158,14 @@ namespace SWAT_SQLite_Result
                 };
 
             //table view
-            tableView1.onDateChanged += (d) => { if (_type == ArcSWAT.SWATUnitType.HRU) return; _date = d; lblDate.Text = "Map:" + _date.ToString("yyyy-MM-dd"); updateMap(); };
+            tableView1.onDateChanged += (d) => 
+            { 
+                if (_type == ArcSWAT.SWATUnitType.HRU) return; 
+                _date = d;
+                if (onMapTimeChanged != null)
+                    onMapTimeChanged(this, new EventArgs());
+                updateMap(); 
+            };
 
             //compare control
             compareCtrl1.ScenarioResult = scenario;
@@ -153,6 +197,12 @@ namespace SWAT_SQLite_Result
 
         private void updateTableAndChart()
         {
+            tableView1.DataTable = null;
+            outputDisplayChart1.clear();
+            _statistics = "No Statistics Data Available";
+            if (onDataStatisticsChanged != null)
+                onDataStatisticsChanged(this, new EventArgs());
+
             if (_resultType == null || _col == null || _unit == null) return;
 
             if (!_unit.Results.ContainsKey(_resultType)) return;
@@ -179,7 +229,9 @@ namespace SWAT_SQLite_Result
 
                 this.tableView1.Result = oneResult;
                 this.outputDisplayChart1.Result = oneResult;
-                this.richTextBox1.Text = "Statistics :" + oneResult.SeasonStatistics(seasonCtrl1.Season).ToString();
+                this._statistics = oneResult.SeasonStatistics(seasonCtrl1.Season).ToString();
+                if (onDataStatisticsChanged != null)
+                    onDataStatisticsChanged(this, new EventArgs());
             }
             else //compare
             {
@@ -192,7 +244,9 @@ namespace SWAT_SQLite_Result
                         compare = oneResult.CompareWithObserved;
                     this.tableView1.CompareResult = compare;
                     this.outputDisplayChart1.CompareResult = compare;
-                    this.richTextBox1.Text = "Statistics :" + compare.SeasonStatistics(seasonCtrl1.Season).ToString();
+                    this._statistics = compare.SeasonStatistics(seasonCtrl1.Season).ToString();
+                    if (onDataStatisticsChanged != null)
+                        onDataStatisticsChanged(this, new EventArgs());
                 }
                 catch (System.Exception e)
                 {

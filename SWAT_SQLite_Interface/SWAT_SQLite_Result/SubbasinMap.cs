@@ -296,10 +296,6 @@ namespace SWAT_SQLite_Result
                 layer.SelectionChanged += (ss, _e) =>
                 {
                     if (onLayerSelectionChanged == null) return;
-                    if (layer.Selection.NumRows() == 0) return;
-
-                    IFeature fea = layer.Selection.ToFeatureList()[0];
-                    int id = getIDFromFeatureRow(fea.DataRow);
 
                     ArcSWAT.SWATUnitType unitType = ArcSWAT.SWATUnitType.SUB;
                     if (layer.DataSet.FeatureType == DotSpatial.Topology.FeatureType.Point)
@@ -307,6 +303,12 @@ namespace SWAT_SQLite_Result
                     else if (layer.DataSet.FeatureType == DotSpatial.Topology.FeatureType.Line)
                         unitType = ArcSWAT.SWATUnitType.RCH;
 
+                    int id = -1;
+                    if (layer.Selection.NumRows() > 0)
+                    {
+                        IFeature fea = layer.Selection.ToFeatureList()[0];
+                        id = getIDFromFeatureRow(fea.DataRow);
+                    }
                     onLayerSelectionChanged(unitType,id);
                 };
             }           

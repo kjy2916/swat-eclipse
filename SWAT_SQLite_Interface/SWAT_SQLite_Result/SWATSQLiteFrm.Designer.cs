@@ -41,11 +41,15 @@
             this.bZoomExtent = new System.Windows.Forms.ToolStripButton();
             this.bSelect = new System.Windows.Forms.ToolStripButton();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.lblSelectionInformation = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblMapTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblStatistics = new System.Windows.Forms.ToolStripStatusLabel();
             this.projectTree1 = new SWAT_SQLite_Result.ProjectTree();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -62,7 +66,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1043, 681);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1043, 679);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
@@ -77,9 +81,13 @@
             // statusStrip1
             // 
             this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblMapTime,
+            this.lblSelectionInformation,
+            this.lblStatistics});
             this.statusStrip1.Location = new System.Drawing.Point(0, 0);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1043, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1043, 24);
             this.statusStrip1.TabIndex = 0;
             // 
             // splitContainer1
@@ -91,7 +99,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.projectTree1);
-            this.splitContainer1.Size = new System.Drawing.Size(1043, 681);
+            this.splitContainer1.Size = new System.Drawing.Size(1043, 679);
             this.splitContainer1.SplitterDistance = 150;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -110,7 +118,7 @@
             this.bSelect});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(667, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(636, 39);
             this.toolStrip1.TabIndex = 0;
             // 
             // bOpen
@@ -193,13 +201,43 @@
             // 
             this.folderBrowserDialog1.Description = "Please Locate the ArcSWAT Project Folder";
             // 
+            // lblSelectionInformation
+            // 
+            this.lblSelectionInformation.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lblSelectionInformation.Name = "lblSelectionInformation";
+            this.lblSelectionInformation.Size = new System.Drawing.Size(78, 19);
+            this.lblSelectionInformation.Text = "No Selection";
+            this.lblSelectionInformation.ToolTipText = "Selection Information";
+            // 
+            // lblMapTime
+            // 
+            this.lblMapTime.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lblMapTime.Name = "lblMapTime";
+            this.lblMapTime.Size = new System.Drawing.Size(4, 19);
+            this.lblMapTime.ToolTipText = "Map Display Time";
+            // 
+            // lblStatistics
+            // 
+            this.lblStatistics.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lblStatistics.Name = "lblStatistics";
+            this.lblStatistics.Size = new System.Drawing.Size(915, 19);
+            this.lblStatistics.Spring = true;
+            this.lblStatistics.Text = "No Statistics Data Available";
+            this.lblStatistics.ToolTipText = "Statistic Information";
+            // 
             // projectTree1
             // 
             this.projectTree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.projectTree1.Location = new System.Drawing.Point(0, 0);
             this.projectTree1.Name = "projectTree1";
             this.projectTree1.Project = null;
-            this.projectTree1.Size = new System.Drawing.Size(150, 681);
+            this.projectTree1.Size = new System.Drawing.Size(150, 679);
             this.projectTree1.TabIndex = 0;
             // 
             // SWATSQLiteFrm
@@ -219,6 +257,8 @@
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
             this.toolStripContainer1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -244,6 +284,9 @@
         private System.Windows.Forms.ToolStripButton bZoomOut;
         private System.Windows.Forms.ToolStripButton bZoomExtent;
         private System.Windows.Forms.ToolStripButton bSelect;
+        private System.Windows.Forms.ToolStripStatusLabel lblMapTime;
+        private System.Windows.Forms.ToolStripStatusLabel lblSelectionInformation;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatistics;
 
     }
 }

@@ -117,7 +117,7 @@ namespace SWAT_SQLite_Result
         /// </summary>
         public ArcSWAT.SeasonType Season { set { _season = value; } get { return _season; } }
 
-        private void clear()
+        public void clear()
         {
             foreach (Series line in this.Series)
             {

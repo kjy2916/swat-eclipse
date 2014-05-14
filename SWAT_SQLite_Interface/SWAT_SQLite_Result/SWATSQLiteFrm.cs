@@ -42,6 +42,7 @@ namespace SWAT_SQLite_Result
 
                     splitContainer1.Panel2.Controls.Clear();
                     splitContainer1.Panel2.Controls.Add(view);
+                    updateStatus(view);
                     Map = null;
                 };
             projectTree1.onProjectNodeSelected += (ss, ee) =>
@@ -54,6 +55,7 @@ namespace SWAT_SQLite_Result
                     }
                     splitContainer1.Panel2.Controls.Clear();
                     splitContainer1.Panel2.Controls.Add(_projectView);
+                    updateStatus(_projectView);
                     Map = _projectView.Map;
                 };
             projectTree1.onDifferenceNodeSelected += (ss, ee) =>
@@ -64,6 +66,7 @@ namespace SWAT_SQLite_Result
 
                     splitContainer1.Panel2.Controls.Clear();
                     splitContainer1.Panel2.Controls.Add(compareView);
+                    updateStatus(compareView);
                     Map = null;
                 };
 
@@ -93,8 +96,13 @@ namespace SWAT_SQLite_Result
             _modelType = modelType;
             _unitType = unitType;
 
+            //change status
+            updateStatus(view);
+
             return view;
-        }        
+        }
+        
+        
 
         private ArcSWAT.Project _prj = null;
 
@@ -118,6 +126,43 @@ namespace SWAT_SQLite_Result
                 scenario.Name, modelType, unitType);
         }
 
+        private void updateStatus(UserControl view)
+        {
+            //change status
+            onMapTimeChanged(view);
+            onMapSelectionChanged(view);
+            onDataStatisticsChanged(view);
+        }
+
+        private void onMapTimeChanged(UserControl view) 
+        {
+            if (view != null && view is SubbasinView)
+                lblMapTime.Text = string.Format("Map Display Time: {0:yyyy-MM-dd}", (view as SubbasinView).MapTime);
+            else
+                lblMapTime.Text = "";
+        }
+
+        private void onMapSelectionChanged(UserControl view)
+        {
+            if (view != null && view is SubbasinView)
+            {
+                if ((view as SubbasinView).MapSelection == null)
+                    lblSelectionInformation.Text = "No Selection";
+                else
+                    lblSelectionInformation.Text = (view as SubbasinView).MapSelection.ToStringBasicInfo();
+            }
+            else
+                lblSelectionInformation.Text = "No Selection";
+        }
+
+        private void onDataStatisticsChanged(UserControl view)
+        {
+            if (view != null && view is SubbasinView)
+                lblStatistics.Text = (view as SubbasinView).Statistics;
+            else
+                lblStatistics.Text = "No Statistics Data Available";
+        }
+
         private UserControl getView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
         {
             string key = getViewName(scenario, modelType, unitType);
@@ -135,6 +180,11 @@ namespace SWAT_SQLite_Result
                 {
                     SubbasinView view = new SubbasinView();
                     view.Dock = DockStyle.Fill;
+
+                    view.onMapTimeChanged += (ss, ee) => { onMapTimeChanged(view); };
+                    view.onMapSelectionChanged += (ss, ee) => { onMapSelectionChanged(view); };
+                    view.onDataStatisticsChanged += (ss, ee) => { onDataStatisticsChanged(view); };
+
                     view.setProjectScenario(_prj, scenario.getModelResult(modelType), unitType);
 
                     if (unitType == ArcSWAT.SWATUnitType.SUB)

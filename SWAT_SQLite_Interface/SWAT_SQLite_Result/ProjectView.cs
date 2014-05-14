@@ -103,9 +103,13 @@ namespace SWAT_SQLite_Result
             
             subbasinMap1.onLayerSelectionChanged += (unitType, id) =>
             {
-                _id = id;
-                _unitType = unitType;
                 cmbObservedColumns.DataSource = null;
+                updateTableAndChart();
+
+                if (id <= 0) return;
+
+                _id = id;
+                _unitType = unitType;                
                 cmbObservedColumns.DataSource = 
                     ArcSWAT.ObservationData.getObservationDataColumns(_unitType);
                 cmbObservedColumns.SelectedIndex = 0;
