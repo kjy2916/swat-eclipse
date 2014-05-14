@@ -29,6 +29,16 @@ namespace SWAT_SQLite_Result.ArcSWAT
         }
 
         /// <summary>
+        /// format string for get data function to get date for a specific day.
+        /// Only used for daily data to speed up
+        /// </summary>
+        private static string STRING_FORMAT_GET_DATA_SPECIFIC_DAY_DAILY =
+            "select {0} from {1} where " +
+            ScenarioResultStructure.COLUMN_NAME_YEAR + "={2} and "+
+            ScenarioResultStructure.COLUMN_NAME_MONTH +"={3} and "+
+            ScenarioResultStructure.COLUMN_NAME_DAY +  "={4} and {5}={6}";
+            
+        /// <summary>
         /// read result for given column and date
         /// </summary>
         /// <param name="col"></param>
@@ -36,15 +46,32 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <returns></returns>
         public double getData(string col, DateTime date)
         {
-            DataTable dt = getDataTable(col,date.Year);
-            if (dt.Rows.Count == 0) return ScenarioResultStructure.EMPTY_VALUE;
+            if (Interval == SWATResultIntervalType.DAILY)
+            {
+                //specially method for daily
+                string sql = string.Format(STRING_FORMAT_GET_DATA_SPECIFIC_DAY_DAILY,
+                    col, Name,
+                    date.Year, date.Month, date.Day,
+                    Unit.Type, Unit.ID);
 
-            string filter = string.Format("{0}='{1:yyyy-MM-dd}'",COLUMN_NAME_DATE,date);
-            DataRow[] rows = dt.Select(filter);
-            if (rows.Length == 0) return ScenarioResultStructure.EMPTY_VALUE;
+                DataTable dt = Unit.Scenario.GetDataTable(sql);
+                if(dt.Rows.Count == 0) return ScenarioResultStructure.EMPTY_VALUE;
 
-            RowItem item = new RowItem(rows[0]);
-            return item.getColumnValue_Double(col);
+                RowItem item = new RowItem(dt.Rows[0]);
+                return item.getColumnValue_Double(0);
+            }
+            else
+            {            
+                DataTable dt = getDataTable(col,date.Year);
+                if (dt.Rows.Count == 0) return ScenarioResultStructure.EMPTY_VALUE;
+
+                string filter = string.Format("{0}='{1:yyyy-MM-dd}'",COLUMN_NAME_DATE,date);
+                DataRow[] rows = dt.Select(filter);
+                if (rows.Length == 0) return ScenarioResultStructure.EMPTY_VALUE;
+
+                RowItem item = new RowItem(rows[0]);
+                return item.getColumnValue_Double(col);
+            }
         }
 
         /// <summary>
