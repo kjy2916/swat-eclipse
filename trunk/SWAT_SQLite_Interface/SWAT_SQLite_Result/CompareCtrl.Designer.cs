@@ -41,7 +41,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 52);
+            this.groupBox1.Size = new System.Drawing.Size(200, 65);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Compare";
@@ -49,7 +49,7 @@
             // cmbCompareResults
             // 
             this.cmbCompareResults.FormattingEnabled = true;
-            this.cmbCompareResults.Location = new System.Drawing.Point(103, 20);
+            this.cmbCompareResults.Location = new System.Drawing.Point(103, 25);
             this.cmbCompareResults.Name = "cmbCompareResults";
             this.cmbCompareResults.Size = new System.Drawing.Size(91, 21);
             this.cmbCompareResults.TabIndex = 1;
@@ -57,7 +57,7 @@
             // chbCompare
             // 
             this.chbCompare.AutoSize = true;
-            this.chbCompare.Location = new System.Drawing.Point(7, 22);
+            this.chbCompare.Location = new System.Drawing.Point(7, 27);
             this.chbCompare.Name = "chbCompare";
             this.chbCompare.Size = new System.Drawing.Size(90, 17);
             this.chbCompare.TabIndex = 0;
@@ -70,7 +70,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CompareCtrl";
-            this.Size = new System.Drawing.Size(200, 52);
+            this.Size = new System.Drawing.Size(200, 65);
             this.Load += new System.EventHandler(this.CompareCtrl_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

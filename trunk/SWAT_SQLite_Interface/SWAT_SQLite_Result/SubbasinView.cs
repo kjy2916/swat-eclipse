@@ -46,6 +46,9 @@ namespace SWAT_SQLite_Result
             else if (type == ArcSWAT.SWATUnitType.RES)
                 _unitList = _scenario.Reservoirs;
 
+            //season control
+            seasonCtrl1.onSeasonTypeChanged += (s, e) => { tableView1.Season = seasonCtrl1.Season; outputDisplayChart1.Season = seasonCtrl1.Season; updateTableAndChart(); };
+
             //year control
             yearCtrl1.Scenario = scenario;
             yearCtrl1.onYearChanged += (s, e) => { updateTableAndChart(); };
@@ -157,6 +160,7 @@ namespace SWAT_SQLite_Result
             ArcSWAT.SWATUnitResult result = _unit.Results[_resultType];
             if (!result.Columns.Contains(_col)) return;
 
+            //consider year selection
             int year = -1;
             if ((result.Interval == ArcSWAT.SWATResultIntervalType.DAILY || result.Interval == ArcSWAT.SWATResultIntervalType.MONTHLY) && yearCtrl1.DisplayByYear)
                 year = yearCtrl1.Year;
@@ -175,7 +179,7 @@ namespace SWAT_SQLite_Result
 
                 this.tableView1.Result = oneResult;
                 this.outputDisplayChart1.Result = oneResult;
-                this.lblStatistics.Text = "Statistics :" + oneResult.Statistics.ToString();
+                this.richTextBox1.Text = "Statistics :" + oneResult.SeasonStatistics(seasonCtrl1.Season).ToString();
             }
             else //compare
             {
@@ -188,7 +192,7 @@ namespace SWAT_SQLite_Result
                         compare = oneResult.CompareWithObserved;
                     this.tableView1.CompareResult = compare;
                     this.outputDisplayChart1.CompareResult = compare;
-                    this.lblStatistics.Text = "Statistics :" + compare.Statistics.ToString();
+                    this.richTextBox1.Text = "Statistics :" + compare.SeasonStatistics(seasonCtrl1.Season).ToString();
                 }
                 catch (System.Exception e)
                 {

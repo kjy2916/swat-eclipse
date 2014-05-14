@@ -71,6 +71,7 @@
     <Compile Include="ArcSWAT\FolderBase.cs" />
     <Compile Include="ArcSWAT\HRU.cs" />
     <Compile Include="ArcSWAT\ObservationData.cs" />
+    <Compile Include="ArcSWAT\SeasonType.cs" />
     <Compile Include="ArcSWAT\SWATUnitColumnYearObservationData.cs" />
     <Compile Include="ArcSWAT\SWATUnitObservationData.cs" />
     <Compile Include="ArcSWAT\ObservationDataType.cs" />
@@ -135,6 +136,13 @@
     <Compile Include="ScenarioView.Designer.cs">
       <DependentUpon>ScenarioView.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeasonCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SeasonCtrl.Designer.cs">
+      <DependentUpon>SeasonCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ArcSWAT\SeasonData.cs" />
     <Compile Include="SWAT_SQLite.cs" />
     <Compile Include="WatershedView.cs">
       <SubType>UserControl</SubType>
@@ -229,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ScenarioView.resx">
       <DependentUpon>ScenarioView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeasonCtrl.resx">
+      <DependentUpon>SeasonCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WatershedView.resx">
       <DependentUpon>WatershedView.cs</DependentUpon>
