@@ -82,7 +82,7 @@ namespace SWAT_SQLite_Result
             set
             {
                 if (value == null) { clear(); return; }
-                DrawGraph(value.Table, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
+                DrawGraph(value.SeasonTable(Season), ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
                     value.ChartColumns, value.Interval);
             }
 
@@ -94,7 +94,7 @@ namespace SWAT_SQLite_Result
             {
                 if (value == null) { clear(); return; }
                 StringCollection cols = new StringCollection() { value.Column };
-                DrawGraph(value.Table, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
+                DrawGraph(value.SeasonTable(Season), ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
                     cols, value.UnitResult.Interval);
             }
         }
@@ -109,6 +109,13 @@ namespace SWAT_SQLite_Result
                     cols, ArcSWAT.SWATResultIntervalType.DAILY);
             }
         }
+
+        private ArcSWAT.SeasonType _season = ArcSWAT.SeasonType.WholeYear;
+
+        /// <summary>
+        /// set the season type
+        /// </summary>
+        public ArcSWAT.SeasonType Season { set { _season = value; } get { return _season; } }
 
         private void clear()
         {
