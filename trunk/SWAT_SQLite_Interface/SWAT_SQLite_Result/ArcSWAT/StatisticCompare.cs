@@ -11,10 +11,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private double _r2 = ScenarioResultStructure.EMPTY_VALUE;
         private double _nse = ScenarioResultStructure.EMPTY_VALUE;
         private SWATUnitColumnYearCompareResult _result = null;
+        private SeasonType _season = SeasonType.WholeYear;
 
-        public StatisticCompare(SWATUnitColumnYearCompareResult result)
+        public StatisticCompare(SWATUnitColumnYearCompareResult result,SeasonType season)
         {
             _result = result;
+            _season = season;
         }
 
         public double R2 
@@ -22,7 +24,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             get 
             {
                 if (_r2 == ScenarioResultStructure.EMPTY_VALUE)
-                    _r2 = CalculateR2(_result.Table, _result.ChartColumns[0], _result.ChartColumns[1]);
+                    _r2 = CalculateR2(_result.SeasonTable(_season), _result.ChartColumns[0], _result.ChartColumns[1]);
                 return _r2;
             } 
         }
@@ -32,7 +34,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             get
             {
                 if (_nse == ScenarioResultStructure.EMPTY_VALUE)
-                    _nse = CalculateNSE(_result.TableForStatistics, _result.ChartColumns[1], _result.ChartColumns[0]);
+                    _nse = CalculateNSE(_result.SeasonTableForStatistics(_season), _result.ChartColumns[1], _result.ChartColumns[0]);
                 return _nse;
             }
         }
@@ -49,6 +51,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         private static double Variance(DataTable dt, string col)
         {
+            if (dt.Rows.Count <= 1) return 0.0; 
             return Convert.ToDouble(dt.Compute(string.Format("Var({0})", col), "")) * (dt.Rows.Count - 1);
         }
 
@@ -79,7 +82,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             double var_observed = Variance(dt, col_observed);
             double var_simulated = Variance(dt, col_simulated);
 
-            double r2 = -1.0;
+            double r2 = ScenarioResultStructure.EMPTY_VALUE;
             if(var_observed >= 0.000001 && var_simulated >= 0.000001)
                 r2 = top / var_observed / var_simulated;
             return r2;
@@ -110,7 +113,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             double bottom = Variance(dt, col_observed);
 
             //NSE
-            double nse = -1.0f;
+            double nse = ScenarioResultStructure.EMPTY_VALUE;
             if (bottom >= 0.000001)
                 nse = 1.0 - top / bottom;
             return nse;

@@ -11,7 +11,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
     /// Compare result between two different model in same scenario or same model in different scenario
     /// todo: calculate the difference
     /// </summary>
-    public class SWATUnitColumnYearCompareResult
+    public class SWATUnitColumnYearCompareResult : SeasonData
     {
         private SWATUnitColumnYearResult _result1 = null;
         private ColumnYearData _data2 = null;
@@ -59,10 +59,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
             _tableColumns.Add(_result1.ColumnCompare);
             _tableColumns.Add(_data2.ColumnCompare);
-            _tableColumns.Add("ABSOLUTE");
-            _tableColumns.Add("RELATIVE");
+            //_tableColumns.Add("ABSOLUTE");
+            //_tableColumns.Add("RELATIVE");
 
-            _statistic = new StatisticCompare(this);
+            _statistic = new StatisticCompare(this,SeasonType.WholeYear);
         }
 
         /// <summary>
@@ -83,17 +83,34 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
             _tableColumns.Add(_result1.ColumnCompare);
             _tableColumns.Add(_data2.ColumnCompare);
-            _tableColumns.Add("ABSOLUTE");
-            _tableColumns.Add("RELATIVE");
+            //_tableColumns.Add("ABSOLUTE");
+            //_tableColumns.Add("RELATIVE");
 
-            _statistic = new StatisticCompare(this);
+            _statistic = new StatisticCompare(this,SeasonType.WholeYear);
+        }
+
+        public override DateTime FirstDay
+        {
+            get
+            {
+                return _result1.FirstDay;
+            }
+        }
+
+        public override DateTime LastDay
+        {
+            get
+            {
+                return _result1.LastDay;
+            }
         }
 
         public SWATResultIntervalType Interval { get { return _interval; } }
         public StringCollection TableColumns { get { return _tableColumns; } }
         public StringCollection ChartColumns { get { return _chartColumns; } }
         public StatisticCompare Statistics { get { return _statistic; } }
-        
+        public override int Year { get { return _result1.Year; } }
+
         /// <summary>
         /// Data table only used to calculate NSE when compared with observed data. The missing data is not accounted in the calculation. 
         /// For sediment and nutrient, this is very important.
@@ -114,7 +131,23 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 return _combineCompareTableForStatistics;
             }
         }
-        public DataTable Table
+
+        private Dictionary<SeasonType, DataTable> _seasonTableForStatistics = new Dictionary<SeasonType, DataTable>();
+        public DataTable SeasonTableForStatistics(SeasonType season)
+        {
+            if (season == SeasonType.WholeYear) return TableForStatistics;
+
+            if (!_seasonTableForStatistics.ContainsKey(season))
+            {
+                DataView view = new DataView(TableForStatistics);
+                view.RowFilter = getSeasonSQL(season);
+                _seasonTableForStatistics.Add(season,view.ToTable());
+            }
+                
+            return _seasonTableForStatistics[season];
+        }
+
+        public override DataTable Table
         {
             get
             {
@@ -160,15 +193,25 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
                     //add two column for absolute change and relative change
                     //don't calculate relative change when first result is 0
-                    dt.Columns.Add("ABSOLUTE", typeof(double)).Expression = 
-                        string.Format("{0} - {1}", _result1.ColumnCompare, _data2.ColumnCompare);
-                    dt.Columns.Add("RELATIVE", typeof(double)).Expression =
-                        string.Format("IIF({0} = 0, 0.0,ABSOLUTE/{0})", _result1.ColumnCompare);
+                    //dt.Columns.Add("ABSOLUTE", typeof(double)).Expression = 
+                    //    string.Format("{0} - {1}", _result1.ColumnCompare, _data2.ColumnCompare);
+                    //dt.Columns.Add("RELATIVE", typeof(double)).Expression =
+                    //    string.Format("IIF({0} = 0, 0.0,ABSOLUTE/{0})", _result1.ColumnCompare);
 
                     _combineCompareTable = dt;
                 }
                 return _combineCompareTable;
             }
+        }
+
+        private Dictionary<SeasonType, StatisticCompare> _seasonStat = new Dictionary<SeasonType, StatisticCompare>();
+        public StatisticCompare SeasonStatistics(SeasonType season)
+        {
+            if (season == SeasonType.WholeYear) return Statistics;
+
+            if (!_seasonStat.ContainsKey(season))
+                _seasonStat.Add(season, new StatisticCompare(this,season));
+            return _seasonStat[season];
         }
     }
 }
