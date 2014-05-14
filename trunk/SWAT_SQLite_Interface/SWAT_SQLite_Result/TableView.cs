@@ -69,22 +69,29 @@ namespace SWAT_SQLite_Result
         /// <summary>
         /// compare result
         /// </summary>
-        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult { set { if (value == null) DataTable = null; else setDataColumn(value.Table, value.TableColumns); } }
+        public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult { set { if (value == null) DataTable = null; else setDataColumn(value.SeasonTable(Season), value.TableColumns); } }
 
         /// <summary>
         /// regular result
         /// </summary>
-        public ArcSWAT.SWATUnitColumnYearResult Result { set { if (value == null) DataTable = null; else setDataColumn(value.Table, new StringCollection() { value.Column }); } }
+        public ArcSWAT.SWATUnitColumnYearResult Result { set { if (value == null) DataTable = null; else setDataColumn(value.SeasonTable(Season), new StringCollection() { value.Column }); } }
 
         /// <summary>
         /// Observed data
         /// </summary>
         public ArcSWAT.SWATUnitColumnYearObservationData ObservedData { set { if (value == null) DataTable = null; else setDataColumn(value.Table, new StringCollection() { value.Column }); } }
 
-
         /// <summary>
         /// normal datatable
         /// </summary>
         public DataTable DataTable { set { setDataColumn(value, null); } }
+
+
+        private ArcSWAT.SeasonType _season = ArcSWAT.SeasonType.WholeYear;
+
+        /// <summary>
+        /// set the season type
+        /// </summary>
+        public ArcSWAT.SeasonType Season { set { _season = value; } get { return _season; } }
     }
 }
