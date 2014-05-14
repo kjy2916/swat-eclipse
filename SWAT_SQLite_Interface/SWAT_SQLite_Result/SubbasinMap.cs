@@ -121,7 +121,7 @@ namespace SWAT_SQLite_Result
 
                     //re-draw all feature using defined categories
                     layer.ApplyScheme(layer.Symbology);
-                }
+                }              
             }
         }
 
@@ -196,7 +196,7 @@ namespace SWAT_SQLite_Result
                 MapLabelLayer label = new MapLabelLayer();
                 label.Symbology.Categories[0].Expression = "[" + ID_COLUMN_NAME + "]";
                 layer.LabelLayer = label;
-                layer.ShowLabels = true;
+                layer.ShowLabels = true;                
             }
             else if (layer.DataSet.FeatureType == DotSpatial.Topology.FeatureType.Line) //reach
             {
@@ -334,11 +334,10 @@ namespace SWAT_SQLite_Result
                 if (_type == ArcSWAT.SWATUnitType.RCH) _unitList = _scenario.Reaches;
             }
             if (_unitList == null) return;
-
-
-            Debug.WriteLine(DateTime.Now);
-            Debug.WriteLine("Draw Layer, " + _workingLayer.ToString());
+            
+            Debug.WriteLine("Draw Layer, " + _workingLayer.LegendText);
             Debug.WriteLine("Getting results...");
+            DateTime d = DateTime.Now;
 
             DataTable dt = _workingLayer.DataSet.DataTable;
             int resultIndex = dt.Columns.IndexOf(RESULT_COLUMN);
@@ -359,11 +358,14 @@ namespace SWAT_SQLite_Result
                 r[resultIndex] = result.getData(col, date);
             }
 
-            Debug.WriteLine(DateTime.Now);
+            Debug.WriteLine(DateTime.Now.Subtract(d).TotalMilliseconds);
             Debug.WriteLine("setLayerSchema");
+            d = DateTime.Now;
 
             //update symbol
             setLayerSchema(_workingLayer);
+
+            Debug.WriteLine(DateTime.Now.Subtract(d).TotalMilliseconds);
 
             ////update chart
             //onLayerSelectionChanged(type);
