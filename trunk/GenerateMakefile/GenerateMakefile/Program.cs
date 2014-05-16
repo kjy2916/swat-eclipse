@@ -9,7 +9,8 @@ namespace GenerateMakefile
 {
     class Program
     {
-        private static string[] LONG_F_NAMES = { "bmpinit.f", "ovr_sed.f", "percmain.f", "rthsed.f", "main.f","biozone.f" };
+        private static string[] LONG_F_NAMES = { "bmpinit.f", "ovr_sed.f", "percmain.f", "rthsed.f"};
+        private static string[] LONG_F_NAMES_2012 = { "main.f", "biozone.f" };
         private static string[] LONG_F90_NAMES = { "carbon_zhang2.f90" };
         private static string[] MODE_FILES = { "main.f", "fsqlite.f90" };
 
@@ -26,6 +27,28 @@ namespace GenerateMakefile
         private static string TARGET_DEBUG_64 = "debug64";
         private static string TARGET_RELEASE_32 = "rel32";
         private static string TARGET_RELEASE_64 = "rel64";
+
+        /// <summary>
+        /// See it's SWAT 2009 or SWAT 2012 from main.f.
+        /// </summary>
+        /// <param name="mainfPath"></param>
+        /// <returns></returns>
+        /// <remarks>The version information is in line 61 for SWAT 2009</remarks>
+        private static bool isSWAT2009(string mainfPath)
+        {
+            if (!File.Exists(mainfPath)) return false;
+            using (StreamReader file = new StreamReader(mainfPath))
+            {
+                string line = "";
+                for (int i = 1; i <= 61; i++)
+                {
+                    if (file.EndOfStream) return false;
+                    line = file.ReadLine();
+                    if (i == 61 && line.ToLower().Contains("swat2009")) return true;
+                }
+                return false;                
+            }
+        }
 
         /// <summary>
         /// Target name for different configuration
@@ -276,6 +299,7 @@ namespace GenerateMakefile
             StringBuilder makefilesb = new StringBuilder();
             StringBuilder objfilesb = new StringBuilder();
             bool isSQLiteProject = false;
+            bool isswat2009 = isSWAT2009(swatFolder + @"\main.f");
 
             foreach (FileInfo f in files)
             {
@@ -296,7 +320,8 @@ namespace GenerateMakefile
                 else if (sourceName.Contains(".f"))
                 {
                     o_file = o_prefix + sourceName.Replace(".f", ".o");
-                    if (System.Array.IndexOf(LONG_F_NAMES, sourceName) > -1)
+                    if (System.Array.IndexOf(LONG_F_NAMES, sourceName) > -1 ||
+                        (!isswat2009 && System.Array.IndexOf(LONG_F_NAMES_2012, sourceName) > -1))
                         longFortranflag = "${" + NAME_LONG_FIX_FORMAT + "}";
                 }
                 else if (sourceName.Contains(".c"))
