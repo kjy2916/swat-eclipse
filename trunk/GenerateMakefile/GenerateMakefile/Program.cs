@@ -10,7 +10,8 @@ namespace GenerateMakefile
     class Program
     {
         private static string[] LONG_F_NAMES = { "bmpinit.f", "ovr_sed.f", "percmain.f", "rthsed.f"};
-        private static string[] LONG_F_NAMES_2012 = { "main.f", "biozone.f" };
+        private static string[] LONG_F_NAMES_2012 = { "main.f", "biozone.f" };  //only for SWAT 2012
+        private static string[] LONG_F_NAMES_Rev528 = { "bmp_det_pond.f" };     //only for SWAT 2009 Rev528
         private static string[] LONG_F90_NAMES = { "carbon_zhang2.f90" };
         private static string[] MODE_FILES = { "main.f", "fsqlite.f90" };
 
@@ -29,24 +30,42 @@ namespace GenerateMakefile
         private static string TARGET_RELEASE_64 = "rel64";
 
         /// <summary>
-        /// See it's SWAT 2009 or SWAT 2012 from main.f.
+        /// Try to get SWAT version and revision number from main.f
         /// </summary>
         /// <param name="mainfPath"></param>
-        /// <returns></returns>
         /// <remarks>The version information is in line 61 for SWAT 2009</remarks>
-        private static bool isSWAT2009(string mainfPath)
+        private static void GetSWATVersion(string mainfPath, out int version, out int revision)
         {
-            if (!File.Exists(mainfPath)) return false;
+            version = -1;
+            revision = -1;
+            if (!File.Exists(mainfPath)) return;
             using (StreamReader file = new StreamReader(mainfPath))
             {
                 string line = "";
-                for (int i = 1; i <= 61; i++)
+                while(!file.EndOfStream)
                 {
-                    if (file.EndOfStream) return false;
                     line = file.ReadLine();
-                    if (i == 61 && line.ToLower().Contains("swat2009")) return true;
-                }
-                return false;                
+                    if (line.ToLower().Contains("format(1x")) //version line
+                    {
+                        try
+                        {
+                            version = int.Parse(line.Substring(line.IndexOf("SWAT") + 4, 4));
+                        }
+                        catch
+                        {
+                        }
+                    }
+                    if (version > 0 && line.Contains("Rev.")) //revision line
+                    {
+                        try
+                        {
+                            revision = int.Parse(line.Substring(line.IndexOf("Rev.") + 4, 4));
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }           
             }
         }
 
@@ -299,7 +318,9 @@ namespace GenerateMakefile
             StringBuilder makefilesb = new StringBuilder();
             StringBuilder objfilesb = new StringBuilder();
             bool isSQLiteProject = false;
-            bool isswat2009 = isSWAT2009(swatFolder + @"\main.f");
+            int version = -1;
+            int revision = -1;
+            GetSWATVersion(swatFolder + @"\main.f",out version,out revision);
 
             foreach (FileInfo f in files)
             {
@@ -321,7 +342,8 @@ namespace GenerateMakefile
                 {
                     o_file = o_prefix + sourceName.Replace(".f", ".o");
                     if (System.Array.IndexOf(LONG_F_NAMES, sourceName) > -1 ||
-                        (!isswat2009 && System.Array.IndexOf(LONG_F_NAMES_2012, sourceName) > -1))
+                        (version != 2009 && System.Array.IndexOf(LONG_F_NAMES_2012, sourceName) > -1) ||
+                        (version == 2009 && revision == 528 && System.Array.IndexOf(LONG_F_NAMES_Rev528, sourceName) > -1))
                         longFortranflag = "${" + NAME_LONG_FIX_FORMAT + "}";
                 }
                 else if (sourceName.Contains(".c"))
