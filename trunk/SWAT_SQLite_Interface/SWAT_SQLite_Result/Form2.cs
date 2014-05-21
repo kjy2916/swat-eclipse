@@ -22,7 +22,7 @@ namespace SWAT_SQLite_Result
             ArcSWAT.Project p = new ArcSWAT.Project(@"C:\Users\zyu\Downloads\LaSalleArcswat2013-05-01\Lasalle-new"); //University La Salle
             //ArcSWAT.Project p = new ArcSWAT.Project(@"C:\Users\yuz\Downloads\Example1_model");   //AAFC
 
-            subbasinView1.setProjectScenario(p, p.Scenarios["Default"].getModelResult(ArcSWAT.SWATModelType.SWAT), 
+            subbasinView1.setProjectScenario(p, p.Scenarios["Default"].getModelResult(ArcSWAT.SWATModelType.SWAT_488), 
                 ArcSWAT.SWATUnitType.RCH);
         }
     }

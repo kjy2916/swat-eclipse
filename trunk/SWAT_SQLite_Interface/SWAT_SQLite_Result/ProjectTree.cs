@@ -129,7 +129,7 @@ namespace SWAT_SQLite_Result
 
             if (s.hasResults)
             {
-                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
+                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT_488); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
                 {
                     ArcSWAT.SWATModelType modelType = (ArcSWAT.SWATModelType)i;
                     AddScenarioResult(scenNode, s, modelType);
