@@ -24,9 +24,19 @@ namespace SWAT_SQLite_Result
 
         private ArcSWAT.Project _project = null;
         private ArcSWAT.ScenarioResult _scenario = null;
- 
+
+        /// <summary>
+        /// Happens when statistic information is changed
+        /// </summary>
+        public event EventHandler onDataStatisticsChanged = null;
+
+        private string _statistics = "No Statistics Data Available";
+        public string Statistics { get { return _statistics; } }
+
         public void setProjectScenario(ArcSWAT.Project project, ArcSWAT.ScenarioResult scenario)
         {
+            this.Resize += (ss, ee) => { this.splitContainer2.SplitterDistance = 72; };
+
             _project = project;
             _scenario = scenario;
             _date = new DateTime(scenario.StartYear, 1, 1);
@@ -69,6 +79,10 @@ namespace SWAT_SQLite_Result
 
         private void updateTableAndChart()
         {
+            _statistics = "No Statistics Data Available";
+            if (onDataStatisticsChanged != null)
+                onDataStatisticsChanged(this, new EventArgs());
+
             if (_resultType == null || _col == null) return;
 
             if (!this._scenario.Watershed.Results.ContainsKey(_resultType)) return;
@@ -86,7 +100,9 @@ namespace SWAT_SQLite_Result
  
                 this.tableView1.Result = oneResult;
                 this.outputDisplayChart1.Result = oneResult;
-                this.lblStatistics.Text = "Statistics :" + oneResult.Statistics.ToString();
+                _statistics = oneResult.Statistics.ToString();
+                if (onDataStatisticsChanged != null)
+                    onDataStatisticsChanged(this, new EventArgs());
             }
             else //compare
             {
@@ -96,7 +112,9 @@ namespace SWAT_SQLite_Result
                         result.getResult(_col, year).Compare(_compareResult);
                     this.tableView1.CompareResult = compare;
                     this.outputDisplayChart1.CompareResult = compare;
-                    this.lblStatistics.Text = "Statistics :" + compare.Statistics.ToString();
+                    _statistics = compare.Statistics.ToString();
+                    if (onDataStatisticsChanged != null)
+                        onDataStatisticsChanged(this, new EventArgs());
                 }
                 catch (System.Exception e)
                 {

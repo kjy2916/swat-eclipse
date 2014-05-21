@@ -75,6 +75,15 @@ namespace SWAT_SQLite_Result
                     _chartArea.AxisX.MajorTickMark.IntervalType = DateTimeIntervalType.Years;
                 }
             }
+            else //yearly
+            {
+                _chartArea.AxisX.Title = "Year";
+                _chartArea.AxisX.LabelStyle.Format = "yyyy";
+                _chartArea.AxisX.LabelStyle.Angle = 0;
+
+                _chartArea.AxisX.MajorTickMark.Interval = 1; //half a year
+                _chartArea.AxisX.MajorTickMark.IntervalType = DateTimeIntervalType.Years;
+            }
         }
 
         public ArcSWAT.SWATUnitColumnYearCompareResult CompareResult
@@ -186,8 +195,12 @@ namespace SWAT_SQLite_Result
                 }
                 else if (interval == ArcSWAT.SWATResultIntervalType.DAILY) //daily
                 {
-                    line.ToolTip = "#VALY{F4}(#VALX{yyyy-MM-dd})"; 
+                    line.ToolTip = "#VALY{F4}(#VALX{yyyy-MM-dd})";
                     //line.IsValueShownAsLabel = false;                             
+                }
+                else //yearly
+                {
+                    line.ToolTip = "#VALY{F4}(#VALX{yyyy})";
                 }
                 if (yColNames.Count > 1)
                     line.ToolTip = yColName + ":" + line.ToolTip;

@@ -159,6 +159,8 @@ namespace SWAT_SQLite_Result
         {
             if (view != null && view is SubbasinView)
                 lblStatistics.Text = (view as SubbasinView).Statistics;
+            else if (view != null && view is WatershedView)
+                lblStatistics.Text = (view as WatershedView).Statistics;
             else
                 lblStatistics.Text = "No Statistics Data Available";
         }
@@ -173,6 +175,7 @@ namespace SWAT_SQLite_Result
                     WatershedView view = new WatershedView();
                     view.Dock = DockStyle.Fill;
                     view.setProjectScenario(_prj, scenario.getModelResult(modelType));
+                    view.onDataStatisticsChanged += (ss, ee) => { onDataStatisticsChanged(view); };
 
                     _views.Add(key, view);
                 }
