@@ -199,7 +199,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 List<ScenarioResult> results = new List<ScenarioResult>();
 
                 //look for results in same scenario
-                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
+                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT_488); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
                 {
                     ArcSWAT.SWATModelType modelType = (ArcSWAT.SWATModelType)i;
                     if (modelType == ModelType) continue;

@@ -118,10 +118,13 @@ namespace SWAT_SQLite_Result
 
             cmbModelType.Items.Clear();
 
-            for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
+            for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT_488); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
             {
                 ArcSWAT.SWATModelType modelType = (ArcSWAT.SWATModelType)i;
-                cmbModelType.Items.Add(modelType);
+
+                string swatexe = SWAT_SQLite.InstallationFolder + @"swat_exes\" + ArcSWAT.ScenarioResultStructure.getSWATExecutableName(modelType);
+                if (System.IO.File.Exists(swatexe))
+                    cmbModelType.Items.Add(modelType);
             }
             cmbModelType.SelectedIndex = 0;
         }

@@ -18,11 +18,17 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static int UNKONWN_ID = -1;
         public static double EMPTY_VALUE = -99.0;
 
-        public static string EXE_NAME_SWAT = "swat_sqlite.exe";
-        public static string EXE_NAME_CANSWAT = "canswat_sqlite.exe";
+        private static string EXE_NAME_SWAT_488 = "swat_sqlite_488.exe";
+        private static string EXE_NAME_SWAT_622 = "swat_sqlite.exe";
+        private static string EXE_NAME_CANSWAT = "canswat_sqlite.exe";
 
-        public static string DATABASE_NAME_NORMAL = "result.db3";
-        public static string DATABASE_NAME_CANSWAT = "result_canswat.db3";
+        private static string[] EXE_NAMES = new string[] { EXE_NAME_SWAT_488, EXE_NAME_SWAT_622, EXE_NAME_CANSWAT};
+
+        private static string DATABASE_NAME_NORMAL_488 = "result_488.db3";
+        private static string DATABASE_NAME_NORMAL_622 = "result.db3";
+        private static string DATABASE_NAME_CANSWAT = "result_canswat.db3";
+
+        private static string[] DATABASE_NAMES = new string[] { DATABASE_NAME_NORMAL_488, DATABASE_NAME_NORMAL_622, DATABASE_NAME_CANSWAT };
 
         public static string INFO_TABLE_NAME_HRU = "hru_info";
         public static string INFO_TABLE_NAME_SUB = "sub_info";
@@ -113,22 +119,18 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         public static string getDatabaseName(SWATModelType modelType)
         {
-            switch(modelType)
-            {
-                case SWATModelType.SWAT: return DATABASE_NAME_NORMAL;
-                case SWATModelType.CanSWAT: return DATABASE_NAME_CANSWAT;
-                default: return "";
-            }
+            int index = Convert.ToInt32(modelType);
+            if (index >= 0 && index < DATABASE_NAMES.Length)
+                return DATABASE_NAMES[index];
+            return "";
         }
 
         public static string getSWATExecutableName(SWATModelType modelType)
         {
-            switch (modelType)
-            {
-                case SWATModelType.SWAT: return EXE_NAME_SWAT;
-                case SWATModelType.CanSWAT: return EXE_NAME_CANSWAT;
-                default: return "";
-            }
+            int index = Convert.ToInt32(modelType);
+            if (index >= 0 && index < EXE_NAMES.Length)
+                return EXE_NAMES[index];
+            return "";
         }
 
         /// <summary>

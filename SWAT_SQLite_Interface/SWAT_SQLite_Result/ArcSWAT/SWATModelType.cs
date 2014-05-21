@@ -7,7 +7,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
 {
     public enum SWATModelType
     {
-        SWAT = 1,
+        SWAT_488 = 0,
+        SWAT_622 = 1,
         CanSWAT = 2,
         UNKNOWN = -1
     }

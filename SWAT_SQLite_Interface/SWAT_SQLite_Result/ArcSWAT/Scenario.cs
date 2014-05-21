@@ -31,7 +31,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
                 //Regular SWAT and CanSWAT could run one a same model 
                 _hasResults = false;
-                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
+                for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT_488); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
                 {
                     SWATModelType modelType = (SWATModelType)i;
                     ScenarioResult result = new ScenarioResult(
