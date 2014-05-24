@@ -66,6 +66,7 @@
 		
       call getallo
       call allocate_parms
+      call readfs
       call readfile
       call readbsn
       call readwwq
