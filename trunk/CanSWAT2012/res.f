@@ -24,6 +24,7 @@
 !!                                |1 measured monthly outflow
 !!                                |2 simulated controlled outflow-target release
 !!                                |3 measured daily outflow
+!!                                |4 stage/volume/outflow relationship
 !!    i_mo         |none          |current month of simulation
 !!    ndtargr(:)   |days          |number of days to reach target storage from
 !!                                |current reservoir storage
@@ -48,7 +49,6 @@
 !!                                |reservoir for the month
 !!    ressedi      |metric tons   |sediment entering reservoir during time step
 !!    sub_subp(:)  |mm H2O        |precipitation for day in subbasin
-!!    sub_subt(:)  |oC            |average temperature for day in subbasin
 !!    sub_sumfc(:) |mm H2O        |amount of water in subbasin soil at field 
 !!                                |capacity
 !!    sub_sw(:)    |mm H2O        |amount of water in soil profile in subbasin
@@ -97,23 +97,25 @@
 
       integer :: jres
       real :: vol, sed, vvr, targ, xx, flw
-	real :: san,sil,cla,sag,lag,gra
-	real :: inised, finsed, setsed, remsetsed
-      
+      real :: san,sil,cla,sag,lag,gra,ndespill
+      real :: inised, finsed, setsed, remsetsed
+
       integer :: ipt1,ipt2, i24  !Liu
       real :: volmean, voltmp  !Liu
-      real :: vol1,vol2,vol3,vol4,vol5,vol0,diff,diff0      !Liu yb     
+      real :: vol1,vol2,vol3,vol4,vol5,vol0,diff,diff0      !Liu yb
       diff0 = 50.0  !Liu yb
+
+
       jres = 0
       jres = inum1
 
 !! store initial values
       vol = 0.
       sed = 0.
-	inised = 0.
-	finsed = 0.
-	setsed = 0.
-	remsetsed = 0.
+      inised = 0.
+      finsed = 0.
+      setsed = 0.
+      remsetsed = 0.
 
       vol = res_vol(jres)
       sed = res_sed(jres)
@@ -124,88 +126,77 @@
       cla = res_cla(jres)
       sag = res_sag(jres)
       lag = res_lag(jres)
-	gra = res_gra(jres)
+      gra = res_gra(jres)
 
 !! calculate surface area for day
-    !  ressa = br1(jres) * res_vol(jres) ** br2(jres)
+!      ressa = br1(jres) * res_vol(jres) ** br2(jres)
 
-      if (iresco(jres)<4) then                           !Liu
-       ressa = br1(jres) * res_vol(jres) ** br2(jres)
-	else                                               !Liu
-!du tmep>
-      if (iida==154.and.inum1==1) then
-        ressa=0.0
-      end if
-      if (inum1==1) then
-        ressa=0.0
-      end if
+      if (iresco(jres)<6) then                           !Liu
+          ressa = br1(jres) * res_vol(jres) ** br2(jres)
+      else                                               !Liu
+!Liu temp>
+          if (iida==154.and.inum1==1) then
+            ressa=0.0
+          end if
+          if (inum1==1) then
+            ressa=0.0
+          end if
 !Liu temp
 !Liu>
 
-!Liu yb> 
-      volmean=vol+resflwi   
- 	  If (volmean <= resv(1,jres)) then
- 	   ressa = resa(1,jres)
- 	   resflwo = 0.0
-         
- 	  elseif (volmean > resv(mpoint(jres),jres)) then
- 	    ressa = resa(mpoint(jres),jres)
- 	    resflwo = resflwi/86400.0
+!Liu yb>
+          volmean=vol+resflwi
+          If (volmean <= resv(1,jres)) then
+           ressa = resa(1,jres)
+           resflwo = 0.0
 
- 	  else
-          
+          elseif (volmean > resv(mpoint(jres),jres)) then
+            ressa = resa(mpoint(jres),jres)
+            resflwo = resflwi/86400.0
+
+          else
+
           vol0 = 0.0
           vol1 = vol0
           vol2 = volmean*2.
-111       vol3 = (vol1 + vol2)/2.0  
- 	   do ipt1=mpoint(jres)-1,1,-1 
- 	    if(vol3 >= resv(ipt1,jres)) then
- 	 	 xx=resv(ipt1+1,jres)-resv(ipt1,jres)
- 	 	 if (xx>0) xx=(vol3- resv(ipt1,jres))/xx
- 		ressa=resa(ipt1,jres)+(resa(ipt1+1,jres)-resa(ipt1,jres))*xx
- 		resflwo=resq(ipt1,jres)+(resq(ipt1+1,jres)-resq(ipt1,jres))*xx    
-          exit
- 	    end if
- 	   end do
+111       vol3 = (vol1 + vol2)/2.0
+          do ipt1=mpoint(jres)-1,1,-1
+            if(vol3 >= resv(ipt1,jres)) then
+              xx=resv(ipt1+1,jres)-resv(ipt1,jres)
+               if (xx>0) then
+                    xx=(vol3- resv(ipt1,jres))/xx
+               end if
+        ressa=resa(ipt1,jres)+(resa(ipt1+1,jres)-resa(ipt1,jres))*xx
+        resflwo=resq(ipt1,jres)+(resq(ipt1+1,jres)-resq(ipt1,jres))*xx
+            exit
+            end if
+          end do
 
-        vol4 = volmean - resflwo*86400.
-        diff = vol3-vol4
-        if (abs(diff) > diff0) then
-           if (diff>0.0) then
-           vol1 = vol0
-           vol2 = vol3
-           vol5 = vol3
-           goto 111
-           
-           else
-           vol1 = vol5
-           vol2 = vol3
-           vol0 = vol3
-           goto 111
-           end if
-        end if 
+            vol4 = volmean - resflwo*86400.
+            diff = vol3-vol4
+            if (abs(diff) > diff0) then
+               if (diff>0.0) then
+               vol1 = vol0
+               vol2 = vol3
+               vol5 = vol3
+               goto 111
+
+               else
+               vol1 = vol5
+               vol2 = vol3
+               vol0 = vol3
+               goto 111
+               end if
+            end if
        end if
        resflwo=resflwo*86400.0
-
-
-
-!Liu yb< 
+!Liu yb<
        end if
 
 !! calculate water balance for day
       resev = 10. * evrsv(jres) * pet_day * ressa
-      !ressep = res_k(jres) * ressa * 240.
+      ressep = res_k(jres) * ressa * 240.
       respcp = sub_subp(res_sub(jres)) * ressa * 10.
- 
-      if (res_vol(jres)<res_pvol(jres)*0.5) then
-      resev=0.0
-      ressep=0.0
-      end if
-      !! new water volume for day
-      res_vol(jres) = res_vol(jres)+respcp+resflwi-resev-ressep
-      
-    
-      
 
 !! new water volume for day
       if (iresco(jres) /= 5) then 
@@ -222,7 +213,7 @@
         end if
 
 !! if reservoir volume is greater than zero
-     
+
         !! determine reservoir outflow
         select case (iresco(jres))
           case (0)                    !! uncontrolled reservoir
@@ -238,6 +229,8 @@
 
           case (1)                   !! use measured monthly outflow
             resflwo = res_out(jres,i_mo,curyr)
+          !! This will override the measured outflow! This is just a check
+          !! should really calibrate inflow or check res volumes
 
           case (2)                   !! controlled outflow-target release
             targ = 0.
@@ -246,22 +239,22 @@
             else
               !! target storage based on flood season and soil water
               if (iflod2r(jres) > iflod1r(jres)) then
-                if (i_mo > iflod1r(jres) .and. i_mo < iflod2r(jres))    &
+                if (i_mo > iflod1r(jres) .and. i_mo < iflod2r(jres))
      &                                                              then
                   targ = res_evol(jres)
                 else
-                xx = Min(sub_sw(res_sub(jres))/sub_sumfc(res_sub(jres)),&
+                xx = Min(sub_sw(res_sub(jres))/sub_sumfc(res_sub(jres)),
      &                                                               1.)
-                targ = res_pvol(jres) + .5 * (1. - xx) *                &
+                targ = res_pvol(jres) + .5 * (1. - xx) *
      &                                 (res_evol(jres) - res_pvol(jres))
                 end if
               else
                 if (i_mo > iflod1r(jres) .or. i_mo < iflod2r(jres)) then
                   targ = res_evol(jres)
                 else
-                xx = Min(sub_sw(res_sub(jres))/sub_sumfc(res_sub(jres)),&
+                xx = Min(sub_sw(res_sub(jres))/sub_sumfc(res_sub(jres)),
      &                                                               1.)
-                targ = res_pvol(jres) + .5 * (1. - xx) *                &
+                targ = res_pvol(jres) + .5 * (1. - xx) *
      &                                 (res_evol(jres) - res_pvol(jres))
                 end if
               end if
@@ -277,18 +270,41 @@
             read (350+jres,5000) flw
             resflwo = 86400. * flw
           case (4)
-!>Liu
-!            targ = res_pvol(jres) * starg_fps(jres)
-!            if (res_vol(jres) > targ) then
-!              resflwo = (res_vol(jres) - targ) / ndtargr(jres)
-!            else
-!              resflwo = 0.
-!            end if
-!            if (resflwo < oflowmn_fps(jres)) resflwo = oflowmn_fps(jres)
-!<Liu
+            targ = res_pvol(jres) * starg_fps(jres)
+            if (res_vol(jres) > targ) then
+              resflwo = (res_vol(jres) - targ) / ndtargr(jres)
+            else
+              resflwo = 0.
+            end if
+            if (resflwo < oflowmn_fps(jres)) resflwo = oflowmn_fps(jres)
+          case (5)
+            resflwo = 0.
+            do jj = 1, nostep
+              x1 = (-res_pvol(jres) * bcoef(jres))
+              x2 = ((res_pvol(jres) * bcoef(jres)) ** 2.) - (4. *
+     &          (res_pvol(jres) * ccoef(jres)) * (res_pvol(jres) -
+     &           res_vol(jres)))
+              if(x2 <= 0.) x2 = 0.
+              x3 = sqrt(x2)
+              x4 = 2. * (res_pvol(jres) * ccoef(jres))
+              res_h = (x1 + x3) / x4
+              if(res_h <= 0.) res_h = 0.
+              res_qi = weirc(jres) * weirk(jres) * weirw(jres) *
+     &          (res_h ** 1.5)
+              resflwo = resflwo + res_qi
+              res_vol(jres) = res_vol(jres) + (respcp + resflwi - resev
+     &          - ressep) / nostep
+            enddo
 
+!!      endif
         end select
-         
+
+            ndespill = ndtargr(nres)
+            if (ndespill <= 0.) ndespill = 10.
+            if (res_vol(jres) > res_evol(jres)) then
+              resflwo = resflwo+(res_vol(jres)-res_evol(jres))/ndespill
+            endif
+
 !! if reservoir volume is zero
       if (res_vol(jres) < 0.001) then
 
@@ -307,65 +323,25 @@
 
       else
 
-        !! compute new sediment concentration in reservoir
-	if (ressedi < 1.e-6) ressedi = 0.0      !!nbs 02/05/07
-        res_sed(jres) = (ressedi + sed * vol) / res_vol(jres)
-        res_san(jres) = (ressani + san * vol) / res_vol(jres)
-        res_sil(jres) = (ressili + sil * vol) / res_vol(jres)
-        res_cla(jres) = (resclai + cla * vol) / res_vol(jres)
-        res_sag(jres) = (ressagi + sag * vol) / res_vol(jres)
-        res_lag(jres) = (reslagi + lag * vol) / res_vol(jres)
-        res_gra(jres) = (resgrai + gra * vol) / res_vol(jres)
-
-        res_sed(jres) = Max(0.,res_sed(jres))
-        res_san(jres) = Max(0.,res_san(jres))
-        res_sil(jres) = Max(0.,res_sil(jres))
-        res_cla(jres) = Max(0.,res_cla(jres))
-        res_sag(jres) = Max(0.,res_sag(jres))
-        res_lag(jres) = Max(0.,res_lag(jres))
-        res_gra(jres) = Max(0.,res_gra(jres))
-
-        
-        !Liu
-        !! compute sediment leaving reservoir
-        ressedo = res_sed(jres) * resflwo
-        ressano = res_san(jres) * resflwo
-        ressilo = res_sil(jres) * resflwo
-        resclao = res_cla(jres) * resflwo
-        ressago = res_sag(jres) * resflwo
-        reslago = res_lag(jres) * resflwo
-	  resgrao = res_gra(jres) * resflwo
-       
-        ! Liu<
-        res_sed(jres)=(res_sed(jres)*res_vol(jres)-ressedo)/
-     &                                      res_vol(jres)
-        !Liu>
-
         !! check calculated outflow against specified max and min values
-   !     if (resflwo < oflowmn(i_mo,jres)) resflwo = oflowmn(i_mo,jres)
-   !     if (resflwo > oflowmx(i_mo,jres) .and. oflowmx(i_mo,jres) > 0.) &
-   ! &                                                              then
-   !       resflwo = oflowmx(i_mo,jres)
-   !     endif
-        
-        if (iresco(jres)<4) then                                          !Liu 
         if (resflwo < oflowmn(i_mo,jres)) resflwo = oflowmn(i_mo,jres)
-        if (resflwo > oflowmx(i_mo,jres) .and. oflowmx(i_mo,jres) > 0.) &
+        if (resflwo > oflowmx(i_mo,jres) .and. oflowmx(i_mo,jres) > 0.)
      &                                                              then
           resflwo = oflowmx(i_mo,jres)
         endif
-      end if  
- !     print*,  resflwo       
+
         !! subtract outflow from reservoir storage
-        res_vol(jres) = res_vol(jres) - resflwo
-        if (res_vol(jres) < 0.) then
-          resflwo = resflwo + res_vol(jres)
-          res_vol(jres) = 0.
+        if(iresco(jres) /= 5) then
+          res_vol(jres) = res_vol(jres) - resflwo
+          if (res_vol(jres) < 0.) then
+             resflwo = resflwo + res_vol(jres)
+             res_vol(jres) = 0.
+          end if
         end if
 
-!Liu>
-       if (res_vol(jres)<resdead(jres)) then 
-        if (resflwo>resdead(jres)) then 
+        !Liu>
+       if (res_vol(jres)<resdead(jres)) then
+        if (resflwo>resdead(jres)) then
          resflwo=resflwo-(resdead(jres)-res_vol(jres))
          res_vol(jres)=resdead(jres)
         elseif (resflwo>0.) then
@@ -380,95 +356,123 @@
        end if
 !Liu<
 
-
-        !! subtract consumptive water use from reservoir storage
-        xx = 0.
-        xx = wuresn(i_mo,jres)
-        res_vol(jres) = res_vol(jres) - xx
-        if (res_vol(jres) < 0.) then
-          xx = xx + res_vol(jres)
-          res_vol(jres) = 0.
-        end if
         !! add spillage from consumptive water use to reservoir outflow
         resflwo = resflwo + xx * wurtnf(jres)
+
+        !! compute new sediment concentration in reservoir
+      if (ressedi < 1.e-6) ressedi = 0.0      !!nbs 02/05/07
+      if (ressa == 0.) ressa = 1.e-6     !! MJW added 040711
+      velofl = (resflwo / ressa) / 10000.  !!m3/d / ha * 10000. = m/d
+!!    velsetl = 1.35      !! for clay particle m/d
+      if (velofl > 1.e-6) then
+        trapres = velsetlr(jres) / velofl
+        if (trapres > 1.) trapres = 1.  !! set to nres
+        susp = 1. - trapres
+      else
+        susp = 0.
+      end if
+
+      if (res_vol(jres) > 0.) then                         !!MJW added 040811
+        res_sed(jres) = (ressedi * susp + sed * vol) / res_vol(jres)
+        res_san(jres) = (ressani + san * vol) / res_vol(jres)
+        res_sil(jres) = (ressili + sil * vol) / res_vol(jres)
+        res_cla(jres) = (resclai + cla * vol) / res_vol(jres)
+        res_sag(jres) = (ressagi + sag * vol) / res_vol(jres)
+        res_lag(jres) = (reslagi + lag * vol) / res_vol(jres)
+        res_gra(jres) = (resgrai + gra * vol) / res_vol(jres)
+
+        res_sed(jres) = Max(1.e-6,res_sed(jres))
+        res_san(jres) = Max(1.e-6,res_san(jres))
+        res_sil(jres) = Max(1.e-6,res_sil(jres))
+        res_cla(jres) = Max(1.e-6,res_cla(jres))
+        res_sag(jres) = Max(1.e-6,res_sag(jres))
+        res_lag(jres) = Max(1.e-6,res_lag(jres))
+        res_gra(jres) = Max(1.e-6,res_gra(jres))
+      else
+        res_sed(jres) = 1.e-6             !!MJW added 040711
+        res_san(jres) = 1.e-6
+        res_sil(jres) = 1.e-6
+        res_cla(jres) = 1.e-6
+        res_sag(jres) = 1.e-6
+        res_lag(jres) = 1.e-6
+        res_gra(jres) = 1.e-6
+      endif
 
         !! compute change in sediment concentration due to settling
         if (res_sed(jres) < 1.e-6) res_sed(jres) = 0.0    !!nbs 02/05/07
         if (res_sed(jres) > res_nsed(jres)) then
-	    inised = res_sed(jres)
-          res_sed(jres) = (res_sed(jres) - res_nsed(jres)) *            &
-     &                                   sed_stlr(jres) + res_nsed(jres)\
-
-
-	    finsed = res_sed(jres)
-	    setsed = inised - finsed
+        inised = res_sed(jres)
+          res_sed(jres) = (res_sed(jres) - res_nsed(jres)) *
+     &                                   sed_stlr(jres) + res_nsed(jres)
+        finsed = res_sed(jres)
+        setsed = inised - finsed
 
         if (res_gra(jres) >= setsed) then
-	    res_gra(jres) = res_gra(jres) - setsed
-	    remsetsed = 0.
-	  else
-	    remsetsed = setsed - res_gra(jres)
+        res_gra(jres) = res_gra(jres) - setsed
+        remsetsed = 0.
+      else
+        remsetsed = setsed - res_gra(jres)
           res_gra(jres) = 0.
-		if (res_lag(jres) >= remsetsed) then
-	      res_lag(jres) = res_lag(jres) - remsetsed
-	      remsetsed = 0.
-	    else
-	      remsetsed = remsetsed - res_lag(jres)
-	      res_lag(jres) = 0.
-	      if (res_san(jres) >= remsetsed) then
-	        res_san(jres) = res_san(jres) - remsetsed
-	        remsetsed = 0.
-	      else
-	        remsetsed = remsetsed - res_san(jres)
-	        res_san(jres) = 0.
+        if (res_lag(jres) >= remsetsed) then
+          res_lag(jres) = res_lag(jres) - remsetsed
+          remsetsed = 0.
+        else
+          remsetsed = remsetsed - res_lag(jres)
+          res_lag(jres) = 0.
+          if (res_san(jres) >= remsetsed) then
+            res_san(jres) = res_san(jres) - remsetsed
+            remsetsed = 0.
+          else
+            remsetsed = remsetsed - res_san(jres)
+            res_san(jres) = 0.
               if (res_sag(jres) >= remsetsed) then
-	          res_sag(jres) = res_sag(jres) - remsetsed
-	          remsetsed = 0.
-	        else
-	          remsetsed = remsetsed - res_sag(jres)
-	          res_sag(jres) = 0.
+              res_sag(jres) = res_sag(jres) - remsetsed
+              remsetsed = 0.
+            else
+              remsetsed = remsetsed - res_sag(jres)
+              res_sag(jres) = 0.
                 if (res_sil(jres) >= remsetsed) then
-  	            res_sil(jres) = res_sil(jres) - remsetsed
-	            remsetsed = 0.
-	          else
-	            remsetsed = remsetsed - res_sil(jres)
-	            res_sil(jres) = 0.
+                res_sil(jres) = res_sil(jres) - remsetsed
+                remsetsed = 0.
+              else
+                remsetsed = remsetsed - res_sil(jres)
+                res_sil(jres) = 0.
                   if (res_cla(jres) >= remsetsed) then
-	              res_cla(jres) = res_cla(jres) - remsetsed
-	              remsetsed = 0.
-	            else
-	              remsetsed = remsetsed - res_cla(jres)
-	              res_cla(jres) = 0.
-	            end if
+                  res_cla(jres) = res_cla(jres) - remsetsed
+                  remsetsed = 0.
+                else
+                  remsetsed = remsetsed - res_cla(jres)
+                  res_cla(jres) = 0.
                 end if
-	        end if
-	      end if
-	    end if
-	  endif
+                end if
+            end if
+          end if
+        end if
+      endif
 
         end if
 
-        !Liu
         !! compute sediment leaving reservoir
+        ressedo = res_sed(jres) * resflwo
+        ressano = res_san(jres) * resflwo
+        ressilo = res_sil(jres) * resflwo
+        resclao = res_cla(jres) * resflwo
+        ressago = res_sag(jres) * resflwo
+        reslago = res_lag(jres) * resflwo
+        resgrao = res_gra(jres) * resflwo
 
         !! net change in amount of sediment in reservoir for day
-    !    ressedc = vol * sed + ressedi - ressedo - res_sed(jres) *       &
-    ! &                                                     res_vol(jres)
-    !Liu
-             ressedc = vol * sed - res_sed(jres) * res_vol(jres)    !!!!!!!!!!!!!!
-    !Liu
-!      write (130,5999) i, jres, res_sed(jres), sed_stlr(jres),          &
+        ressedc = vol * sed + ressedi - ressedo - res_sed(jres) *
+     &                                                     res_vol(jres)
+!      write (130,5999) i, jres, res_sed(jres), sed_stlr(jres),
 !     & res_nsed(jres), ressedi, ressedo, resflwi, resflwo
 !5999  format (2i4,7e12.4)
       
       end if
 
 !!    update surface area for day
-    !  ressa = br1(jres) * res_vol(jres) ** br2(jres)
-      if (iresco(jres)<4) then       !Liu  
-!!    update surface area for day
       ressa = br1(jres) * res_vol(jres) ** br2(jres)
-      end if                    !Liu  
+
       return
  5000 format (f8.2)
       end

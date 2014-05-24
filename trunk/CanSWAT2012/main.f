@@ -66,6 +66,7 @@
 		
       call getallo
       call allocate_parms
+      call readfs
       call readfile
       call readbsn
       call readwwq
@@ -87,7 +88,7 @@
       call std1
       call std2
       call openwth
-      call headout
+        call headout
 
       !! convert integer to string for output.mgt file
       subnum = ""
