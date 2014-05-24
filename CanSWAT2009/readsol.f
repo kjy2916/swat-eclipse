@@ -196,24 +196,25 @@
          sol_zmx(ihru) = Max(sol_zmx(ihru),plt_zmx)
       end if
 
-!!  changes added for septic routine 1/27/09 gsm
-!!   calls subroutine layersplit
-      if (isep_typ(ihru) /= 0) then 
-       dep_new = sol_zmx(ihru)
-       call layersplit (dep_new)
-	 if (bz_z(ihru) > sol_z(nly,ihru)) then
-	   bz_z(ihru) = sol_z(nly,ihru) - 50.
+!! create a bizone layer in septic HRUs
+      if (isep_opt(ihru) /= 0) then 
+	 if (bz_z(ihru)+bz_thk(ihru) > sol_z(nly,ihru)) then
+	   if (sol_z(nly,ihru)>bz_thk(ihru)+10.) then !min. soil thickness for biozone layer (10mm top+biozone layer thickness)
+	      bz_z(ihru) = sol_z(nly,ihru) - bz_thk(ihru)
+	   else
+	      bz_z(ihru) = sol_z(nly,ihru)
+	      sol_z(nly,ihru) = sol_z(nly,ihru) + bz_thk(ihru)
+	   endif
        endif 
-       dep_new = bz_z(ihru)
-       if (dep_new > 0.) then 
-         call layersplit (dep_new)
+       if (bz_z(ihru) > 0.) then 
+         call layersplit (bz_z(ihru))
          dep_new = bz_z(ihru) + bz_thk(ihru)
          call layersplit (dep_new)  
          i_sep(ihru) = iseptic
        endif    
       endif
-      if (i_sep(ihru) <= 0) i_sep(ihru) = nly
-!!  took out section of code to make subroutine layersplit 1/27/09 gsm
+
+      nly = sol_nly(ihru)
 
 
 
