@@ -65,6 +65,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
             double ave_observed = Average(dt, col_observed);
             double ave_simulated = Average(dt, col_simulated);
 
+            //see if all values in the time series are 0
+            if (ave_observed == 0 || ave_simulated == 0)
+                return 0.0;
+
             //add a new colum R2_TOP for [(Oi-Oave) * (Pi-Pave)]
             string col_top = "R2_TOP";
             if (!dt.Columns.Contains(col_top))
