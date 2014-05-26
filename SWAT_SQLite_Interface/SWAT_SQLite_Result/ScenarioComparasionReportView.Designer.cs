@@ -44,6 +44,7 @@
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.cmbReservoir = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -74,6 +75,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.cmbCompareResults);
+            this.splitContainer1.Panel1.Controls.Add(this.cmbReservoir);
             this.splitContainer1.Panel1.Controls.Add(this.cmbReach);
             this.splitContainer1.Panel1.Controls.Add(this.cmbSubbasin);
             this.splitContainer1.Panel1.Controls.Add(this.cmbHRU);
@@ -88,7 +90,7 @@
             // cmbCompareResults
             // 
             this.cmbCompareResults.FormattingEnabled = true;
-            this.cmbCompareResults.Location = new System.Drawing.Point(214, 4);
+            this.cmbCompareResults.Location = new System.Drawing.Point(279, 2);
             this.cmbCompareResults.Name = "cmbCompareResults";
             this.cmbCompareResults.Size = new System.Drawing.Size(121, 21);
             this.cmbCompareResults.TabIndex = 1;
@@ -225,12 +227,24 @@
             this.tableView1.Name = "tableView1";
             this.tableView1.ReadOnly = true;
             this.tableView1.RowHeadersVisible = false;
+            this.tableView1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
             this.tableView1.Size = new System.Drawing.Size(205, 784);
             this.tableView1.TabIndex = 0;
             // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.WorkerReportsProgress = true;
+            // 
+            // cmbReservoir
+            // 
+            this.cmbReservoir.AutoSize = true;
+            this.cmbReservoir.Location = new System.Drawing.Point(197, 4);
+            this.cmbReservoir.Name = "cmbReservoir";
+            this.cmbReservoir.Size = new System.Drawing.Size(70, 17);
+            this.cmbReservoir.TabIndex = 0;
+            this.cmbReservoir.TabStop = true;
+            this.cmbReservoir.Text = "Reservoir";
+            this.cmbReservoir.UseVisualStyleBackColor = true;
             // 
             // ScenarioComparasionReportView
             // 
@@ -277,6 +291,7 @@
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.RadioButton cmbReservoir;
 
     }
 }
