@@ -51,6 +51,7 @@ namespace SWAT_SQLite_Result
                 if (cmbHRU.Checked) return ArcSWAT.SWATUnitType.HRU;
                 if (cmbReach.Checked) return ArcSWAT.SWATUnitType.RCH;
                 if (cmbSubbasin.Checked) return ArcSWAT.SWATUnitType.SUB;
+                if (cmbReservoir.Visible && cmbReservoir.Checked) return ArcSWAT.SWATUnitType.RES;
                 return ArcSWAT.SWATUnitType.UNKNOWN;
             }
         }
@@ -101,6 +102,7 @@ namespace SWAT_SQLite_Result
                 _scenarioResult = value;
                 updateUnitType();
                 addCompareResults();
+                cmbReservoir.Visible = _scenarioResult.Reservoirs.Count > 0;
             }            
         }
 
