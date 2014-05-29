@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.hruList1 = new SWAT_SQLite_Result.HRUList();
+            this.seasonCtrl1 = new SWAT_SQLite_Result.SeasonCtrl();
+            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
-            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
-            this.seasonCtrl1 = new SWAT_SQLite_Result.SeasonCtrl();
-            this.compareCtrl1 = new SWAT_SQLite_Result.CompareCtrl();
             this.subbasinMap1 = new SWAT_SQLite_Result.SubbasinMap();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
             this.outputDisplayChart1 = new SWAT_SQLite_Result.OutputDisplayChart();
-            this.hruList1 = new SWAT_SQLite_Result.HRUList();
+            this.compareCtrl1 = new SWAT_SQLite_Result.CompareCtrl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -84,6 +84,14 @@
             this.splitContainer1.SplitterDistance = 168;
             this.splitContainer1.TabIndex = 0;
             // 
+            // resultColumnTree1
+            // 
+            this.resultColumnTree1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.resultColumnTree1.Location = new System.Drawing.Point(0, 0);
+            this.resultColumnTree1.Name = "resultColumnTree1";
+            this.resultColumnTree1.Size = new System.Drawing.Size(168, 874);
+            this.resultColumnTree1.TabIndex = 0;
+            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -111,10 +119,10 @@
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.compareCtrl1);
             this.splitContainer3.Panel1.Controls.Add(this.hruList1);
             this.splitContainer3.Panel1.Controls.Add(this.seasonCtrl1);
             this.splitContainer3.Panel1.Controls.Add(this.yearCtrl1);
-            this.splitContainer3.Panel1.Controls.Add(this.compareCtrl1);
             // 
             // splitContainer3.Panel2
             // 
@@ -122,6 +130,27 @@
             this.splitContainer3.Size = new System.Drawing.Size(862, 705);
             this.splitContainer3.SplitterDistance = 72;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // hruList1
+            // 
+            this.hruList1.Location = new System.Drawing.Point(648, 5);
+            this.hruList1.Name = "hruList1";
+            this.hruList1.Size = new System.Drawing.Size(155, 65);
+            this.hruList1.TabIndex = 11;
+            // 
+            // seasonCtrl1
+            // 
+            this.seasonCtrl1.Location = new System.Drawing.Point(464, 4);
+            this.seasonCtrl1.Name = "seasonCtrl1";
+            this.seasonCtrl1.Size = new System.Drawing.Size(178, 65);
+            this.seasonCtrl1.TabIndex = 9;
+            // 
+            // yearCtrl1
+            // 
+            this.yearCtrl1.Location = new System.Drawing.Point(274, 5);
+            this.yearCtrl1.Name = "yearCtrl1";
+            this.yearCtrl1.Size = new System.Drawing.Size(184, 65);
+            this.yearCtrl1.TabIndex = 10;
             // 
             // splitContainer4
             // 
@@ -151,47 +180,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Map";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.tableView1);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(0, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 629);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Data";
-            // 
-            // resultColumnTree1
-            // 
-            this.resultColumnTree1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.resultColumnTree1.Location = new System.Drawing.Point(0, 0);
-            this.resultColumnTree1.Name = "resultColumnTree1";
-            this.resultColumnTree1.Size = new System.Drawing.Size(168, 874);
-            this.resultColumnTree1.TabIndex = 0;
-            // 
-            // yearCtrl1
-            // 
-            this.yearCtrl1.Location = new System.Drawing.Point(209, 3);
-            this.yearCtrl1.Name = "yearCtrl1";
-            this.yearCtrl1.Size = new System.Drawing.Size(184, 65);
-            this.yearCtrl1.TabIndex = 10;
-            // 
-            // seasonCtrl1
-            // 
-            this.seasonCtrl1.Location = new System.Drawing.Point(399, 3);
-            this.seasonCtrl1.Name = "seasonCtrl1";
-            this.seasonCtrl1.Size = new System.Drawing.Size(178, 65);
-            this.seasonCtrl1.TabIndex = 9;
-            // 
-            // compareCtrl1
-            // 
-            this.compareCtrl1.HasObervedData = false;
-            this.compareCtrl1.Location = new System.Drawing.Point(3, 3);
-            this.compareCtrl1.Name = "compareCtrl1";
-            this.compareCtrl1.Size = new System.Drawing.Size(200, 65);
-            this.compareCtrl1.TabIndex = 8;
-            // 
             // subbasinMap1
             // 
             this.subbasinMap1.AllowDrop = true;
@@ -214,6 +202,17 @@
             this.subbasinMap1.Size = new System.Drawing.Size(652, 610);
             this.subbasinMap1.TabIndex = 0;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.tableView1);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(200, 629);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Data";
+            // 
             // tableView1
             // 
             this.tableView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -228,28 +227,29 @@
             // 
             // outputDisplayChart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.outputDisplayChart1.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.outputDisplayChart1.ChartAreas.Add(chartArea1);
             this.outputDisplayChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.outputDisplayChart1.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.outputDisplayChart1.Legends.Add(legend1);
             this.outputDisplayChart1.Location = new System.Drawing.Point(0, 0);
             this.outputDisplayChart1.Name = "outputDisplayChart1";
             this.outputDisplayChart1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.outputDisplayChart1.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.outputDisplayChart1.Series.Add(series1);
             this.outputDisplayChart1.Size = new System.Drawing.Size(862, 165);
             this.outputDisplayChart1.TabIndex = 0;
             this.outputDisplayChart1.Text = "outputDisplayChart1";
             // 
-            // hruList1
+            // compareCtrl1
             // 
-            this.hruList1.Location = new System.Drawing.Point(583, 3);
-            this.hruList1.Name = "hruList1";
-            this.hruList1.Size = new System.Drawing.Size(155, 65);
-            this.hruList1.TabIndex = 11;
+            this.compareCtrl1.HasObervedData = false;
+            this.compareCtrl1.Location = new System.Drawing.Point(3, 4);
+            this.compareCtrl1.Name = "compareCtrl1";
+            this.compareCtrl1.Size = new System.Drawing.Size(265, 65);
+            this.compareCtrl1.TabIndex = 12;
             // 
             // SubbasinView
             // 
@@ -296,7 +296,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private YearCtrl yearCtrl1;
         private SeasonCtrl seasonCtrl1;
-        private CompareCtrl compareCtrl1;
         private HRUList hruList1;
+        private CompareCtrl compareCtrl1;
     }
 }

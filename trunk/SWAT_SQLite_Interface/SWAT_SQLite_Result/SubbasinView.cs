@@ -173,6 +173,8 @@ namespace SWAT_SQLite_Result
             {
                 updateTableAndChart(); 
             };
+            compareCtrl1.onCompareStatisticSplitYearChanged+= (ss, ee) => {updateTableAndChart();};
+            
 
             //update
             updateMap();
@@ -239,12 +241,17 @@ namespace SWAT_SQLite_Result
                 {
                     ArcSWAT.SWATUnitColumnYearCompareResult compare = null;
                     if (compareCtrl1.CompareResult != null)
+                    {
                         compare = oneResult.Compare(compareCtrl1.CompareResult);
+                        this._statistics = compare.SeasonStatistics(seasonCtrl1.Season).ToString();
+                    }
                     else
+                    {
                         compare = oneResult.CompareWithObserved;
+                        this._statistics = compare.SeasonStatistics(seasonCtrl1.Season).ToString(compareCtrl1.SplitYearForStatistics);
+                    }
                     this.tableView1.CompareResult = compare;
-                    this.outputDisplayChart1.CompareResult = compare;
-                    this._statistics = compare.SeasonStatistics(seasonCtrl1.Season).ToString();
+                    this.outputDisplayChart1.CompareResult = compare;                    
                     if (onDataStatisticsChanged != null)
                         onDataStatisticsChanged(this, new EventArgs());
                 }
