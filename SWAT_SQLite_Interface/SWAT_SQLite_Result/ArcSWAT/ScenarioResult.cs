@@ -265,7 +265,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     {
                         DataRow r = dt.NewRow();
                         r[0] = id;
-                        r[1] = oneUnitResult.Compare(compareScenario).Statistics.R2;
+                        r[1] = oneUnitResult.Compare(compareScenario).Statistics.R2("");
                         dt.Rows.Add(r);
                     }
                     catch (System.Exception e)
