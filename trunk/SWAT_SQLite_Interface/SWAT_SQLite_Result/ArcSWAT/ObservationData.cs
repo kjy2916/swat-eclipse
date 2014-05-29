@@ -223,6 +223,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private static string OBSERVATION_DATA_TYPE_FLOW = "FLOW_OUTcms";
         private static string OBSERVATION_DATA_TYPE_SEDIMENT = "SED_OUTtons";
         private static string OBSERVATION_DATA_TYPE_ORGNIC_N = "ORGN_OUTkg";
+        private static string OBSERVATION_DATA_TYPE_NO3 = "NO3_OUTkg";
+        private static string OBSERVATION_DATA_TYPE_NH4 = "NH4_OUTkg";
         private static string OBSERVATION_DATA_TYPE_TN = "TOT_Nkg";
         private static string OBSERVATION_DATA_TYPE_ORGNIC_P = "ORGP_OUTkg";
         private static string OBSERVATION_DATA_TYPE_MINERAL_P = "MINP_OUTkg";
@@ -232,6 +234,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
             OBSERVATION_DATA_TYPE_FLOW,
             OBSERVATION_DATA_TYPE_SEDIMENT,
             OBSERVATION_DATA_TYPE_ORGNIC_N,
+            OBSERVATION_DATA_TYPE_NO3,
+            OBSERVATION_DATA_TYPE_NH4,
             OBSERVATION_DATA_TYPE_TN,
             OBSERVATION_DATA_TYPE_ORGNIC_P,
             OBSERVATION_DATA_TYPE_MINERAL_P,
