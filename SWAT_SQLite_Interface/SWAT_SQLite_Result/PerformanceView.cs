@@ -23,7 +23,13 @@ namespace SWAT_SQLite_Result
             cmbSplitYear.SelectedIndexChanged += (s, e) => {
                 if (_result == null) return;
                 int year = Convert.ToInt32(cmbSplitYear.SelectedItem.ToString());
-                this.dataGridView1.DataSource = _result.getPerformanceTalbe(year);
+                DataTable dt = _result.getPerformanceTalbe(year);
+                if (!_warningHasShown && dt.Rows.Count == 0)
+                {
+                    SWAT_SQLite.showInformationWindow("No performance data. Please make sure the observed data has been uploaded and the simulation results exists!");
+                    _warningHasShown = true;
+                }
+                this.dataGridView1.DataSource = dt;
             };
 
             this.dataGridView1.ReadOnly = true;
@@ -61,6 +67,7 @@ namespace SWAT_SQLite_Result
         }
 
         private ArcSWAT.ScenarioResult _result = null;
+        private bool _warningHasShown = false;
 
         public ArcSWAT.ScenarioResult Result
         {
