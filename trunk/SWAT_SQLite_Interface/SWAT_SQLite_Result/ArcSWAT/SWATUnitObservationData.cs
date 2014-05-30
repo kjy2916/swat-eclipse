@@ -56,5 +56,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public ObservationData Observation { get { return _parentData; } }
         public int StartYear { get { return _startYear; } }
         public int EndYear { get { return _endYear; } }
+
+        public override string ToString()
+        {
+            return string.Format("{0}: {1}",UnitType,ID);
+        }
     }
 }

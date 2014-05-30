@@ -18,6 +18,16 @@ namespace SWAT_SQLite_Result
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Happens when new feature is selected
+        /// </summary>
+        public event EventHandler onMapSelectionChanged = null;
+
+        /// <summary>
+        /// Happens when statistic information is changed
+        /// </summary>
+        public event EventHandler onDataStatisticsChanged = null;
+
         private void bLoadObservationData_Click(object sender, EventArgs e)
         {
             if (_id <= 0 || _col == null) return;
@@ -75,7 +85,8 @@ namespace SWAT_SQLite_Result
             set
             {
                 _prj = value;
-                subbasinMap1.setProject(value);   
+                subbasinMap1.setProject(value);
+                yearCtrl1.ObservedData = null;
             }
         }
 
@@ -110,27 +121,43 @@ namespace SWAT_SQLite_Result
                 cmbObservedColumns.DataSource = 
                     ArcSWAT.ObservationData.getObservationDataColumns(_unitType);
                 cmbObservedColumns.SelectedIndex = 0;
+                if (onMapSelectionChanged != null) onMapSelectionChanged(this, new EventArgs());
+                 
             };
 
             yearCtrl1.onYearChanged += (ss, ee) => { _year = yearCtrl1.Year; updateTableAndChart(); };
         }
 
+
+        private ArcSWAT.SWATUnitObservationData _observedData = null;
+        public ArcSWAT.SWATUnitObservationData MapSelection { get { return _observedData; } }
+
+        private string _statistics = "";
+        public string Statistics { get { return _statistics; } }
+
         private void updateTableAndChart()
         {
             tableView1.DataTable = null;
             outputDisplayChart1.ObservedData = null;
+            _observedData = null;
+            _statistics = "";
 
             if (_col != null && _id > 0)
             {
-                ArcSWAT.SWATUnitObservationData data =
-                    _prj.Observation.getObservedData(_unitType, _id, _col);
-                if (data != null)
+                _observedData = _prj.Observation.getObservedData(_unitType, _id, _col);
+                if (_observedData != null)
                 {
                     //show the data
-                    ArcSWAT.SWATUnitColumnYearObservationData observedData = data.getObservedData(_year);                    
+                    ArcSWAT.SWATUnitColumnYearObservationData observedData = _observedData.getObservedData(_year);                    
                     tableView1.ObservedData = observedData;
                     outputDisplayChart1.ObservedData = observedData;
-                    yearCtrl1.ObservedData = data.getObservedData(-1);
+                    yearCtrl1.ObservedData = _observedData.getObservedData(-1);
+
+                    if (onDataStatisticsChanged != null)
+                    {
+                        _statistics = observedData.Statistics.ToString();
+                        onDataStatisticsChanged(this, new EventArgs());
+                    }                        
                 }
             }
         }
