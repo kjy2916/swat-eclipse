@@ -83,9 +83,12 @@ namespace SWAT_SQLite_Result
         private int _id = -1;
         private ArcSWAT.Project _prj = null;
         private string _col = null;
+        private int _year = -1;
 
         private void ProjectView_Load(object sender, EventArgs e)
         {
+            this.Resize += (ss, ee) => { this.splitContainer1.SplitterDistance = this.Width - 200; };
+
             cmbObservedColumns.SelectedIndexChanged += (ss, ee) =>
                 {
                     if (cmbObservedColumns.SelectedIndex == -1) _col = null;
@@ -107,7 +110,9 @@ namespace SWAT_SQLite_Result
                 cmbObservedColumns.DataSource = 
                     ArcSWAT.ObservationData.getObservationDataColumns(_unitType);
                 cmbObservedColumns.SelectedIndex = 0;
-            };            
+            };
+
+            yearCtrl1.onYearChanged += (ss, ee) => { _year = yearCtrl1.Year; updateTableAndChart(); };
         }
 
         private void updateTableAndChart()
@@ -122,8 +127,10 @@ namespace SWAT_SQLite_Result
                 if (data != null)
                 {
                     //show the data
-                    tableView1.ObservedData = data.getObservedData(-1);
-                    outputDisplayChart1.ObservedData = data.getObservedData(-1);
+                    ArcSWAT.SWATUnitColumnYearObservationData observedData = data.getObservedData(_year);                    
+                    tableView1.ObservedData = observedData;
+                    outputDisplayChart1.ObservedData = observedData;
+                    yearCtrl1.ObservedData = data.getObservedData(-1);
                 }
             }
         }

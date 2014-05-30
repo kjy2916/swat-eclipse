@@ -16,6 +16,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _colCompare = string.Format("{0}_Observed", _col);
         }
 
+        public SWATUnitType UnitType { get { return _parentData.UnitType; } }
+        public int UnitID { get { return _parentData.ID; } }
+
         protected override void read()
         {
             if (_table != null) return;
