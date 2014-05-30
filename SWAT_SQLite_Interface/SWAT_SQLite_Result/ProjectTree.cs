@@ -92,7 +92,7 @@ namespace SWAT_SQLite_Result
 
             this.Nodes.Clear();
 
-            TreeNode prjNode = this.Nodes.Add("Project:");
+            TreeNode prjNode = this.Nodes.Add("Project");
             prjNode.Tag = p;                
 
             foreach (ArcSWAT.Scenario s in p.Scenarios.Values)
@@ -100,10 +100,10 @@ namespace SWAT_SQLite_Result
 
             prjNode.ExpandAll();
 
-            //select first scenario node
+            //select project node
             if(prjNode.Nodes.Count > 0)
                 this.OnNodeMouseClick(
-                    new TreeNodeMouseClickEventArgs(prjNode.Nodes[0], System.Windows.Forms.MouseButtons.Left,-1,-1,-1));
+                    new TreeNodeMouseClickEventArgs(prjNode, System.Windows.Forms.MouseButtons.Left,-1,-1,-1));
         }
 
         public void update(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType)

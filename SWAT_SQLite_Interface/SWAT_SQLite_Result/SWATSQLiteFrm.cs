@@ -52,6 +52,8 @@ namespace SWAT_SQLite_Result
                         _projectView = new ProjectView();
                         _projectView.Dock = DockStyle.Fill;
                         _projectView.Project = _prj;
+                        _projectView.onMapSelectionChanged += (sss, eee) => { onMapSelectionChanged(_projectView); };
+                        _projectView.onDataStatisticsChanged += (sss, eee) => { onDataStatisticsChanged(_projectView); };
                     }
                     splitContainer1.Panel2.Controls.Clear();
                     splitContainer1.Panel2.Controls.Add(_projectView);
@@ -151,6 +153,11 @@ namespace SWAT_SQLite_Result
                 else
                     lblSelectionInformation.Text = (view as SubbasinView).MapSelection.ToStringBasicInfo();
             }
+            else if (view == _projectView)
+            {
+                if (_projectView.MapSelection == null) lblSelectionInformation.Text = "No Selection";
+                else lblSelectionInformation.Text = _projectView.MapSelection.ToString();
+            }
             else
                 lblSelectionInformation.Text = "No Selection";
         }
@@ -161,6 +168,8 @@ namespace SWAT_SQLite_Result
                 lblStatistics.Text = (view as SubbasinView).Statistics;
             else if (view != null && view is WatershedView)
                 lblStatistics.Text = (view as WatershedView).Statistics;
+            else if (view != null && view is ProjectView)
+                lblStatistics.Text = (view as ProjectView).Statistics;
             else
                 lblStatistics.Text = "No Statistics Data Available";
         }
