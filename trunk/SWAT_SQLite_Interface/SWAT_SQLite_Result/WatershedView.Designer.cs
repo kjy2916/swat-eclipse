@@ -38,11 +38,11 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
+            this.compareCtrl1 = new SWAT_SQLite_Result.CompareCtrl();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.outputDisplayChart1 = new SWAT_SQLite_Result.OutputDisplayChart();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
-            this.compareCtrl1 = new SWAT_SQLite_Result.CompareCtrl();
-            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableView2)).BeginInit();
@@ -153,6 +153,21 @@
             this.splitContainer2.SplitterDistance = 72;
             this.splitContainer2.TabIndex = 0;
             // 
+            // yearCtrl1
+            // 
+            this.yearCtrl1.Location = new System.Drawing.Point(279, 3);
+            this.yearCtrl1.Name = "yearCtrl1";
+            this.yearCtrl1.Size = new System.Drawing.Size(184, 65);
+            this.yearCtrl1.TabIndex = 1;
+            // 
+            // compareCtrl1
+            // 
+            this.compareCtrl1.HasObervedData = false;
+            this.compareCtrl1.Location = new System.Drawing.Point(3, 3);
+            this.compareCtrl1.Name = "compareCtrl1";
+            this.compareCtrl1.Size = new System.Drawing.Size(270, 65);
+            this.compareCtrl1.TabIndex = 0;
+            // 
             // splitContainer3
             // 
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -174,7 +189,6 @@
             // 
             chartArea1.Name = "ChartArea1";
             this.outputDisplayChart1.ChartAreas.Add(chartArea1);
-            this.outputDisplayChart1.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Name = "Legend1";
             this.outputDisplayChart1.Legends.Add(legend1);
             this.outputDisplayChart1.Location = new System.Drawing.Point(0, 0);
@@ -199,21 +213,6 @@
             this.tableView1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
             this.tableView1.Size = new System.Drawing.Size(184, 766);
             this.tableView1.TabIndex = 0;
-            // 
-            // compareCtrl1
-            // 
-            this.compareCtrl1.HasObervedData = false;
-            this.compareCtrl1.Location = new System.Drawing.Point(3, 3);
-            this.compareCtrl1.Name = "compareCtrl1";
-            this.compareCtrl1.Size = new System.Drawing.Size(200, 65);
-            this.compareCtrl1.TabIndex = 0;
-            // 
-            // yearCtrl1
-            // 
-            this.yearCtrl1.Location = new System.Drawing.Point(210, 4);
-            this.yearCtrl1.Name = "yearCtrl1";
-            this.yearCtrl1.Size = new System.Drawing.Size(184, 65);
-            this.yearCtrl1.TabIndex = 1;
             // 
             // WatershedView
             // 
