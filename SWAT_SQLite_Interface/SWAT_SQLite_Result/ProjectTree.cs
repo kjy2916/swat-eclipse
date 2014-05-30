@@ -17,6 +17,7 @@ namespace SWAT_SQLite_Result
         public event ScenarioSelectionChangedEventHandler onScenarioSelectionChanged = null;
         public event EventHandler onProjectNodeSelected = null;
         public event EventHandler onDifferenceNodeSelected = null;
+        public event EventHandler onPerformanceNodeSelected = null;
 
         public ProjectTree()
         {
@@ -60,6 +61,13 @@ namespace SWAT_SQLite_Result
                     _scenarioResult = e.Node.Tag as ArcSWAT.ScenarioResult;
                     onDifferenceNodeSelected(this, new EventArgs());
                 }
+
+                //click on difference node
+                if (e.Node.Text.Equals("Performance") && e.Node.Tag != null && e.Node.Tag is ArcSWAT.ScenarioResult && onPerformanceNodeSelected != null)
+                {
+                    _scenarioResult = e.Node.Tag as ArcSWAT.ScenarioResult;
+                    onPerformanceNodeSelected(this, new EventArgs());
+                }
             };       
         }
 
@@ -101,9 +109,9 @@ namespace SWAT_SQLite_Result
             prjNode.ExpandAll();
 
             //select project node
-            if(prjNode.Nodes.Count > 0)
-                this.OnNodeMouseClick(
-                    new TreeNodeMouseClickEventArgs(prjNode, System.Windows.Forms.MouseButtons.Left,-1,-1,-1));
+            //if(prjNode.Nodes.Count > 0)
+            //    this.OnNodeMouseClick(
+            //        new TreeNodeMouseClickEventArgs(prjNode, System.Windows.Forms.MouseButtons.Left,-1,-1,-1));
         }
 
         public void update(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType)
@@ -165,6 +173,7 @@ namespace SWAT_SQLite_Result
                 if (result.Reservoirs.Count > 0)
                     resultNode.Nodes.Add("Reservoir").Tag = result;
                 resultNode.Nodes.Add("Difference").Tag = result;
+                resultNode.Nodes.Add("Performance").Tag = result;
 
                 scenNode.ExpandAll();
             }

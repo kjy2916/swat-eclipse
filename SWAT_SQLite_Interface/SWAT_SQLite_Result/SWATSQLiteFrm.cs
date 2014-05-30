@@ -71,6 +71,18 @@ namespace SWAT_SQLite_Result
                     updateStatus(compareView);
                     Map = null;
                 };
+            projectTree1.onPerformanceNodeSelected += (ss, ee) =>
+            {
+                PerformanceView performanceView = new PerformanceView();
+                performanceView.Result = projectTree1.ScenarioResult;
+                performanceView.Dock = DockStyle.Fill;
+
+                splitContainer1.Panel2.Controls.Clear();
+                splitContainer1.Panel2.Controls.Add(performanceView);
+                updateStatus(performanceView);
+                Map = null;
+            };
+
 
             if (Properties.Settings.Default.Projects == null)
                 Properties.Settings.Default.Projects = new System.Collections.Specialized.StringCollection();

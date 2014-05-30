@@ -67,7 +67,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             //see if the column has correponding observed data
             string[] columns = getObservationDataColumns(result.UnitResult.Unit.Type);
             if (columns == null) return null;
-            if (System.Array.IndexOf(columns, result.Column) == -1) return null;
+            if (System.Array.IndexOf(columns, getObservationColumnFromSWAT(result.Column)) == -1) return null;
            
             //find the data            
             string uniqueID = getUniqueId(result.UnitResult.Unit.Type, result.UnitResult.Unit.ID,result.Column);
@@ -299,6 +299,18 @@ namespace SWAT_SQLite_Result.ArcSWAT
             int index = Array.IndexOf(OBSERVATION_COLUMNS, col);
             if (index == -1) return "";
             return OBSERVATION_COLUMNS_SWAT[index];
+        }
+
+        /// <summary>
+        /// Translate from the user friendly name to SWAT column name
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        public static string getObservationColumnFromSWAT(string col)
+        {
+            int index = Array.IndexOf(OBSERVATION_COLUMNS_SWAT, col);
+            if (index == -1) return "";
+            return OBSERVATION_COLUMNS[index];
         }
 
         #endregion
