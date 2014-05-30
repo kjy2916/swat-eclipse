@@ -220,26 +220,60 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return string.Format("{0}{3}{1}{3}{2}", type, id, col, OBSERVATION_TABLE_NAME_DELIMITER);
         }
 
-        private static string OBSERVATION_DATA_TYPE_FLOW = "FLOW_OUTcms";
-        private static string OBSERVATION_DATA_TYPE_SEDIMENT = "SED_OUTtons";
-        private static string OBSERVATION_DATA_TYPE_ORGNIC_N = "ORGN_OUTkg";
-        private static string OBSERVATION_DATA_TYPE_NO3 = "NO3_OUTkg";
-        private static string OBSERVATION_DATA_TYPE_NH4 = "NH4_OUTkg";
-        private static string OBSERVATION_DATA_TYPE_TN = "TOT_Nkg";
-        private static string OBSERVATION_DATA_TYPE_ORGNIC_P = "ORGP_OUTkg";
-        private static string OBSERVATION_DATA_TYPE_MINERAL_P = "MINP_OUTkg";
-        private static string OBSERVATION_DATA_TYPE_TP = "TOT_Pkg";
+        private static string OBSERVATION_DATA_TYPE_FLOW = "FLOW(m3/s)";
+        private static string OBSERVATION_DATA_TYPE_SEDIMENT = "TSS(ton)";
+        private static string OBSERVATION_DATA_TYPE_ORGNIC_N = "Organic N(kg)";
+        private static string OBSERVATION_DATA_TYPE_NO3 = "NO3(kg)";
+        private static string OBSERVATION_DATA_TYPE_NO2 = "NO2(kg)";
+        private static string OBSERVATION_DATA_TYPE_NH4 = "NH4(kg)";
+        private static string OBSERVATION_DATA_TYPE_TN = "TN(kg)";
+        private static string OBSERVATION_DATA_TYPE_ORGNIC_P = "Organic P(kg)";
+        private static string OBSERVATION_DATA_TYPE_MINERAL_P = "Mineral P(kg)";
+        private static string OBSERVATION_DATA_TYPE_TP = "TP(kg)";
 
-        private static string[] OBSERVATION_REACH_COLUMNS = new string[] {
+        private static string OBSERVATION_DATA_TYPE_SWAT_FLOW = "FLOW_OUTcms";
+        private static string OBSERVATION_DATA_TYPE_SWAT_SEDIMENT = "SED_OUTtons";
+        private static string OBSERVATION_DATA_TYPE_SWAT_ORGNIC_N = "ORGN_OUTkg";
+        private static string OBSERVATION_DATA_TYPE_SWAT_NO3 = "NO3_OUTkg";
+        private static string OBSERVATION_DATA_TYPE_SWAT_NO2 = "NO2_OUTkg";
+        private static string OBSERVATION_DATA_TYPE_SWAT_NH4 = "NH4_OUTkg";
+        private static string OBSERVATION_DATA_TYPE_SWAT_TN = "TOT_Nkg";
+        private static string OBSERVATION_DATA_TYPE_SWAT_ORGNIC_P = "ORGP_OUTkg";
+        private static string OBSERVATION_DATA_TYPE_SWAT_MINERAL_P = "MINP_OUTkg";
+        private static string OBSERVATION_DATA_TYPE_SWAT_TP = "TOT_Pkg";
+
+        /// <summary>
+        /// All SWAT columns which would have observation data
+        /// </summary>
+        private static string[] OBSERVATION_COLUMNS_SWAT = new string[]{
+            OBSERVATION_DATA_TYPE_SWAT_FLOW,
+            OBSERVATION_DATA_TYPE_SWAT_SEDIMENT,
+            OBSERVATION_DATA_TYPE_SWAT_ORGNIC_N,
+            OBSERVATION_DATA_TYPE_SWAT_NO3,
+            OBSERVATION_DATA_TYPE_SWAT_NO2,
+            OBSERVATION_DATA_TYPE_SWAT_NH4,
+            OBSERVATION_DATA_TYPE_SWAT_TN,
+            OBSERVATION_DATA_TYPE_SWAT_ORGNIC_P,
+            OBSERVATION_DATA_TYPE_SWAT_MINERAL_P,
+            OBSERVATION_DATA_TYPE_SWAT_TP};
+
+        /// <summary>
+        /// All variables which would have observation data. Here the name is a user-friendly name and 
+        /// is corresponding to SWAT columns.
+        /// </summary>
+        private static string[] OBSERVATION_COLUMNS = new string[] {
             OBSERVATION_DATA_TYPE_FLOW,
             OBSERVATION_DATA_TYPE_SEDIMENT,
             OBSERVATION_DATA_TYPE_ORGNIC_N,
             OBSERVATION_DATA_TYPE_NO3,
+            OBSERVATION_DATA_TYPE_NO2,
             OBSERVATION_DATA_TYPE_NH4,
             OBSERVATION_DATA_TYPE_TN,
             OBSERVATION_DATA_TYPE_ORGNIC_P,
             OBSERVATION_DATA_TYPE_MINERAL_P,
             OBSERVATION_DATA_TYPE_TP};
+
+        private static string[] OBSERVATION_REACH_COLUMNS = OBSERVATION_COLUMNS;
 
         private static string[] OBSERVATION_RESERVOIR_COLUMNS = new string[] {
             OBSERVATION_DATA_TYPE_FLOW,
@@ -253,6 +287,18 @@ namespace SWAT_SQLite_Result.ArcSWAT
             if (unitType == SWATUnitType.RCH) return OBSERVATION_REACH_COLUMNS;
             if (unitType == SWATUnitType.RES) return OBSERVATION_RESERVOIR_COLUMNS;
             return null;
+        }
+
+        /// <summary>
+        /// Translate from the user friendly name to SWAT column name
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        public static string getObservationSWATColumn(string col)
+        {
+            int index = Array.IndexOf(OBSERVATION_COLUMNS, col);
+            if (index == -1) return "";
+            return OBSERVATION_COLUMNS_SWAT[index];
         }
 
         #endregion
