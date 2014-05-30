@@ -11,12 +11,6 @@ using DotSpatial.Controls;
 
 namespace SWAT_SQLite_Result
 {
-    /// <summary>
-    /// TODO
-    /// 1. Add a list to show all the reaches, reservoirs which has observed data.
-    /// 2. Add reservoir layer to select
-    /// 3. Set selection color as read and same width with unselect feature.
-    /// </summary>
     public partial class ProjectView : UserControl
     {
         public ProjectView()
@@ -96,7 +90,7 @@ namespace SWAT_SQLite_Result
                 {
                     if (cmbObservedColumns.SelectedIndex == -1) _col = null;
                     else
-                        _col = cmbObservedColumns.SelectedItem.ToString();
+                        _col = ArcSWAT.ObservationData.getObservationSWATColumn(cmbObservedColumns.SelectedItem.ToString());
                     updateTableAndChart();
 
                 };
