@@ -102,6 +102,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         public SWATUnitColumnYearResult getResult(string col, int year)
         {
+            if (!Columns.Contains(col)) return null;
+
             //see if the result is already there
             string id = SWATUnitColumnYearResult.getUniqueResultID(col, year);
             if (!_results.ContainsKey(id)) _results.Add(id, new SWATUnitColumnYearResult(col, year, this));
