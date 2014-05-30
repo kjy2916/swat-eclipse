@@ -35,25 +35,26 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.subbasinMap1 = new SWAT_SQLite_Result.SubbasinMap();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbObservedColumns = new System.Windows.Forms.ComboBox();
+            this.tableView1 = new SWAT_SQLite_Result.TableView();
             this.bDeleteObservationData = new System.Windows.Forms.Button();
             this.bLoadObservationData = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.subbasinMap1 = new SWAT_SQLite_Result.SubbasinMap();
-            this.tableView1 = new SWAT_SQLite_Result.TableView();
             this.outputDisplayChart1 = new SWAT_SQLite_Result.OutputDisplayChart();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tableView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tableView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputDisplayChart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,8 +75,31 @@
             this.splitContainer1.SplitterDistance = 650;
             this.splitContainer1.TabIndex = 0;
             // 
+            // subbasinMap1
+            // 
+            this.subbasinMap1.AllowDrop = true;
+            this.subbasinMap1.BackColor = System.Drawing.Color.White;
+            this.subbasinMap1.CollectAfterDraw = false;
+            this.subbasinMap1.CollisionDetection = false;
+            this.subbasinMap1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.subbasinMap1.ExtendBuffer = false;
+            this.subbasinMap1.FunctionMode = DotSpatial.Controls.FunctionMode.None;
+            this.subbasinMap1.IsBusy = false;
+            this.subbasinMap1.IsZoomedToMaxExtent = false;
+            this.subbasinMap1.Legend = null;
+            this.subbasinMap1.Location = new System.Drawing.Point(0, 0);
+            this.subbasinMap1.Name = "subbasinMap1";
+            this.subbasinMap1.ProgressHandler = null;
+            this.subbasinMap1.ProjectionModeDefine = DotSpatial.Controls.ActionMode.Prompt;
+            this.subbasinMap1.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Prompt;
+            this.subbasinMap1.RedrawLayersWhileResizing = false;
+            this.subbasinMap1.SelectionEnabled = true;
+            this.subbasinMap1.Size = new System.Drawing.Size(650, 533);
+            this.subbasinMap1.TabIndex = 0;
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.yearCtrl1);
             this.groupBox1.Controls.Add(this.cmbObservedColumns);
             this.groupBox1.Controls.Add(this.tableView1);
             this.groupBox1.Controls.Add(this.bDeleteObservationData);
@@ -98,6 +122,44 @@
             this.cmbObservedColumns.Name = "cmbObservedColumns";
             this.cmbObservedColumns.Size = new System.Drawing.Size(193, 21);
             this.cmbObservedColumns.TabIndex = 2;
+            // 
+            // tableView1
+            // 
+            this.tableView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tableView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.tableView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tableView1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.tableView1.Location = new System.Drawing.Point(7, 147);
+            this.tableView1.Name = "tableView1";
+            this.tableView1.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tableView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.tableView1.RowHeadersVisible = false;
+            this.tableView1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
+            this.tableView1.Size = new System.Drawing.Size(193, 380);
+            this.tableView1.TabIndex = 1;
             // 
             // bDeleteObservationData
             // 
@@ -137,70 +199,6 @@
             this.splitContainer2.SplitterDistance = 533;
             this.splitContainer2.TabIndex = 1;
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "Observed files|*.csv";
-            // 
-            // subbasinMap1
-            // 
-            this.subbasinMap1.AllowDrop = true;
-            this.subbasinMap1.BackColor = System.Drawing.Color.White;
-            this.subbasinMap1.CollectAfterDraw = false;
-            this.subbasinMap1.CollisionDetection = false;
-            this.subbasinMap1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.subbasinMap1.ExtendBuffer = false;
-            this.subbasinMap1.FunctionMode = DotSpatial.Controls.FunctionMode.None;
-            this.subbasinMap1.IsBusy = false;
-            this.subbasinMap1.IsZoomedToMaxExtent = false;
-            this.subbasinMap1.Legend = null;
-            this.subbasinMap1.Location = new System.Drawing.Point(0, 0);
-            this.subbasinMap1.Name = "subbasinMap1";
-            this.subbasinMap1.ProgressHandler = null;
-            this.subbasinMap1.ProjectionModeDefine = DotSpatial.Controls.ActionMode.Prompt;
-            this.subbasinMap1.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Prompt;
-            this.subbasinMap1.RedrawLayersWhileResizing = false;
-            this.subbasinMap1.SelectionEnabled = true;
-            this.subbasinMap1.Size = new System.Drawing.Size(650, 533);
-            this.subbasinMap1.TabIndex = 0;
-            // 
-            // tableView1
-            // 
-            this.tableView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tableView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.tableView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tableView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.tableView1.Location = new System.Drawing.Point(7, 76);
-            this.tableView1.Name = "tableView1";
-            this.tableView1.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tableView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.tableView1.RowHeadersVisible = false;
-            this.tableView1.Size = new System.Drawing.Size(193, 451);
-            this.tableView1.TabIndex = 1;
-            // 
             // outputDisplayChart1
             // 
             chartArea1.Name = "ChartArea1";
@@ -210,6 +208,7 @@
             this.outputDisplayChart1.Legends.Add(legend1);
             this.outputDisplayChart1.Location = new System.Drawing.Point(0, 0);
             this.outputDisplayChart1.Name = "outputDisplayChart1";
+            this.outputDisplayChart1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
@@ -217,6 +216,18 @@
             this.outputDisplayChart1.Size = new System.Drawing.Size(860, 128);
             this.outputDisplayChart1.TabIndex = 0;
             this.outputDisplayChart1.Text = "outputDisplayChart1";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Observed files|*.csv";
+            // 
+            // yearCtrl1
+            // 
+            this.yearCtrl1.Location = new System.Drawing.Point(7, 76);
+            this.yearCtrl1.Name = "yearCtrl1";
+            this.yearCtrl1.Size = new System.Drawing.Size(184, 65);
+            this.yearCtrl1.TabIndex = 3;
             // 
             // ProjectView
             // 
@@ -231,11 +242,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tableView1)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tableView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputDisplayChart1)).EndInit();
             this.ResumeLayout(false);
 
@@ -253,6 +264,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private OutputDisplayChart outputDisplayChart1;
         private SubbasinMap subbasinMap1;
+        private YearCtrl yearCtrl1;
 
     }
 }

@@ -80,7 +80,6 @@ namespace SWAT_SQLite_Result
             //year control
             yearCtrl1.Scenario = scenario;
             yearCtrl1.onYearChanged += (s, e) => { updateTableAndChart(); };
-            yearCtrl1.onYearDisplayTypeChanged += (s, e) => { updateTableAndChart(); };
 
             //only for subbasin to show hru list
             hruList1.Visible = (type == ArcSWAT.SWATUnitType.SUB || type == ArcSWAT.SWATUnitType.HRU);

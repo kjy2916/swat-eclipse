@@ -12,7 +12,6 @@ namespace SWAT_SQLite_Result
     public partial class YearCtrl : UserControl
     {
         public event EventHandler onYearChanged;
-        public event EventHandler onYearDisplayTypeChanged;
 
         public YearCtrl()
         {
@@ -26,8 +25,10 @@ namespace SWAT_SQLite_Result
                 if (onYearChanged != null) onYearChanged(this, new EventArgs());
             };
 
-            rdbEachYear.CheckedChanged += (ss, e) => { tbYear.Enabled = DisplayByYear; if (onYearDisplayTypeChanged != null) onYearDisplayTypeChanged(this, new EventArgs()); };
-         }
+            rdbEachYear.CheckedChanged += (ss, e) => { tbYear.Enabled = DisplayByYear; if (onYearChanged != null) onYearChanged(this, new EventArgs()); };
+            rdbAllYears.CheckedChanged += (ss, e) => { tbYear.Enabled = DisplayByYear; if (onYearChanged != null) onYearChanged(this, new EventArgs()); };
+           
+        }
 
         public ArcSWAT.ScenarioResult Scenario
         {
@@ -41,7 +42,33 @@ namespace SWAT_SQLite_Result
             }
         }
 
+        private ArcSWAT.SWATUnitColumnYearObservationData _observedData = null;
+
+        /// <summary>
+        /// For used in project view
+        /// </summary>
+        public ArcSWAT.SWATUnitColumnYearObservationData ObservedData
+        {
+            set
+            {
+                this.Enabled = value != null;
+                if (value == null) return;
+
+                //don't change when same observed data is displayed
+                if (_observedData != null && 
+                    _observedData.UnitID == value.UnitID && //same unit id
+                    _observedData.Column == value.Column && //same column
+                    _observedData.UnitType == value.UnitType) return; //same unit type
+                
+                _observedData = value;
+                tbYear.Minimum = value.FirstDay.Year;
+                tbYear.Maximum = value.LastDay.Year;
+                tbYear.Value = value.FirstDay.Year;
+                rdbAllYears.Checked = true;              
+            }
+        }
+
         public bool DisplayByYear { get { return rdbEachYear.Checked; } }
-        public int Year { get { return tbYear.Value; } }
+        public int Year { get { if (DisplayByYear) return tbYear.Value; return -1; } }
     }
 }

@@ -44,7 +44,6 @@ namespace SWAT_SQLite_Result
             //year control
             yearCtrl1.Scenario = scenario;
             yearCtrl1.onYearChanged += (s, e) => { updateTableAndChart(); };
-            yearCtrl1.onYearDisplayTypeChanged += (s, e) => { updateTableAndChart(); };
 
             //columns
             resultColumnTree1.onResultTypeAndColumnChanged += (resultType, col) =>
