@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Data;
+using System.Diagnostics;
+using System.Collections.Specialized;
 
 namespace SWAT_SQLite_Result.ArcSWAT
 {
@@ -279,6 +281,78 @@ namespace SWAT_SQLite_Result.ArcSWAT
         }
 
         #endregion        
+
+        #region Performance Table
+
+        private Dictionary<int, DataTable> _performanceTables = new Dictionary<int, DataTable>();
+
+        public DataTable getPerformanceTalbe(int splitYear)
+        {
+            if (!_performanceTables.ContainsKey(splitYear))
+            {
+                bool withSplitYear = false;
+                DataTable dt = createPerformanceTable(splitYear,out withSplitYear);
+
+                StringCollection ids = new StringCollection();
+                foreach (Reach reach in _reaches.Values)
+                {
+                    foreach (SWATUnitResult unitResult in reach.Results.Values)
+                    {
+                        foreach (string col in unitResult.Columns)
+                        {
+                            SWATUnitColumnYearResult oneResult = unitResult.getResult(col, -1);
+                            if (oneResult.CompareWithObserved == null) continue;
+
+                            //avoid repeat records, like TSS
+                            string id = string.Format("{0}_{1}_{2}", unitResult.Unit.Type, unitResult.Unit.ID, col);
+                            if (ids.Contains(id)) continue;
+                            ids.Add(id);
+
+                            //create a new row
+                            DataRow r = dt.NewRow();
+                            r[0] = unitResult.Unit.Type.ToString();
+                            r[1] = unitResult.Unit.ID;
+                            r[2] = ObservationData.getObservationColumnFromSWAT(col);
+
+                            double total = oneResult.CompareWithObserved.Statistics.NSE("");
+                            r[3] = Math.Round(total,4);
+                            if (withSplitYear)
+                            {
+                                double before = ScenarioResultStructure.EMPTY_VALUE;
+                                double after = ScenarioResultStructure.EMPTY_VALUE;
+                                oneResult.CompareWithObserved.Statistics.NSE(splitYear, out before, out after);
+
+                                r[4] = Math.Round(before, 4); ;
+                                r[5] = Math.Round(after, 4); ;
+                            }
+                            dt.Rows.Add(r);     
+                        }
+                    }
+                }
+                _performanceTables.Add(splitYear, dt);
+            }
+            return _performanceTables[splitYear];
+        }
+
+        private DataTable createPerformanceTable(int splitYear,out bool withSplitYear)
+        {
+            withSplitYear = false;
+
+            DataTable dt = new DataTable("performance_" + this.Scenario.Name + "_" + this.ModelType.ToString());
+            dt.Columns.Add("TYPE", typeof(string));
+            dt.Columns.Add("ID", typeof(int));
+            dt.Columns.Add("VAR", typeof(string));
+            dt.Columns.Add(string.Format("NSE({0}-{1})",StartYear,EndYear), typeof(double));
+            if (splitYear > StartYear && splitYear <= EndYear)
+            {
+                withSplitYear = true;
+                dt.Columns.Add(string.Format("NSE({0}-{1})",StartYear,splitYear-1), typeof(double));
+                dt.Columns.Add(string.Format("NSE({0}-{1})",splitYear,EndYear), typeof(double));
+            }
+            return dt;
+        }
+
+        #endregion
 
         public override string ToString()
         {

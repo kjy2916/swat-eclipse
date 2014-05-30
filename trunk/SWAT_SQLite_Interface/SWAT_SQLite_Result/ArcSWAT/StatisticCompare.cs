@@ -17,8 +17,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
         {
             _result = result;
             _season = season;
-        }    
- 
+        }
+
         public double R2(string filter)
         {
             if (!_r2.ContainsKey(filter))
@@ -33,6 +33,24 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 _nse.Add(filter, CalculateNSE(_result.SeasonTableForStatistics(_season),
                     _result.ChartColumns[1], _result.ChartColumns[0], filter));
             return _nse[filter];
+        }
+
+        /// <summary>
+        /// For used in performance view
+        /// </summary>
+        /// <param name="splitYear"></param>
+        /// <param name="before"></param>
+        /// <param name="after"></param>
+        public void NSE(int splitYear, out double before, out double after)
+        {
+            if (_result.FirstDay.Year == _result.LastDay.Year) { before = NSE(""); after = ScenarioResultStructure.EMPTY_VALUE; return; }
+            if (splitYear > _result.LastDay.Year || splitYear <= _result.FirstDay.Year) { before = NSE(""); after = ScenarioResultStructure.EMPTY_VALUE; return; }
+
+            string filter1 = string.Format("{0} < '{1}-01-01'", SWATUnitResult.COLUMN_NAME_DATE, splitYear);
+            string filter2 = string.Format("{0} >= '{1}-01-01'", SWATUnitResult.COLUMN_NAME_DATE, splitYear);
+
+            before = NSE(filter1);
+            after = NSE(filter2);            
         }
 
         private static double Compute(DataTable dt, string expression, string filter)
