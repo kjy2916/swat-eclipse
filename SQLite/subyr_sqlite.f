@@ -84,26 +84,25 @@
         pdvab(21) = 0.0
         pdvab(22) = subyro(18,sb)    !!tile_no3
 
-        call sqlite3_set_column( colsub(1), sb )
-        call sqlite3_set_column( colsub(2), iyr )
+        call sqlite3_set_column( colsub(1), iyr )
 
         if (ipdvab(1) > 0) then
           do ii = 1, itotb
             pdvb(ii) = pdvab(ipdvab(ii))
           end do
           do ii=1, itotb
-            call sqlite3_set_column(colsub(2+ii),pdvb(ii))
+            call sqlite3_set_column(colsub(1+ii),pdvb(ii))
           end do
 !          write (31,1000) sb, subgis(sb), iyr, sub_km(sb),
 !     &                                    (pdvb(ii), ii = 1, itotb), sb
         else
           do ii=1, msubo
-            call sqlite3_set_column(colsub(2+ii),pdvab(ii))
+            call sqlite3_set_column(colsub(1+ii),pdvab(ii))
           end do
 !          write (31,1000) sb, subgis(sb), iyr, sub_km(sb),
 !     &                                    (pdvab(ii), ii = 1, msubo), sb
         end if
-        call sqlite3_insert( db, tblsub, colsub )
+        call sqlite3_insert( db, tblsub(sb), colsub )
       end do
 
       return

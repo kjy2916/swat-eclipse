@@ -93,14 +93,13 @@
       pdvab(21) = sub_dox(sb) / sub_ha
       pdvab(22) = sub_tileno3(sb)
 
-        call sqlite3_set_column( colsub(1), sb )
         if (icalen == 0) then
-            call sqlite3_set_column( colsub(2), iyr )
-            call sqlite3_set_column( colsub(3), iida )
+            call sqlite3_set_column( colsub(1), iyr )
+            call sqlite3_set_column( colsub(2), iida )
         else if(icalen == 1) then
-            call sqlite3_set_column( colsub(2), iyr )
-            call sqlite3_set_column( colsub(3), i_mo )
-            call sqlite3_set_column( colsub(4), icl(iida) )
+            call sqlite3_set_column( colsub(1), iyr )
+            call sqlite3_set_column( colsub(2), i_mo )
+            call sqlite3_set_column( colsub(3), icl(iida) )
         end if
 
       if (ipdvab(1) > 0) then
@@ -137,7 +136,7 @@
         
 	  end if
 
-      call sqlite3_insert( db, tblsub, colsub )
+      call sqlite3_insert( db, tblsub(sb), colsub )
 
       return
 !     changed for jennifer b.

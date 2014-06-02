@@ -188,14 +188,13 @@
 !!  compute month and day given julian day
         call xmon 
 
-        call sqlite3_set_column( colrch(1), j )
         if (icalen == 0) then
-            call sqlite3_set_column( colrch(2), iyr )
-            call sqlite3_set_column( colrch(3), iida )
+            call sqlite3_set_column( colrch(1), iyr )
+            call sqlite3_set_column( colrch(2), iida )
         else if(icalen == 1) then
-            call sqlite3_set_column( colrch(2), iyr )
-            call sqlite3_set_column( colrch(3), i_mo )
-            call sqlite3_set_column( colrch(4), icl(iida) )
+            call sqlite3_set_column( colrch(1), iyr )
+            call sqlite3_set_column( colrch(2), i_mo )
+            call sqlite3_set_column( colrch(3), icl(iida) )
         end if
 
       if (ievent==3.and.iprint==3) then
@@ -275,7 +274,7 @@
           endif
         end if
       endif
-      call sqlite3_insert( db, tblrch, colrch )
+      call sqlite3_insert( db, tblrch(j), colrch )
       end do
       return
 

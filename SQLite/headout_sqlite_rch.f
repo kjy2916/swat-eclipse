@@ -7,15 +7,10 @@
 
       integer :: j
       integer :: colrchnum
-
-      !table name
-      tblrch = 'rch'
-
-      !!delete any existing table
-      call sqlite3_delete_table( db, tblrch)
+      character(len=12) :: indexname
 
       !!The number of common columns
-      tblrch_num = 1 + datecol_num
+      tblrch_num = datecol_num
 
       !!get number of columns of reach
       colrchnum = 0
@@ -27,8 +22,7 @@
 
       !!create table rch
       allocate( colrch(colrchnum) )
-      call sqlite3_column_props( colrch(1), "RCH", SQLITE_INT)
-      call headout_sqlite_adddate(colrch,colrchnum,2)
+      call headout_sqlite_adddate(colrch,colrchnum,1)
 
       if (ipdvar(1) > 0) then
         do j = 1, itotr
@@ -41,7 +35,24 @@
      &                                                      SQLITE_REAL)
          end do
       end if
-      call sqlite3_create_table( db, tblrch, colrch )
-      call headout_sqlite_createindex("rch_index",tblrch,"RCH",1)
+
+      !table name
+      allocate(tblrch(subtot))
+      do j = 1, subtot
+        write(tblrch(j),5000) j
+        write(*,*) tblrch(j)
+
+        !!delete any existing table
+        call sqlite3_delete_table( db, tblrch(j))
+        call sqlite3_create_table( db, tblrch(j), colrch )
+
+        write(indexname,5001) j
+        write(*,*) indexname
+        call headout_sqlite_createindex(indexname,tblrch(j),"",1)
+      end do
+      return
+
+5000  format ('rch',i3.3)
+5001  format ('rch',i3.3,'_index')
 
       end

@@ -413,16 +413,15 @@
       endif
 
       !!output basic information
-      call sqlite3_set_column( colhru(1), j )
-      call sqlite3_set_column( colhru(2), cropname )
-      call sqlite3_set_column( colhru(3), nmgt(j) )
+      call sqlite3_set_column( colhru(1), cropname )
+      call sqlite3_set_column( colhru(2), nmgt(j) )
       if (icalen == 0) then
-        call sqlite3_set_column( colhru(4), iyr )
-        call sqlite3_set_column( colhru(5), iida )
+        call sqlite3_set_column( colhru(3), iyr )
+        call sqlite3_set_column( colhru(4), iida )
       else if (icalen == 1) then
-        call sqlite3_set_column( colhru(4), iyr )
-        call sqlite3_set_column( colhru(5), i_mo )
-        call sqlite3_set_column( colhru(6), icl(iida) )
+        call sqlite3_set_column( colhru(3), iyr )
+        call sqlite3_set_column( colhru(4), i_mo )
+        call sqlite3_set_column( colhru(5), icl(iida) )
       end if
 
       !!customized columns
@@ -489,7 +488,7 @@
 !     &      (pdvas(ii), ii = 1, mhruo), iyr
         end if
       end if
-      call sqlite3_insert( db, tblhru, colhru )
+      call sqlite3_insert( db, tblhru(j), colhru )
 
       !!add by zhang
       !!output carbon realted variables

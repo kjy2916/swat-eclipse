@@ -266,10 +266,9 @@
         endif
 
           !!output basic information
-          call sqlite3_set_column( colhru(1), j )
-          call sqlite3_set_column( colhru(2), cropname )
-          call sqlite3_set_column( colhru(3), nmgt(j) )
-          call sqlite3_set_column( colhru(4), iyr )
+          call sqlite3_set_column( colhru(1), cropname )
+          call sqlite3_set_column( colhru(2), nmgt(j) )
+          call sqlite3_set_column( colhru(3), iyr )
 
         if (ipdvas(1) > 0) then
           do ii = 1, itots
@@ -312,7 +311,7 @@
           endif
         end if
         end if
-        call sqlite3_insert( db, tblhru, colhru )
+        call sqlite3_insert( db, tblhru(j), colhru )
       end do
 
       return
