@@ -7,24 +7,36 @@
       use parm
 
       integer :: j,sedbasiccolnum,sedvaluecolnum
+      character(len=12) :: indexname
 
-      tblsed = 'sed'
-
-      call sqlite3_delete_table( db, tblsed)
-
-      sedbasiccolnum = 1 + datecol_num
+      sedbasiccolnum = datecol_num
       sedvaluecolnum = size(hedsed)
 
       allocate( colsed(sedbasiccolnum + sedvaluecolnum) )
 
-      call sqlite3_column_props( colsed(1), "RCH", SQLITE_INT)
       call headout_sqlite_adddate(colsed,
-     &          sedbasiccolnum + sedvaluecolnum,2)
+     &          sedbasiccolnum + sedvaluecolnum,1)
 
       do j=1,sedvaluecolnum
         call sqlite3_column_props( colsed(sedbasiccolnum + j),
      &                                          hedsed(j), SQLITE_REAL)
       end do
-      call sqlite3_create_table( db, tblsed, colsed )
-      call headout_sqlite_createindex("sed_index",tblsed,"RCH",1)
+
+      allocate(tblsed(subtot))
+      do j = 1, subtot
+        write(tblsed(j),5000) j
+        write(*,*) tblsed(j)
+
+        !!delete any existing table
+        call sqlite3_delete_table( db, tblsed(j))
+        call sqlite3_create_table( db, tblsed(j), colsed )
+
+        write(indexname,5001) j
+        write(*,*) indexname
+        call headout_sqlite_createindex(indexname,tblsed(j),"",1)
+      end do
+      return
+
+5000  format ('sed',i3.3)
+5001  format ('sed',i3.3,'_index')
       end

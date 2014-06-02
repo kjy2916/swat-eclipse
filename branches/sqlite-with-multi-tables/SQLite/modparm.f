@@ -959,12 +959,12 @@
         character(len=8), dimension (:), allocatable :: tblhru !!maximum 99999 hrus
         character(len=6), dimension (:), allocatable :: tblsub
         character(len=3) :: tblrsv
-        character(len=3) :: tblwtr
-        character(len=3) :: tblsed
-        character(len=3) :: tblpot
-        character(len=3) :: tblmgt
-        character(len=3) :: tblsnu
-        character(len=3) :: tblswr
+        character(len=8), dimension (:), allocatable :: tblwtr
+        character(len=6), dimension (:), allocatable :: tblsed
+        character(len=8), dimension (:), allocatable :: tblpot
+        character(len=8), dimension (:), allocatable :: tblmgt
+        character(len=8), dimension (:), allocatable :: tblsnu
+        character(len=8), dimension (:), allocatable :: tblswr
         character(len=30) :: tbldeg
 
         character(len=30) :: tblwshd_dy
