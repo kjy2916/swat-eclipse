@@ -16,11 +16,21 @@
 
       !!get all index columns
       if(needadddate == 1) then
-          if(iprint == 2) write(indexs,*) indexcols,',','YR'
-          if(iprint == 1) write(indexs,*) indexcols,',','YR,MO,DA'
-          if(iprint == 0) write(indexs,*) indexcols,',','YR,MO'
+          if(len(indexcols) == 0) then
+              if(iprint == 2) write(indexs,*) 'YR'
+              if(iprint == 1) write(indexs,*) 'YR,MO,DA'
+              if(iprint == 0) write(indexs,*) 'YR,MO'
+          else
+              if(iprint == 2) write(indexs,*) indexcols,',','YR'
+              if(iprint == 1) write(indexs,*) indexcols,',','YR,MO,DA'
+              if(iprint == 0) write(indexs,*) indexcols,',','YR,MO'
+          end if
       else
-          write(indexs,*) indexcols
+          if(len(indexcols) >= 0) then
+            write(indexs,*) indexcols
+          else
+            return
+          end if
       end if
 
       !!create the index if not existing

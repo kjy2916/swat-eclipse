@@ -53,6 +53,7 @@
 
       use parm
       integer :: stat
+      integer :: indexnum
 
       datecol_num = 1                    !!yearly
       if(iprint == 1) datecol_num = 3    !!daily
@@ -64,6 +65,25 @@
 
       !!create the result database
       call sqlite3_open( "result.db3", db )
+
+      !!allocate index information
+      !!get number of indexs
+      indexnum =    subtot + !!for reach
+     &              nhru   + !!for hru
+     &              subtot + !!for subbasin
+     &              nres   + !!for reservoir
+     &              subtot + !!for reach sediment
+     &              3      + !!for three watershed tables
+     &              4      + !!for basic info tables
+     &              10       !!in case its not enough
+      if(iwtr == 1) indexnum = indexnum + nhru !!for depression area
+      if(imgt == 1) indexnum = indexnum + nhru !!for mgt table
+      if(isol == 1) indexnum = indexnum + nhru !!for soil nutrient
+      if(isto == 1) indexnum = indexnum + nhru !!for soil water
+      !!allocate arrays
+      allocate(sq_indexname(indexnum))
+      allocate(sq_tablename(indexnum))
+      allocate(sq_indexs(indexnum))
 
       !!create tables
       call header_sqlite

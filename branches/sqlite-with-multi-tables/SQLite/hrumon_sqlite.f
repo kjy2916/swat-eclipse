@@ -301,15 +301,14 @@
           if (iscen == 1) then
              if(isproj == 0) then
                   !!output basic information
-                  call sqlite3_set_column( colhru(1), j )
-                  call sqlite3_set_column( colhru(2), cropname )
-                  call sqlite3_set_column( colhru(3), nmgt(j) )
-                  call sqlite3_set_column( colhru(4), iyr )
-                  call sqlite3_set_column( colhru(5), mo_chk )
+                  call sqlite3_set_column( colhru(1), cropname )
+                  call sqlite3_set_column( colhru(2), nmgt(j) )
+                  call sqlite3_set_column( colhru(3), iyr )
+                  call sqlite3_set_column( colhru(4), mo_chk )
                   do ii = 1, ix
-                    call sqlite3_set_column( colhru(5 + ii), pdvs(ii))
+                    call sqlite3_set_column( colhru(4 + ii), pdvs(ii))
                   end do
-                  call sqlite3_insert( db, tblhru, colhru )
+                  call sqlite3_insert( db, tblhru(j), colhru )
              end if
 !            select case (isproj)
 !            case (0)

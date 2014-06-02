@@ -955,9 +955,9 @@
         type(SQLITE_COLUMN), dimension(:), allocatable :: colabn
 
         !!table name
-        character(len=3) :: tblrch
-        character(len=3) :: tblhru
-        character(len=3) :: tblsub
+        character(len=6), dimension (:), allocatable :: tblrch
+        character(len=8), dimension (:), allocatable :: tblhru !!maximum 99999 hrus
+        character(len=6), dimension (:), allocatable :: tblsub
         character(len=3) :: tblrsv
         character(len=3) :: tblwtr
         character(len=3) :: tblsed
@@ -986,8 +986,8 @@
         !!create index after insert would speed up SQLiter performance
         !!All indexs informatio would be saved in following variable temporarily
         !!The indexs would be created after insert
-        character(len=50), dimension(100) :: sq_indexname
-        character(len=50), dimension(100) :: sq_tablename
-        character(len=50), dimension(100) :: sq_indexs
+        character(len=50), dimension(:), allocatable :: sq_indexname
+        character(len=50), dimension(:), allocatable :: sq_tablename
+        character(len=50), dimension(:), allocatable :: sq_indexs
         integer :: sq_indexnum
       end module parm

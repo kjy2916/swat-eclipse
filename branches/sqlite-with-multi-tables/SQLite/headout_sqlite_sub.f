@@ -7,16 +7,11 @@
       use parm
 
       integer :: j,colsubnum
-
-      !table name
-      tblsub = 'sub'
-
-      !!delete any existing table
-      call sqlite3_delete_table( db, tblsub)
+      character(len=12) :: indexname
 
       !!subbasin table
       !!The number of common columns
-      tblsub_num = 1 + datecol_num
+      tblsub_num = datecol_num
 
       !!get number of columns of sub
       colsubnum = 0
@@ -28,8 +23,7 @@
 
       !!create table sub
       allocate( colsub(colsubnum) )
-      call sqlite3_column_props( colsub(1), "SUB", SQLITE_INT)
-      call headout_sqlite_adddate(colsub,colsubnum,2)
+      call headout_sqlite_adddate(colsub,colsubnum,1)
 
       if (ipdvab(1) > 0) then
         do j = 1, itotb
@@ -42,7 +36,23 @@
      &                                                      SQLITE_REAL)
         end do
       end if
-      call sqlite3_create_table( db, tblsub, colsub )
-      call headout_sqlite_createindex("sub_index",tblsub,"SUB",1)
 
+      !table name
+      allocate(tblsub(subtot))
+      do j = 1, subtot
+        write(tblsub(j),5000) j
+        write(*,*) tblsub(j)
+
+        !!delete any existing table
+        call sqlite3_delete_table( db, tblsub(j))
+        call sqlite3_create_table( db, tblsub(j), colsub )
+
+        write(indexname,5001) j
+        write(*,*) indexname
+        call headout_sqlite_createindex(indexname,tblsub(j),"",1)
+      end do
+      return
+
+5000  format ('sub',i3.3)
+5001  format ('sub',i3.3,'_index')
       end

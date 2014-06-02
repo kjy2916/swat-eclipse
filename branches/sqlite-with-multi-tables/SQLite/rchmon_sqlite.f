@@ -193,9 +193,8 @@
         pdvar(44) = rchmono(9,j) + rchmono(18,j)                        !! Total P
  !! added NO3 Concentration to output.rch (for daily only) gsm 10/26/2011
  
-        call sqlite3_set_column( colrch(1), j )
-        call sqlite3_set_column( colrch(2), iyr )
-        call sqlite3_set_column( colrch(3), mo_chk )
+        call sqlite3_set_column( colrch(1), iyr )
+        call sqlite3_set_column( colrch(2), mo_chk )
 
         if (ipdvar(1) > 0) then
           do ii = 1, itotr
@@ -204,7 +203,7 @@
 
           if (iscen == 1 .and. isproj == 0) then
             do ii=1, itotr
-               call sqlite3_set_column(colrch(3+ii),pdvr(ii))
+               call sqlite3_set_column(colrch(2+ii),pdvr(ii))
             end do
 !          write (7,5000) j, subgis(j), mo_chk, rch_dakm(j),
 !     &                                    (pdvr(ii), ii = 1, itotr), j
@@ -219,7 +218,7 @@
  !  increase to 44 in loops below from 42 gsm 10/17/2011      
           if (iscen == 1 .and. isproj == 0) then
             do ii=1, 44
-               call sqlite3_set_column(colrch(3+ii),pdvar(ii))
+               call sqlite3_set_column(colrch(2+ii),pdvar(ii))
             end do
 !          write (7,5000) j, subgis(j), mo_chk, rch_dakm(j),
 !     &                                (pdvar(ii), ii = 1, 44), j
@@ -232,7 +231,7 @@
 
           endif
         end if
-        call sqlite3_insert( db, tblrch, colrch )
+        call sqlite3_insert( db, tblrch(j), colrch )
       end do
 
       return
