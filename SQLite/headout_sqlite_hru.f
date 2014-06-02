@@ -42,7 +42,7 @@
 
       !table name
       allocate(tblhru(nhru))
-      do j = 1, subtot
+      do j = 1, nhru
         write(tblhru(j),5000) j
         write(*,*) tblhru(j)
 

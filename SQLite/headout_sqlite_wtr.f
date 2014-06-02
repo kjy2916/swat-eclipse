@@ -7,29 +7,46 @@
       use parm
 
       integer :: j,wtrbasiccolnum,wtrvaluecolnum
+      character(len=14) :: indexname
+
+      !!allocate table names for all hrus
+      allocate(tblwtr(nhru))
+      do j = 1, nhru
+        write(tblwtr(j),5000) j
+        write(*,*) tblwtr(j)
+
+        !!delete any existing table
+        call sqlite3_delete_table( db, tblwtr(j))
+      end do
 
       !!create table rsv
       if (iwtr == 1) then
-          tblwtr = 'wtr'
-          wtrbasiccolnum = 3 + datecol_num
+          wtrbasiccolnum = 2 + datecol_num
           wtrvaluecolnum = 40
 
           allocate( colwtr(wtrbasiccolnum + wtrvaluecolnum) )
 
-          call sqlite3_column_props( colwtr(1), "HRU", SQLITE_INT)
-          call sqlite3_column_props( colwtr(2), "LULC", SQLITE_CHAR,4)
-          call sqlite3_column_props( colwtr(3), "MGT", SQLITE_INT)
+          call sqlite3_column_props( colwtr(1), "LULC", SQLITE_CHAR,4)
+          call sqlite3_column_props( colwtr(2), "MGT", SQLITE_INT)
           call headout_sqlite_adddate(colwtr,
-     &                  wtrbasiccolnum + wtrvaluecolnum,4)
+     &                  wtrbasiccolnum + wtrvaluecolnum,3)
 
           do j = 1, wtrvaluecolnum
              call sqlite3_column_props(colwtr(wtrbasiccolnum+j),
      &                                          hedwtr(j),SQLITE_REAL)
           end do
-          call sqlite3_delete_table( db, tblwtr)
-          call sqlite3_create_table( db, tblwtr, colwtr )
-         call headout_sqlite_createindex("wtr_index",tblwtr,"HRU,SUB",1)
-      end if
 
+          do j = 1, nhru
+            call sqlite3_create_table( db, tblwtr(j), colwtr )
+
+            write(indexname,5001) j
+            write(*,*) indexname
+            call headout_sqlite_createindex(indexname,tblwtr(j),"",1)
+          end do
+      end if
+      return
+
+5000  format ('wtr',i5.5)
+5001  format ('wtr',i5.5,'_index')
 
       end

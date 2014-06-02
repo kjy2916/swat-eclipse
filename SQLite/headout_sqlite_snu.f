@@ -8,27 +8,41 @@
       use parm
 
       integer :: j,basiccolnum,valuecolnum
+      character(len=14) :: indexname
 
-      tblsnu = 'snu'
+      !!allocate table names for all hrus
+      allocate(tblsnu(nhru))
+      do j = 1, nhru
+        write(tblsnu(j),5000) j
+        write(*,*) tblsnu(j)
 
-      call sqlite3_delete_table( db, tblsnu)
+        !!delete any existing table
+        call sqlite3_delete_table( db, tblsnu(j))
+      end do
 
       if(isol == 1) then
           valuecolnum = size(hedsnu)
-          basiccolnum = 4
+          basiccolnum = 3
           allocate( colsnu(basiccolnum + valuecolnum) )
-          call sqlite3_column_props(colsnu(1),"HRU",SQLITE_INT)
-          call sqlite3_column_props(colsnu(2),"YR",SQLITE_INT)
-          call sqlite3_column_props(colsnu(3),"MO",SQLITE_INT)
-          call sqlite3_column_props(colsnu(4),"DA",SQLITE_INT)
+          call sqlite3_column_props(colsnu(1),"YR",SQLITE_INT)
+          call sqlite3_column_props(colsnu(2),"MO",SQLITE_INT)
+          call sqlite3_column_props(colsnu(3),"DA",SQLITE_INT)
           do j=1,valuecolnum
             call sqlite3_column_props( colsnu(basiccolnum + j),
      &                                          hedsnu(j), SQLITE_REAL)
           end do
 
-          call sqlite3_create_table( db, tblsnu, colsnu )
-          call headout_sqlite_createindex( "snu_index",tblsnu,
-     &                                            "SUB,HRU,YR,MO,DA",0)
-      end if
+          do j = 1, nhru
+            call sqlite3_create_table( db, tblsnu(j), colsnu )
 
+            write(indexname,5001) j
+            write(*,*) indexname
+            call headout_sqlite_createindex(indexname,tblsnu(j),
+     &                                              "YR,MO,DA",0)
+          end do
+      end if
+      return
+
+5000  format ('snu',i5.5)
+5001  format ('snu',i5.5,'_index')
       end

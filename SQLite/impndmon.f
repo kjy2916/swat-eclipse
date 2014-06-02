@@ -233,15 +233,14 @@
       if (iwtr == 1) then
         if(ioutput == 1) then
             !!~~~ SQLite ~~~
-            call sqlite3_set_column( colwtr(1), j )
-            call sqlite3_set_column( colwtr(2), cropname )
-            call sqlite3_set_column( colwtr(3), nmgt(j) )
-            call sqlite3_set_column( colwtr(4), iyr )
-            call sqlite3_set_column( colwtr(5), mo_chk )
+            call sqlite3_set_column( colwtr(1), cropname )
+            call sqlite3_set_column( colwtr(2), nmgt(j) )
+            call sqlite3_set_column( colwtr(3), iyr )
+            call sqlite3_set_column( colwtr(4), mo_chk )
             do ii=1,40
-                call sqlite3_set_column( colwtr(5+ii), pdvas(ii) )
+                call sqlite3_set_column( colwtr(4+ii), pdvas(ii) )
             end do
-            call sqlite3_insert( db, tblwtr, colwtr )
+            call sqlite3_insert( db, tblwtr(j), colwtr )
             !!~~~ SQLite ~~~
           else
           write (29,1000) cropname, j, subnum(j), hruno(j), sb,         

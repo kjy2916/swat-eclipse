@@ -7,14 +7,20 @@
       use parm
 
       integer :: j,potbasiccolnum,potvaluecolnum
+      character(len=14) :: indexname
+
+      !!allocate table names for all hrus
+      allocate(tblpot(nhru))
+      do j = 1, nhru
+        write(tblpot(j),5000) j
+        write(*,*) tblpot(j)
+
+        !!delete any existing table
+        call sqlite3_delete_table( db, tblpot(j))
+      end do
 
       !!create table pot
       if (iwtr == 1) then
-          tblpot = 'pot'
-
-          !!delete any existing table
-          call sqlite3_delete_table( db, tblpot)
-
           potvaluecolnum = size(hedpot)
           potbasiccolnum = 1 + datecol_num
 
@@ -27,7 +33,18 @@
              call sqlite3_column_props(colpot(potbasiccolnum+j),
      &                                          hedpot(j),SQLITE_REAL)
           end do
-          call sqlite3_create_table( db, tblpot, colpot )
-         call headout_sqlite_createindex("pot_index",tblpot,"SUB,HRU",1)
+
+          do j = 1, nhru
+            call sqlite3_create_table( db, tblpot(j), colpot )
+
+            write(indexname,5001) j
+            write(*,*) indexname
+            call headout_sqlite_createindex(indexname,tblpot(j),"",1)
+          end do
       end if
+      return
+
+5000  format ('pot',i5.5)
+5001  format ('pot',i5.5,'_index')
+
       end

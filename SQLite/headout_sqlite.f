@@ -76,10 +76,11 @@
      &              3      + !!for three watershed tables
      &              4      + !!for basic info tables
      &              10       !!in case its not enough
-      if(iwtr == 1) indexnum = indexnum + nhru !!for depression area
-      if(imgt == 1) indexnum = indexnum + nhru !!for mgt table
-      if(isol == 1) indexnum = indexnum + nhru !!for soil nutrient
-      if(isto == 1) indexnum = indexnum + nhru !!for soil water
+      indexnum = indexnum + nhru !!for depression area,wtr
+      indexnum = indexnum + nhru !!for pothole,pot
+      indexnum = indexnum + nhru !!for mgt table
+      indexnum = indexnum + nhru !!for soil nutrient
+      indexnum = indexnum + nhru !!for soil water
       !!allocate arrays
       allocate(sq_indexname(indexnum))
       allocate(sq_tablename(indexnum))
