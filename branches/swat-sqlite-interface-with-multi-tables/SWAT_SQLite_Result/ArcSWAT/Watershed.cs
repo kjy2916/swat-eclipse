@@ -25,6 +25,16 @@ namespace SWAT_SQLite_Result.ArcSWAT
             get { return SWATUnitType.WSHD; }
         }
 
+        public override bool UseMultiOutputTable
+        {
+            get { return false; }
+        }
+
+        public override string OutputTableFormatString
+        {
+            get { return ScenarioResultStructure.TABLE_NAME_FORMAT_RSV; }
+        }
+
         private DataTable _aveAnnualBasinTbl = null;
 
         public DataTable AverageAnnualBasinTable

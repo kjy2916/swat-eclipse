@@ -33,6 +33,16 @@ namespace SWAT_SQLite_Result.ArcSWAT
             get { return SWATUnitType.RCH; }
         }
 
+        public override bool UseMultiOutputTable
+        {
+            get { return true; }
+        }
+
+        public override string OutputTableFormatString
+        {
+            get { return ScenarioResultStructure.TABLE_NAME_FORMAT_RCH_SUB; }
+        }
+
         public override string ToStringBasicInfo()
         {
             return string.Format("Reach: {1}, Contribution Area : {0:F4} km2", _area,ID);

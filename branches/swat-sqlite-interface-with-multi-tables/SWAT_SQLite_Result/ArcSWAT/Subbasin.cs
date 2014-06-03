@@ -27,6 +27,16 @@ namespace SWAT_SQLite_Result.ArcSWAT
             get { return SWATUnitType.SUB; }
         }
 
+        public override bool UseMultiOutputTable
+        {
+            get { return true; }
+        }
+
+        public override string OutputTableFormatString
+        {
+            get { return ScenarioResultStructure.TABLE_NAME_FORMAT_RCH_SUB; }
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder(base.ToString());

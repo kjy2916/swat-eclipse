@@ -36,6 +36,16 @@ namespace SWAT_SQLite_Result.ArcSWAT
             get { return SWATUnitType.HRU; }
         }
 
+        public override bool UseMultiOutputTable
+        {
+            get { return true; }
+        }
+
+        public override string OutputTableFormatString
+        {
+            get { return ScenarioResultStructure.TABLE_NAME_FORMAT_HRU; }
+        }
+
         public override string ToStringBasicInfo()
         {
             return string.Format("HRU: {4}, Subbasin: {0}, Area : {1:F4} km2, Area Fraction in Subbasin : {2:P2}, Area Fraction in Watershed : {3:P2}",

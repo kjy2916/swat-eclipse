@@ -136,21 +136,28 @@ namespace SWAT_SQLite_Result.ArcSWAT
             if (year >= _result.Unit.Scenario.StartYear && year <= _result.Unit.Scenario.EndYear)
                 yearCondition = string.Format("{0}={1}", ScenarioResultStructure.COLUMN_NAME_YEAR, year);
 
-            //get id condition
-            string idCondition = "";
-            if (_result.Unit.Type != SWATUnitType.WSHD)
-                idCondition = string.Format("{0}={1}", _result.Unit.Type.ToString(), _result.Unit.ID);
 
-            string condition = idCondition;
-            if (condition.Length > 0 && yearCondition.Length > 0)
-                condition += " and " + yearCondition;
-            if (condition.Length == 0 && yearCondition.Length > 0)
+            string condition = "";
+            if (_result.Unit.UseMultiOutputTable)
+            {
                 condition = yearCondition;
+            }
+            else
+            {
+                //get id condition
+                string idCondition = "";
+                if (_result.Unit.Type != SWATUnitType.WSHD)
+                    idCondition = string.Format("{0}={1}", _result.Unit.Type.ToString(), _result.Unit.ID);
 
+                condition = idCondition;
+                if (condition.Length > 0 && yearCondition.Length > 0)
+                    condition += " and " + yearCondition;
+                if (condition.Length == 0 && yearCondition.Length > 0)
+                    condition = yearCondition;                
+            }
             if (condition.Length > 0) condition = " where " + condition;
 
-            DataTable dt = _result.Unit.Scenario.GetDataTable(
-                string.Format("select {2} from {0} {1}",
+            DataTable dt = _result.Unit.Scenario.GetDataTable(string.Format("select {2} from {0} {1}",
                 _result.Name, condition, cols));
 
             //add datetime column and calculate the date
