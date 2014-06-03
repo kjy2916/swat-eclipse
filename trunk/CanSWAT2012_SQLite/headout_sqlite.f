@@ -65,6 +65,9 @@
       !!create the result database
       call sqlite3_open( "result_canswat.db3", db )
 
+      !!clear database
+      call sqlite3_clear(db)
+
       !!create tables
       call header_sqlite
       call headout_sqlite_rch
@@ -72,6 +75,7 @@
       call headout_sqlite_sub
       call headout_sqlite_rsv
       call headout_sqlite_wtr
+      call headout_sqlite_pot
       call headout_sqlite_sed
       call headout_sqlite_wshd
       call headout_sqlite_mgt

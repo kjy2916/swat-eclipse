@@ -138,6 +138,8 @@
       urbandb = ""
       septdb = ""   !!SEPTIC CHANGES GSM 1/30/09
 
+      call outprocess("readfile")
+
       open (101,file="file.cio")
 
 !! Read project description

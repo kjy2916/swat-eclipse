@@ -28,6 +28,6 @@
      &                                          hedpot(j),SQLITE_REAL)
           end do
           call sqlite3_create_table( db, tblpot, colpot )
-         call headout_sqlite_createindex("pot_index",tblpot,"SUB,HRU",1)
+         call headout_sqlite_createindex("pot_index",tblpot,"HRU",1)
       end if
       end
