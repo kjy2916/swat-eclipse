@@ -132,13 +132,17 @@
 
       !!~ ~ ~ SQLite ~ ~ ~
       if(ioutput == 1) then
+        call outprocess("sqlite commit")
         call sqlite3_commit( db )
         !!create index
+        call outprocess("create index")
         do i=1,sq_indexnum
             call sqlite3_create_index(db,sq_indexname(i),
      &                                  sq_tablename(i),sq_indexs(i))
         end do
+        call outprocess("sqlite close")
         call sqlite3_close( db)
+        call outprocess("sqlite done")
       end if
       !!~ ~ ~ SQLite ~ ~ ~
 

@@ -126,6 +126,8 @@
       nstep = 0
       myr = 0
 
+      call outprocess("getallo")
+
       open (23,file="file.cio")
       read (23,6000) titldum
       read (23,6000) titldum
