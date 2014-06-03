@@ -64,6 +64,8 @@
       motot = 600             !! (50 years limit)
       mmpoint=1    !Liu
       
+      call outprocess("allocate_parms")
+
 !!!!!!!!!! drains
       allocate (wnan(mlyr))
 

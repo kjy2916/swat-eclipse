@@ -36,7 +36,7 @@
 
           call sqlite3_create_table( db, tblmgt, colmgt )
           call headout_sqlite_createindex( "mgt_index",tblmgt,
-     &                                             "SUB,HRU,YR,MO,DA",0)
+     &                                             "HRU,YR,MO,DA",0)
 
       end if
       end

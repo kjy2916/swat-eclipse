@@ -45,6 +45,6 @@
         end do
       end if
       call sqlite3_create_table( db, tblhru, colhru )
-      call headout_sqlite_createindex("hru_index",tblhru,"SUB,HRU",1)
+      call headout_sqlite_createindex("hru_index",tblhru,"HRU",1)
 
       end

@@ -100,6 +100,8 @@
       integer :: ipt1,ipt2                                  !Liu
 	real atmp, qtmp, lsv                                  !Liu
 
+      call outprocess("simulate")
+
       do curyr = 1, nbyr
         write (*,1234) iyr
         
