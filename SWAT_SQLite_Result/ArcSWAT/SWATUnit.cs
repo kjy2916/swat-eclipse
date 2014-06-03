@@ -15,12 +15,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
     {
         protected int _id = ScenarioResultStructure.UNKONWN_ID;
         protected ScenarioResult _scenario = null;
-        protected Dictionary<string, SWATUnitResult> _results = new Dictionary<string, SWATUnitResult>();
+        protected Dictionary<string, SWATUnitResult> _results = null;
 
         public SWATUnit(DataRow unitInfoRow, ScenarioResult scenario)
         {
             _scenario = scenario;
-            loadResults(); //don't load all datas
         }
 
         /// <summary>
@@ -32,6 +31,33 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// SWAT Unit Type`
         /// </summary>
         public abstract SWATUnitType Type { get; }
+
+        /// <summary>
+        /// If the outputs are in multi tables
+        /// </summary>
+        public abstract bool UseMultiOutputTable { get; }
+
+        /// <summary>
+        /// The format string to construct the name of output table using unit id
+        /// </summary>
+        public abstract string OutputTableFormatString { get; }
+
+        /// <summary>
+        /// get table names
+        /// </summary>
+        /// <param name="normalTableName"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private string getTableName(string normalTableName)
+        {
+            if (UseMultiOutputTable && OutputTableFormatString.Length > 0)
+            {
+                if (_id == ScenarioResultStructure.UNKONWN_ID)
+                    throw new Exception("Unset unit id!");
+                return string.Format(OutputTableFormatString, normalTableName, ID);
+            }
+            return normalTableName;
+        }
 
         /// <summary>
         /// Parent scenario
@@ -50,7 +76,18 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// </summary>
         public string[] ResultTableNames { get { return ScenarioResultStructure.getResultTableNames(Type); } }
 
-        public Dictionary<string, SWATUnitResult> Results { get { return _results; } }
+        public Dictionary<string, SWATUnitResult> Results 
+        { 
+            get 
+            {
+                if (_results == null)
+                {
+                    _results = new Dictionary<string, SWATUnitResult>();
+                    loadResults();
+                }
+                return _results; 
+            } 
+        }
 
         public SWATUnitResult getResult(string tableName)
         {
@@ -59,8 +96,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return null;
         }
 
+        /// <summary>
+        /// Needs to be called after the id is retrieved
+        /// </summary>
         private void loadResults()
-        {            
+        {
+            _results.Clear();
             foreach (string t in ResultTableNames)
                 loadResults(t);
         }
@@ -74,8 +115,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
             tableName = tableName.ToLower();
             if (_results.ContainsKey(tableName)) return;
 
-            if(_scenario.Structure.isTableHasData(tableName))
-                _results.Add(tableName, new SWATUnitResult(tableName, this));
+            string multiTableName = getTableName(tableName);
+            if (_scenario.Structure.isTableHasData(multiTableName))
+                _results.Add(tableName, new SWATUnitResult(multiTableName, this));
         }
 
         public override string ToString()

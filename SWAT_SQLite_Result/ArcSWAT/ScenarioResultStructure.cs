@@ -18,6 +18,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static int UNKONWN_ID = -1;
         public static double EMPTY_VALUE = -99.0;
 
+        public static string TABLE_NAME_FORMAT_RCH_SUB = "{0}{1:000}";
+        public static string TABLE_NAME_FORMAT_HRU = "{0}{1:00000}";
+        public static string TABLE_NAME_FORMAT_RSV = "";
+
         private static string EXE_NAME_SWAT_445 = "swat_sqlite_445.exe";
         private static string EXE_NAME_SWAT_488 = "swat_sqlite_488.exe";
         private static string EXE_NAME_SWAT_622 = "swat_sqlite.exe";
@@ -143,6 +147,14 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <remarks>Only float columns are return</remarks>
         public StringCollection getDataColumns(string tableName)
         {
+            StringCollection cols = getDataColumns_inside(tableName);
+            if (cols == null) cols = getDataColumns_inside(tableName + "001");
+            if (cols == null) cols = getDataColumns_inside(tableName + "00001");
+            return cols;
+        }
+
+        private StringCollection getDataColumns_inside(string tableName)
+        {
             StringCollection cols = new StringCollection();
             if (tableName == null) return cols;
 
@@ -151,7 +163,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
             if (!_columns.ContainsKey(tableName))
             {
-                if (_scenario == null) return cols;                
+                if (_scenario == null) return cols;
 
                 DataTable dt = _scenario.GetDataTable(
                     string.Format("PRAGMA table_info({0})", tableName));
@@ -161,8 +173,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     if (item.getColumnValue_String("type").ToLower().Equals("float"))
                         cols.Add(item.getColumnValue_String("name"));
                 }
-                if(cols.Count > 0)
+                if (cols.Count > 0)
                     _columns.Add(tableName, cols);
+                else
+                    return null;
             }
             return _columns[tableName];
         }
@@ -176,6 +190,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public SWATResultIntervalType getInterval(string tableName)
         {
             if (System.Array.IndexOf(DAILY_TABLES, tableName) > -1) return SWATResultIntervalType.DAILY;
+            if (System.Array.IndexOf(DAILY_TABLES, tableName.Substring(0,3)) > -1) return SWATResultIntervalType.DAILY; //for multi-table outputs
             if (System.Array.IndexOf(MONTHLY_TABLES, tableName) > -1) return SWATResultIntervalType.MONTHLY;
             if (System.Array.IndexOf(YEARLY_TABLES, tableName) > -1) return SWATResultIntervalType.YEARLY;
             if (_scenario != null) return _scenario.Interval;
@@ -214,6 +229,27 @@ namespace SWAT_SQLite_Result.ArcSWAT
         }
 
         private Dictionary<string, bool> _tableStatus = new Dictionary<string, bool>();
+        private StringCollection _tables = null;
+
+        private StringCollection Tables
+        {
+            get
+            {
+                if (_tables == null)
+                {
+                    _tables = new StringCollection();
+                    DataTable dt = _scenario.GetDataTable("select name from sqlite_master where type = 'table'");
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        RowItem item = new RowItem(r);
+                        string tblName = item.getColumnValue_String(0);
+                        if (tblName.Length > 0)
+                            _tables.Add(tblName);
+                    }
+                }
+                return _tables;
+            }
+        }
 
         public bool isTableHasData(string tableName)
         {
@@ -221,11 +257,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
             if (!_tableStatus.ContainsKey(tableName))
             {
                 bool hasData = false;
-                DataTable dt = _scenario.GetDataTable(
-                    string.Format("select * from sqlite_master where type = 'table' and name ='{0}'", tableName));
-                if (dt.Rows.Count > 0)
+                if (Tables.Contains(tableName))
                 {
-                    dt = _scenario.GetDataTable(
+                    DataTable dt = _scenario.GetDataTable(
                         string.Format("select count(*) from {0}", tableName));
 
                     RowItem item = new RowItem(dt.Rows[0]);
@@ -246,8 +280,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
             string[] tbls_fromType = getResultTableNames(type);
             StringCollection tbls = new StringCollection();
             foreach(string tbl in tbls_fromType)
-                if(isTableHasData(tbl))
+                if(isTableHasData(tbl) || isTableHasData(tbl+"001") || isTableHasData(tbl+"00001"))
                     tbls.Add(tbl);
+ 
             return tbls;
         }
     }
