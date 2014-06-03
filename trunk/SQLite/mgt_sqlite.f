@@ -47,8 +47,8 @@
         call sqlite3_set_column( colmgt(28), 0.0 ) !!Harvest yield
         call sqlite3_set_column( colmgt(29), 0.0 )
         call sqlite3_set_column( colmgt(30), 0.0 )
+        call sqlite3_set_column( colmgt(31), 0.0 )
         call sqlite3_set_column( colmgt(32), 0.0 )
-        call sqlite3_set_column( colmgt(33), 0.0 )
         call sqlite3_set_column( colmgt(33), 0.0 )
 
         call sqlite3_set_column( colmgt(34), 0.0 ) !!manure
