@@ -20,14 +20,14 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         private static string EXE_NAME_SWAT_445 = "swat_sqlite_445.exe";
         private static string EXE_NAME_SWAT_488 = "swat_sqlite_488.exe";
-        private static string EXE_NAME_SWAT_622 = "swat_sqlite.exe";
+        private static string EXE_NAME_SWAT_622 = "swat_sqlite_622.exe";
         private static string EXE_NAME_CANSWAT = "canswat_sqlite.exe";
 
         private static string[] EXE_NAMES = new string[] { EXE_NAME_SWAT_488,EXE_NAME_SWAT_445, EXE_NAME_SWAT_622, EXE_NAME_CANSWAT};
 
         private static string DATABASE_NAME_NORMAL_445 = "result_445.db3";
         private static string DATABASE_NAME_NORMAL_488 = "result_488.db3";
-        private static string DATABASE_NAME_NORMAL_622 = "result.db3";
+        private static string DATABASE_NAME_NORMAL_622 = "result_622.db3";
         private static string DATABASE_NAME_CANSWAT = "result_canswat.db3";
 
         private static string[] DATABASE_NAMES = new string[] { DATABASE_NAME_NORMAL_488,DATABASE_NAME_NORMAL_445, DATABASE_NAME_NORMAL_622, DATABASE_NAME_CANSWAT };
@@ -161,8 +161,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     if (item.getColumnValue_String("type").ToLower().Equals("float"))
                         cols.Add(item.getColumnValue_String("name"));
                 }
-                if(cols.Count > 0)
+                if (cols.Count > 0)
                     _columns.Add(tableName, cols);
+                else
+                    return new StringCollection();
             }
             return _columns[tableName];
         }

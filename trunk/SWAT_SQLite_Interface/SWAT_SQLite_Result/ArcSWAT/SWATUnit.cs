@@ -15,12 +15,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
     {
         protected int _id = ScenarioResultStructure.UNKONWN_ID;
         protected ScenarioResult _scenario = null;
-        protected Dictionary<string, SWATUnitResult> _results = new Dictionary<string, SWATUnitResult>();
+        protected Dictionary<string, SWATUnitResult> _results = null;
 
         public SWATUnit(DataRow unitInfoRow, ScenarioResult scenario)
         {
             _scenario = scenario;
-            loadResults(); //don't load all datas
         }
 
         /// <summary>
@@ -50,7 +49,18 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// </summary>
         public string[] ResultTableNames { get { return ScenarioResultStructure.getResultTableNames(Type); } }
 
-        public Dictionary<string, SWATUnitResult> Results { get { return _results; } }
+        public Dictionary<string, SWATUnitResult> Results 
+        { 
+            get 
+            {
+                if (_results == null)
+                {
+                    _results = new Dictionary<string, SWATUnitResult>();
+                    loadResults();
+                }
+                return _results;
+            } 
+        }
 
         public SWATUnitResult getResult(string tableName)
         {
@@ -60,7 +70,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
         }
 
         private void loadResults()
-        {            
+        {
+            if (_results == null) _results = new Dictionary<string, SWATUnitResult>();
+            _results.Clear();
+
             foreach (string t in ResultTableNames)
                 loadResults(t);
         }
