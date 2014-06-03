@@ -313,6 +313,8 @@
       real :: yrs, xx, xmm, sumno3, sumorgn, summinp, sumorgp
       integer :: j, nnro, nicr, k, ly, ic, ii
 
+      call outprocess("writeaa")
+
 !! calculate number of years simulated
       yrs = 0.
       do j = 1, nbyr
