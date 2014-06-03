@@ -58,12 +58,15 @@
       if(iprint == 1) datecol_num = 3    !!daily
       if(iprint == 0) datecol_num = 2    !!monthly
 
-      !!delete existing result.db3
-      open(1234,file="result.db3",status="old",iostat=stat)
+      !!delete existing result_622.db3
+      open(1234,file="result_622.db3",status="old",iostat=stat)
       if(stat .eq. 0) close(1234,status="delete")
 
       !!create the result database
-      call sqlite3_open( "result.db3", db )
+      call sqlite3_open( "result_622.db3", db )
+
+      !!clear database
+      call sqlite3_clear(db)
 
       !!create tables
       call header_sqlite
