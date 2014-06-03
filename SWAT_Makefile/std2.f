@@ -105,6 +105,8 @@
       real :: sumarea, xkm, xch_l1
       character (len=1) :: kpnd, kbnd, kwet, kubn, kpot, kdrn, kpst,ksep
 
+      call outprocess("std2")
+
 !!    input summary file
         !!write subbasin info
         write (24,1000)

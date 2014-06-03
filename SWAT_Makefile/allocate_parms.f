@@ -63,6 +63,8 @@
       mstdo = 113
       motot = 600             !! (50 years limit)
       
+      call outprocess("allocate_parms")
+
 !!!!!!!!!! drains
       allocate (wnan(mlyr))
 
