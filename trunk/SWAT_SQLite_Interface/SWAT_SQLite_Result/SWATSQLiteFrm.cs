@@ -28,38 +28,8 @@ namespace SWAT_SQLite_Result
                 {
                     switchView(scenario.Scenario, modelType, type);
                 };
-            projectTree1.onScenarioSelectionChanged += (scenario) =>
-                {
-                    ScenarioView view = new ScenarioView();
-                    view.Scenario = scenario;
-                    view.Dock = DockStyle.Fill;
-                    view.onSimulationFinished += (ArcSWAT.SWATModelType modelType) =>
-                        {
-                            removeView(scenario, modelType);
-                            scenario.reReadResults(modelType);
-                            projectTree1.update(scenario, modelType);
-                        };
-
-                    splitContainer1.Panel2.Controls.Clear();
-                    splitContainer1.Panel2.Controls.Add(view);
-                    updateStatus(view);
-                    Map = null;
-                };
-            projectTree1.onProjectNodeSelected += (ss, ee) =>
-                {
-                    if (_projectView == null)
-                    {
-                        _projectView = new ProjectView();
-                        _projectView.Dock = DockStyle.Fill;
-                        _projectView.Project = _prj;
-                        _projectView.onMapSelectionChanged += (sss, eee) => { onMapSelectionChanged(_projectView); };
-                        _projectView.onDataStatisticsChanged += (sss, eee) => { onDataStatisticsChanged(_projectView); };
-                    }
-                    splitContainer1.Panel2.Controls.Clear();
-                    splitContainer1.Panel2.Controls.Add(_projectView);
-                    updateStatus(_projectView);
-                    Map = _projectView.Map;
-                };
+            projectTree1.onScenarioSelectionChanged += (scenario) => {updateScenarioView(scenario);};
+            projectTree1.onProjectNodeSelected += (ss, ee) => { updateProjectView(); };
             projectTree1.onDifferenceNodeSelected += (ss, ee) =>
                 {
                     ScenarioComparasionReportView compareView = new ScenarioComparasionReportView();
@@ -92,6 +62,46 @@ namespace SWAT_SQLite_Result
 
             cmbProjects.SelectedIndexChanged += (ss, ee) => { openProject(cmbProjects.SelectedItem.ToString()); };
         
+            Map = null;
+        }
+
+        private void updateProjectView()
+        {
+            if (_projectView == null)
+            {
+                _projectView = new ProjectView();
+                _projectView.Dock = DockStyle.Fill;
+                _projectView.Project = _prj;
+                _projectView.onMapSelectionChanged += (sss, eee) => { onMapSelectionChanged(_projectView); };
+                _projectView.onDataStatisticsChanged += (sss, eee) => { onDataStatisticsChanged(_projectView); };
+            }
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(_projectView);
+            updateStatus(_projectView);
+            Map = _projectView.Map;
+        }
+
+        private void updateScenarioView(ArcSWAT.Scenario scenario)
+        {
+            if (scenario == null)
+            {
+                splitContainer1.Panel2.Controls.Clear();
+                return;
+            }
+
+            ScenarioView view = new ScenarioView();
+            view.Scenario = scenario;  
+            view.Dock = DockStyle.Fill;
+            view.onSimulationFinished += (ArcSWAT.SWATModelType modelType) =>
+            {
+                removeView(scenario, modelType);
+                scenario.reReadResults(modelType);
+                projectTree1.update(scenario, modelType);
+            };        
+
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(view);
+            updateStatus(view);
             Map = null;
         }
 
@@ -243,11 +253,28 @@ namespace SWAT_SQLite_Result
                 return;
             }
 
-            //clear views
-            _projectView = null;
-            _views.Clear();
-
             projectTree1.Project = _prj;
+            
+            //clear views            
+            _views.Clear();
+            _projectView = null;
+
+            //see what view is currently used
+            if (splitContainer1.Panel2.Controls.Count > 0)
+            {
+                Control currentView = splitContainer1.Panel2.Controls[0];
+                if (currentView is ProjectView)                   
+                    updateProjectView();
+                else if (currentView is ScenarioView)
+                {
+                    if (_prj.Scenarios.Count > 0)
+                        updateScenarioView(_prj.Scenarios.First().Value);
+                    else
+                        updateScenarioView(null);
+                }
+                else
+                    splitContainer1.Panel2.Controls.Clear();                    
+            }
 
             //save current path
             Properties.Settings.Default.PreviousProjectFolder = prjPath;
