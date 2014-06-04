@@ -27,6 +27,7 @@ namespace SWAT_SQLite_Result
             set
             {
                 _scenario = value;
+                updateSimulationTime();
             }
         }
 
@@ -68,10 +69,14 @@ namespace SWAT_SQLite_Result
                 };
                 myProcess.Exited += (send, agrs) =>
                     {
+                        //update the date time of the result
+                        updateSimulationTime();
+
                         //update the results
                         if (onSimulationFinished != null)
                             onSimulationFinished(modelType);
                     };
+                updateMessage("Runing " + ModelType.ToString() + " in " + _scenario.ModelFolder);
                 myProcess.Start();
                 myProcess.BeginOutputReadLine();
                 //myProcess.WaitForExit();
@@ -103,21 +108,24 @@ namespace SWAT_SQLite_Result
             Process.Start(_scenario.ModelFolder);
         }
 
+        private void updateSimulationTime()
+        {
+            if (ModelType == ArcSWAT.SWATModelType.UNKNOWN) return;
+
+            ArcSWAT.ScenarioResult result = _scenario.getModelResult(ModelType);
+            if (result.Status != ArcSWAT.ScenarioResultStatus.NORMAL)
+                lblSimulationTime.Text = result.Status.ToString();
+            else
+                lblSimulationTime.Text = string.Format("Simulation Time: {0:yyyy-MM-dd hh:mm:ss}", result.SimulationTime);
+
+        }
+
         private void ScenarioView_Load(object sender, EventArgs e)
         {
-            cmbModelType.SelectedIndexChanged += (ss, ee) =>
-                {
-                    if (ModelType == ArcSWAT.SWATModelType.UNKNOWN) return;
+            cmbModelType.SelectedIndexChanged += (ss, ee) => { updateSimulationTime(); };
 
-                    ArcSWAT.ScenarioResult result = _scenario.getModelResult(ModelType);
-                    if (result.Status != ArcSWAT.ScenarioResultStatus.NORMAL)
-                        lblSimulationTime.Text = result.Status.ToString();
-                    else
-                        lblSimulationTime.Text = string.Format("Simulation Time: {0:yyyy-MM-dd hh:mm:ss}", result.SimulationTime);
-                };
-
+            //add models based on executables
             cmbModelType.Items.Clear();
-
             for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT_488); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
             {
                 ArcSWAT.SWATModelType modelType = (ArcSWAT.SWATModelType)i;
