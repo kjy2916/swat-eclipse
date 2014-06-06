@@ -571,6 +571,7 @@
 
 !!Add following information to help interface
       call stdaa_sqlite_writebasin("START_YEAR",real(iyr - nbyr))
+      call stdaa_sqlite_writebasin("START_YEAR_OUTPUT",real(iyr - nbyr + nyskip)) !!consider nyskip, should be the first year of output
       call stdaa_sqlite_writebasin("END_YEAR",real(iyr - 1))
       call stdaa_sqlite_writebasin("OUTPUT_INTERVAL",real(iprint))
       call stdaa_sqlite_writebasin("SUCCESS",1.0)
