@@ -58,7 +58,9 @@ namespace SWAT_SQLite_Result
                 if (_observedData != null && 
                     _observedData.UnitID == value.UnitID && //same unit id
                     _observedData.Column == value.Column && //same column
-                    _observedData.UnitType == value.UnitType) return; //same unit type
+                    _observedData.UnitType == value.UnitType &&//same unit type
+                    _observedData.FirstDay.Year == value.FirstDay.Year && //same start year
+                    _observedData.LastDay.Year == value.LastDay.Year) return; //same end year
                 
                 _observedData = value;
                 tbYear.Minimum = value.FirstDay.Year;

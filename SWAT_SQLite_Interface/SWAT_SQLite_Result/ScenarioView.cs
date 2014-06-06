@@ -102,6 +102,18 @@ namespace SWAT_SQLite_Result
             }
         }
 
+        private void updateSimulationTime(string msg)
+        {
+            if (this.lblSimulationTime.InvokeRequired)
+            {
+                this.lblSimulationTime.BeginInvoke(new valueDelegate(updateSimulationTime), msg);
+            }
+            else
+            {
+                this.lblSimulationTime.Text = msg;
+            }
+        }
+
         private void bOpenModelFolder_Click(object sender, EventArgs e)
         {
             if (_scenario == null) return;
@@ -110,19 +122,20 @@ namespace SWAT_SQLite_Result
 
         private void updateSimulationTime()
         {
-            if (ModelType == ArcSWAT.SWATModelType.UNKNOWN) return;
+            if (_modelType == ArcSWAT.SWATModelType.UNKNOWN) return;
 
-            ArcSWAT.ScenarioResult result = _scenario.getModelResult(ModelType);
+            _scenario.reReadResults(_modelType);
+            ArcSWAT.ScenarioResult result = _scenario.getModelResult(_modelType);
             if (result.Status != ArcSWAT.ScenarioResultStatus.NORMAL)
-                lblSimulationTime.Text = result.Status.ToString();
+                updateSimulationTime(result.Status.ToString());
             else
-                lblSimulationTime.Text = string.Format("Simulation Time: {0:yyyy-MM-dd hh:mm:ss}", result.SimulationTime);
+                updateSimulationTime(string.Format("Simulation Time: {0:yyyy-MM-dd hh:mm:ss}", result.SimulationTime));
 
         }
 
         private void ScenarioView_Load(object sender, EventArgs e)
         {
-            cmbModelType.SelectedIndexChanged += (ss, ee) => { updateSimulationTime(); };
+            cmbModelType.SelectedIndexChanged += (ss, ee) => { _modelType = ModelType; updateSimulationTime(); };
 
             //add models based on executables
             cmbModelType.Items.Clear();
@@ -136,6 +149,8 @@ namespace SWAT_SQLite_Result
             }
             cmbModelType.SelectedIndex = 0;
         }
+
+        private ArcSWAT.SWATModelType _modelType = ArcSWAT.SWATModelType.UNKNOWN;
 
         private ArcSWAT.SWATModelType ModelType
         {

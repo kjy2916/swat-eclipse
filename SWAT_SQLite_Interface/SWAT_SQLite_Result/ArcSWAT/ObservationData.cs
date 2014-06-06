@@ -378,7 +378,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 while (csv.ReadNextRecord())
                 {
                     if (DateTime.TryParse(csv[0], out date) &&
-                        double.TryParse(csv[1],out value))
+                        double.TryParse(csv[1],out value) && value >= 0)
                         sb.Append(string.Format(INSERT_SQL_FORMAT, tableName, date, value));                   
                 }
                 if (sb.Length == 0)
