@@ -125,7 +125,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 if (_combineCompareTableForStatistics == null)
                 {
                     DataView view = Table.DefaultView;
-                    view.RowFilter = _data2.ColumnCompare + " > 0";
+                    view.RowFilter = _data2.ColumnCompare + " >= 0";
                     _combineCompareTableForStatistics = view.ToTable();                    
                 }
                 return _combineCompareTableForStatistics;
@@ -164,6 +164,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                                                             //Oberserved data may has some missing data, so this should not apply.
                         throw new Exception("The number of results are different.");
 
+                    System.Diagnostics.Debug.WriteLine("{0:yyyy-MM-dd hh:mm:ss FFF} Start to generate compare table... ", DateTime.Now);
                     DataTable dt = _result1.Table.Copy();
                     dt.Columns[_result1.Column].ColumnName = _result1.ColumnCompare;
 
@@ -183,13 +184,21 @@ namespace SWAT_SQLite_Result.ArcSWAT
                         {
                             //see if the oberved data is missing
                             DateTime d = DateTime.Parse(dt.Rows[i][SWATUnitResult.COLUMN_NAME_DATE].ToString());
-                            DataRow[] rs = _data2.Table.Select(string.Format("{0}='{1:yyyy-MM-dd}'", SWATUnitResult.COLUMN_NAME_DATE,d));
+                            
+                            DataRow[] rs = null;
+                            if(_result1.UnitResult.Interval == SWATResultIntervalType.MONTHLY)
+                                //in phase I, the monthly data is using day 15 for each month, and I would use day 1 for each month, so here for monthly observed data, use both conditions
+                                rs = _data2.Table.Select(string.Format("{0}='{1:yyyy-MM-01}' or {0}='{1:yyyy-MM-15}'", SWATUnitResult.COLUMN_NAME_DATE, d));
+                            else if (_result1.UnitResult.Interval == SWATResultIntervalType.DAILY)
+                                rs = _data2.Table.Select(string.Format("{0}='{1:yyyy-MM-dd}'", SWATUnitResult.COLUMN_NAME_DATE, d));
+
                             if (rs != null && rs.Length > 0)
                                 dt.Rows[i][newColIndex] = double.Parse(rs[0][_data2.Column].ToString());
                             else
-                                dt.Rows[i][newColIndex] = 0.0; //missing observed data
+                                dt.Rows[i][newColIndex] = ScenarioResultStructure.EMPTY_VALUE; //missing observed data, shouldn't use 0 as for daily observed data they may be 0
                         }                        
                     }
+                    System.Diagnostics.Debug.WriteLine("{0:yyyy-MM-dd hh:mm:ss FFF} End to generate compare table... ", DateTime.Now);
 
                     //add two column for absolute change and relative change
                     //don't calculate relative change when first result is 0

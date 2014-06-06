@@ -40,7 +40,10 @@ namespace SWAT_SQLite_Result
                 {
                     if (_prj.Observation.loadCSV(openFileDialog1.FileName,
                         _unitType, _id, _col))
-                    {                        
+                    {
+                        _observedData = _prj.Observation.getObservedData(_unitType, _id, _col);
+                        if (_observedData != null) yearCtrl1.ObservedData = _observedData.getObservedData(-1); //update year control
+                        
                         updateTableAndChart();
                         subbasinMap1.updateObservedStatus(_unitType, _id);
                         SWAT_SQLite.showInformationWindow(
@@ -69,6 +72,7 @@ namespace SWAT_SQLite_Result
                     {
                         updateTableAndChart();
                         subbasinMap1.updateObservedStatus(_unitType, _id);
+                        yearCtrl1.ObservedData = null;
                         SWAT_SQLite.showInformationWindow(
                             string.Format("Data for {0} {1} is successfully deleted.", _unitType, _id));
                     }
@@ -139,6 +143,7 @@ namespace SWAT_SQLite_Result
         {
             tableView1.DataTable = null;
             outputDisplayChart1.ObservedData = null;
+            yearCtrl1.ObservedData = null;
             _observedData = null;
             _statistics = "";
 
