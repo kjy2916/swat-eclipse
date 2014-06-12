@@ -74,6 +74,14 @@ namespace SWAT_SQLite_Result
 
             this.Resize += (ss, ee) => { splitContainer3.SplitterDistance = 72; };
 
+            //id list
+            if(type == ArcSWAT.SWATUnitType.HRU)
+                idList1.IDs = scenario.getSWATUnitIDs(ArcSWAT.SWATUnitType.SUB);
+            else
+                idList1.IDs = scenario.getSWATUnitIDs(type);
+
+            idList1.onIDChanged += (s, e) => { onIDChanged(idList1.ID); subbasinMap1.ID = idList1.ID; };
+            
             //season control
             seasonCtrl1.onSeasonTypeChanged += (s, e) => { tableView1.Season = seasonCtrl1.Season; outputDisplayChart1.Season = seasonCtrl1.Season; updateTableAndChart(); };
 
@@ -120,34 +128,7 @@ namespace SWAT_SQLite_Result
             resultColumnTree1.setScenarioAndUnit(scenario, type);
 
             //map            
-            subbasinMap1.onLayerSelectionChanged += (unitType, id) =>
-            {                
-                if (type != ArcSWAT.SWATUnitType.SUB && type != ArcSWAT.SWATUnitType.RCH && type != ArcSWAT.SWATUnitType.HRU && type != ArcSWAT.SWATUnitType.RES && _unitList != null) return;
-                if (id <= 0)
-                    _unit = null;
-                else
-                {
-                    if (type == ArcSWAT.SWATUnitType.HRU)
-                        _unit = (_scenario.Subbasins[id] as ArcSWAT.Subbasin).HRUs.First().Value;
-                    else
-                        _unit = _unitList[id];
-                }
-
-                //show basic information
-                if (onMapSelectionChanged != null)
-                    onMapSelectionChanged(this, new EventArgs());
-
-                if (_unit != null)
-                {
-                    //get hrus
-                    if(type == ArcSWAT.SWATUnitType.SUB)
-                        hruList1.Subbasin = _unit as ArcSWAT.Subbasin;
-                    if(type == ArcSWAT.SWATUnitType.HRU)
-                        hruList1.Subbasin = (_unit as ArcSWAT.HRU).Subbasin;
-                }
-
-                updateTableAndChart();
-            };
+            subbasinMap1.onLayerSelectionChanged += (unitType, id) => { onIDChanged(id); idList1.ID = id; };
             subbasinMap1.setProjectScenario(project, scenario, type);
 
             //chart export
@@ -177,6 +158,40 @@ namespace SWAT_SQLite_Result
 
             //update
             updateMap();
+            updateTableAndChart();
+        }
+
+        public void onIDChanged(int id)
+        {
+            if (_type != ArcSWAT.SWATUnitType.SUB &&
+                _type != ArcSWAT.SWATUnitType.RCH &&
+                _type != ArcSWAT.SWATUnitType.HRU && 
+                _type != ArcSWAT.SWATUnitType.RES && 
+                _unitList != null) return;
+
+            if (id <= 0)
+                _unit = null;
+            else
+            {
+                if (_type == ArcSWAT.SWATUnitType.HRU)
+                    _unit = (_scenario.Subbasins[id] as ArcSWAT.Subbasin).HRUs.First().Value;
+                else
+                    _unit = _unitList[id];
+            }
+
+            //show basic information
+            if (onMapSelectionChanged != null)
+                onMapSelectionChanged(this, new EventArgs());
+
+            if (_unit != null)
+            {
+                //get hrus
+                if (_type == ArcSWAT.SWATUnitType.SUB)
+                    hruList1.Subbasin = _unit as ArcSWAT.Subbasin;
+                if (_type == ArcSWAT.SWATUnitType.HRU)
+                    hruList1.Subbasin = (_unit as ArcSWAT.HRU).Subbasin;
+            }
+
             updateTableAndChart();
         }
 
