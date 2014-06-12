@@ -17,10 +17,7 @@ namespace SWAT_SQLite_Result
         {
             InitializeComponent();
 
-            bGoHRU.Click += (s, e) =>
-                {
-                    if (onSwitch2HRU != null) onSwitch2HRU(HRU);
-                };
+            bGoHRU.Click += (s, e) => { makeChangeHappen(); };
         }
 
         public event SwitchFromSubbasin2HRUEventHandler onSwitch2HRU = null;
@@ -35,6 +32,28 @@ namespace SWAT_SQLite_Result
 
                 int hruid = int.Parse(cmbHRUs.SelectedItem.ToString().Split(':')[0]);
                 return _subbasin.HRUs[hruid];
+            }
+        }
+
+        private void makeChangeHappen() { if (onSwitch2HRU != null) onSwitch2HRU(HRU); }
+
+        private bool _isChangeWhenSelect = false;
+
+        /// <summary>
+        /// Would the change in selection become active immediately after selection changed.
+        /// Usually true for HRU and false for subbasin
+        /// </summary>
+        public bool IsChangeWhenSelect
+        {
+            set
+            {
+                if (_isChangeWhenSelect)
+                    cmbHRUs.SelectedIndexChanged -= (s, e) => { makeChangeHappen(); };
+                _isChangeWhenSelect = value;
+
+                if (_isChangeWhenSelect)
+                    cmbHRUs.SelectedIndexChanged += (s, e) => { makeChangeHappen(); };            
+
             }
         }
 

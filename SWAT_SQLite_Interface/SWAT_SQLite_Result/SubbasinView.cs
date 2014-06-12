@@ -91,6 +91,7 @@ namespace SWAT_SQLite_Result
 
             //only for subbasin to show hru list
             hruList1.Visible = (type == ArcSWAT.SWATUnitType.SUB || type == ArcSWAT.SWATUnitType.HRU);
+            hruList1.IsChangeWhenSelect = (type == ArcSWAT.SWATUnitType.HRU);
             hruList1.onSwitch2HRU += (hru) =>
                 {
                     if (_type == ArcSWAT.SWATUnitType.HRU) 
