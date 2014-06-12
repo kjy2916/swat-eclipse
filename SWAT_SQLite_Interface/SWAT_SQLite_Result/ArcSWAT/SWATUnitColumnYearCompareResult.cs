@@ -195,7 +195,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
                             if (rs != null && rs.Length > 0)
                                 dt.Rows[i][newColIndex] = double.Parse(rs[0][_data2.Column].ToString());
                             else
-                                dt.Rows[i][newColIndex] = ScenarioResultStructure.EMPTY_VALUE; //missing observed data, shouldn't use 0 as for daily observed data they may be 0
+                                dt.Rows[i][newColIndex] = ScenarioResultStructure.EMPTY_OBSERVED_VALUE; //missing observed data, shouldn't use 0 as for daily observed data they may be 0
+                                                                                                        //changed to -0.000001 to make the chart better
                         }                        
                     }
                     System.Diagnostics.Debug.WriteLine("{0:yyyy-MM-dd hh:mm:ss FFF} End to generate compare table... ", DateTime.Now);

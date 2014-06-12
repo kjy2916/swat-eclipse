@@ -130,6 +130,11 @@ namespace SWAT_SQLite_Result.ArcSWAT
             string cols = ScenarioResultStructure.getDateColumns(_result.Interval);
             if (cols.Length > 0) cols += ",";
             cols += _col;
+            if (HasLanduseColumn)
+                cols += "," + ScenarioResultStructure.COLUMN_NAME_HRU_LANDUSE;
+            if(HasMgtOperationColumn)
+                cols += "," + ScenarioResultStructure.COLUMN_NAME_HRU_MGT_OPERATION + "," + 
+                    ScenarioResultStructure.COLUMN_NAME_HRU_MGT_LANDUSE;
 
             //get year condition
             string yearCondition = "";
@@ -162,6 +167,28 @@ namespace SWAT_SQLite_Result.ArcSWAT
             }
 
             _table = dt;
+        }
+
+        /// <summary>
+        /// If has LULC column
+        /// </summary>
+        public bool HasLanduseColumn
+        {
+            get
+            {
+                return _result.Unit.Type == SWATUnitType.HRU && _result.Name.Equals(ScenarioResultStructure.TABLE_NAME_HRU);
+            }
+        }
+
+        /// <summary>
+        /// If has mgt operation column
+        /// </summary>
+        public bool HasMgtOperationColumn
+        {
+            get
+            {
+                return _result.Unit.Type == SWATUnitType.HRU && _result.Name.Equals(ScenarioResultStructure.TABLE_NAME_HRU_MGT);
+            }
         }
 
         private void calculateDate(DataRow r)
