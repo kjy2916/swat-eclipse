@@ -74,6 +74,23 @@ namespace SWAT_SQLite_Result
 
             this.Resize += (ss, ee) => { splitContainer3.SplitterDistance = 72; };
 
+            //swat input files extension list
+            swatFileList1.SWATUnitType = _type;
+            swatFileList1.onSWATInputFileExtensionChanged += (s, e) =>
+                {
+                    if (_unit == null) return;
+                    string fileName = _unit.getInputFileName(swatFileList1.Extension);
+                    if (!System.IO.File.Exists(fileName))
+                    {
+                        SWAT_SQLite.showInformationWindow(fileName + " doesn't exist!");
+                        return;
+                    }
+
+                    string notePad = System.Environment.SystemDirectory + @"\notepad.exe";
+                    if (System.IO.File.Exists(notePad))
+                        System.Diagnostics.Process.Start(notePad, fileName);
+                };
+
             //id list
             if(type == ArcSWAT.SWATUnitType.HRU)
                 idList1.IDs = scenario.getSWATUnitIDs(ArcSWAT.SWATUnitType.SUB);

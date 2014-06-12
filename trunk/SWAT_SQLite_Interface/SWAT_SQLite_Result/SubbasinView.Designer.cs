@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -38,6 +38,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
+            this.idList1 = new SWAT_SQLite_Result.IDList();
             this.compareCtrl1 = new SWAT_SQLite_Result.CompareCtrl();
             this.hruList1 = new SWAT_SQLite_Result.HRUList();
             this.seasonCtrl1 = new SWAT_SQLite_Result.SeasonCtrl();
@@ -45,7 +46,7 @@
             this.subbasinMap1 = new SWAT_SQLite_Result.SubbasinMap();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
             this.outputDisplayChart1 = new SWAT_SQLite_Result.OutputDisplayChart();
-            this.idList1 = new SWAT_SQLite_Result.IDList();
+            this.swatFileList1 = new SWAT_SQLite_Result.SWATFileList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -81,8 +82,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1034, 874);
-            this.splitContainer1.SplitterDistance = 168;
+            this.splitContainer1.Size = new System.Drawing.Size(1267, 874);
+            this.splitContainer1.SplitterDistance = 205;
             this.splitContainer1.TabIndex = 0;
             // 
             // splitContainer2
@@ -99,7 +100,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.outputDisplayChart1);
-            this.splitContainer2.Size = new System.Drawing.Size(862, 874);
+            this.splitContainer2.Size = new System.Drawing.Size(1058, 874);
             this.splitContainer2.SplitterDistance = 705;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -112,6 +113,7 @@
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.swatFileList1);
             this.splitContainer3.Panel1.Controls.Add(this.idList1);
             this.splitContainer3.Panel1.Controls.Add(this.compareCtrl1);
             this.splitContainer3.Panel1.Controls.Add(this.hruList1);
@@ -121,7 +123,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(862, 705);
+            this.splitContainer3.Size = new System.Drawing.Size(1058, 705);
             this.splitContainer3.SplitterDistance = 72;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -138,8 +140,8 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.groupBox3);
-            this.splitContainer4.Size = new System.Drawing.Size(862, 629);
-            this.splitContainer4.SplitterDistance = 658;
+            this.splitContainer4.Size = new System.Drawing.Size(1058, 629);
+            this.splitContainer4.SplitterDistance = 807;
             this.splitContainer4.TabIndex = 0;
             // 
             // groupBox2
@@ -148,7 +150,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(658, 629);
+            this.groupBox2.Size = new System.Drawing.Size(807, 629);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Map";
@@ -159,7 +161,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 629);
+            this.groupBox3.Size = new System.Drawing.Size(247, 629);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Data";
@@ -169,8 +171,16 @@
             this.resultColumnTree1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.resultColumnTree1.Location = new System.Drawing.Point(0, 0);
             this.resultColumnTree1.Name = "resultColumnTree1";
-            this.resultColumnTree1.Size = new System.Drawing.Size(168, 874);
+            this.resultColumnTree1.Size = new System.Drawing.Size(205, 874);
             this.resultColumnTree1.TabIndex = 0;
+            // 
+            // idList1
+            // 
+            this.idList1.ID = -1;
+            this.idList1.Location = new System.Drawing.Point(648, 5);
+            this.idList1.Name = "idList1";
+            this.idList1.Size = new System.Drawing.Size(69, 65);
+            this.idList1.TabIndex = 13;
             // 
             // compareCtrl1
             // 
@@ -182,7 +192,7 @@
             // 
             // hruList1
             // 
-            this.hruList1.Location = new System.Drawing.Point(723, 5);
+            this.hruList1.Location = new System.Drawing.Point(851, 5);
             this.hruList1.Name = "hruList1";
             this.hruList1.Size = new System.Drawing.Size(155, 65);
             this.hruList1.TabIndex = 11;
@@ -210,6 +220,7 @@
             this.subbasinMap1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subbasinMap1.ExtendBuffer = false;
             this.subbasinMap1.FunctionMode = DotSpatial.Controls.FunctionMode.None;
+            this.subbasinMap1.ID = -1;
             this.subbasinMap1.IsBusy = false;
             this.subbasinMap1.IsZoomedToMaxExtent = false;
             this.subbasinMap1.Legend = null;
@@ -220,7 +231,7 @@
             this.subbasinMap1.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Prompt;
             this.subbasinMap1.RedrawLayersWhileResizing = false;
             this.subbasinMap1.SelectionEnabled = true;
-            this.subbasinMap1.Size = new System.Drawing.Size(652, 610);
+            this.subbasinMap1.Size = new System.Drawing.Size(801, 610);
             this.subbasinMap1.TabIndex = 0;
             // 
             // tableView1
@@ -232,34 +243,33 @@
             this.tableView1.ReadOnly = true;
             this.tableView1.RowHeadersVisible = false;
             this.tableView1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
-            this.tableView1.Size = new System.Drawing.Size(194, 610);
+            this.tableView1.Size = new System.Drawing.Size(241, 610);
             this.tableView1.TabIndex = 0;
             // 
             // outputDisplayChart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.outputDisplayChart1.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.outputDisplayChart1.ChartAreas.Add(chartArea1);
             this.outputDisplayChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.outputDisplayChart1.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.outputDisplayChart1.Legends.Add(legend1);
             this.outputDisplayChart1.Location = new System.Drawing.Point(0, 0);
             this.outputDisplayChart1.Name = "outputDisplayChart1";
             this.outputDisplayChart1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.outputDisplayChart1.Series.Add(series2);
-            this.outputDisplayChart1.Size = new System.Drawing.Size(862, 165);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.outputDisplayChart1.Series.Add(series1);
+            this.outputDisplayChart1.Size = new System.Drawing.Size(1058, 165);
             this.outputDisplayChart1.TabIndex = 0;
             this.outputDisplayChart1.Text = "outputDisplayChart1";
             // 
-            // idList1
+            // swatFileList1
             // 
-            this.idList1.ID = -1;
-            this.idList1.Location = new System.Drawing.Point(648, 5);
-            this.idList1.Name = "idList1";
-            this.idList1.Size = new System.Drawing.Size(69, 65);
-            this.idList1.TabIndex = 13;
+            this.swatFileList1.Location = new System.Drawing.Point(723, 5);
+            this.swatFileList1.Name = "swatFileList1";
+            this.swatFileList1.Size = new System.Drawing.Size(122, 65);
+            this.swatFileList1.TabIndex = 14;
             // 
             // SubbasinView
             // 
@@ -267,7 +277,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.Name = "SubbasinView";
-            this.Size = new System.Drawing.Size(1034, 874);
+            this.Size = new System.Drawing.Size(1267, 874);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -309,5 +319,6 @@
         private HRUList hruList1;
         private CompareCtrl compareCtrl1;
         private IDList idList1;
+        private SWATFileList swatFileList1;
     }
 }

@@ -149,6 +149,12 @@
       <DependentUpon>SeasonCtrl.cs</DependentUpon>
     </Compile>
     <Compile Include="ArcSWAT\SeasonData.cs" />
+    <Compile Include="SWATFileList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SWATFileList.Designer.cs">
+      <DependentUpon>SWATFileList.cs</DependentUpon>
+    </Compile>
     <Compile Include="SWAT_SQLite.cs" />
     <Compile Include="WatershedView.cs">
       <SubType>UserControl</SubType>
@@ -249,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SeasonCtrl.resx">
       <DependentUpon>SeasonCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SWATFileList.resx">
+      <DependentUpon>SWATFileList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WatershedView.resx">
       <DependentUpon>WatershedView.cs</DependentUpon>

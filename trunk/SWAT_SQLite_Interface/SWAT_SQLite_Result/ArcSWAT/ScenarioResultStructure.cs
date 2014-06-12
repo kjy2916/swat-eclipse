@@ -45,6 +45,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static string COLUMN_NAME_YEAR = "YR";
         public static string COLUMN_NAME_MONTH = "MO";
         public static string COLUMN_NAME_DAY = "DA";
+        public static string COLUMN_NAME_HRU_SEQ = "SEQ";
         public static string COLUMN_NAME_AREA_KM2 = "AREA_KM2";
         public static string COLUMN_NAME_AREA_FR_SUB = "AREA_FR_SUB";
         public static string COLUMN_NAME_AREA_FR_WSHD = "AREA_FR_WSHD";
