@@ -291,7 +291,7 @@
         if (imgt ==1) then
             !!~ ~ ~ SQLite ~ ~ ~
             if(ioutput == 1) then
-                call mgt_sqlite(17)
+                call mgt_sqlite(19)
             else
          write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida,
      *      "         ",
