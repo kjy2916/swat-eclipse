@@ -185,6 +185,7 @@ namespace SWAT_SQLite_Result
                 line.XValueMember = xColName;
                 line.YValueMembers = yColName;
                 line.LegendText = yColName;
+
                 if (interval == ArcSWAT.SWATResultIntervalType.MONTHLY) //monthly
                 {
                     line.ToolTip = "#VALY{F4}(#VALX{yyyy/MM})";

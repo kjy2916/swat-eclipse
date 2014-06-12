@@ -142,7 +142,7 @@ namespace SWAT_SQLite_Result
                 //hilight the belonging subbasin
                 _workingLayer.SelectByAttribute(string.Format("{0}={1}", ID_COLUMN_NAME, _crrentHRU.Subbasin.ID));
             }
-        }
+        }        
 
         private IFeatureLayer addLayer(string path, string name,bool isForObserved, bool isWorkingLayer)
         {
@@ -310,10 +310,27 @@ namespace SWAT_SQLite_Result
                         id = getIDFromFeatureRow(fea.DataRow);
                     }
                     onLayerSelectionChanged(unitType,id);
+                    _id = id;
                 };
             }           
 
             return layer;
+        }
+
+        private int _id = -1;
+        public int ID
+        {
+            get { return _id; }
+            set 
+            { 
+                if (value <= 0 || value == _id || _workingLayer == null) return;
+
+                LayerSelectionChangedEventHandler handler = onLayerSelectionChanged;
+                onLayerSelectionChanged = null;
+                _workingLayer.SelectByAttribute(string.Format("{0}={1}", ID_COLUMN_NAME,value));
+                _id = value;
+                onLayerSelectionChanged = handler;
+            }
         }
 
         private int getIDFromFeatureRow(DataRow r)

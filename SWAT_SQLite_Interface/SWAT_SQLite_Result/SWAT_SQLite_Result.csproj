@@ -106,6 +106,12 @@
     <Compile Include="CompareCtrl.Designer.cs">
       <DependentUpon>CompareCtrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="IDList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IDList.Designer.cs">
+      <DependentUpon>IDList.cs</DependentUpon>
+    </Compile>
     <Compile Include="PerformanceView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -222,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CompareCtrl.resx">
       <DependentUpon>CompareCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IDList.resx">
+      <DependentUpon>IDList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PerformanceView.resx">
       <DependentUpon>PerformanceView.cs</DependentUpon>
