@@ -50,7 +50,10 @@ namespace SWAT_SQLite_Result
                 {
                     Columns[1 + i].Name = cols[i];
                     Columns[1 + i].DataPropertyName = cols[i];
-                    Columns[1 + i].DefaultCellStyle.Format = "F2"; //format the value
+                    if(!cols[i].Equals(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_LANDUSE) &&
+                        !cols[i].Equals(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_MGT_OPERATION) &&
+                        !cols[i].Equals(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_MGT_LANDUSE))
+                        Columns[1 + i].DefaultCellStyle.Format = "F2"; //format the value
                 }
 
                 AutoGenerateColumns = false; //don't generate other columns automatically  
@@ -74,7 +77,27 @@ namespace SWAT_SQLite_Result
         /// <summary>
         /// regular result
         /// </summary>
-        public ArcSWAT.SWATUnitColumnYearResult Result { set { if (value == null) DataTable = null; else setDataColumn(value.SeasonTable(Season), new StringCollection() { value.Column }); } }
+        public ArcSWAT.SWATUnitColumnYearResult Result 
+        { 
+            set 
+            {
+                if (value == null)
+                    DataTable = null;
+                else
+                {
+                    StringCollection cols = new StringCollection();
+                    cols.Add(value.Column);
+                    if (value.HasLanduseColumn)
+                        cols.Add(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_LANDUSE);
+                    if (value.HasMgtOperationColumn)
+                    {
+                        cols.Add(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_MGT_OPERATION);
+                        cols.Add(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_MGT_LANDUSE);
+                    }
+                    setDataColumn(value.SeasonTable(Season),cols); 
+                }                    
+            } 
+        }
 
         /// <summary>
         /// Observed data

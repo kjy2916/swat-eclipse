@@ -17,6 +17,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         public static int UNKONWN_ID = -1;
         public static double EMPTY_VALUE = -99.0;
+        public static double EMPTY_OBSERVED_VALUE = -0.000001;
 
         private static string EXE_NAME_SWAT_445 = "swat_sqlite_445.exe";
         private static string EXE_NAME_SWAT_488 = "swat_sqlite_488.exe";
@@ -48,6 +49,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static string COLUMN_NAME_AREA_FR_SUB = "AREA_FR_SUB";
         public static string COLUMN_NAME_AREA_FR_WSHD = "AREA_FR_WSHD";
         public static string COLUMN_NAME_AVE_ANNUAL_BASIN_NAME = "NAME";
+        public static string COLUMN_NAME_HRU_LANDUSE = "LULC";
+        public static string COLUMN_NAME_HRU_MGT_LANDUSE = "CROP_FERT_PEST";
+        public static string COLUMN_NAME_HRU_MGT_OPERATION = "OPERATION";
 
         public static string NAME_STATUS_START_YEAR = "START_YEAR";
         public static string NAME_STATUS_END_YEAR = "END_YEAR";
@@ -159,7 +163,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 {
                     RowItem item = new RowItem(r);
                     if (item.getColumnValue_String("type").ToLower().Equals("float"))
-                        cols.Add(item.getColumnValue_String("name"));
+                        cols.Add(item.getColumnValue_String("name"));                    
                 }
                 if (cols.Count > 0)
                     _columns.Add(tableName, cols);
