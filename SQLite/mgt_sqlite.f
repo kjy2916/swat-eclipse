@@ -15,7 +15,14 @@
         call sqlite3_set_column( colmgt(1), j )
         call sqlite3_set_column( colmgt(2), iyr )
         call sqlite3_set_column( colmgt(3), i_mo )
-        call sqlite3_set_column( colmgt(4), icl(iida) )
+        call sqlite3_set_column( colmgt(4), icl(iida))
+        !!for end-of-year processes,see simulate.f
+        !!when operatn is executed, the iida is already updated, but year is not updated.
+        !!in this case, use the last day instead
+        if(i_mo == 1 .AND. iida > 365) then
+            call sqlite3_set_column( colmgt(3), 12)
+            call sqlite3_set_column( colmgt(4), iida-1-ndays(12))
+        end if
         call sqlite3_set_column( colmgt(5), "" )
         !call sqlite3_set_column( colmgt(6), soperation )
 
