@@ -157,12 +157,8 @@ namespace SWAT_SQLite_Result
                 //context menu
                 System.Windows.Forms.ToolStripMenuItem exportMenu =
                     new System.Windows.Forms.ToolStripMenuItem("Export current results to CSV");
-                exportMenu.Click +=
-                    (ss, _e) =>
-                    {
-                        if (onExport != null)
-                            onExport(this, new EventArgs());
-                    };
+                exportMenu.Click += (ss, _e) => { export(); };
+                    
 
                 this.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
                 this.ContextMenuStrip.Items.Add(exportMenu);
@@ -215,7 +211,30 @@ namespace SWAT_SQLite_Result
             }
             setChartArea(dt, interval);
 
+            _dt = dt;
+            _xColName = xColName;
+            _yColName = yColNames[0];
+
             this.DataBind();
+        }
+
+        private DataTable _dt = null;
+        private string _xColName = "";
+        private string _yColName = "";
+
+        private void export()
+        {
+            string csvPath = SWAT_SQLite.InstallationFolder + @"exports\";
+            if (!System.IO.Directory.Exists(csvPath)) System.IO.Directory.CreateDirectory(csvPath);
+            csvPath += string.Format("export_{0:yyyyMMddhhmmss}.csv", DateTime.Now);
+            using (System.IO.StreamWriter writer = new System.IO.StreamWriter(csvPath))
+            {
+                writer.WriteLine(_xColName + "," + _yColName);
+                foreach (DataRow r in _dt.Rows)
+                {
+                    writer.WriteLine(string.Format("{0:yyyy-MM-dd},{1}", r[_xColName], r[_yColName]));
+                }
+            }
         }
     }
 }
