@@ -1,7 +1,0 @@
-﻿2014-5-20
-1. Add reservoir information into result database. Some of the information could be read from res file.
-2. Add point source result into the result database and add a node in the interface to see the data.
-3. Change watershed view to show the information in the status bar.
-
-2014-5-23
-1. Update the database after the model result is re-run and overwrite.
