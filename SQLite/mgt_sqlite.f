@@ -1,9 +1,10 @@
-      subroutine mgt_sqlite(id_op)
+      subroutine mgt_sqlite(id_op,id_hru)
 
         use parm
 
         integer,intent(in) :: id_op
-        j = ihru
+        integer,intent(in) :: id_hru
+        j = id_hru
 
         if(imgt == 0) return;
 
