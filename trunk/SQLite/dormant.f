@@ -411,7 +411,7 @@
            if (imgt == 1) then
              !!~ ~ ~ SQLite ~ ~ ~
             if(ioutput == 1) then
-                call mgt_sqlite(17)
+                call mgt_sqlite(17,j)
             else
             write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida, 
      *       cpnm(idplt(j)),"START-DORM", phubase(j), phuacc(j), 
@@ -443,7 +443,7 @@
             if (imgt == 1) then
             !!~ ~ ~ SQLite ~ ~ ~
             if(ioutput == 1) then
-                call mgt_sqlite(18)
+                call mgt_sqlite(18,j)
             else
                  write (143,1000) subnum(j), hruno(j), iyr, i_mo, iida, 
      *       cpnm(idplt(j)), "END-DORM", phubase(j), phuacc(j), 

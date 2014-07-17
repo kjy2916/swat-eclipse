@@ -1,9 +1,9 @@
       module parm
       use sqlite
-      integer icalen
+      integer icalen, prf_bsn
       
       real, dimension (:), allocatable :: alph_e
-      real, dimension (:), allocatable :: co_p
+      real, dimension (:), allocatable :: co_p, surlag
       
 !!   change per JGA 8/31/2011 gsm for output.mgt 
       real :: yield, burn_frlb, pst_kg
@@ -61,7 +61,7 @@
       real :: rttime, rchdep, rtevp, rttlc, da_km, resflwi, wdlps, wglps
       real :: resflwo, respcp, resev, ressep,ressedi,ressedo,dtot,wdprch
       real :: nperco, pperco, rsdco, phoskd, voltot, volcrmin, msk_x
-      real :: uno3d, canev, usle, rcn, surlag, bactkdq, precipday, wdpf
+      real :: uno3d, canev, usle, rcn, surlag_bsn,bactkdq,precipday,wdpf
       real :: thbact, wpq20, wlpq20, wps20, wlps20, bactrop, bactsedp
       real :: bactlchp, bactlchlp, enratio, wetpcp, pndpcp, wetsep, wgpf
       real :: pndsep, wetev, pndev, pndsedo, wetsedo, pndflwi, wetflwi
@@ -74,7 +74,7 @@
       real :: bsprev, bssprev, spadyo, spadyev, spadysp, spadyrfv
       real :: spadyosp
       real :: qday, usle_ei, al5, pndsedc, no3pcp, rcharea, volatpst
-      real :: wetsedc, uobw, ubw, uobn, uobp, prf, respesti, wglpf
+      real :: wetsedc, uobw, ubw, uobn, uobp, respesti, wglpf
       real :: snocovmx, snocov1, snocov2, rexp, rcor, lyrtile, lyrtilex
       real :: ai0, ai1, ai2, ai3, ai4, ai5, ai6, rhoq, tfact, sno50cov
       real :: mumax, lambda0, lambda1, lambda2, k_l, k_n, k_p, p_n
@@ -101,7 +101,7 @@
 !    Drainmod tile equations  01/2006
       real, dimension (:), allocatable :: wat_tbl,sol_swpwt
       real, dimension (:,:), allocatable :: vwt
-	  real :: re_bsn, sdrain_bsn, sstmaxd_bsn, r2adj
+	  real :: re_bsn, sdrain_bsn, sstmaxd_bsn
 	  real :: drain_co_bsn, pc_bsn, latksatf_bsn 
 !    Drainmod tile equations  01/2006
       integer :: i_subhw, imgt, idlast, iwtr, ifrttyp, mo_atmo, mo_atmo1
@@ -253,7 +253,7 @@
       real, dimension (:), allocatable :: depch,depsanch,depsilch
       real, dimension (:), allocatable :: depclach,depsagch,deplagch
       real, dimension (:), allocatable :: depgrach,depgrafp,grast
-      real, dimension (:), allocatable :: depprch,depprfp
+      real, dimension (:), allocatable :: depprch,depprfp, prf, r2adj
       real, dimension (:), allocatable :: sanst,silst,clast,sagst,lagst
       real, dimension (:), allocatable :: pot_san,pot_sil,pot_cla
       real, dimension (:), allocatable :: pot_sag,pot_lag
@@ -321,6 +321,7 @@
       
 !!!!!! drains
       real, dimension (:), allocatable :: wnan
+      real, dimension (:,:), allocatable :: sol_stpwt
       real, dimension (:,:), allocatable :: sub_pst,sub_hhqd,sub_hhwtmp
       real, dimension (:,:), allocatable :: rfinc,tmpinc,radinc,huminc
       real, dimension (:,:), allocatable :: wndav,ch_k,elevb,elevb_fr
