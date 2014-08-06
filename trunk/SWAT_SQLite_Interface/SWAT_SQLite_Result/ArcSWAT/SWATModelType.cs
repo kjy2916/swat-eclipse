@@ -10,7 +10,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
         SWAT_488 = 0,
         SWAT_445 = 1,
         SWAT_622 = 2,
-        CanSWAT = 3,
+        SWAT_627 = 3,
+        CanSWAT = 4,        
         UNKNOWN = -1
     }
 }
