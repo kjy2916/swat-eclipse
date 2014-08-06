@@ -20,6 +20,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private static string SWAT_EXTENSION_HRU_CHM = "chm";
         private static string SWAT_EXTENSION_HRU_GW = "gw";
         private static string SWAT_EXTENSION_HRU_SEP = "sep";
+        private static string SWAT_EXTENSION_HRU_WGN = "wgn";
+        private static string SWAT_EXTENSION_HRU_PND = "pnd";
+        private static string SWAT_EXTENSION_HRU_WUS = "wus";
 
         private static string SWAT_EXTENSION_SUB = "sub";
         private static string SWAT_EXTENSION_SUB_PND = "pnd";
@@ -35,7 +38,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
             SWAT_EXTENSION_HRU_SOL,
             SWAT_EXTENSION_HRU_CHM,
             SWAT_EXTENSION_HRU_GW,
-            SWAT_EXTENSION_HRU_SEP};
+            SWAT_EXTENSION_HRU_SEP,
+            SWAT_EXTENSION_HRU_WGN,
+            SWAT_EXTENSION_HRU_PND,
+            SWAT_EXTENSION_HRU_WUS};
 
         private static string[] SWAT_UNIT_EXTENSIONS_SUB = new string[] 
             {SWAT_EXTENSION_SUB,
