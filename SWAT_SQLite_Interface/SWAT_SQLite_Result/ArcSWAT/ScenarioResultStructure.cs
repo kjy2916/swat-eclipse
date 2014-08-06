@@ -22,16 +22,18 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private static string EXE_NAME_SWAT_445 = "swat_sqlite_445.exe";
         private static string EXE_NAME_SWAT_488 = "swat_sqlite_488.exe";
         private static string EXE_NAME_SWAT_622 = "swat_sqlite_622.exe";
+        private static string EXE_NAME_SWAT_627 = "swat_sqlite_627.exe";
         private static string EXE_NAME_CANSWAT = "canswat_sqlite.exe";
 
-        private static string[] EXE_NAMES = new string[] { EXE_NAME_SWAT_488,EXE_NAME_SWAT_445, EXE_NAME_SWAT_622, EXE_NAME_CANSWAT};
+        private static string[] EXE_NAMES = new string[] { EXE_NAME_SWAT_488, EXE_NAME_SWAT_445, EXE_NAME_SWAT_622, EXE_NAME_SWAT_627, EXE_NAME_CANSWAT};
 
         private static string DATABASE_NAME_NORMAL_445 = "result_445.db3";
         private static string DATABASE_NAME_NORMAL_488 = "result_488.db3";
         private static string DATABASE_NAME_NORMAL_622 = "result_622.db3";
+        private static string DATABASE_NAME_NORMAL_627 = "result_627.db3";
         private static string DATABASE_NAME_CANSWAT = "result_canswat.db3";
 
-        private static string[] DATABASE_NAMES = new string[] { DATABASE_NAME_NORMAL_488,DATABASE_NAME_NORMAL_445, DATABASE_NAME_NORMAL_622, DATABASE_NAME_CANSWAT };
+        private static string[] DATABASE_NAMES = new string[] { DATABASE_NAME_NORMAL_488,DATABASE_NAME_NORMAL_445, DATABASE_NAME_NORMAL_622, DATABASE_NAME_NORMAL_627, DATABASE_NAME_CANSWAT };
 
         public static string INFO_TABLE_NAME_HRU = "hru_info";
         public static string INFO_TABLE_NAME_SUB = "sub_info";
@@ -54,7 +56,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public static string COLUMN_NAME_HRU_MGT_LANDUSE = "CROP_FERT_PEST";
         public static string COLUMN_NAME_HRU_MGT_OPERATION = "OPERATION";
 
-        public static string NAME_STATUS_START_YEAR = "START_YEAR";
+        public static string NAME_STATUS_START_YEAR = "START_YEAR_OUTPUT";
         public static string NAME_STATUS_END_YEAR = "END_YEAR";
         public static string NAME_STATUS_OUTPUT_INTERVAL = "OUTPUT_INTERVAL";
         public static string NAME_STATUS_SUCCESS = "SUCCESS";
