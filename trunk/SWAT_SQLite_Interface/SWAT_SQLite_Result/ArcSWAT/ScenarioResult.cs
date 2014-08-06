@@ -76,7 +76,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             {
                 RowItem item = new RowItem(r);
                 string name = item.getColumnValue_String("NAME");
-                if (name.Equals("START_YEAR")) 
+                if (name.Equals(ScenarioResultStructure.NAME_STATUS_START_YEAR)) 
                     _startYear = item.getColumnValue_Int("VALUE");
                 else if (name.Equals("END_YEAR")) 
                     _endYear = item.getColumnValue_Int("VALUE");
@@ -141,6 +141,25 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _reaches = readUnitBasicInfo(SWATUnitType.RCH);
             _reservoirs = readUnitBasicInfo(SWATUnitType.RES);
             _watershed = new Watershed(this);
+
+            //check HRU area percentage in subbasin and watershed
+            double watershedPercent = 0.0;
+            foreach (HRU hru in _hrus.Values)
+                watershedPercent += hru.AreaFractionWatershed;
+            if (Math.Abs(watershedPercent - 1.0) > 0.001)
+                SWAT_SQLite.showInformationWindow("The area of HRUs is not correct in result " + ModelType.ToString() +". They are not added to 1. Please check .hru files.");
+
+            foreach (Subbasin sub in _subbasins.Values)
+            {
+                double subbasinPercent = 0.0;
+                foreach (HRU hru in sub.HRUs.Values)
+                    subbasinPercent += hru.AreaFractionSub;
+                if (Math.Abs(subbasinPercent - 1.0) > 0.001)
+                {
+                    SWAT_SQLite.showInformationWindow("The area of HRUs is not correct for subbasin " + sub.ID.ToString() + "in result " + ModelType.ToString() +". Please check .hru files.");
+                    break;
+                }
+            }
         }
 
         private Dictionary<int, SWATUnit> readUnitBasicInfo(SWATUnitType type)

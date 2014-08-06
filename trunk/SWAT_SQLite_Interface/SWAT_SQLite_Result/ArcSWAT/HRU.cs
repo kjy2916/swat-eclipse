@@ -52,6 +52,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         }
 
         public double AreaFractionSub { get { return _area_fr_sub; } }
+        public double AreaFractionWatershed { get { return _area_fr_wshd; } }
         public Subbasin Subbasin { get { return _sub; } }
 
         private Subbasin _sub = null;
