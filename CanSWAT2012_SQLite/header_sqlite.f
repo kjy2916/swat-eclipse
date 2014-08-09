@@ -153,22 +153,22 @@
 
 !!    column headers for mgt operations, output.mgt which is output only when IMGT = 1
 !!    previous in readfile.f format 999
-      hedmgt = (/"   PHUBASE","    PHUACC",
-     &           "    SOL_SW","    BIO_MS",
-     &           "   SOL_RSD","SOL_SUMNO3",
-     &           "SOL_SUMSOP","     YIELD",
-     &           "   MIX_EFF","  FERT_AMT",
-     &           "  FERT_NO3","  FERT_NH3",
-     &           " FERT_ORGN"," FERT_SOLP",
-     &           " FERT_ORGP",
-     &           "  PEST_AMT","     STRSN",
-     &           "     STRSP","   STRSTMP",
-     &           "     STRSW","     STRSA",
-     &           " YIELD_GRN"," YIELD_BMS",
-     &           " YIELD_TBR"," YIELD_RSD",
-     &           "   YIELD_N","   YIELD_P",
-     &           "MANURE_AMT",
-     &           "   IRR_AMT"/)
+      hedmgt = (/"   PHUBASE","    PHUACC", !7,8
+     &           "    SOL_SW","    BIO_MS", !9,10
+     &           "   SOL_RSD","SOL_SUMNO3", !11,12
+     &           "SOL_SUMSOP","     YIELD", !13,14
+     &           "   MIX_EFF","  FERT_AMT", !15,16
+     &           "  FERT_NO3","  FERT_NH3", !17,18
+     &           " FERT_ORGN"," FERT_SOLP", !19,20
+     &           " FERT_ORGP",              !21
+     &           "  PEST_AMT","     STRSN", !22,23
+     &           "     STRSP","   STRSTMP", !24,25
+     &           "     STRSW","     STRSA", !26,27
+     &           " YIELD_GRN"," YIELD_BMS", !28,29
+     &           " YIELD_TBR"," YIELD_RSD", !30,31
+     &           "   YIELD_N","   YIELD_P", !32,33
+     &           "MANURE_AMT",              !34
+     &           "   IRR_AMT"/)             !35
 
 !!    column headers for soil nutrient, output.snu (previously output.sol) which will be generated when ISOL = 1
 !!    previous in readfile.f format 12222

@@ -9,7 +9,7 @@
 !!    ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 !!    bio_bd(:)        |kg/m^3        |density of biomass 
 !!    bio_bod(:)       |kg/ha         |BOD concentration in biozone
-!!    biom(:)          |kg/ha         |biomass of live bacteria in biozone       
+!!    biom(:)          |kg/ha         |biomass of live bacteria in biozone
 !!    bz_thk(:)        |mm            |thickness of biozone                    
 !!    coeff_bod_dc(:)  |m^3/day       |BOD decay rate coefficient
 !!    coeff_bod_conv(:)|none          |BOD to live bacteria biomass conversion factor

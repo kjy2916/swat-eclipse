@@ -184,7 +184,7 @@
           if (imgt == 1) then
             !!~ ~ ~ SQLite ~ ~ ~
             if(ioutput == 1) then
-                call mgt_sqlite(21)
+                call mgt_sqlite(21,j)
             else
             write (143, 1000) subnum(j), hruno(j), iyr, i_mo, iida, 
      *       "         ",  " AUTOIRR", phubase(j), phuacc(j)
@@ -198,8 +198,6 @@
         endif
       end if 
         
-!! changed format below     
-!!1000  format (a5,1x,a7,3i6,2a15,7f10.2,10x,f10.2,70x,f10.2) 
 1000  format (a5,1x,a4,3i6,2a15,7f10.2,10x,f10.2,70x,i10,10x,i10) 
 
       return

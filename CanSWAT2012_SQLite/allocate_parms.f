@@ -64,6 +64,7 @@
       motot = 600             !! (50 years limit)
       mmpoint=1    !Liu
       
+      allocate (surlag(mhru))
       call outprocess("allocate_parms")
 
 !!!!!!!!!! drains
@@ -513,6 +514,8 @@
       allocate (wat_tbl(mhru))     
       allocate (sol_swpwt(mhru))
       allocate (conk(mlyr,mhru))
+	allocate (r2adj(mhru))	        
+      allocate (sol_stpwt(mlyr,mhru)) !Moriasi 4/8/2014
 !    Drainmod tile equations  01/2006
       allocate (conv_wt(mlyr,mhru))
       allocate (crdep(mlyr,mhru))
@@ -1198,6 +1201,7 @@
       allocate (potlagi(mhru))
 
       allocate (pplnt(mhru))
+      allocate (prf(mch))  !Moriasi 4/8/14    
       allocate (qdr(mhru))
       allocate (qdayout(mhru))
       allocate (rch_dakm(mxsubch))  

@@ -207,8 +207,6 @@
             beadj = Max(beadj, 0.27 * bio_e(idp))
           end if
 
-          beadj = bio_e(idp)
-
           bioday = beadj * par
           if (bioday < 0.) bioday = 0.
 

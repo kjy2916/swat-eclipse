@@ -1,9 +1,10 @@
-      subroutine mgt_sqlite(id_op)
+      subroutine mgt_sqlite(id_op,id_hru)
 
         use parm
 
         integer,intent(in) :: id_op
-        j = ihru
+        integer,intent(in) :: id_hru
+        j = id_hru
 
         if(imgt == 0) return;
 
@@ -15,7 +16,14 @@
         call sqlite3_set_column( colmgt(1), j )
         call sqlite3_set_column( colmgt(2), iyr )
         call sqlite3_set_column( colmgt(3), i_mo )
-        call sqlite3_set_column( colmgt(4), icl(iida) )
+        call sqlite3_set_column( colmgt(4), icl(iida))
+        !!for end-of-year processes,see simulate.f
+        !!when operatn is executed, the iida is already updated, but year is not updated.
+        !!in this case, use the last day instead
+        if(i_mo == 1 .AND. iida > 365) then
+            call sqlite3_set_column( colmgt(3), 12)
+            call sqlite3_set_column( colmgt(4), iida-1-ndays(12))
+        end if
         call sqlite3_set_column( colmgt(5), "" )
         !call sqlite3_set_column( colmgt(6), soperation )
 
@@ -65,14 +73,14 @@
                 call sqlite3_set_column( colmgt(36), irr_sc(j) )
                 call sqlite3_set_column( colmgt(37), irr_no(j) )
             case (3) !!fertilizer
-                call sqlite3_set_column( colmgt(7), fertnm(ifrttyp) )
-                call sqlite3_set_column( colmgt(8), "FERT" )
-                call sqlite3_set_column( colmgt(18), frt_kg )
-                call sqlite3_set_column( colmgt(19), fertno3 )
-                call sqlite3_set_column( colmgt(20), fertnh3 )
-                call sqlite3_set_column( colmgt(21), fertorgn )
-                call sqlite3_set_column( colmgt(22), fertsolp )
-                call sqlite3_set_column( colmgt(23), fertorgp )
+                call sqlite3_set_column( colmgt(5), fertnm(ifrttyp) )
+                call sqlite3_set_column( colmgt(6), "FERT" )
+                call sqlite3_set_column( colmgt(16), frt_kg )
+                call sqlite3_set_column( colmgt(17), fertno3 )
+                call sqlite3_set_column( colmgt(18), fertnh3 )
+                call sqlite3_set_column( colmgt(29), fertorgn )
+                call sqlite3_set_column( colmgt(20), fertsolp )
+                call sqlite3_set_column( colmgt(21), fertorgp )
             case (4) !!pesticide
                 call sqlite3_set_column( colmgt(5), pname(ipest) )
                 call sqlite3_set_column( colmgt(6), "PEST" )
