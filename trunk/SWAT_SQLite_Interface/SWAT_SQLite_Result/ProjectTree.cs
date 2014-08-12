@@ -119,14 +119,7 @@ namespace SWAT_SQLite_Result
             foreach (TreeNode node in this.Nodes[0].Nodes)
             {
                 if (node.Text.Equals(scenario.Name))
-                {
-                    foreach (TreeNode resultNode in node.Nodes)
-                    {
-                        if(resultNode.Text.Equals(modelType.ToString())) return;
-                    }
-
                     AddScenarioResult(node, scenario, modelType);
-                }
             }
         }
 
@@ -159,6 +152,15 @@ namespace SWAT_SQLite_Result
                 BeginInvoke(new addScenarioResultDelegate(AddScenarioResult), scenNode, scenario, modelType);
             else
             {
+                foreach (TreeNode n in scenNode.Nodes)
+                {
+                    if (n.Text.Equals(modelType.ToString()))
+                    {
+                        scenNode.Nodes.Remove(n); //remove the existing one and then add to update its status.
+                        break;
+                    }
+                }
+
                 ArcSWAT.ScenarioResult result = scenario.getModelResult(modelType);
                 if (result == null) return;
                 if (result.Status != ArcSWAT.ScenarioResultStatus.NORMAL) return;

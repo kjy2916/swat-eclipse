@@ -69,12 +69,13 @@ namespace SWAT_SQLite_Result
                 };
                 myProcess.Exited += (send, agrs) =>
                     {
-                        //update the date time of the result
-                        updateSimulationTime();
-
                         //update the results
                         if (onSimulationFinished != null)
                             onSimulationFinished(modelType);
+
+                        //update the date time of the result
+                        //must be called after onSimulationFinished as the result status is updated in onSimulationFinished
+                        updateSimulationTime();
                     };
                 updateMessage("Runing " + ModelType.ToString() + " in " + _scenario.ModelFolder);
                 myProcess.Start();
@@ -124,7 +125,7 @@ namespace SWAT_SQLite_Result
         {
             if (_modelType == ArcSWAT.SWATModelType.UNKNOWN) return;
 
-            _scenario.reReadResults(_modelType);
+            //_scenario.reReadResults(_modelType);
             ArcSWAT.ScenarioResult result = _scenario.getModelResult(_modelType);
             if (result.Status != ArcSWAT.ScenarioResultStatus.NORMAL)
                 updateSimulationTime(result.Status.ToString());
