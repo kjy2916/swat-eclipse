@@ -121,6 +121,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
             //check the column name
             if (!_result.Columns.Contains(_col)) _table = new DataTable();
 
+            //add codes to output reading time for test
+            DateTime readStartTime = DateTime.Now;
+
             //only use year parameter for daily
             int year = _year;
             if (_result.Interval != SWATResultIntervalType.DAILY &&
@@ -157,6 +160,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
             DataTable dt = _result.Unit.Scenario.GetDataTable(
                 string.Format("select {2} from {0} {1}",
                 _result.Name, condition, cols));
+
+            //output reading time for test
+            System.Diagnostics.Debug.WriteLine(string.Format("Reading {0}_{1}_{2}: {3} ms",
+                                UnitResult.Unit.Type,Column,Year, DateTime.Now.Subtract(readStartTime).TotalMilliseconds));
 
             //add datetime column and calculate the date
             if (dt.Rows.Count > 0 && _result.Interval != SWATResultIntervalType.UNKNOWN)
