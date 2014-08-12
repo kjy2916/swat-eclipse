@@ -95,7 +95,7 @@ namespace SWAT_SQLite_Result
             view.onSimulationFinished += (ArcSWAT.SWATModelType modelType) =>
             {
                 removeView(scenario, modelType);
-                //scenario.reReadResults(modelType);
+                scenario.reReadResults(modelType);
                 projectTree1.update(scenario, modelType);
             };        
 
