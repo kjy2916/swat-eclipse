@@ -210,244 +210,237 @@ namespace SWATPerformanceTest
             string reachData = dir + @"\TxtInOut\" + reachDataFile;
             string figData = dir + @"\TxtInOut\" + figFile;
             string line;
-            try
+            // we should be using rch.dat, sub.dat and hru.dat for the field widths and 
+            // variables to be found in output.rch etc, but rch.dat at least is unreliable.
+            // So we assume we know the field positions and widths, and read the variables from the
+            // output files.
+            using (StreamReader sr1 = new StreamReader(reachData))
             {
-                // we should be using rch.dat, sub.dat and hru.dat for the field widths and 
-                // variables to be found in output.rch etc, but rch.dat at least is unreliable.
-                // So we assume we know the field positions and widths, and read the variables from the
-                // output files.
-                using (StreamReader sr1 = new StreamReader(reachData))
+                reachVars = new List<string>();
+                // check if SWAT 2012
+                sr1.ReadLine();
+                line = sr1.ReadLine();
+                if (line.Contains("2012"))
                 {
-                    reachVars = new List<string>();
-                    // check if SWAT 2012
-                    sr1.ReadLine();
-                    line = sr1.ReadLine();
-                    if (line.Contains("2012"))
-                    {
-                        // SWAT 2012
-                        // HRU column in output.wtr and output.hru has an extra space before and after it
-                        waterFirstDataCol = 44;
-                        waterNumCol = 5;
-                        waterDateCol = 30;
-                        waterSubNumCol = 19;
-                        hruFirstDataCol = 44;
-                        hruNumCol = 5;
-                        hruDateCol = 30;
-                        hruSubNumCol = 19;
-                    }
-                    // skip remaining header lines
-                    for (int i = 0; i < headerLines - 2; i++) sr1.ReadLine();
-                    line = sr1.ReadLine();
-                    int count = (line.Length - reachFirstDataCol) / reachDataWidth;
-                    for (int i = 0; i < count; i++)
-                    {
-                        reachVars.Add(line.Substring(reachFirstDataCol + i * reachDataWidth, reachDataWidth).Trim());
-                    }
+                    // SWAT 2012
+                    // HRU column in output.wtr and output.hru has an extra space before and after it
+                    waterFirstDataCol = 44;
+                    waterNumCol = 5;
+                    waterDateCol = 30;
+                    waterSubNumCol = 19;
+                    hruFirstDataCol = 44;
+                    hruNumCol = 5;
+                    hruDateCol = 30;
+                    hruSubNumCol = 19;
                 }
-                string subData = dir + @"\TxtInOut\" + subDataFile;
-                using (StreamReader sr2 = new StreamReader(subData))
+                // skip remaining header lines
+                for (int i = 0; i < headerLines - 2; i++) sr1.ReadLine();
+                line = sr1.ReadLine();
+                int count = (line.Length - reachFirstDataCol) / reachDataWidth;
+                for (int i = 0; i < count; i++)
                 {
-                    subVars = new List<string>();
+                    reachVars.Add(line.Substring(reachFirstDataCol + i * reachDataWidth, reachDataWidth).Trim());
+                }
+            }
+            string subData = dir + @"\TxtInOut\" + subDataFile;
+            using (StreamReader sr2 = new StreamReader(subData))
+            {
+                subVars = new List<string>();
+                // skip header lines
+                for (int i = 0; i < headerLines; i++) sr2.ReadLine();
+                line = sr2.ReadLine();
+                int count = (line.Length - subFirstDataCol) / subDataWidth;
+                for (int i = 0; i < count; i++)
+                {
+                    subVars.Add(line.Substring(subFirstDataCol + i * subDataWidth, subDataWidth).Trim());
+                }
+            }
+            string waterData = dir + @"\TxtInOut\" + waterDataFile;
+            if (File.Exists(waterData))
+            {
+                using (StreamReader sr3 = new StreamReader(waterData))
+                {
+                    waterVars = new List<string>();
                     // skip header lines
-                    for (int i = 0; i < headerLines; i++) sr2.ReadLine();
-                    line = sr2.ReadLine();
-                    int count = (line.Length - subFirstDataCol) / subDataWidth;
+                    for (int i = 0; i < headerLines; i++) sr3.ReadLine();
+                    line = sr3.ReadLine();
+                    int count = (line.Length - waterFirstDataCol) / waterDataWidth;
                     for (int i = 0; i < count; i++)
                     {
-                        subVars.Add(line.Substring(subFirstDataCol + i * subDataWidth, subDataWidth).Trim());
+                        waterVars.Add(line.Substring(waterFirstDataCol + i * waterDataWidth, waterDataWidth).Trim());
                     }
                 }
-                string waterData = dir + @"\TxtInOut\" + waterDataFile;
-                if (File.Exists(waterData))
+            }
+            string reservoirData = dir + @"\TxtInOut\" + reservoirDataFile;
+            using (StreamReader sr4 = new StreamReader(reservoirData))
+            {
+                reservoirVars = new List<string>();
+                // skip header lines
+                for (int i = 0; i < headerLines; i++) sr4.ReadLine();
+                line = sr4.ReadLine();
+                int count = (line.Length - reservoirFirstDataCol) / reservoirDataWidth;
+                for (int i = 0; i < count; i++)
                 {
-                    using (StreamReader sr3 = new StreamReader(waterData))
+                    reservoirVars.Add(line.Substring(reservoirFirstDataCol + i * reservoirDataWidth, reservoirDataWidth).Trim());
+                }
+            }
+            // use output.hru to determine hru numbers for each basin
+            // Note we do this for the current, not Default, run since different runs may have different hru selections
+            using (StreamReader sr = new StreamReader(hruData))
+            {
+                // skip header lines
+                for (int i = 0; i < headerLines; i++) sr.ReadLine();
+                // next is var names line
+                line = sr.ReadLine();
+                // store hru variables
+                hruVars = new List<string>();
+                int count = (line.Length - hruFirstDataCol) / hruDataWidth;
+                for (int i = 0; i < count; i++)
+                {
+                    hruVars.Add(line.Substring(hruFirstDataCol + i * hruDataWidth, hruDataWidth).Trim());
+                }
+                int currentBasin = 0; // basin numbers start from 1
+                List<int> hruNums = new List<int>();
+                while ((line = sr.ReadLine()) != null)
+                {
+                    // first time round, check for change in output.hru in latest
+                    // swat2005.exe: hrus allowed 5 digits, so following numbers shifted 1 place to right
+                    // detected by seeing if last character of 5-digit hru number is a non-space 
+                    // (should be a 1 if hrus have 5 digits)
+                    if ((currentBasin == 0) && (line.Substring(hruNumCol + hruNumWidth, 1) != " "))
                     {
-                        waterVars = new List<string>();
-                        // skip header lines
-                        for (int i = 0; i < headerLines; i++) sr3.ReadLine();
-                        line = sr3.ReadLine();
-                        int count = (line.Length - waterFirstDataCol) / waterDataWidth;
-                        for (int i = 0; i < count; i++)
+                        basins.fiveDigitHruShift = 1;
+                    }
+                    int basin = Int32.Parse(line.Substring(hruSubNumCol + basins.fiveDigitHruShift, hruSubNumWidth));
+                    int hru = Int32.Parse(line.Substring(hruNumCol, hruNumWidth + basins.fiveDigitHruShift));
+                    if (basin == currentBasin)
+                    {
+                        if (!hruNums.Contains(hru)) hruNums.Add(hru);
+                    }
+                    else
+                    {
+                        // store last basin, unless this is the first loop cycle
+                        if (currentBasin != 0)
                         {
-                            waterVars.Add(line.Substring(waterFirstDataCol + i * waterDataWidth, waterDataWidth).Trim());
+                            Hrus hrus = new Hrus();
+                            hrus.hruNumbers = new List<int>();
+                            hrus.pondNumbers = new List<int>();
+                            foreach (int i in hruNums) hrus.hruNumbers.Add(i);
+                            basins.hrus.Add(currentBasin, hrus);
+                        }
+                        if (basin < currentBasin) break; // finished with hrus
+                        // start a new basin
+                        currentBasin = basin;
+                        hruNums.Clear();
+                        hruNums.Add(hru);
+                    }
+                }
+                // may have curtailed hru file: check to see if we got the last entry
+                if ((currentBasin > 0) && (!basins.hrus.ContainsKey(currentBasin)))
+                {
+                    Hrus hrus = new Hrus();
+                    hrus.hruNumbers = new List<int>();
+                    hrus.pondNumbers = new List<int>();
+                    foreach (int i in hruNums) hrus.hruNumbers.Add(i);
+                    basins.hrus.Add(currentBasin, hrus);
+                }
+            }
+            // hru data can be curtailed to just some hrus, so we have to read
+            // the reach data file to make sure we have all subbasins
+            using (StreamReader sr7 = new StreamReader(reachData))
+            {
+                // skip header lines and var line
+                for (int i = 0; i <= headerLines; i++) sr7.ReadLine();
+                int currentBasin = 0; // basin numbers start from 1
+                while ((line = sr7.ReadLine()) != null)
+                {
+                    int basin = Int32.Parse(line.Substring(reachNumCol, reachNumWidth));
+                    if (currentBasin != 0)
+                    {
+                        if (!basins.hrus.ContainsKey(currentBasin))
+                        // new basin that was not in output.hru
+                        {
+                            Hrus hrus = new Hrus();
+                            hrus.hruNumbers = new List<int>();
+                            hrus.pondNumbers = new List<int>();
+                            basins.hrus.Add(currentBasin, hrus);
                         }
                     }
+                    if (basin < currentBasin) break; // finished with reach file
+                    currentBasin = basin;
                 }
-                string reservoirData = dir + @"\TxtInOut\" + reservoirDataFile;
-                using (StreamReader sr4 = new StreamReader(reservoirData))
+            }
+
+            string waterData2 = dir + @"\TxtInOut\" + waterDataFile;
+            if (File.Exists(waterData2))
+            {
+                using (StreamReader sr5 = new StreamReader(waterData2))
                 {
-                    reservoirVars = new List<string>();
-                    // skip header lines
-                    for (int i = 0; i < headerLines; i++) sr4.ReadLine();
-                    line = sr4.ReadLine();
-                    int count = (line.Length - reservoirFirstDataCol) / reservoirDataWidth;
-                    for (int i = 0; i < count; i++)
-                    {
-                        reservoirVars.Add(line.Substring(reservoirFirstDataCol + i * reservoirDataWidth, reservoirDataWidth).Trim());
-                    }
-                }
-                // use output.hru to determine hru numbers for each basin
-                // Note we do this for the current, not Default, run since different runs may have different hru selections
-                using (StreamReader sr = new StreamReader(hruData))
-                {
-                    // skip header lines
-                    for (int i = 0; i < headerLines; i++) sr.ReadLine();
-                    // next is var names line
-                    line = sr.ReadLine();
-                    // store hru variables
-                    hruVars = new List<string>();
-                    int count = (line.Length - hruFirstDataCol) / hruDataWidth;
-                    for (int i = 0; i < count; i++)
-                    {
-                        hruVars.Add(line.Substring(hruFirstDataCol + i * hruDataWidth, hruDataWidth).Trim());
-                    }
+                    // skip header lines and var line
+                    for (int i = 0; i <= headerLines; i++) sr5.ReadLine();
                     int currentBasin = 0; // basin numbers start from 1
-                    List<int> hruNums = new List<int>();
-                    while ((line = sr.ReadLine()) != null)
+                    List<int> pondNums = new List<int>();
+                    int basin = 0;
+                    int hru = 0;
+                    while ((line = sr5.ReadLine()) != null)
                     {
-                        // first time round, check for change in output.hru in latest
-                        // swat2005.exe: hrus allowed 5 digits, so following numbers shifted 1 place to right
-                        // detected by seeing if last character of 5-digit hru number is a non-space 
-                        // (should be a 1 if hrus have 5 digits)
-                        if ((currentBasin == 0) && (line.Substring(hruNumCol + hruNumWidth, 1) != " "))
-                        {
-                            basins.fiveDigitHruShift = 1;
-                        }
-                        int basin = Int32.Parse(line.Substring(hruSubNumCol + basins.fiveDigitHruShift, hruSubNumWidth));
-                        int hru = Int32.Parse(line.Substring(hruNumCol, hruNumWidth + basins.fiveDigitHruShift));
+                        basin = Int32.Parse(line.Substring(waterSubNumCol + basins.fiveDigitHruShift, waterSubNumWidth));
+                        hru = Int32.Parse(line.Substring(waterNumCol, waterNumWidth + basins.fiveDigitHruShift));
                         if (basin == currentBasin)
                         {
-                            if (!hruNums.Contains(hru)) hruNums.Add(hru);
+                            if (!pondNums.Contains(hru)) pondNums.Add(hru);
                         }
                         else
                         {
-                            // store last basin, unless this is the first loop cycle
-                            if (currentBasin != 0)
+                            // store last basin, unless first loop
+                            if (currentBasin != 0) // not first loop cycle
                             {
-                                Hrus hrus = new Hrus();
-                                hrus.hruNumbers = new List<int>();
-                                hrus.pondNumbers = new List<int>();
-                                foreach (int i in hruNums) hrus.hruNumbers.Add(i);
-                                basins.hrus.Add(currentBasin, hrus);
-                            }
-                            if (basin < currentBasin) break; // finished with hrus
-                            // start a new basin
-                            currentBasin = basin;
-                            hruNums.Clear();
-                            hruNums.Add(hru);
-                        }
-                    }
-                    // may have curtailed hru file: check to see if we got the last entry
-                    if ((currentBasin > 0) && (!basins.hrus.ContainsKey(currentBasin)))
-                    {
-                        Hrus hrus = new Hrus();
-                        hrus.hruNumbers = new List<int>();
-                        hrus.pondNumbers = new List<int>();
-                        foreach (int i in hruNums) hrus.hruNumbers.Add(i);
-                        basins.hrus.Add(currentBasin, hrus);
-                    }
-                }
-                // hru data can be curtailed to just some hrus, so we have to read
-                // the reach data file to make sure we have all subbasins
-                using (StreamReader sr7 = new StreamReader(reachData))
-                {
-                    // skip header lines and var line
-                    for (int i = 0; i <= headerLines; i++) sr7.ReadLine();
-                    int currentBasin = 0; // basin numbers start from 1
-                    while ((line = sr7.ReadLine()) != null)
-                    {
-                        int basin = Int32.Parse(line.Substring(reachNumCol, reachNumWidth));
-                        if (currentBasin != 0)
-                        {
-                            if (!basins.hrus.ContainsKey(currentBasin))
-                            // new basin that was not in output.hru
-                            {
-                                Hrus hrus = new Hrus();
-                                hrus.hruNumbers = new List<int>();
-                                hrus.pondNumbers = new List<int>();
-                                basins.hrus.Add(currentBasin, hrus);
-                            }
-                        }
-                        if (basin < currentBasin) break; // finished with reach file
-                        currentBasin = basin;
-                    }
-                }
-
-                string waterData2 = dir + @"\TxtInOut\" + waterDataFile;
-                if (File.Exists(waterData2))
-                {
-                    using (StreamReader sr5 = new StreamReader(waterData2))
-                    {
-                        // skip header lines and var line
-                        for (int i = 0; i <= headerLines; i++) sr5.ReadLine();
-                        int currentBasin = 0; // basin numbers start from 1
-                        List<int> pondNums = new List<int>();
-                        int basin = 0;
-                        int hru = 0;
-                        while ((line = sr5.ReadLine()) != null)
-                        {
-                            basin = Int32.Parse(line.Substring(waterSubNumCol + basins.fiveDigitHruShift, waterSubNumWidth));
-                            hru = Int32.Parse(line.Substring(waterNumCol, waterNumWidth + basins.fiveDigitHruShift));
-                            if (basin == currentBasin)
-                            {
-                                if (!pondNums.Contains(hru)) pondNums.Add(hru);
-                            }
-                            else
-                            {
-                                // store last basin, unless first loop
-                                if (currentBasin != 0) // not first loop cycle
+                                foreach (int i in pondNums)
                                 {
-                                    foreach (int i in pondNums)
-                                    {
-                                        basins.hrus[currentBasin].pondNumbers.Add(i);
-                                    }
+                                    basins.hrus[currentBasin].pondNumbers.Add(i);
                                 }
-                                if (basin < currentBasin) break; // finished with ponds
-                                currentBasin = basin;
-                                pondNums.Clear();
-                                pondNums.Add(hru);
                             }
+                            if (basin < currentBasin) break; // finished with ponds
+                            currentBasin = basin;
+                            pondNums.Clear();
+                            pondNums.Add(hru);
                         }
                     }
                 }
-                // use fig.fig file to set up reservoir data
-                using (StreamReader sr6 = new StreamReader(figData))
-                {
-                    int lastBasin = 0;
-                    while ((line = sr6.ReadLine()) != null)
-                    {
-                        int command;
-                        try
-                        {
-                            command = Int32.Parse(line.Substring(figCommandCol, figCommandWidth));
-                        }
-                        catch (Exception)
-                        {
-                            continue;
-                        }
-                        if (command == 2) // route command
-                        {
-                            // save basin in case next command is a reservoir routing
-                            lastBasin = Int32.Parse(line.Substring(figRouteBasinCol, figRouteBasinWidth));
-                        }
-                        else if (command == 3) // routres command
-                        {
-                            int res = Int32.Parse(line.Substring(figResCol, figResWidth));
-                            // basin removed from routres in SWAT 2012
-                            //int basin = Int32.Parse(line.Substring(figResBasinCol, figResBasinWidth));
-                            basins.reservoirs.Add(lastBasin, res);
-                            //MessageBox.Show("Run " + dirName + " has reservoir " + res.ToString() + 
-                            //                " in basin " + lastBasin.ToString());
-                        }
-                    }
-                }
-                return true;
             }
-            catch (Exception e)
+            // use fig.fig file to set up reservoir data
+            using (StreamReader sr6 = new StreamReader(figData))
             {
-                Console.WriteLine(e.Message);
-                return false;
+                int lastBasin = 0;
+                while ((line = sr6.ReadLine()) != null)
+                {
+                    int command;
+                    try
+                    {
+                        command = Int32.Parse(line.Substring(figCommandCol, figCommandWidth));
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+                    if (command == 2) // route command
+                    {
+                        // save basin in case next command is a reservoir routing
+                        lastBasin = Int32.Parse(line.Substring(figRouteBasinCol, figRouteBasinWidth));
+                    }
+                    else if (command == 3) // routres command
+                    {
+                        int res = Int32.Parse(line.Substring(figResCol, figResWidth));
+                        // basin removed from routres in SWAT 2012
+                        //int basin = Int32.Parse(line.Substring(figResBasinCol, figResBasinWidth));
+                        basins.reservoirs.Add(lastBasin, res);
+                        //MessageBox.Show("Run " + dirName + " has reservoir " + res.ToString() + 
+                        //                " in basin " + lastBasin.ToString());
+                    }
+                }
             }
+            return true;
+
         }
 
         #endregion
@@ -715,20 +708,14 @@ namespace SWATPerformanceTest
                 int hruNum = id;
                 HruSkipCount(hruNum, ref skipNum, ref nextRecordNum);
                 if (skipNum == 0)
-                {
-                    Console.WriteLine("There no HRUs!");
-                    return;
-                }
+                    throw new Exception("There no HRUs!");
             }
             else if (source == SourceType.WATER)
             {
                 int hruNum = id;
                 PondSkipCount(hruNum, ref skipNum, ref nextRecordNum);
                 if (skipNum == 0)
-                {
-                    Console.WriteLine("There no ponds!");
-                    return;
-                }
+                    throw new Exception("There no ponds!");
             }
             else if (source == SourceType.RESERVOIR)
             {
@@ -736,10 +723,7 @@ namespace SWATPerformanceTest
                 nextRecordNum = basins.reservoirs[basin]; // reservoir number
                 skipNum = basins.reservoirs.Count; // number of reservoirs
                 if (skipNum == 0)
-                {
-                    Console.WriteLine("There no reservois!");
-                    return;
-                }
+                    throw new Exception("There no reservois!");
             }
             else // reach or sub
             {
@@ -831,7 +815,7 @@ namespace SWATPerformanceTest
                 string month;
                 int dummy;
                 fromJulian(startYear, startDay, out month, out dummy, out day);
-                Console.WriteLine("Earlist start day is " + day.ToString() + " " + month + " " + startYear.ToString(), "SWATPlot");
+                //Console.WriteLine("Earlist start day is " + day.ToString() + " " + month + " " + startYear.ToString(), "SWATPlot");
                 requestedStartDay = startDay;
                 requestedStartYear = startYear;
             }
@@ -843,7 +827,7 @@ namespace SWATPerformanceTest
                 string month;
                 int dummy;
                 fromJulian(finishYear, finishDay, out month, out dummy, out day);
-                Console.WriteLine("Latest finish day is " + day.ToString() + " " + month + " " + startYear.ToString());
+                //Console.WriteLine("Latest finish day is " + day.ToString() + " " + month + " " + startYear.ToString());
                 requestedFinishDay = finishDay;
                 requestedFinishYear = finishYear;
             }
@@ -917,174 +901,193 @@ namespace SWATPerformanceTest
             int requestedFinishYear, int requestedFinishMonth, int requestedFinishDate,
             SourceType source, int id, string var)
         {
-            try
+            //convert start and finish day to Julian format
+            int requestedStartDay = 0, requestedFinishDay = 0;
+            GetRequestStartFinishDay(requestedStartYear, requestedStartMonth, requestedStartDate,
+                requestedFinishYear, requestedFinishMonth, requestedFinishDate,
+                ref requestedStartDay, ref requestedFinishDay);
+
+            //get number of records and offset
+            int numRecords;
+            int startOffset;
+            int finishOffset; // not in fact used
+
+            if (IPRINT == 0)
             {
-                //convert start and finish day to Julian format
-                int requestedStartDay = 0, requestedFinishDay = 0;
-                GetRequestStartFinishDay(requestedStartYear, requestedStartMonth, requestedStartDate,
-                    requestedFinishYear, requestedFinishMonth, requestedFinishDate,
-                    ref requestedStartDay, ref requestedFinishDay);
+                numRecords = PeriodInMonths(requestedStartYear, requestedStartDay, requestedFinishYear, requestedFinishDay);
+                startOffset = PeriodInMonths(startYear, startDay, requestedStartYear, requestedStartDay) - 1;
+                finishOffset = PeriodInMonths(requestedFinishYear, requestedFinishDay, finishYear, finishDay) - 1;
+            }
+            else if (IPRINT == 1)
+            {
+                numRecords = PeriodInDays(requestedStartYear, requestedStartDay, requestedFinishYear, requestedFinishDay);
+                startOffset = PeriodInDays(startYear, startDay, requestedStartYear, requestedStartDay) - 1;
+                finishOffset = PeriodInDays(requestedFinishYear, requestedFinishDay, finishYear, finishDay) - 1;
+            }
+            else
+            {
+                numRecords = requestedFinishYear - requestedStartYear + 1;
+                startOffset = requestedStartYear - startYear;
+                finishOffset = finishYear - requestedFinishYear;
+            }                
 
-                //get number of records and offset
-                int numRecords;
-                int startOffset;
-                int finishOffset; // not in fact used
-
-                if (IPRINT == 0)
-                {
-                    numRecords = PeriodInMonths(requestedStartYear, requestedStartDay, requestedFinishYear, requestedFinishDay);
-                    startOffset = PeriodInMonths(startYear, startDay, requestedStartYear, requestedStartDay) - 1;
-                    finishOffset = PeriodInMonths(requestedFinishYear, requestedFinishDay, finishYear, finishDay) - 1;
-                }
-                else if (IPRINT == 1)
-                {
-                    numRecords = PeriodInDays(requestedStartYear, requestedStartDay, requestedFinishYear, requestedFinishDay);
-                    startOffset = PeriodInDays(startYear, startDay, requestedStartYear, requestedStartDay) - 1;
-                    finishOffset = PeriodInDays(requestedFinishYear, requestedFinishDay, finishYear, finishDay) - 1;
-                }
-                else
-                {
-                    numRecords = requestedFinishYear - requestedStartYear + 1;
-                    startOffset = requestedStartYear - startYear;
-                    finishOffset = finishYear - requestedFinishYear;
-                }                
-
-                //get number of row which could be skip
-                int nextRecordNum = 0;
-                int skipNum = 0;
-                SkipCount(source, id, ref skipNum, ref nextRecordNum);
+            //get number of row which could be skip
+            int nextRecordNum = 0;
+            int skipNum = 0;
+            SkipCount(source, id, ref skipNum, ref nextRecordNum);
 
                
-                //get variable location
-                int varLength;
-                int varPos;
-                int datePos;
-                VarPos(source, var, out varLength, out varPos, out datePos);
+            //get variable location
+            int varLength;
+            int varPos;
+            int datePos;
+            VarPos(source, var, out varLength, out varPos, out datePos);
 
-                if (source == SourceType.HRU || source == SourceType.WATER)
+            if (source == SourceType.HRU || source == SourceType.WATER)
+            {
+                // for output.hru and output.wtr need to shift by 1 if hrus have five digits
+                int shift = this.basins.fiveDigitHruShift;
+                varPos += shift;
+                datePos += shift;
+            }
+
+
+
+            //the file
+            string nextFile = FileForRow(scenarioName, source); //get result file from type
+
+            int count = 0;
+            //we  will start actually recording data when count reaches 0
+            count = 0 - startOffset;
+
+            //data save here in the array
+            DataTable dt = new DataTable("TEXT");             
+            dt.Columns.Add("TIME", typeof(DateTime));
+            dt.Columns.Add(var, typeof(double));
+
+
+            bool finished = false;
+            int currentYear = startYear;
+            int currentDay = startDay;
+            bool yearChecked = false;
+
+            string valstr;
+            double val;
+            string line;
+
+            using (StreamReader next = new StreamReader(nextFile))
+            {
+                DateTime readStartTime = DateTime.Now;
+                int linesToSkip = headerLines + nextRecordNum;
+                for (int i = 1; i <= linesToSkip; i++) next.ReadLine();
+                while (!finished)
                 {
-                    // for output.hru and output.wtr need to shift by 1 if hrus have five digits
-                    int shift = this.basins.fiveDigitHruShift;
-                    varPos += shift;
-                    datePos += shift;
-                }
-
-
-
-                //the file
-                string nextFile = FileForRow(scenarioName, source); //get result file from type
-
-                int count = 0;
-                //we  will start actually recording data when count reaches 0
-                count = 0 - startOffset;
-
-                //data save here in the array
-                DataTable dt = new DataTable("TEXT");             
-                dt.Columns.Add("TIME", typeof(DateTime));
-                dt.Columns.Add(var, typeof(double));
-
-
-                bool finished = false;
-                int currentYear = startYear;
-                int currentDay = startDay;
-                bool yearChecked = false;
-
-                string valstr;
-                double val;
-                string line;
-
-                using (StreamReader next = new StreamReader(nextFile))
-                {
-                    DateTime readStartTime = DateTime.Now;
-                    int linesToSkip = headerLines + nextRecordNum;
-                    for (int i = 1; i <= linesToSkip; i++) next.ReadLine();
-                    while (!finished)
+                    line = next.ReadLine();
+                    if (line == null) finished = true;
+                    else
                     {
-                        line = next.ReadLine();
-                        if (line == null) finished = true;
-                        else
+                        string date = line.Substring(datePos, dateWidth).Trim();
+                        if ((date.Length == 4) && !yearChecked)
                         {
-                            string date = line.Substring(datePos, dateWidth).Trim();
-                            if ((date.Length == 4) && !yearChecked)
+                            if (!date.Equals(startYear.ToString()))
                             {
-                                if (!date.Equals(startYear.ToString()))
-                                {
-                                    Console.WriteLine("Start year " + startYear.ToString() +
-                                                    " from file.cio does not agree with start year " + date +
-                                                    " from " + nextFile + ". ");
-                                }
-                                yearChecked = true;
+                                //Console.WriteLine("Start year " + startYear.ToString() +
+                                //                " from file.cio does not agree with start year " + date +
+                                //                " from " + nextFile + ". ");
                             }
-                            if (((IPRINT != 2) && (date.Length == 4)) ||
-                                (date.IndexOf('.') >= 0))
+                            yearChecked = true;
+                        }
+                        if (((IPRINT != 2) && (date.Length == 4)) ||
+                            (date.IndexOf('.') >= 0))
+                        {
+                            // skip end of year or summary lines
+                            for (int j = 1; j < skipNum; j++) next.ReadLine();
+                            line = next.ReadLine();
+                            if (line == null)
                             {
-                                // skip end of year or summary lines
-                                for (int j = 1; j < skipNum; j++) next.ReadLine();
-                                line = next.ReadLine();
-                                if (line == null)
-                                {
-                                    finished = true;
-                                    break;
-                                }
-                                date = line.Substring(datePos, dateWidth).Trim();
-                                if (date.IndexOf('.') >= 0) // summary line
-                                {
-                                    finished = true;
-                                    break;
-                                }
+                                finished = true;
+                                break;
                             }
-
-
-                            // if count < 0 still skipping records before requested start datete
-                            if (count >= 0)
+                            date = line.Substring(datePos, dateWidth).Trim();
+                            if (date.IndexOf('.') >= 0) // summary line
                             {
-                                DataRow newRow = dt.NewRow();
+                                finished = true;
+                                break;
+                            }
+                        }
 
-                                //get date
-                                DateTime d = DateTime.Now;
-                                switch (IPRINT)
-                                {
-                                    case 0: // monthly: format YYYY\MM
-                                        bool endYear = date.Equals("12");
-                                        d = new DateTime(currentYear, int.Parse(date), 1);
-                                        date = currentYear.ToString() + @"\" + date;                                        
-                                        if (endYear) currentYear++;
-                                        break;
-                                    case 1: // daily: Julian format YYYYDDD
-                                        int lastDay = isLeapYear(currentYear) ? 366 : 365;
-                                        date = currentYear.ToString() + currentDay.ToString("D3");
-                                        d = (new DateTime(currentYear, 1, 1)).AddDays(currentDay - 1);
-                                        if (currentDay == lastDay)
-                                        {
-                                            currentYear++;
-                                            currentDay = 1;
-                                        }
-                                        else currentDay++;
-                                        break;
-                                    default: // IPRINT = 2: annual: format already YYYY
-                                        d = new DateTime(currentYear, 1, 1);
-                                        break;
-                                }
-                                newRow[0] = d;
 
-                                val = -1;
-                                valstr = line.Substring(varPos, varLength).Trim();
-                                bool parseFail = false;
-                                // parse and then convert to string as it gives more readable numbers								// parse and then convert to string as it gives more readable numbers
-                                // than SWAT's scientific notation
-                                try
-                                {
-                                    val = Double.Parse(valstr);
-                                }
-                                catch (Exception)
-                                {
-                                    // bug in output.sub
-                                    if (source == SourceType.SUBBASIN && (varPos >= 224))
+                        // if count < 0 still skipping records before requested start datete
+                        if (count >= 0)
+                        {
+                            DataRow newRow = dt.NewRow();
+
+                            //get date
+                            DateTime d = DateTime.Now;
+                            switch (IPRINT)
+                            {
+                                case 0: // monthly: format YYYY\MM
+                                    bool endYear = date.Equals("12");
+                                    d = new DateTime(currentYear, int.Parse(date), 1);
+                                    date = currentYear.ToString() + @"\" + date;                                        
+                                    if (endYear) currentYear++;
+                                    break;
+                                case 1: // daily: Julian format YYYYDDD
+                                    int lastDay = isLeapYear(currentYear) ? 366 : 365;
+                                    date = currentYear.ToString() + currentDay.ToString("D3");
+                                    d = (new DateTime(currentYear, 1, 1)).AddDays(currentDay - 1);
+                                    if (currentDay == lastDay)
                                     {
-                                        // try shifted one place to right
+                                        currentYear++;
+                                        currentDay = 1;
+                                    }
+                                    else currentDay++;
+                                    break;
+                                default: // IPRINT = 2: annual: format already YYYY
+                                    d = new DateTime(currentYear, 1, 1);
+                                    break;
+                            }
+                            newRow[0] = d;
+
+                            val = -1;
+                            valstr = line.Substring(varPos, varLength).Trim();
+                            bool parseFail = false;
+                            // parse and then convert to string as it gives more readable numbers								// parse and then convert to string as it gives more readable numbers
+                            // than SWAT's scientific notation
+                            try
+                            {
+                                val = Double.Parse(valstr);
+                            }
+                            catch (Exception)
+                            {
+                                // bug in output.sub
+                                if (source == SourceType.SUBBASIN && (varPos >= 224))
+                                {
+                                    // try shifted one place to right
+                                    try
+                                    {
+                                        valstr = line.Substring(varPos + 1, varLength).Trim();
+                                        val = Double.Parse(valstr);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        parseFail = true;
+                                    }
+                                }
+                                // bug in output.hru
+                                else if (source == SourceType.HRU && (varPos >= 714))
+                                {
+                                    //try shifted one or two places to right
+                                    try
+                                    {
+                                        valstr = line.Substring(varPos + 1, varLength).Trim();
+                                        val = Double.Parse(valstr);
+                                    }
+                                    catch (Exception)
+                                    {
                                         try
                                         {
-                                            valstr = line.Substring(varPos + 1, varLength).Trim();
+                                            valstr = line.Substring(varPos + 2, varLength).Trim();
                                             val = Double.Parse(valstr);
                                         }
                                         catch (Exception)
@@ -1092,61 +1095,39 @@ namespace SWATPerformanceTest
                                             parseFail = true;
                                         }
                                     }
-                                    // bug in output.hru
-                                    else if (source == SourceType.HRU && (varPos >= 714))
-                                    {
-                                        //try shifted one or two places to right
-                                        try
-                                        {
-                                            valstr = line.Substring(varPos + 1, varLength).Trim();
-                                            val = Double.Parse(valstr);
-                                        }
-                                        catch (Exception)
-                                        {
-                                            try
-                                            {
-                                                valstr = line.Substring(varPos + 2, varLength).Trim();
-                                                val = Double.Parse(valstr);
-                                            }
-                                            catch (Exception)
-                                            {
-                                                parseFail = true;
-                                            }
-                                        }
-                                    }
-                                    else
-                                        parseFail = true;
                                 }
-                                if (parseFail)
-                                {
-                                    Console.WriteLine("Cannot parse as a number " + valstr);
-                                }
-                                newRow[1] = val;
-                                dt.Rows.Add(newRow);
+                                else
+                                    parseFail = true;
                             }
-                            count++;
-                            if (count == numRecords) finished = true;
-                            for (int j = 1; j < skipNum; j++) next.ReadLine();
+                            if (parseFail)
+                            {
+                                //Console.WriteLine("Cannot parse as a number " + valstr);
+                            }
+                            newRow[1] = val;
+                            dt.Rows.Add(newRow);
                         }
+                        count++;
+                        if (count == numRecords) finished = true;
+                        for (int j = 1; j < skipNum; j++) next.ReadLine();
                     }
-
-                    Console.WriteLine(string.Format("Reading {0}: {1} ms",
-                    string.Format("{0}-{1}-{2}-{3}-{4}-{5}",
-                        scenarioName,source,id,var.Trim(),requestedStartYear, requestedFinishYear), 
-                    DateTime.Now.Subtract(readStartTime).TotalMilliseconds));
-
-                    //output data
-                    //for(int i=0;i<numRecords;i++)
-                    //    Console.WriteLine(string.Format("{0},{1}",data[i,0],data[i,1])); 
                 }
-                return dt;
+
+                _extractTime = DateTime.Now.Subtract(readStartTime).TotalMilliseconds;
+                //Console.WriteLine(string.Format("Reading {0}: {1} ms",
+                //string.Format("{0}-{1}-{2}-{3}-{4}-{5}",
+                //    scenarioName,source,id,var.Trim(),requestedStartYear, requestedFinishYear), 
+                //DateTime.Now.Subtract(readStartTime).TotalMilliseconds));
+
+                //output data
+                //for(int i=0;i<numRecords;i++)
+                //    Console.WriteLine(string.Format("{0},{1}",data[i,0],data[i,1])); 
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
+            return dt;
         }
+
+        private double _extractTime = 0.0;
+
+        public double ExtractTime { get { return _extractTime; } }
 
         #endregion
     }
