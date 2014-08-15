@@ -128,16 +128,18 @@ namespace SWATPerformanceTest
             SQLiteTest test = new SQLiteTest(@"C:\zhiqiang\ModelTestWithSWATSQLite\LaSalle\LaSalle2012\Scenarios", "default");
 
             //reach FLOW_OUTcms
-            Dictionary<string, double> reachResults = test.Compare(SourceType.REACH, "FLOW_OUTcms");
-            //Dictionary<string, double> hruResults = test.Compare(SourceType.HRU, "ETmm");
+            //Dictionary<string, double> reachResults = test.Compare(SourceType.REACH, "FLOW_OUTcms");
+            Dictionary<string, double> hruResults = test.Compare(SourceType.HRU, "ETmm");
 
-            
+            Console.WriteLine("Press any key to show results");
+            Console.ReadLine();
+
             Console.WriteLine("********************Results********************");
             string format = "{0}: R2 = {1:F4}";
-            foreach (string label in reachResults.Keys)
-                Console.WriteLine(string.Format(format,label,reachResults[label]));
-            //foreach (string label in hruResults.Keys)
-            //    Console.WriteLine(string.Format(format, label, hruResults[label]));
+            //foreach (string label in reachResults.Keys)
+            //    Console.WriteLine(string.Format(format, label, reachResults[label]));
+            foreach (string label in hruResults.Keys)
+                Console.WriteLine(string.Format(format, label, hruResults[label]));
         }
     }
 }

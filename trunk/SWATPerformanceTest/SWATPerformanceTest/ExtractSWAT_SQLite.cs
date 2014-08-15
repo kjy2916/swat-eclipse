@@ -177,29 +177,6 @@ namespace SWATPerformanceTest
             }
         }
 
-        //public static void ExtractAll()
-        //{
-        //    //Build the connection string;
-        //    SQLiteConnectionStringBuilder s = new SQLiteConnectionStringBuilder();
-        //    s.DataSource = @"C:\zhiqiang\ModelTestWithSWATSQLite\LaSalle\LaSalle2012\Scenarios\Default\txtinout\result_627.db3";
-        //    s.Version = 3;
-        //    s.FailIfMissing = false;
-
-        //    //Open the connection;
-        //    using (SQLiteConnection connection = new SQLiteConnection(s.ConnectionString))
-        //    {
-        //        Extract(connection, "select Flow_outcms from rch where rch=1");
-        //        Extract(connection,"select Flow_outcms from rch where rch=1");
-        //        Extract(connection,"select Flow_outcms from rch where rch=1 and yr = 1993");
-        //        Extract(connection, "select Flow_outcms from rch where rch=1 and yr = 2000");
-        //        Extract(connection, "select Flow_outcms from rch where rch=1 and yr = 2007");
-        //        Extract(connection, "select ETmm from hru where hru=1");
-        //        Extract(connection, "select ETmm from hru where hru=1 and yr = 1993");
-        //        Extract(connection, "select ETmm from hru where hru=1 and yr = 2000");
-        //        Extract(connection, "select ETmm from hru where hru=1 and yr = 2007");
-        //    }
-        //}
-
         public static string COLUMN_NAME_YEAR = "YR";
         public static string COLUMN_NAME_MONTH = "MO";
         public static string COLUMN_NAME_DAY = "DA";
@@ -247,6 +224,10 @@ namespace SWATPerformanceTest
             return Extract(year,year, source, id, var);
         }
 
+        private double _extractTime = 0.0;
+
+        public double ExtractTime { get { return _extractTime; } }
+
         public DataTable Extract(
             int requestStartYear, int requestFinishYear,
             SourceType source, int id, string var)
@@ -265,12 +246,15 @@ namespace SWATPerformanceTest
             if (requestStartYear < StartYear) requestStartYear = StartYear;
             if (requestFinishYear > EndYear) requestFinishYear = EndYear;
             string yearCondition = "";
-            if (requestStartYear == requestFinishYear)
-                yearCondition = string.Format("YR = {0}",requestStartYear);
-            else
-                yearCondition = string.Format("YR >= {0} AND YR <= {1}", requestStartYear, requestFinishYear);
+            if (requestStartYear != StartYear || requestFinishYear != EndYear)
+            {
+                if (requestStartYear == requestFinishYear)
+                    yearCondition = string.Format(" AND YR = {0}", requestStartYear);
+                else
+                    yearCondition = string.Format(" AND YR >= {0} AND YR <= {1}", requestStartYear, requestFinishYear);
+            }            
 
-            string query = string.Format("select {0} from {1} where {2} and {3}", 
+            string query = string.Format("select {0} from {1} where {2} {3}", 
                 cols,table,idCondition,yearCondition);
 
             //start time
@@ -279,7 +263,7 @@ namespace SWATPerformanceTest
             DataTable dt = Extract(query);
             
             //output time
-            Console.WriteLine(string.Format("{0}: {1} ms", query, DateTime.Now.Subtract(startTime).TotalMilliseconds));
+            _extractTime = DateTime.Now.Subtract(startTime).TotalMilliseconds;
 
             //add datetime column and calculate the date
             dt.TableName = "SQLite";

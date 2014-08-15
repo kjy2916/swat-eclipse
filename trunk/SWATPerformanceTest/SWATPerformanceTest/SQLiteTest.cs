@@ -47,6 +47,9 @@ namespace SWATPerformanceTest
             DataTable dtSQLite = _extractSQLite.Extract(startYear, endYear, source, id, var);
             DataTable dtText = _extractText.Extract(startYear, endYear, source, id, var);
 
+            Console.WriteLine(string.Format("Extract time for {0}-{1}-{2}-{3}-{4}: SQLite = {5:F4} ms, Text = {6:F4} ms",
+                startYear, endYear, source, id, var, _extractSQLite.ExtractTime,_extractText.ExtractTime));
+
             //the join table structure
             DataTable dt = new DataTable();
             dt.Columns.Add("TIME", typeof(DateTime));
