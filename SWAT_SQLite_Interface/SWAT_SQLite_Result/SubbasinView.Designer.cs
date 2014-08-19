@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -38,6 +38,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.resultColumnTree1 = new SWAT_SQLite_Result.ResultColumnTree();
+            this.swatFileList1 = new SWAT_SQLite_Result.SWATFileList();
             this.idList1 = new SWAT_SQLite_Result.IDList();
             this.compareCtrl1 = new SWAT_SQLite_Result.CompareCtrl();
             this.hruList1 = new SWAT_SQLite_Result.HRUList();
@@ -46,7 +47,6 @@
             this.subbasinMap1 = new SWAT_SQLite_Result.SubbasinMap();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
             this.outputDisplayChart1 = new SWAT_SQLite_Result.OutputDisplayChart();
-            this.swatFileList1 = new SWAT_SQLite_Result.SWATFileList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -174,10 +174,17 @@
             this.resultColumnTree1.Size = new System.Drawing.Size(205, 874);
             this.resultColumnTree1.TabIndex = 0;
             // 
+            // swatFileList1
+            // 
+            this.swatFileList1.Location = new System.Drawing.Point(746, 5);
+            this.swatFileList1.Name = "swatFileList1";
+            this.swatFileList1.Size = new System.Drawing.Size(122, 65);
+            this.swatFileList1.TabIndex = 14;
+            // 
             // idList1
             // 
             this.idList1.ID = -1;
-            this.idList1.Location = new System.Drawing.Point(648, 5);
+            this.idList1.Location = new System.Drawing.Point(671, 5);
             this.idList1.Name = "idList1";
             this.idList1.Size = new System.Drawing.Size(69, 65);
             this.idList1.TabIndex = 13;
@@ -192,14 +199,14 @@
             // 
             // hruList1
             // 
-            this.hruList1.Location = new System.Drawing.Point(851, 5);
+            this.hruList1.Location = new System.Drawing.Point(874, 5);
             this.hruList1.Name = "hruList1";
             this.hruList1.Size = new System.Drawing.Size(155, 65);
             this.hruList1.TabIndex = 11;
             // 
             // seasonCtrl1
             // 
-            this.seasonCtrl1.Location = new System.Drawing.Point(464, 4);
+            this.seasonCtrl1.Location = new System.Drawing.Point(487, 5);
             this.seasonCtrl1.Name = "seasonCtrl1";
             this.seasonCtrl1.Size = new System.Drawing.Size(178, 65);
             this.seasonCtrl1.TabIndex = 9;
@@ -208,7 +215,7 @@
             // 
             this.yearCtrl1.Location = new System.Drawing.Point(274, 5);
             this.yearCtrl1.Name = "yearCtrl1";
-            this.yearCtrl1.Size = new System.Drawing.Size(184, 65);
+            this.yearCtrl1.Size = new System.Drawing.Size(207, 65);
             this.yearCtrl1.TabIndex = 10;
             // 
             // subbasinMap1
@@ -248,28 +255,21 @@
             // 
             // outputDisplayChart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.outputDisplayChart1.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.outputDisplayChart1.ChartAreas.Add(chartArea2);
             this.outputDisplayChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.outputDisplayChart1.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.outputDisplayChart1.Legends.Add(legend2);
             this.outputDisplayChart1.Location = new System.Drawing.Point(0, 0);
             this.outputDisplayChart1.Name = "outputDisplayChart1";
             this.outputDisplayChart1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.outputDisplayChart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.outputDisplayChart1.Series.Add(series2);
             this.outputDisplayChart1.Size = new System.Drawing.Size(1058, 165);
             this.outputDisplayChart1.TabIndex = 0;
             this.outputDisplayChart1.Text = "outputDisplayChart1";
-            // 
-            // swatFileList1
-            // 
-            this.swatFileList1.Location = new System.Drawing.Point(723, 5);
-            this.swatFileList1.Name = "swatFileList1";
-            this.swatFileList1.Size = new System.Drawing.Size(122, 65);
-            this.swatFileList1.TabIndex = 14;
             // 
             // SubbasinView
             // 

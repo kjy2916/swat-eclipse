@@ -25,9 +25,44 @@ namespace SWAT_SQLite_Result
                 if (onYearChanged != null) onYearChanged(this, new EventArgs());
             };
 
-            rdbEachYear.CheckedChanged += (ss, e) => { tbYear.Enabled = DisplayByYear; if (onYearChanged != null) onYearChanged(this, new EventArgs()); };
-            rdbAllYears.CheckedChanged += (ss, e) => { tbYear.Enabled = DisplayByYear; if (onYearChanged != null) onYearChanged(this, new EventArgs()); };
-           
+            rdbEachYear.CheckedChanged += (ss, e) => { tbYear.Enabled = DisplayByYear; bPlay.Enabled = tbYear.Enabled; if (onYearChanged != null) onYearChanged(this, new EventArgs()); };
+            rdbAllYears.CheckedChanged += (ss, e) => { tbYear.Enabled = DisplayByYear; bPlay.Enabled = tbYear.Enabled; if (onYearChanged != null) onYearChanged(this, new EventArgs()); };
+
+            timer1.Tick += (ss, e) =>
+            {
+                if (tbYear.Value < tbYear.Maximum)
+                {
+                    tbYear.Value += 1;
+                    if (onYearChanged != null) onYearChanged(this, new EventArgs());
+
+                    if (tbYear.Value == tbYear.Maximum)
+                    {
+                        bPlay.Text = "Start";
+                        timer1.Stop();
+                    }
+                }
+            };
+
+            bPlay.Click += (ss, e) =>
+                {
+                    if (bPlay.Text.ToLower().Equals("start"))
+                    {
+                        if (tbYear.Value == tbYear.Maximum)
+                        {
+                            tbYear.Value = tbYear.Minimum;
+                            if (onYearChanged != null) onYearChanged(this, new EventArgs());
+                        }
+
+                        bPlay.Text = "Stop";
+                        timer1.Start();
+                    }
+                    else
+                    {
+                        bPlay.Text = "Start";
+                        timer1.Stop();
+                    }                  
+
+                };
         }
 
         public ArcSWAT.ScenarioResult Scenario
