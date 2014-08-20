@@ -34,7 +34,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             string filter = "";
             if (_year > 0) //specific year
             {
-                 filter += string.Format("{0} >= '{1}-01-01' and {0} <= '{1}-12-31'", ObservationData.OBSERVATION_COLUMN_DATE, _year);
+                 filter += string.Format("{0} >= '{1}-01-01' and {0} <= '{2}-12-31'", ObservationData.OBSERVATION_COLUMN_DATE, _year,_year+1); //read two years of data to consider hydrological year
             }
             else //all years in between start and end year
             {

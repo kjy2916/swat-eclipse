@@ -9,6 +9,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
     {
         WholeYear,
         SnowMelt,
-        GrowingSeason
+        GrowingSeason,
+        HydrologicalYear
     }
 }

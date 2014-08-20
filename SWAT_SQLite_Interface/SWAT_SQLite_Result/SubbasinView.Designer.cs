@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -176,7 +176,7 @@
             // 
             // swatFileList1
             // 
-            this.swatFileList1.Location = new System.Drawing.Point(746, 5);
+            this.swatFileList1.Location = new System.Drawing.Point(774, 5);
             this.swatFileList1.Name = "swatFileList1";
             this.swatFileList1.Size = new System.Drawing.Size(122, 65);
             this.swatFileList1.TabIndex = 14;
@@ -184,7 +184,7 @@
             // idList1
             // 
             this.idList1.ID = -1;
-            this.idList1.Location = new System.Drawing.Point(671, 5);
+            this.idList1.Location = new System.Drawing.Point(699, 5);
             this.idList1.Name = "idList1";
             this.idList1.Size = new System.Drawing.Size(69, 65);
             this.idList1.TabIndex = 13;
@@ -199,7 +199,7 @@
             // 
             // hruList1
             // 
-            this.hruList1.Location = new System.Drawing.Point(874, 5);
+            this.hruList1.Location = new System.Drawing.Point(902, 5);
             this.hruList1.Name = "hruList1";
             this.hruList1.Size = new System.Drawing.Size(155, 65);
             this.hruList1.TabIndex = 11;
@@ -208,7 +208,7 @@
             // 
             this.seasonCtrl1.Location = new System.Drawing.Point(487, 5);
             this.seasonCtrl1.Name = "seasonCtrl1";
-            this.seasonCtrl1.Size = new System.Drawing.Size(178, 65);
+            this.seasonCtrl1.Size = new System.Drawing.Size(207, 65);
             this.seasonCtrl1.TabIndex = 9;
             // 
             // yearCtrl1
@@ -255,18 +255,18 @@
             // 
             // outputDisplayChart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.outputDisplayChart1.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.outputDisplayChart1.ChartAreas.Add(chartArea1);
             this.outputDisplayChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.outputDisplayChart1.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.outputDisplayChart1.Legends.Add(legend1);
             this.outputDisplayChart1.Location = new System.Drawing.Point(0, 0);
             this.outputDisplayChart1.Name = "outputDisplayChart1";
             this.outputDisplayChart1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.outputDisplayChart1.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.outputDisplayChart1.Series.Add(series1);
             this.outputDisplayChart1.Size = new System.Drawing.Size(1058, 165);
             this.outputDisplayChart1.TabIndex = 0;
             this.outputDisplayChart1.Text = "outputDisplayChart1";

@@ -31,24 +31,23 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private Dictionary<SeasonType, Statistics> _seasonStat = new Dictionary<SeasonType, Statistics>();
         public Statistics SeasonStatistics(SeasonType season)
         {
-            if (season == SeasonType.WholeYear) return Statistics;
-
             if (!_seasonStat.ContainsKey(season))
                 _seasonStat.Add(season, new Statistics(SeasonTable(season), _col));
             return _seasonStat[season];
         }
-        
+
 
         /// <summary>
         /// The data table for given column and year
         /// </summary>
-        public override DataTable Table 
-        { 
-            get 
-            { 
+        /// <remarks>Please note there are two years of data here for most of the years except for the last year.</remarks>
+        public override DataTable Table
+        {
+            get
+            {
                 read();
-                return _table; 
-            } 
+                return _table;
+            }
         }
 
         public override DateTime FirstDay

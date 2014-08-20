@@ -135,8 +135,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private Dictionary<SeasonType, DataTable> _seasonTableForStatistics = new Dictionary<SeasonType, DataTable>();
         public DataTable SeasonTableForStatistics(SeasonType season)
         {
-            if (season == SeasonType.WholeYear) return TableForStatistics;
-
             if (!_seasonTableForStatistics.ContainsKey(season))
             {
                 DataView view = new DataView(TableForStatistics);
@@ -217,8 +215,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private Dictionary<SeasonType, StatisticCompare> _seasonStat = new Dictionary<SeasonType, StatisticCompare>();
         public StatisticCompare SeasonStatistics(SeasonType season)
         {
-            if (season == SeasonType.WholeYear) return Statistics;
-
             if (!_seasonStat.ContainsKey(season))
                 _seasonStat.Add(season, new StatisticCompare(this,season));
             return _seasonStat[season];
