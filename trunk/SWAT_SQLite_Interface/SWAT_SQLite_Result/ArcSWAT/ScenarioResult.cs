@@ -341,8 +341,8 @@ namespace SWAT_SQLite_Result.ArcSWAT
                                 double after = ScenarioResultStructure.EMPTY_VALUE;
                                 oneResult.CompareWithObserved.Statistics.NSE(splitYear, out before, out after);
 
-                                r[4] = Math.Round(before, 4); ;
-                                r[5] = Math.Round(after, 4); ;
+                                r[4] = Math.Round(before, 4);
+                                r[5] = Math.Round(after, 4);
                             }
                             dt.Rows.Add(r);     
                         }

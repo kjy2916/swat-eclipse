@@ -102,7 +102,7 @@ namespace SWAT_SQLite_Result
         /// <summary>
         /// Observed data
         /// </summary>
-        public ArcSWAT.SWATUnitColumnYearObservationData ObservedData { set { if (value == null) DataTable = null; else setDataColumn(value.Table, new StringCollection() { value.Column }); } }
+        public ArcSWAT.SWATUnitColumnYearObservationData ObservedData { set { if (value == null) DataTable = null; else setDataColumn(value.SeasonTable(Season), new StringCollection() { value.Column }); } }
 
         /// <summary>
         /// normal datatable

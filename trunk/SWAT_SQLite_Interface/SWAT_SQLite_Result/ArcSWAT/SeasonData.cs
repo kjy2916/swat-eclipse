@@ -47,6 +47,16 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 startMonth = 5;
                 endMonth = 10;
             }
+            else if (season == SeasonType.HydrologicalYear)
+            {
+                startMonth = 10;
+                endMonth = 9;
+            }
+            else if (season == SeasonType.WholeYear)
+            {
+                startMonth = 1;
+                endMonth = 12;
+            }
 
             if (startMonth == -1 && endMonth == -1) return "";
 
@@ -74,7 +84,6 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <returns></returns>
         public DataTable SeasonTable(SeasonType season)
         {
-            if (season == SeasonType.WholeYear) return Table;
             if (Table.Rows.Count == 0) return Table;
 
             if (!_seasonTables.ContainsKey(season))

@@ -114,7 +114,7 @@ namespace SWAT_SQLite_Result
             {
                 if (value == null) { clear(); return; }
                 StringCollection cols = new StringCollection() { value.Column };
-                DrawGraph(value.Table, ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
+                DrawGraph(value.SeasonTable(Season), ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
                     cols, ArcSWAT.SWATResultIntervalType.DAILY);
             }
         }

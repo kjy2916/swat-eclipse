@@ -21,6 +21,8 @@ namespace SWAT_SQLite_Result
             rdbWholeYear.CheckedChanged += (ss,ee) =>{if(onSeasonTypeChanged != null) onSeasonTypeChanged(this,new EventArgs());};
             rdbSnowMelt.CheckedChanged += (ss,ee) =>{if(onSeasonTypeChanged != null) onSeasonTypeChanged(this,new EventArgs());};
             rdbGrowingSeason.CheckedChanged += (ss, ee) => { if (onSeasonTypeChanged != null) onSeasonTypeChanged(this, new EventArgs()); };
+            rdbHydrologicalYear.CheckedChanged += (ss, ee) => { if (onSeasonTypeChanged != null) onSeasonTypeChanged(this, new EventArgs()); };
+
         }
 
         public ArcSWAT.SeasonType Season
@@ -29,6 +31,7 @@ namespace SWAT_SQLite_Result
             {
                 if (rdbSnowMelt.Checked) return ArcSWAT.SeasonType.SnowMelt;
                 if (rdbGrowingSeason.Checked) return ArcSWAT.SeasonType.GrowingSeason;
+                if (rdbHydrologicalYear.Checked) return ArcSWAT.SeasonType.HydrologicalYear;
                 return ArcSWAT.SeasonType.WholeYear;
             }
         }

@@ -37,6 +37,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.subbasinMap1 = new SWAT_SQLite_Result.SubbasinMap();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
             this.cmbObservedColumns = new System.Windows.Forms.ComboBox();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
             this.bDeleteObservationData = new System.Windows.Forms.Button();
@@ -44,7 +45,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.outputDisplayChart1 = new SWAT_SQLite_Result.OutputDisplayChart();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -72,7 +72,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer1.Size = new System.Drawing.Size(860, 533);
-            this.splitContainer1.SplitterDistance = 650;
+            this.splitContainer1.SplitterDistance = 637;
             this.splitContainer1.TabIndex = 0;
             // 
             // subbasinMap1
@@ -84,6 +84,7 @@
             this.subbasinMap1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subbasinMap1.ExtendBuffer = false;
             this.subbasinMap1.FunctionMode = DotSpatial.Controls.FunctionMode.None;
+            this.subbasinMap1.ID = -1;
             this.subbasinMap1.IsBusy = false;
             this.subbasinMap1.IsZoomedToMaxExtent = false;
             this.subbasinMap1.Legend = null;
@@ -94,7 +95,7 @@
             this.subbasinMap1.ProjectionModeReproject = DotSpatial.Controls.ActionMode.Prompt;
             this.subbasinMap1.RedrawLayersWhileResizing = false;
             this.subbasinMap1.SelectionEnabled = true;
-            this.subbasinMap1.Size = new System.Drawing.Size(650, 533);
+            this.subbasinMap1.Size = new System.Drawing.Size(637, 533);
             this.subbasinMap1.TabIndex = 0;
             // 
             // groupBox1
@@ -107,10 +108,17 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(206, 533);
+            this.groupBox1.Size = new System.Drawing.Size(219, 533);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Observation";
+            // 
+            // yearCtrl1
+            // 
+            this.yearCtrl1.Location = new System.Drawing.Point(7, 76);
+            this.yearCtrl1.Name = "yearCtrl1";
+            this.yearCtrl1.Size = new System.Drawing.Size(207, 65);
+            this.yearCtrl1.TabIndex = 3;
             // 
             // cmbObservedColumns
             // 
@@ -120,7 +128,7 @@
             this.cmbObservedColumns.FormattingEnabled = true;
             this.cmbObservedColumns.Location = new System.Drawing.Point(7, 20);
             this.cmbObservedColumns.Name = "cmbObservedColumns";
-            this.cmbObservedColumns.Size = new System.Drawing.Size(193, 21);
+            this.cmbObservedColumns.Size = new System.Drawing.Size(206, 21);
             this.cmbObservedColumns.TabIndex = 2;
             // 
             // tableView1
@@ -158,7 +166,7 @@
             this.tableView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.tableView1.RowHeadersVisible = false;
             this.tableView1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
-            this.tableView1.Size = new System.Drawing.Size(193, 380);
+            this.tableView1.Size = new System.Drawing.Size(206, 380);
             this.tableView1.TabIndex = 1;
             // 
             // bDeleteObservationData
@@ -221,13 +229,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Observed files|*.csv";
-            // 
-            // yearCtrl1
-            // 
-            this.yearCtrl1.Location = new System.Drawing.Point(7, 76);
-            this.yearCtrl1.Name = "yearCtrl1";
-            this.yearCtrl1.Size = new System.Drawing.Size(184, 65);
-            this.yearCtrl1.TabIndex = 3;
             // 
             // ProjectView
             // 
