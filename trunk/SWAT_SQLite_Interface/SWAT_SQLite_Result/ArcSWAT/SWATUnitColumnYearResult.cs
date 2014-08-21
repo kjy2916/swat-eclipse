@@ -142,7 +142,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             //get year condition
             string yearCondition = "";
             if (year >= _result.Unit.Scenario.StartYear && year <= _result.Unit.Scenario.EndYear)
-                yearCondition = string.Format("({0}={1} or {0}={2})", ScenarioResultStructure.COLUMN_NAME_YEAR, year,year+1); //read two years of data to consider hydrological year
+                yearCondition = string.Format("({0}={1} or {0}={2})", ScenarioResultStructure.COLUMN_NAME_YEAR, year-1,year); //read two years of data to consider hydrological year
 
             //get id condition
             string idCondition = "";
