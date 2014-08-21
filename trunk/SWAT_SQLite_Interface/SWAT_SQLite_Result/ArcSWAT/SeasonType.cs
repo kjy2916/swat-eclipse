@@ -7,9 +7,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
 {
     public enum SeasonType
     {
-        WholeYear,
-        SnowMelt,
-        GrowingSeason,
-        HydrologicalYear
+        WholeYear = 1,
+        SnowMelt = 2,
+        GrowingSeason = 3,
+        HydrologicalYear = 4
     }
 }
