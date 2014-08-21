@@ -162,7 +162,7 @@
             // 
             // compareCtrl1
             // 
-            this.compareCtrl1.HasObervedData = false;
+            //this.compareCtrl1.HasObervedData = false;
             this.compareCtrl1.Location = new System.Drawing.Point(3, 3);
             this.compareCtrl1.Name = "compareCtrl1";
             this.compareCtrl1.Size = new System.Drawing.Size(270, 65);

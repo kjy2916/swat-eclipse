@@ -93,7 +93,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1500;
+            this.timer1.Interval = 2000;
             // 
             // YearCtrl
             // 
