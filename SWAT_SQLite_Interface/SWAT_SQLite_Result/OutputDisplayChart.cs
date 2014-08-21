@@ -94,7 +94,6 @@ namespace SWAT_SQLite_Result
                 DrawGraph(value.SeasonTable(Season), ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
                     value.ChartColumns, value.Interval);
             }
-
         }
 
         public ArcSWAT.SWATUnitColumnYearResult Result
@@ -102,9 +101,14 @@ namespace SWAT_SQLite_Result
             set
             {
                 if (value == null) { clear(); return; }
-                StringCollection cols = new StringCollection() { value.Column };
-                DrawGraph(value.SeasonTable(Season), ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
-                    cols, value.UnitResult.Interval);
+                if (value.ObservedData == null)
+                {
+                    StringCollection cols = new StringCollection() { value.Column };
+                    DrawGraph(value.SeasonTable(Season), ArcSWAT.SWATUnitResult.COLUMN_NAME_DATE,
+                        cols, value.UnitResult.Interval);
+                }
+                else
+                    this.CompareResult = value.CompareWithObserved;
             }
         }
 
@@ -204,8 +208,10 @@ namespace SWAT_SQLite_Result
 
                 if (index == 0)
                     line.Color = System.Drawing.Color.Red;
-                else
+                else if (yColName.ToLower().Contains("observed")) //the observed data is always green
                     line.Color = System.Drawing.Color.Green;
+                else
+                    line.Color = System.Drawing.Color.Blue;
 
                 index++;
             }
