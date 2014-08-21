@@ -85,16 +85,22 @@ namespace SWAT_SQLite_Result
                     DataTable = null;
                 else
                 {
-                    StringCollection cols = new StringCollection();
-                    cols.Add(value.Column);
-                    if (value.HasLanduseColumn)
-                        cols.Add(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_LANDUSE);
-                    if (value.HasMgtOperationColumn)
+                    if (value.ObservedData == null)
                     {
-                        cols.Add(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_MGT_OPERATION);
-                        cols.Add(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_MGT_LANDUSE);
+                        StringCollection cols = new StringCollection();
+                        cols.Add(value.Column);
+                        if (value.HasLanduseColumn)
+                            cols.Add(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_LANDUSE);
+                        if (value.HasMgtOperationColumn)
+                        {
+                            cols.Add(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_MGT_OPERATION);
+                            cols.Add(ArcSWAT.ScenarioResultStructure.COLUMN_NAME_HRU_MGT_LANDUSE);
+                        }
+                        setDataColumn(value.SeasonTable(Season), cols);
                     }
-                    setDataColumn(value.SeasonTable(Season),cols); 
+                    else
+                        CompareResult = value.CompareWithObserved;
+
                 }                    
             } 
         }

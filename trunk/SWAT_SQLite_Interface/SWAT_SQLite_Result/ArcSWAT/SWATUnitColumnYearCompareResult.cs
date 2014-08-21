@@ -62,6 +62,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
             //_tableColumns.Add("ABSOLUTE");
             //_tableColumns.Add("RELATIVE");
 
+            if (_result1.ObservedData != null)
+            {
+                _chartColumns.Add(_result1.ObservedData.ColumnCompare);
+                _tableColumns.Add(_result1.ObservedData.ColumnCompare);
+            }
+
             _statistic = new StatisticCompare(this,SeasonType.WholeYear);
         }
 
@@ -77,6 +83,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
             _result1 = result;
             _data2 = observed;
+
             _interval = _result1.UnitResult.Interval;
             _chartColumns.Add(_result1.ColumnCompare);
             _chartColumns.Add(_data2.ColumnCompare);
@@ -110,6 +117,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public StringCollection ChartColumns { get { return _chartColumns; } }
         public StatisticCompare Statistics { get { return _statistic; } }
         public override int Year { get { return _result1.Year; } }
+        public ColumnYearData ComparedData { get { return _data2; } }
 
         /// <summary>
         /// Data table only used to calculate NSE when compared with observed data. The missing data is not accounted in the calculation. 
@@ -165,50 +173,51 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     System.Diagnostics.Debug.WriteLine("{0:yyyy-MM-dd hh:mm:ss FFF} Start to generate compare table... ", DateTime.Now);
                     DataTable dt = _result1.Table.Copy();
                     dt.Columns[_result1.Column].ColumnName = _result1.ColumnCompare;
+                    
+                    copyData(Interval, dt, _data2);
+                    if (_result1.ObservedData != null && _data2 is SWATUnitColumnYearResult) //add observed data automatically for two scenario comparasion
+                        copyData(Interval, dt, _result1.ObservedData);
 
-                    //add new column for result2
-                    dt.Columns.Add(_data2.ColumnCompare, typeof(double));
-
-                    //copy data from result2 to the combine table
-                    int newColIndex = dt.Columns.Count - 1;                
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        if (_data2 is SWATUnitColumnYearResult)
-                        {
-                            ArcSWAT.RowItem item = new ArcSWAT.RowItem(_data2.Table.Rows[i]);
-                            dt.Rows[i][newColIndex] = item.getColumnValue_Double(_data2.Column);
-                        }
-                        else if (_data2 is SWATUnitColumnYearObservationData)
-                        {
-                            //see if the oberved data is missing
-                            DateTime d = DateTime.Parse(dt.Rows[i][SWATUnitResult.COLUMN_NAME_DATE].ToString());
-                            
-                            DataRow[] rs = null;
-                            if(_result1.UnitResult.Interval == SWATResultIntervalType.MONTHLY)
-                                //in phase I, the monthly data is using day 15 for each month, and I would use day 1 for each month, so here for monthly observed data, use both conditions
-                                rs = _data2.Table.Select(string.Format("{0}='{1:yyyy-MM-01}' or {0}='{1:yyyy-MM-15}'", SWATUnitResult.COLUMN_NAME_DATE, d));
-                            else if (_result1.UnitResult.Interval == SWATResultIntervalType.DAILY)
-                                rs = _data2.Table.Select(string.Format("{0}='{1:yyyy-MM-dd}'", SWATUnitResult.COLUMN_NAME_DATE, d));
-
-                            if (rs != null && rs.Length > 0)
-                                dt.Rows[i][newColIndex] = double.Parse(rs[0][_data2.Column].ToString());
-                            else
-                                dt.Rows[i][newColIndex] = ScenarioResultStructure.EMPTY_OBSERVED_VALUE; //missing observed data, shouldn't use 0 as for daily observed data they may be 0
-                                                                                                        //changed to -0.000001 to make the chart better
-                        }                        
-                    }
                     System.Diagnostics.Debug.WriteLine("{0:yyyy-MM-dd hh:mm:ss FFF} End to generate compare table... ", DateTime.Now);
-
-                    //add two column for absolute change and relative change
-                    //don't calculate relative change when first result is 0
-                    //dt.Columns.Add("ABSOLUTE", typeof(double)).Expression = 
-                    //    string.Format("{0} - {1}", _result1.ColumnCompare, _data2.ColumnCompare);
-                    //dt.Columns.Add("RELATIVE", typeof(double)).Expression =
-                    //    string.Format("IIF({0} = 0, 0.0,ABSOLUTE/{0})", _result1.ColumnCompare);
 
                     _combineCompareTable = dt;
                 }
                 return _combineCompareTable;
+            }
+        }
+
+        private static void copyData(SWATResultIntervalType interval, DataTable combineTable, ColumnYearData data)
+        {
+            //add new column for result2
+            combineTable.Columns.Add(data.ColumnCompare, typeof(double));
+
+            //copy data from result2 to the combine table
+            int newColIndex = combineTable.Columns.Count - 1;
+            for (int i = 0; i < combineTable.Rows.Count; i++)
+            {
+                if (data is SWATUnitColumnYearResult)
+                {
+                    ArcSWAT.RowItem item = new ArcSWAT.RowItem(data.Table.Rows[i]);
+                    combineTable.Rows[i][newColIndex] = item.getColumnValue_Double(data.Column);
+                }
+                else if (data is SWATUnitColumnYearObservationData)
+                {
+                    //see if the oberved data is missing
+                    DateTime d = DateTime.Parse(combineTable.Rows[i][SWATUnitResult.COLUMN_NAME_DATE].ToString());
+
+                    DataRow[] rs = null;
+                    if (interval == SWATResultIntervalType.MONTHLY)
+                        //in phase I, the monthly data is using day 15 for each month, and I would use day 1 for each month, so here for monthly observed data, use both conditions
+                        rs = data.Table.Select(string.Format("{0}='{1:yyyy-MM-01}' or {0}='{1:yyyy-MM-15}'", SWATUnitResult.COLUMN_NAME_DATE, d));
+                    else if (interval == SWATResultIntervalType.DAILY)
+                        rs = data.Table.Select(string.Format("{0}='{1:yyyy-MM-dd}'", SWATUnitResult.COLUMN_NAME_DATE, d));
+
+                    if (rs != null && rs.Length > 0)
+                        combineTable.Rows[i][newColIndex] = double.Parse(rs[0][data.Column].ToString());
+                    else
+                        combineTable.Rows[i][newColIndex] = ScenarioResultStructure.EMPTY_OBSERVED_VALUE; //missing observed data, shouldn't use 0 as for daily observed data they may be 0
+                    //changed to -0.000001 to make the chart better
+                }
             }
         }
 
