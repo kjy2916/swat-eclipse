@@ -171,8 +171,7 @@ namespace SWAT_SQLite_Result
             {
                 updateTableAndChart(); 
             };
-            compareCtrl1.onCompareStatisticSplitYearChanged+= (ss, ee) => {updateTableAndChart();};
-            
+           
 
             //update
             updateMap();
@@ -253,10 +252,10 @@ namespace SWAT_SQLite_Result
             ArcSWAT.SWATUnitColumnYearResult oneResult = result.getResult(_col, year);
 
             //set compare control
-            compareCtrl1.HasObervedData = (oneResult.ObservedData != null);
+            //compareCtrl1.HasObervedData = (oneResult.ObservedData != null);
 
             //do the update
-            if (compareCtrl1.CompareResult == null && !compareCtrl1.IsObservedDataSelected) //don't compare
+            if (compareCtrl1.CompareResult == null) //don't compare
             {              
                 if (oneResult.Table.Rows.Count == 0 && _type == ArcSWAT.SWATUnitType.HRU)
                     MessageBox.Show("No results for HRU " + _unit.ID.ToString() + ". For more results, please modify file.cio.");
@@ -264,6 +263,8 @@ namespace SWAT_SQLite_Result
                 this.tableView1.Result = oneResult;
                 this.outputDisplayChart1.Result = oneResult;
                 this._statistics = oneResult.SeasonStatistics(seasonCtrl1.Season).ToString();
+                if(oneResult.ObservedData != null)
+                    this._statistics += " || Compare to Observed: " + oneResult.CompareWithObserved.SeasonStatistics(seasonCtrl1.Season).ToString() + ")";
                 if (onDataStatisticsChanged != null)
                     onDataStatisticsChanged(this, new EventArgs());
             }
@@ -275,12 +276,32 @@ namespace SWAT_SQLite_Result
                     if (compareCtrl1.CompareResult != null)
                     {
                         compare = oneResult.Compare(compareCtrl1.CompareResult);
-                        this._statistics = compare.SeasonStatistics(seasonCtrl1.Season).ToString();
-                    }
+
+                        //compare to scenario
+                        this._statistics = string.Format("{0} vs {1}: {2}",
+                            result.Unit.Scenario.ModelType,
+                            compareCtrl1.CompareResult.ModelType,
+                            compare.SeasonStatistics(seasonCtrl1.Season));
+
+                        if (oneResult.ObservedData != null)
+                        {
+                            //compare to observed
+                            this._statistics += " || ";
+                            this._statistics += string.Format("{0} vs Observed: {1}",
+                                result.Unit.Scenario.ModelType,
+                                oneResult.CompareWithObserved.SeasonStatistics(seasonCtrl1.Season));
+
+                            ArcSWAT.SWATUnitColumnYearResult comparedData = compare.ComparedData as ArcSWAT.SWATUnitColumnYearResult;
+                            this._statistics += " || ";
+                            this._statistics += string.Format("{0} vs Observed: {1}",
+                                compareCtrl1.CompareResult.ModelType,
+                                comparedData.CompareWithObserved.SeasonStatistics(seasonCtrl1.Season));
+                        }
+                     }
                     else
                     {
                         compare = oneResult.CompareWithObserved;
-                        this._statistics = compare.SeasonStatistics(seasonCtrl1.Season).ToString(compareCtrl1.SplitYearForStatistics);
+                        this._statistics = compare.SeasonStatistics(seasonCtrl1.Season).ToString();
                     }
                     this.tableView1.CompareResult = compare;
                     this.outputDisplayChart1.CompareResult = compare;                    
