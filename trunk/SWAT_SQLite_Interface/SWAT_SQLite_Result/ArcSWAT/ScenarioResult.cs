@@ -302,10 +302,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
         #endregion        
 
         #region Performance Table
-
+       
         private Dictionary<int, DataTable> _performanceTables = new Dictionary<int, DataTable>();
-
-        public DataTable getPerformanceTalbe(int splitYear)
+        
+        public DataTable getPerformanceTable(int splitYear)
         {
             if (!_performanceTables.ContainsKey(splitYear))
             {
