@@ -26,7 +26,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             DateTime startDate = new DateTime(year, startMonth, 1);
             DateTime endDate = new DateTime(year, endMonth, DateTime.DaysInMonth(year, endMonth));
             if (startMonth > endMonth)
-                endDate = endDate.AddYears(1);
+                startDate = startDate.AddYears(-1);
 
             return string.Format(SEASON_SQL_FORMAT,
                 SWATUnitResult.COLUMN_NAME_DATE,
@@ -67,10 +67,13 @@ namespace SWAT_SQLite_Result.ArcSWAT
             else
             {
                 //get first year and end year
-                for (int i = FirstDay.Year; i <= LastDay.Year; i++)
+                if (season != SeasonType.WholeYear && season != SeasonType.HydrologicalYear)
                 {
-                    if (sql.Length > 0) sql += " or ";
-                    sql += "(" + getSeasonSQL(i, startMonth, endMonth) + ")";
+                    for (int i = FirstDay.Year; i <= LastDay.Year; i++)
+                    {
+                        if (sql.Length > 0) sql += " or ";
+                        sql += "(" + getSeasonSQL(i, startMonth, endMonth) + ")";
+                    }
                 }
             }
             System.Diagnostics.Debug.WriteLine(sql);
