@@ -135,5 +135,46 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
 
         public SWATUnit Unit { get { return _unit; } }
+
+        #region Performace Table
+
+        private Dictionary<string, DataTable> _performanceTableYearly = new Dictionary<string, DataTable>();
+
+        /// <summary>
+        /// get the performace table for given column
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        public DataTable getYearlyPerformanceTable(string col)
+        {
+            if (!_performanceTableYearly.ContainsKey(col))
+            {
+                //create the table
+                DataTable dt = new DataTable("performance_" + col);
+                dt.Columns.Add("Year", typeof(Int32));
+                for (int j = (int)(SeasonType.WholeYear); j <= (int)(SeasonType.HydrologicalYear); j++)
+                    dt.Columns.Add(((SeasonType)j).ToString(), typeof(double));
+
+                for (int i = this.Unit.Scenario.StartYear; i <= this.Unit.Scenario.EndYear; i++)
+                {
+                    ArcSWAT.SWATUnitColumnYearResult r = getResult(col, i);
+                    if (r != null)
+                    {
+                        DataRow newRow = dt.NewRow();
+                        newRow[0] = i;
+
+                        for(int j=(int)(SeasonType.WholeYear);j<=(int)(SeasonType.HydrologicalYear);j++)
+                            newRow[j] = Math.Round(r.CompareWithObserved.SeasonStatistics((SeasonType)j).NSE(""),4);
+                        dt.Rows.Add(newRow);
+                    }
+                }
+                _performanceTableYearly[col] = dt;                
+            }
+            return _performanceTableYearly[col];
+        }
+
+        
+
+        #endregion
     }
 }
