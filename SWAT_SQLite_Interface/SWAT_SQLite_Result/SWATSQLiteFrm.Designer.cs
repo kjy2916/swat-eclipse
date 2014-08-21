@@ -30,7 +30,11 @@
         {
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblMapTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblSelectionInformation = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblStatistics = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.projectTree1 = new SWAT_SQLite_Result.ProjectTree();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.bOpen = new System.Windows.Forms.ToolStripButton();
             this.cmbProjects = new System.Windows.Forms.ToolStripComboBox();
@@ -41,10 +45,6 @@
             this.bZoomExtent = new System.Windows.Forms.ToolStripButton();
             this.bSelect = new System.Windows.Forms.ToolStripButton();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.lblSelectionInformation = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblMapTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblStatistics = new System.Windows.Forms.ToolStripStatusLabel();
-            this.projectTree1 = new SWAT_SQLite_Result.ProjectTree();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -90,6 +90,37 @@
             this.statusStrip1.Size = new System.Drawing.Size(1043, 24);
             this.statusStrip1.TabIndex = 0;
             // 
+            // lblMapTime
+            // 
+            this.lblMapTime.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lblMapTime.Name = "lblMapTime";
+            this.lblMapTime.Size = new System.Drawing.Size(109, 19);
+            this.lblMapTime.Text = "Map Display Time:";
+            this.lblMapTime.ToolTipText = "Map Display Time";
+            // 
+            // lblSelectionInformation
+            // 
+            this.lblSelectionInformation.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lblSelectionInformation.Name = "lblSelectionInformation";
+            this.lblSelectionInformation.Size = new System.Drawing.Size(78, 19);
+            this.lblSelectionInformation.Text = "No Selection";
+            this.lblSelectionInformation.ToolTipText = "Selection Information";
+            // 
+            // lblStatistics
+            // 
+            this.lblStatistics.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
+                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lblStatistics.Name = "lblStatistics";
+            this.lblStatistics.Size = new System.Drawing.Size(841, 19);
+            this.lblStatistics.Spring = true;
+            this.lblStatistics.Text = "No Statistics Data Available";
+            this.lblStatistics.ToolTipText = "Statistic Information";
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -102,6 +133,15 @@
             this.splitContainer1.Size = new System.Drawing.Size(1043, 679);
             this.splitContainer1.SplitterDistance = 150;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // projectTree1
+            // 
+            this.projectTree1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.projectTree1.Location = new System.Drawing.Point(0, 0);
+            this.projectTree1.Name = "projectTree1";
+            this.projectTree1.Project = null;
+            this.projectTree1.Size = new System.Drawing.Size(150, 679);
+            this.projectTree1.TabIndex = 0;
             // 
             // toolStrip1
             // 
@@ -118,7 +158,7 @@
             this.bSelect});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(636, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(667, 39);
             this.toolStrip1.TabIndex = 0;
             // 
             // bOpen
@@ -200,46 +240,6 @@
             // folderBrowserDialog1
             // 
             this.folderBrowserDialog1.Description = "Please Locate the ArcSWAT Project Folder";
-            // 
-            // lblSelectionInformation
-            // 
-            this.lblSelectionInformation.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lblSelectionInformation.Name = "lblSelectionInformation";
-            this.lblSelectionInformation.Size = new System.Drawing.Size(78, 19);
-            this.lblSelectionInformation.Text = "No Selection";
-            this.lblSelectionInformation.ToolTipText = "Selection Information";
-            // 
-            // lblMapTime
-            // 
-            this.lblMapTime.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lblMapTime.Name = "lblMapTime";
-            this.lblMapTime.Size = new System.Drawing.Size(109, 19);
-            this.lblMapTime.Text = "Map Display Time:";
-            this.lblMapTime.ToolTipText = "Map Display Time";
-            // 
-            // lblStatistics
-            // 
-            this.lblStatistics.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lblStatistics.Name = "lblStatistics";
-            this.lblStatistics.Size = new System.Drawing.Size(810, 19);
-            this.lblStatistics.Spring = true;
-            this.lblStatistics.Text = "No Statistics Data Available";
-            this.lblStatistics.ToolTipText = "Statistic Information";
-            // 
-            // projectTree1
-            // 
-            this.projectTree1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.projectTree1.Location = new System.Drawing.Point(0, 0);
-            this.projectTree1.Name = "projectTree1";
-            this.projectTree1.Project = null;
-            this.projectTree1.Size = new System.Drawing.Size(150, 679);
-            this.projectTree1.TabIndex = 0;
             // 
             // SWATSQLiteFrm
             // 

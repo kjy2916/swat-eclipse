@@ -20,6 +20,8 @@ namespace SWAT_SQLite_Result
         private ArcSWAT.SWATModelType _modelType = ArcSWAT.SWATModelType.UNKNOWN;
         private ArcSWAT.SWATUnitType _unitType = ArcSWAT.SWATUnitType.UNKNOWN;
         private Dictionary<string, UserControl> _views = new Dictionary<string, UserControl>();
+        private Dictionary<string, PerformanceView> _performanceViews = new Dictionary<string, PerformanceView>();
+
         private ProjectView _projectView = null;
 
         private void SWATSQLiteFrm_Load(object sender, EventArgs e)
@@ -43,9 +45,7 @@ namespace SWAT_SQLite_Result
                 };
             projectTree1.onPerformanceNodeSelected += (ss, ee) =>
             {
-                PerformanceView performanceView = new PerformanceView();
-                performanceView.Result = projectTree1.ScenarioResult;
-                performanceView.Dock = DockStyle.Fill;
+                PerformanceView performanceView = getPerformanceView(projectTree1.ScenarioResult.Scenario, projectTree1.ScenarioResult.ModelType);
 
                 splitContainer1.Panel2.Controls.Clear();
                 splitContainer1.Panel2.Controls.Add(performanceView);
@@ -130,13 +130,28 @@ namespace SWAT_SQLite_Result
 
         private ArcSWAT.Project _prj = null;
 
+        private PerformanceView getPerformanceView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType)
+        {
+            string key = string.Format("{0}_{1}",scenario.Name,modelType);
+            if (!_performanceViews.ContainsKey(key))
+            {
+                PerformanceView performanceView = new PerformanceView();
+                performanceView.Result = scenario.getModelResult(modelType);
+                performanceView.Dock = DockStyle.Fill;
+                _performanceViews.Add(key,performanceView);
+            }
+            return _performanceViews[key];
+        }
+
         private void removeView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType)
         {
             removeView(scenario, modelType, ArcSWAT.SWATUnitType.WSHD);
             removeView(scenario, modelType, ArcSWAT.SWATUnitType.HRU);
             removeView(scenario, modelType, ArcSWAT.SWATUnitType.SUB);
             removeView(scenario, modelType, ArcSWAT.SWATUnitType.RCH);
-        }
+            
+            _performanceViews.Clear();
+        }       
 
         private void removeView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
         {
