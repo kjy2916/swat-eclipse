@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SWAT_SQLite_Result</RootNamespace>
-    <AssemblyName>SWAT_SQLite_Result</AssemblyName>
+    <AssemblyName>swat_viewer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -32,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\SWATViewer.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotSpatial.Controls">
@@ -72,6 +75,7 @@
     <Compile Include="ArcSWAT\HRU.cs" />
     <Compile Include="ArcSWAT\ObservationData.cs" />
     <Compile Include="ArcSWAT\SeasonType.cs" />
+    <Compile Include="ArcSWAT\StatisticsType.cs" />
     <Compile Include="ArcSWAT\SWATUnitColumnYearObservationData.cs" />
     <Compile Include="ArcSWAT\SWATUnitObservationData.cs" />
     <Compile Include="ArcSWAT\ObservationDataType.cs" />
@@ -297,6 +301,8 @@
       <DependentUpon>YearCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -327,6 +333,11 @@
     <None Include="Resources\select.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\magnifier.png" />
+    <Content Include="Resources\magnifier16.png" />
+    <Content Include="Resources\SWATViewer.ico" />
+    <Content Include="SWATViewer.ico" />
+    <Content Include="SWATViewer2.ico" />
     <Content Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
