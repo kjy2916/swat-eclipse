@@ -149,6 +149,7 @@ namespace SWAT_SQLite_Result
             removeView(scenario, modelType, ArcSWAT.SWATUnitType.HRU);
             removeView(scenario, modelType, ArcSWAT.SWATUnitType.SUB);
             removeView(scenario, modelType, ArcSWAT.SWATUnitType.RCH);
+            removeView(scenario, modelType, ArcSWAT.SWATUnitType.RES);
             
             _performanceViews.Clear();
         }       
