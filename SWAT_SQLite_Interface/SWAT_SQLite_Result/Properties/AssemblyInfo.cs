@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SWAT_SQLite_Result")]
+[assembly: AssemblyTitle("SWAT Output Viewer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("University of Guelph")]
-[assembly: AssemblyProduct("SWAT_SQLite_Result")]
-[assembly: AssemblyCopyright("Copyright © University of Guelph 2014")]
+[assembly: AssemblyCompany("Zhiqiang(Michael) Yu")]
+[assembly: AssemblyProduct("SWAT Output Viewer")]
+[assembly: AssemblyCopyright("Copyright © Zhiqiang(Michael) Yu 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

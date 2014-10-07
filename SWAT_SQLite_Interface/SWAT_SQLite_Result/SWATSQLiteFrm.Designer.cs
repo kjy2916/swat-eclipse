@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SWATSQLiteFrm));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblMapTime = new System.Windows.Forms.ToolStripStatusLabel();
@@ -158,7 +159,7 @@
             this.bSelect});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(667, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(636, 39);
             this.toolStrip1.TabIndex = 0;
             // 
             // bOpen
@@ -247,8 +248,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1043, 742);
             this.Controls.Add(this.toolStripContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SWATSQLiteFrm";
-            this.Text = "SWATSQLiteFrm";
+            this.Text = "SWAT Output Viewer";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.SWATSQLiteFrm_Load);
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
