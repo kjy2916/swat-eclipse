@@ -146,7 +146,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
             double watershedPercent = 0.0;
             foreach (HRU hru in _hrus.Values)
                 watershedPercent += hru.AreaFractionWatershed;
-            if (Math.Abs(watershedPercent - 1.0) > 0.001)
+            if (Math.Abs(watershedPercent - 1.0) > 0.005)
                 SWAT_SQLite.showInformationWindow("The area of HRUs is not correct in result " + ModelType.ToString() +". They are not added to 1. Please check .hru files.");
 
             foreach (Subbasin sub in _subbasins.Values)
@@ -154,7 +154,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 double subbasinPercent = 0.0;
                 foreach (HRU hru in sub.HRUs.Values)
                     subbasinPercent += hru.AreaFractionSub;
-                if (Math.Abs(subbasinPercent - 1.0) > 0.001)
+                if (Math.Abs(subbasinPercent - 1.0) > 0.005)
                 {
                     SWAT_SQLite.showInformationWindow("The area of HRUs is not correct for subbasin " + sub.ID.ToString() + "in result " + ModelType.ToString() +". Please check .hru files.");
                     break;
@@ -304,7 +304,54 @@ namespace SWAT_SQLite_Result.ArcSWAT
         #region Performance Table
        
         private Dictionary<int, DataTable> _performanceTables = new Dictionary<int, DataTable>();
-        
+
+        private void getPerformanceTableForType(int splitYear, bool withSplitYear, DataTable dt, SWATUnitType type)
+        {
+            Dictionary<int, SWATUnit> units = null;
+            if (type == SWATUnitType.RCH)
+                units = _reaches;
+            else if (type == SWATUnitType.RES)
+                units = _reservoirs;
+            if (units == null) return;
+
+            StringCollection ids = new StringCollection();
+            foreach (SWATUnit oneUnit in units.Values)
+            {
+                foreach (SWATUnitResult unitResult in oneUnit.Results.Values)
+                {
+                    foreach (string col in unitResult.Columns)
+                    {
+                        SWATUnitColumnYearResult oneResult = unitResult.getResult(col, -1);
+                        if (oneResult.CompareWithObserved == null) continue;
+
+                        //avoid repeat records, like TSS
+                        string id = string.Format("{0}_{1}_{2}", unitResult.Unit.Type, unitResult.Unit.ID, col);
+                        if (ids.Contains(id)) continue;
+                        ids.Add(id);
+
+                        //create a new row
+                        DataRow r = dt.NewRow();
+                        r[0] = unitResult.Unit.Type.ToString();
+                        r[1] = unitResult.Unit.ID;
+                        r[2] = ObservationData.getObservationColumnFromSWAT(col);
+
+                        double total = oneResult.CompareWithObserved.Statistics.NSE("");
+                        r[3] = Math.Round(total, 4);
+                        if (withSplitYear)
+                        {
+                            double before = ScenarioResultStructure.EMPTY_VALUE;
+                            double after = ScenarioResultStructure.EMPTY_VALUE;
+                            oneResult.CompareWithObserved.Statistics.NSE(splitYear, out before, out after);
+
+                            r[4] = Math.Round(before, 4);
+                            r[5] = Math.Round(after, 4);
+                        }
+                        dt.Rows.Add(r);
+                    }
+                }
+            }
+        }
+
         public DataTable getPerformanceTable(int splitYear)
         {
             if (!_performanceTables.ContainsKey(splitYear))
@@ -312,42 +359,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 bool withSplitYear = false;
                 DataTable dt = createPerformanceTable(splitYear,out withSplitYear);
 
-                StringCollection ids = new StringCollection();
-                foreach (Reach reach in _reaches.Values)
-                {
-                    foreach (SWATUnitResult unitResult in reach.Results.Values)
-                    {
-                        foreach (string col in unitResult.Columns)
-                        {
-                            SWATUnitColumnYearResult oneResult = unitResult.getResult(col, -1);
-                            if (oneResult.CompareWithObserved == null) continue;
+                getPerformanceTableForType(splitYear, withSplitYear, dt, SWATUnitType.RCH);
+                getPerformanceTableForType(splitYear, withSplitYear, dt, SWATUnitType.RES);
 
-                            //avoid repeat records, like TSS
-                            string id = string.Format("{0}_{1}_{2}", unitResult.Unit.Type, unitResult.Unit.ID, col);
-                            if (ids.Contains(id)) continue;
-                            ids.Add(id);
-
-                            //create a new row
-                            DataRow r = dt.NewRow();
-                            r[0] = unitResult.Unit.Type.ToString();
-                            r[1] = unitResult.Unit.ID;
-                            r[2] = ObservationData.getObservationColumnFromSWAT(col);
-
-                            double total = oneResult.CompareWithObserved.Statistics.NSE("");
-                            r[3] = Math.Round(total,4);
-                            if (withSplitYear)
-                            {
-                                double before = ScenarioResultStructure.EMPTY_VALUE;
-                                double after = ScenarioResultStructure.EMPTY_VALUE;
-                                oneResult.CompareWithObserved.Statistics.NSE(splitYear, out before, out after);
-
-                                r[4] = Math.Round(before, 4);
-                                r[5] = Math.Round(after, 4);
-                            }
-                            dt.Rows.Add(r);     
-                        }
-                    }
-                }
                 _performanceTables.Add(splitYear, dt);
             }
             return _performanceTables[splitYear];
