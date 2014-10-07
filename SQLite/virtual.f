@@ -280,8 +280,8 @@
             call hruday_sqlite
         else
             call hruday
-            call impndday
         end if
+        call impndday
       end if
       !!~~~ SQLite ~~~
 
