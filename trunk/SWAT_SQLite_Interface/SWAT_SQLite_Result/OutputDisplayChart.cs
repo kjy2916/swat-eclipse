@@ -219,14 +219,14 @@ namespace SWAT_SQLite_Result
 
             _dt = dt;
             _xColName = xColName;
-            _yColName = yColNames[0];
+            _yColNames = yColNames;
 
             this.DataBind();
         }
 
         private DataTable _dt = null;
         private string _xColName = "";
-        private string _yColName = "";
+        private StringCollection _yColNames;
 
         private void export()
         {
@@ -235,10 +235,17 @@ namespace SWAT_SQLite_Result
             csvPath += string.Format("export_{0:yyyyMMddhhmmss}.csv", DateTime.Now);
             using (System.IO.StreamWriter writer = new System.IO.StreamWriter(csvPath))
             {
-                writer.WriteLine(_xColName + "," + _yColName);
+                string output = _xColName;
+                foreach (string s in _yColNames)
+                    output += "," + s;
+                writer.WriteLine(output);
+
                 foreach (DataRow r in _dt.Rows)
                 {
-                    writer.WriteLine(string.Format("{0:yyyy-MM-dd},{1}", r[_xColName], r[_yColName]));
+                    output = string.Format("{0:yyyy-MM-dd}", r[_xColName]);
+                    foreach (string s in _yColNames)
+                        output += "," + r[s].ToString();
+                    writer.WriteLine(output);
                 }
             }
         }
