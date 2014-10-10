@@ -102,6 +102,7 @@
       integer :: ipnum, ifnum, iunum, itnum, j, ifcst, fcsttot, k
 !     septic database
       integer  :: isnum   !! CS
+      character (len = 1000) :: workingdir !!current working directory
 
 !!    initialize variables
       title = ""
@@ -125,6 +126,10 @@
       nwtot = 0
       nstep = 0
       myr = 0
+
+      !!get and output current working directory to be valdated
+      call getcwd(workingdir)
+      write(*,*) workingdir
 
       call outprocess("getallo")
 
