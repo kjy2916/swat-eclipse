@@ -14,11 +14,15 @@ namespace SWAT_SQLite_Result.ArcSWAT
     {
         private static string DEFAULT_WATERSHED_FOLDER = @"\Watershed";
         private static string DEFAULT_SCENARIOS_FOLDER = @"\Scenarios";
-        private static string DEFAULT_OBSERVATION_DATA_FILE = DEFAULT_SCENARIOS_FOLDER + @"\observation.db3";
+        private static string DEFAULT_OBSERVATION_DATA_FILE_DAILY = DEFAULT_SCENARIOS_FOLDER + @"\observation_daily.db3";
+        private static string DEFAULT_OBSERVATION_DATA_FILE_MONTHLY = DEFAULT_SCENARIOS_FOLDER + @"\observation_monthly.db3";
+        private static string DEFAULT_OBSERVATION_DATA_FILE_YEARLY = DEFAULT_SCENARIOS_FOLDER + @"\observation_yearly.db3";
 
         private Dictionary<string, Scenario> _scenarios = null;
         private Spatial _spatial = null;
-        private ObservationData _observation = null;
+        private ObservationData _observation_daily = null;
+        private ObservationData _observation_monthly = null;
+        private ObservationData _observation_yearly = null;
 
         public Project(string prj) : base(prj)
         {
@@ -32,7 +36,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
             _scenarios = Scenario.FromProjectFolder(Folder + DEFAULT_SCENARIOS_FOLDER,this);
             if (_scenarios.Count == 0) { _isValid = false; _error = "No Scenarios found!"; return; }
 
-            _observation = new ObservationData(Folder + DEFAULT_OBSERVATION_DATA_FILE);
+            _observation_daily = new ObservationData(Folder + DEFAULT_OBSERVATION_DATA_FILE_DAILY);
+            _observation_monthly = new ObservationData(Folder + DEFAULT_OBSERVATION_DATA_FILE_MONTHLY);
+            _observation_yearly = new ObservationData(Folder + DEFAULT_OBSERVATION_DATA_FILE_YEARLY);
         }
 
         public override string ToString()
@@ -67,6 +73,15 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         public Spatial Spatial { get { return _spatial; } }
 
-        public ObservationData Observation { get { return _observation; } }
+        public ObservationData Observation(SWATResultIntervalType interval) 
+        {
+            switch (interval)
+            {
+                case SWATResultIntervalType.DAILY: return _observation_daily;
+                case SWATResultIntervalType.MONTHLY: return _observation_monthly;
+                case SWATResultIntervalType.YEARLY: return _observation_yearly;
+                default: return null;
+            }
+        }
     }
 }

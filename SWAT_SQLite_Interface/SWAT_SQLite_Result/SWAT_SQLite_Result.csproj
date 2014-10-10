@@ -116,6 +116,12 @@
     <Compile Include="IDList.Designer.cs">
       <DependentUpon>IDList.cs</DependentUpon>
     </Compile>
+    <Compile Include="IntervalCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IntervalCtrl.Designer.cs">
+      <DependentUpon>IntervalCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="PerformanceView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -242,6 +248,9 @@
     <EmbeddedResource Include="IDList.resx">
       <DependentUpon>IDList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IntervalCtrl.resx">
+      <DependentUpon>IntervalCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PerformanceView.resx">
       <DependentUpon>PerformanceView.cs</DependentUpon>
     </EmbeddedResource>
@@ -336,8 +345,6 @@
     <Content Include="Resources\magnifier.png" />
     <Content Include="Resources\magnifier16.png" />
     <Content Include="Resources\SWATViewer.ico" />
-    <Content Include="SWATViewer.ico" />
-    <Content Include="SWATViewer2.ico" />
     <Content Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

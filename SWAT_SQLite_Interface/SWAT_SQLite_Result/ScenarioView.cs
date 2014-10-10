@@ -9,8 +9,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 
 namespace SWAT_SQLite_Result
-{  
-    public delegate void SimulationFinishedEventHandler(ArcSWAT.SWATModelType modelType);
+{
+    public delegate void SimulationFinishedEventHandler(ArcSWAT.SWATModelType modelType, ArcSWAT.SWATResultIntervalType interval);
 
     public partial class ScenarioView : UserControl
     {
@@ -31,22 +31,27 @@ namespace SWAT_SQLite_Result
             }
         }
 
-        private void RunSWAT(ArcSWAT.SWATModelType modelType)
+        private void RunSWAT(ArcSWAT.SWATModelType modelType, ArcSWAT.SWATResultIntervalType interval)
         {
             if (_scenario == null) return;
             if (modelType == ArcSWAT.SWATModelType.UNKNOWN) return;
-            if (_scenario.getModelResult(modelType).Status == ArcSWAT.ScenarioResultStatus.NORMAL)
+            if (interval == ArcSWAT.SWATResultIntervalType.UNKNOWN) return;
+            if (_scenario.getModelResult(modelType,interval).Status == ArcSWAT.ScenarioResultStatus.NORMAL)
                 if (MessageBox.Show("There is a pre-generated model result. Do you want to overwrite?", SWAT_SQLite.NAME, MessageBoxButtons.YesNoCancel) != DialogResult.Yes) return;
 
+            //find the corresponding executables
             string swatexe = SWAT_SQLite.InstallationFolder + @"swat_exes\" + ArcSWAT.ScenarioResultStructure.getSWATExecutableName(modelType);
-           
-
+         
             if (!System.IO.File.Exists(swatexe))
             {
                 SWAT_SQLite.showInformationWindow("Can't find " + swatexe);
                 return;
             }
 
+            //change output interval
+            _scenario.modifyOutputInterval(interval);
+
+            //start to run the model
             Process myProcess = new Process();
             try
             {
@@ -71,7 +76,7 @@ namespace SWAT_SQLite_Result
                     {
                         //update the results
                         if (onSimulationFinished != null)
-                            onSimulationFinished(modelType);
+                            onSimulationFinished(modelType,interval);
 
                         //update the date time of the result
                         //must be called after onSimulationFinished as the result status is updated in onSimulationFinished
@@ -126,12 +131,7 @@ namespace SWAT_SQLite_Result
             if (_modelType == ArcSWAT.SWATModelType.UNKNOWN) return;
 
             //_scenario.reReadResults(_modelType);
-            ArcSWAT.ScenarioResult result = _scenario.getModelResult(_modelType);
-            if (result.Status != ArcSWAT.ScenarioResultStatus.NORMAL)
-                updateSimulationTime(result.Status.ToString());
-            else
-                updateSimulationTime(string.Format("Simulation Time: {0:yyyy-MM-dd hh:mm:ss}", result.SimulationTime));
-
+            updateSimulationTime(_scenario.getResultStatus(_modelType));
         }
 
         private void ScenarioView_Load(object sender, EventArgs e)
@@ -164,7 +164,17 @@ namespace SWAT_SQLite_Result
 
         private void bRun_Click(object sender, EventArgs e)
         {            
-            RunSWAT(ModelType);
+            RunSWAT(ModelType, ArcSWAT.SWATResultIntervalType.DAILY);
+        }
+
+        private void bRunMonthly_Click(object sender, EventArgs e)
+        {
+            RunSWAT(ModelType, ArcSWAT.SWATResultIntervalType.MONTHLY);
+        }
+
+        private void bRunYearly_Click(object sender, EventArgs e)
+        {
+            RunSWAT(ModelType, ArcSWAT.SWATResultIntervalType.YEARLY);
         }
     }
 }

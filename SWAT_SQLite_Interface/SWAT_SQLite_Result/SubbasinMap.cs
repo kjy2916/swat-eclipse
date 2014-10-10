@@ -29,6 +29,7 @@ namespace SWAT_SQLite_Result
         public event LayerSelectionChangedEventHandler onLayerSelectionChanged = null;
         private ArcSWAT.SWATUnitType _type = ArcSWAT.SWATUnitType.UNKNOWN;
         private Dictionary<int, ArcSWAT.SWATUnit> _unitList = null;
+        private ArcSWAT.SWATResultIntervalType _interval = ArcSWAT.SWATResultIntervalType.UNKNOWN;
 
         /// <summary>
         /// For project view
@@ -43,11 +44,20 @@ namespace SWAT_SQLite_Result
             this.Resized += (ss, ee) => { this.ZoomToMaxExtent(); };
 
             //add layers
-            this.Layers.Clear();
-            this.addLayer(project.Spatial.SubbasinShapefile, "Subbasin", true, false);
-            this.addLayer(project.Spatial.ReachShapefile, "Reach", true, true);
-            this.addLayer(project.Spatial.MonitoringShapefile, "Reservoir", true, true);
+            drawObservationLayers();
             this.FunctionMode = DotSpatial.Controls.FunctionMode.Select;
+        }
+
+        private void drawObservationLayers()
+        {
+            if (_scenario != null) return;
+            if (_project == null) return;
+
+            //add layers
+            this.Layers.Clear();
+            this.addLayer(_project.Spatial.SubbasinShapefile, "Subbasin", true, false);
+            this.addLayer(_project.Spatial.ReachShapefile, "Reach", true, true);
+            this.addLayer(_project.Spatial.MonitoringShapefile, "Reservoir", true, true);
         }
 
         /// <summary>
@@ -95,6 +105,23 @@ namespace SWAT_SQLite_Result
             this.FunctionMode = DotSpatial.Controls.FunctionMode.Select;
         }
 
+        public ArcSWAT.SWATResultIntervalType Interval
+        {
+            get
+            {
+                if (_scenario != null) return _scenario.Interval;
+                return _interval;
+            }
+            set
+            {
+                _interval = value;
+
+                //layers needs to be re-draw when time interval for observation data is changed
+                //needs to be improved in the future, consider just update reach and reservoir layer
+                drawObservationLayers();
+            }
+        }
+
         /// <summary>
         /// Update the observed status when the data is loaded or deleted.
         /// </summary>
@@ -114,7 +141,7 @@ namespace SWAT_SQLite_Result
                     if (rows == null || rows.Length == 0) continue;
 
                     DataRow r = rows[0];
-                    if (_project.Observation.getObservedData(unitType, id).Count > 0)
+                    if (_project.Observation(Interval).getObservedData(unitType, id).Count > 0)
                         r[OBSERVED_COLUMN] = 1;
                     else
                         r[OBSERVED_COLUMN] = 0;
@@ -253,7 +280,7 @@ namespace SWAT_SQLite_Result
                     foreach (DataRow r in layer.DataSet.DataTable.Rows)
                     {
                         int id = getIDFromFeatureRow(r);
-                        if (_project.Observation.getObservedData(unitType, id).Count > 0)
+                        if (_project.Observation(Interval).getObservedData(unitType, id).Count > 0)
                             r[OBSERVED_COLUMN] = 1;
                         else
                             r[OBSERVED_COLUMN] = 0;
