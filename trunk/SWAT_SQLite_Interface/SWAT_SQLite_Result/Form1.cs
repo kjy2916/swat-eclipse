@@ -30,7 +30,8 @@ namespace SWAT_SQLite_Result
             //foreach (DataRow r in dt.Rows)
             //    System.Diagnostics.Debug.WriteLine(r[0]);
 
-            tableResultsCtrl1.SWATUnits = p.Scenarios["Default"].getModelResult(ArcSWAT.SWATModelType.SWAT_488).Subbasins;
+            //tableResultsCtrl1.SWATUnits = p.Scenarios["Default"].getModelResult(ArcSWAT.SWATModelType.SWAT_488).Subbasins;
+            p.Scenarios["Default"].modifyOutputInterval(ArcSWAT.SWATResultIntervalType.MONTHLY);
         }
     }
 }

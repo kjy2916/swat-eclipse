@@ -37,6 +37,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.subbasinMap1 = new SWAT_SQLite_Result.SubbasinMap();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.intervalCtrl1 = new SWAT_SQLite_Result.IntervalCtrl();
             this.yearCtrl1 = new SWAT_SQLite_Result.YearCtrl();
             this.cmbObservedColumns = new System.Windows.Forms.ComboBox();
             this.tableView1 = new SWAT_SQLite_Result.TableView();
@@ -100,6 +101,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.intervalCtrl1);
             this.groupBox1.Controls.Add(this.yearCtrl1);
             this.groupBox1.Controls.Add(this.cmbObservedColumns);
             this.groupBox1.Controls.Add(this.tableView1);
@@ -113,9 +115,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Observation";
             // 
+            // intervalCtrl1
+            // 
+            this.intervalCtrl1.Location = new System.Drawing.Point(7, 48);
+            this.intervalCtrl1.Name = "intervalCtrl1";
+            this.intervalCtrl1.Size = new System.Drawing.Size(207, 51);
+            this.intervalCtrl1.TabIndex = 4;
+            // 
             // yearCtrl1
             // 
-            this.yearCtrl1.Location = new System.Drawing.Point(7, 76);
+            this.yearCtrl1.Location = new System.Drawing.Point(6, 134);
             this.yearCtrl1.Name = "yearCtrl1";
             this.yearCtrl1.Size = new System.Drawing.Size(207, 65);
             this.yearCtrl1.TabIndex = 3;
@@ -126,7 +135,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbObservedColumns.FormattingEnabled = true;
-            this.cmbObservedColumns.Location = new System.Drawing.Point(7, 20);
+            this.cmbObservedColumns.Location = new System.Drawing.Point(7, 21);
             this.cmbObservedColumns.Name = "cmbObservedColumns";
             this.cmbObservedColumns.Size = new System.Drawing.Size(206, 21);
             this.cmbObservedColumns.TabIndex = 2;
@@ -153,7 +162,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tableView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.tableView1.Location = new System.Drawing.Point(7, 147);
+            this.tableView1.Location = new System.Drawing.Point(7, 205);
             this.tableView1.Name = "tableView1";
             this.tableView1.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -166,14 +175,14 @@
             this.tableView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.tableView1.RowHeadersVisible = false;
             this.tableView1.Season = SWAT_SQLite_Result.ArcSWAT.SeasonType.WholeYear;
-            this.tableView1.Size = new System.Drawing.Size(206, 380);
+            this.tableView1.Size = new System.Drawing.Size(206, 322);
             this.tableView1.TabIndex = 1;
             // 
             // bDeleteObservationData
             // 
-            this.bDeleteObservationData.Location = new System.Drawing.Point(83, 47);
+            this.bDeleteObservationData.Location = new System.Drawing.Point(111, 105);
             this.bDeleteObservationData.Name = "bDeleteObservationData";
-            this.bDeleteObservationData.Size = new System.Drawing.Size(70, 23);
+            this.bDeleteObservationData.Size = new System.Drawing.Size(102, 23);
             this.bDeleteObservationData.TabIndex = 0;
             this.bDeleteObservationData.Text = "Delete";
             this.bDeleteObservationData.UseVisualStyleBackColor = true;
@@ -181,9 +190,9 @@
             // 
             // bLoadObservationData
             // 
-            this.bLoadObservationData.Location = new System.Drawing.Point(7, 47);
+            this.bLoadObservationData.Location = new System.Drawing.Point(6, 105);
             this.bLoadObservationData.Name = "bLoadObservationData";
-            this.bLoadObservationData.Size = new System.Drawing.Size(70, 23);
+            this.bLoadObservationData.Size = new System.Drawing.Size(99, 23);
             this.bLoadObservationData.TabIndex = 0;
             this.bLoadObservationData.Text = "Load";
             this.bLoadObservationData.UseVisualStyleBackColor = true;
@@ -266,6 +275,7 @@
         private OutputDisplayChart outputDisplayChart1;
         private SubbasinMap subbasinMap1;
         private YearCtrl yearCtrl1;
+        private IntervalCtrl intervalCtrl1;
 
     }
 }

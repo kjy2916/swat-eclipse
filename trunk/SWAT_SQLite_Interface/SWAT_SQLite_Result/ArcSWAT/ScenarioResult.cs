@@ -11,7 +11,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
 {
     public class ScenarioResult
     {  
-        public ScenarioResult(string databasePath,Scenario scen, SWATModelType modelType)
+        public ScenarioResult(string databasePath,Scenario scen, SWATModelType modelType, SWATResultIntervalType interval)
         {
             _databasePath = databasePath;
             _parentScenario = scen;
@@ -86,6 +86,10 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     _status = ScenarioResultStatus.NORMAL;                
             }
 
+            //some version don't have this output, need to upgrade
+            if (_startYear == ScenarioResultStructure.UNKONWN_ID)
+                throw new Exception("Missing output starting year. Please upgrade your SWAT executable.");
+
             _generationTime = (new System.IO.FileInfo(DatabasePath)).LastWriteTime;
         }
 
@@ -146,18 +150,26 @@ namespace SWAT_SQLite_Result.ArcSWAT
             double watershedPercent = 0.0;
             foreach (HRU hru in _hrus.Values)
                 watershedPercent += hru.AreaFractionWatershed;
-            if (Math.Abs(watershedPercent - 1.0) > 0.005)
-                SWAT_SQLite.showInformationWindow("The area of HRUs is not correct in result " + ModelType.ToString() +". They are not added to 1. Please check .hru files.");
+            if (Math.Abs(watershedPercent - 1.0) > 0.01)
+            {                
+                string msg = "The area of HRUs is not correct in result " + ModelType.ToString() + 
+                    ". They are not added to 1. The total is " + watershedPercent.ToString("F4") + ".Please check .hru files.";
+                System.Diagnostics.Debug.WriteLine(msg);
+                //SWAT_SQLite.showInformationWindow(msg); 
+            }
+
 
             foreach (Subbasin sub in _subbasins.Values)
             {
                 double subbasinPercent = 0.0;
                 foreach (HRU hru in sub.HRUs.Values)
                     subbasinPercent += hru.AreaFractionSub;
-                if (Math.Abs(subbasinPercent - 1.0) > 0.005)
+                if (Math.Abs(subbasinPercent - 1.0) > 0.01)
                 {
-                    SWAT_SQLite.showInformationWindow("The area of HRUs is not correct for subbasin " + sub.ID.ToString() + "in result " + ModelType.ToString() +". Please check .hru files.");
-                    break;
+                    string msg = "The area of HRUs is not correct for subbasin " + sub.ID.ToString() +
+                        " in result " + ModelType.ToString() + ". The total is " + subbasinPercent.ToString("F4") + ". Please check .hru files.";
+                    System.Diagnostics.Debug.WriteLine(msg);
+                    //SWAT_SQLite.showInformationWindow(msg); seems for swat2009 models there are too many warnings, just comment it. Or could just give one combined message. This is intent to give user some warning mesage.
                 }
             }
         }
@@ -225,7 +237,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     ArcSWAT.SWATModelType modelType = (ArcSWAT.SWATModelType)i;
                     if (modelType == ModelType) continue;
 
-                    ScenarioResult r = Scenario.getModelResult(modelType);
+                    ScenarioResult r = Scenario.getModelResult(modelType,_interval);
                     if (r == null || r.Status != ScenarioResultStatus.NORMAL) continue;
                     results.Add(r);
                 }
@@ -236,7 +248,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     ArcSWAT.Scenario compareScenario = Scenario.Project.Scenarios[scenName];
                     if (Scenario == compareScenario) continue;
 
-                    ScenarioResult r = compareScenario.getModelResult(ModelType);
+                    ScenarioResult r = compareScenario.getModelResult(ModelType,_interval);
                     if (r == null || r.Status != ScenarioResultStatus.NORMAL || r.Interval != this.Interval) continue;
                     results.Add(r);
                 }

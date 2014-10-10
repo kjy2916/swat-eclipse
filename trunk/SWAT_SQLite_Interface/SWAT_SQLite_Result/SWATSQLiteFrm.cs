@@ -28,7 +28,7 @@ namespace SWAT_SQLite_Result
         {
             projectTree1.onResultLevelChanged += (scenario, modelType, type) =>
                 {
-                    switchView(scenario.Scenario, modelType, type);
+                    switchView(scenario.Scenario, modelType, scenario.Interval, type);
                 };
             projectTree1.onScenarioSelectionChanged += (scenario) => {updateScenarioView(scenario);};
             projectTree1.onProjectNodeSelected += (ss, ee) => { updateProjectView(); };
@@ -45,7 +45,7 @@ namespace SWAT_SQLite_Result
                 };
             projectTree1.onPerformanceNodeSelected += (ss, ee) =>
             {
-                PerformanceView performanceView = getPerformanceView(projectTree1.ScenarioResult.Scenario, projectTree1.ScenarioResult.ModelType);
+                PerformanceView performanceView = getPerformanceView(projectTree1.ScenarioResult.Scenario, projectTree1.ScenarioResult.ModelType, projectTree1.ScenarioResult.Interval);
 
                 splitContainer1.Panel2.Controls.Clear();
                 splitContainer1.Panel2.Controls.Add(performanceView);
@@ -92,10 +92,10 @@ namespace SWAT_SQLite_Result
             ScenarioView view = new ScenarioView();
             view.Scenario = scenario;  
             view.Dock = DockStyle.Fill;
-            view.onSimulationFinished += (ArcSWAT.SWATModelType modelType) =>
+            view.onSimulationFinished += (ArcSWAT.SWATModelType modelType, ArcSWAT.SWATResultIntervalType interval) =>
             {
-                removeView(scenario, modelType);
-                scenario.reReadResults(modelType);
+                removeView(scenario, modelType,interval);
+                scenario.reReadResults(modelType,interval);
                 projectTree1.update(scenario, modelType);
             };        
 
@@ -105,9 +105,9 @@ namespace SWAT_SQLite_Result
             Map = null;
         }
 
-        private UserControl switchView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
+        private UserControl switchView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATResultIntervalType interval,ArcSWAT.SWATUnitType unitType)
         {
-            UserControl view = getView(scenario, modelType, unitType);
+            UserControl view = getView(scenario, modelType, interval, unitType);
             splitContainer1.Panel2.Controls.Clear();
             splitContainer1.Panel2.Controls.Add(view);
 
@@ -130,40 +130,40 @@ namespace SWAT_SQLite_Result
 
         private ArcSWAT.Project _prj = null;
 
-        private PerformanceView getPerformanceView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType)
+        private PerformanceView getPerformanceView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType,ArcSWAT.SWATResultIntervalType interval)
         {
-            string key = string.Format("{0}_{1}",scenario.Name,modelType);
+            string key = string.Format("{0}_{1}_{2}",scenario.Name,modelType,interval);
             if (!_performanceViews.ContainsKey(key))
             {
                 PerformanceView performanceView = new PerformanceView();
-                performanceView.Result = scenario.getModelResult(modelType);
+                performanceView.Result = scenario.getModelResult(modelType,interval);
                 performanceView.Dock = DockStyle.Fill;
                 _performanceViews.Add(key,performanceView);
             }
             return _performanceViews[key];
         }
 
-        private void removeView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType)
+        private void removeView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType,ArcSWAT.SWATResultIntervalType interval)
         {
-            removeView(scenario, modelType, ArcSWAT.SWATUnitType.WSHD);
-            removeView(scenario, modelType, ArcSWAT.SWATUnitType.HRU);
-            removeView(scenario, modelType, ArcSWAT.SWATUnitType.SUB);
-            removeView(scenario, modelType, ArcSWAT.SWATUnitType.RCH);
-            removeView(scenario, modelType, ArcSWAT.SWATUnitType.RES);
+            removeView(scenario, modelType, interval, ArcSWAT.SWATUnitType.WSHD);
+            removeView(scenario, modelType, interval, ArcSWAT.SWATUnitType.HRU);
+            removeView(scenario, modelType, interval, ArcSWAT.SWATUnitType.SUB);
+            removeView(scenario, modelType, interval, ArcSWAT.SWATUnitType.RCH);
+            removeView(scenario, modelType, interval, ArcSWAT.SWATUnitType.RES);
             
             _performanceViews.Clear();
         }       
 
-        private void removeView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
+        private void removeView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType,ArcSWAT.SWATResultIntervalType interval, ArcSWAT.SWATUnitType unitType)
         {
-            string key = getViewName(scenario, modelType, unitType);
+            string key = getViewName(scenario, modelType, interval, unitType);
             if (_views.ContainsKey(key)) _views.Remove(key);
         }
 
-        private string getViewName(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
+        private string getViewName(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType,ArcSWAT.SWATResultIntervalType interval, ArcSWAT.SWATUnitType unitType)
         {
-            return string.Format("{0}_{1}_{2}",
-                scenario.Name, modelType, unitType);
+            return string.Format("{0}_{1}_{2}_{3}",
+                scenario.Name, modelType,interval, unitType);
         }
 
         private void updateStatus(UserControl view)
@@ -212,16 +212,16 @@ namespace SWAT_SQLite_Result
                 lblStatistics.Text = "No Statistics Data Available";
         }
 
-        private UserControl getView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType, ArcSWAT.SWATUnitType unitType)
+        private UserControl getView(ArcSWAT.Scenario scenario, ArcSWAT.SWATModelType modelType,ArcSWAT.SWATResultIntervalType interval, ArcSWAT.SWATUnitType unitType)
         {
-            string key = getViewName(scenario, modelType, unitType);
+            string key = getViewName(scenario, modelType,interval, unitType);
             if (!_views.ContainsKey(key))
             {
                 if (unitType == ArcSWAT.SWATUnitType.WSHD)
                 {
                     WatershedView view = new WatershedView();
                     view.Dock = DockStyle.Fill;
-                    view.setProjectScenario(_prj, scenario.getModelResult(modelType));
+                    view.setProjectScenario(_prj, scenario.getModelResult(modelType, interval));
                     view.onDataStatisticsChanged += (ss, ee) => { onDataStatisticsChanged(view); };
 
                     _views.Add(key, view);
@@ -235,12 +235,12 @@ namespace SWAT_SQLite_Result
                     view.onMapSelectionChanged += (ss, ee) => { onMapSelectionChanged(view); };
                     view.onDataStatisticsChanged += (ss, ee) => { onDataStatisticsChanged(view); };
 
-                    view.setProjectScenario(_prj, scenario.getModelResult(modelType), unitType);
+                    view.setProjectScenario(_prj, scenario.getModelResult(modelType,interval), unitType);
 
                     if (unitType == ArcSWAT.SWATUnitType.SUB)
                         view.onSwitch2HRU += (hru) => 
                         {
-                            SubbasinView hruview = switchView(_scenario, _modelType, ArcSWAT.SWATUnitType.HRU) as SubbasinView;
+                            SubbasinView hruview = switchView(_scenario, _modelType, interval, ArcSWAT.SWATUnitType.HRU) as SubbasinView;
                             hruview.HRU = hru;
                         };
                     _views.Add(key, view);
@@ -253,7 +253,16 @@ namespace SWAT_SQLite_Result
         {
             if (_prj != null && prjPath.Equals(_prj.Folder)) return;
 
-            _prj = new ArcSWAT.Project(prjPath);
+            try
+            {
+                _prj = new ArcSWAT.Project(prjPath);
+            }
+            catch (Exception e)
+            {
+                SWAT_SQLite.showInformationWindow(e.Message);
+                return;
+            }
+            
             if (!_prj.IsValid)
             {
                 _prj = null;

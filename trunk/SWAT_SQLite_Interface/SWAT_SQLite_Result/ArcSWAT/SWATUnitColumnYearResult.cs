@@ -39,7 +39,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// <summary>
         /// Corresponding observed data
         /// </summary>
-        public SWATUnitColumnYearObservationData ObservedData{get{return _result.Unit.Scenario.Scenario.Project.Observation.getObservedData(this);}}
+        public SWATUnitColumnYearObservationData ObservedData{get{return _result.Unit.Scenario.Scenario.Project.Observation(_result.Interval).getObservedData(this);}}
         
         #endregion
 
@@ -88,7 +88,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private SWATUnitColumnYearResult getCompareResult(Scenario scenario, SWATModelType modelType)
         {
             //get scenario result
-            ScenarioResult compareResult = scenario.getModelResult(modelType);
+            ScenarioResult compareResult = scenario.getModelResult(modelType,_result.Interval);
             if (compareResult == null) throw new Exception("Can't find model " + modelType.ToString() + " in scenario " + scenario.Name);
             if (compareResult.Status == ScenarioResultStatus.UNKNOWN)
                 throw new Exception("The status of model " + modelType.ToString() + " in scenario " + scenario.Name + " is unknown.");

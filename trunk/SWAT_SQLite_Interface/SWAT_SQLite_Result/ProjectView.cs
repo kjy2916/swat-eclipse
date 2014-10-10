@@ -16,6 +16,9 @@ namespace SWAT_SQLite_Result
         public ProjectView()
         {
             InitializeComponent();
+
+            _interval = intervalCtrl1.Interval;
+            subbasinMap1.Interval = _interval;
         }
 
         /// <summary>
@@ -38,10 +41,10 @@ namespace SWAT_SQLite_Result
 
                 try
                 {
-                    if (_prj.Observation.loadCSV(openFileDialog1.FileName,
+                    if (_prj.Observation(_interval).loadCSV(openFileDialog1.FileName,
                         _unitType, _id, _col))
                     {
-                        _observedData = _prj.Observation.getObservedData(_unitType, _id, _col);
+                        _observedData = _prj.Observation(_interval).getObservedData(_unitType, _id, _col);
                         if (_observedData != null) yearCtrl1.ObservedData = _observedData.getObservedData(-1); //update year control
                         
                         updateTableAndChart();
@@ -68,7 +71,7 @@ namespace SWAT_SQLite_Result
                         string.Format("Do you really want to delete the observed data for {0} {1} {2}?", _unitType, _id, _col),
                         SWAT_SQLite.NAME, MessageBoxButtons.YesNo) == DialogResult.No) return;
 
-                    if (_prj.Observation.delete(_unitType, _id, _col))
+                    if (_prj.Observation(_interval).delete(_unitType, _id, _col))
                     {
                         updateTableAndChart();
                         subbasinMap1.updateObservedStatus(_unitType, _id);
@@ -95,6 +98,7 @@ namespace SWAT_SQLite_Result
         }
 
         private ArcSWAT.SWATUnitType _unitType = ArcSWAT.SWATUnitType.RCH;
+        private ArcSWAT.SWATResultIntervalType _interval = ArcSWAT.SWATResultIntervalType.DAILY;
         private int _id = -1;
         private ArcSWAT.Project _prj = null;
         private string _col = null;
@@ -130,6 +134,14 @@ namespace SWAT_SQLite_Result
             };
 
             yearCtrl1.onYearChanged += (ss, ee) => { _year = yearCtrl1.Year; updateTableAndChart(); };
+
+            intervalCtrl1.onIntervalChanged += (ss, ee) =>
+                {
+                    _interval = intervalCtrl1.Interval;
+                    subbasinMap1.Interval = _interval;
+                    cmbObservedColumns.DataSource = null;
+                    updateTableAndChart();
+                };
         }
 
 
@@ -149,7 +161,7 @@ namespace SWAT_SQLite_Result
 
             if (_col != null && _id > 0)
             {
-                _observedData = _prj.Observation.getObservedData(_unitType, _id, _col);
+                _observedData = _prj.Observation(_interval).getObservedData(_unitType, _id, _col);
                 if (_observedData != null)
                 {
                     //show the data

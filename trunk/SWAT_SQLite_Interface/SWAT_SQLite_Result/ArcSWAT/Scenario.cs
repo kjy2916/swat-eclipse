@@ -34,13 +34,42 @@ namespace SWAT_SQLite_Result.ArcSWAT
                 for (int i = Convert.ToInt32(ArcSWAT.SWATModelType.SWAT_488); i <= Convert.ToInt32(ArcSWAT.SWATModelType.CanSWAT); i++)
                 {
                     SWATModelType modelType = (SWATModelType)i;
-                    ScenarioResult result = new ScenarioResult(
-                        _modelfolder + @"\" + ScenarioResultStructure.getDatabaseName(modelType), 
-                        this,modelType);
-                    if(result.Status == ScenarioResultStatus.NORMAL) _hasResults = true;
-                    _results.Add(modelType,result);
+                    for(int j = Convert.ToInt32(SWATResultIntervalType.MONTHLY);j<= Convert.ToInt32(SWATResultIntervalType.YEARLY);j++)
+                    {
+                        SWATResultIntervalType interval = (SWATResultIntervalType)j;
+                        ScenarioResult result = new ScenarioResult(
+                            _modelfolder + @"\" + ScenarioResultStructure.getDatabaseName(modelType,interval), 
+                            this,modelType,interval);
+                        if(result.Status == ScenarioResultStatus.NORMAL) _hasResults = true;
+                        _results.Add(getResultID(modelType,interval),result);
+                    }
                 }
             }
+        }
+
+        public string getResultStatus(SWATModelType modelType)
+        {
+            StringBuilder status = new StringBuilder();
+            for (int j = Convert.ToInt32(SWATResultIntervalType.MONTHLY); j <= Convert.ToInt32(SWATResultIntervalType.YEARLY); j++)
+            {
+                SWATResultIntervalType interval = (SWATResultIntervalType)j;
+                ScenarioResult result = getModelResult(modelType, interval);
+                if(result == null) continue;
+
+                if(status.Length > 0) status.Append(";");
+                status.Append(interval);
+                status.Append(":");
+                if (result.Status != ScenarioResultStatus.NORMAL)
+                    status.Append(result.Status);
+                else
+                    status.Append(string.Format("{0:yyyy-MM-dd hh:mm:ss}", result.SimulationTime));
+            }
+            return status.ToString();
+        }
+
+        private string getResultID(SWATModelType modelType, SWATResultIntervalType interval)
+        {
+            return modelType.ToString() + "_" + interval.ToString();
         }
 
         public override string ToString()
@@ -59,17 +88,18 @@ namespace SWAT_SQLite_Result.ArcSWAT
         private Project _prj = null;
         private string _name = null;
         private string _modelfolder = null;
-        private Dictionary<SWATModelType, ScenarioResult> _results = new Dictionary<SWATModelType, ScenarioResult>();
+        private Dictionary<string, ScenarioResult> _results = new Dictionary<string, ScenarioResult>();
         private bool _hasResults = false;
 
         public bool hasResults{get{return _hasResults;}}
         public string Name { get { return _name; } }
         public string ModelFolder { get { return _modelfolder; } }
         public Project Project { get { return _prj; } }
-        public ScenarioResult getModelResult(SWATModelType modelType)
+        public ScenarioResult getModelResult(SWATModelType modelType, SWATResultIntervalType interval)
         {
-            if (_results.ContainsKey(modelType)) 
-                return _results[modelType];
+            string id = getResultID(modelType, interval);
+            if (_results.ContainsKey(id)) 
+                return _results[id];
             return null;
         }
 
@@ -77,13 +107,13 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// Re-read results when it's simulated again.
         /// </summary>
         /// <param name="modelType"></param>
-        public void reReadResults(SWATModelType modelType)
+        public void reReadResults(SWATModelType modelType,SWATResultIntervalType interval)
         {
-            ScenarioResult result = getModelResult(modelType);
+            ScenarioResult result = getModelResult(modelType,interval);
             if (result != null)
-                _results[modelType] = 
+                _results[getResultID(modelType, interval)] = 
                     new ScenarioResult(
-                        _modelfolder + @"\" + ScenarioResultStructure.getDatabaseName(modelType), this,modelType);
+                        _modelfolder + @"\" + ScenarioResultStructure.getDatabaseName(modelType,interval), this,modelType,interval);
         }
 
         public static Dictionary<string, Scenario> FromProjectFolder(string f,Project prj)
@@ -102,6 +132,39 @@ namespace SWAT_SQLite_Result.ArcSWAT
             return scenarios;
         }
 
-        
+        /// <summary>
+        /// Modify output interval in file.cio to run model in different mode 
+        /// </summary>
+        /// <param name="interval"></param>
+        public void modifyOutputInterval(SWATResultIntervalType interval)
+        {
+            if(interval == SWATResultIntervalType.UNKNOWN) return;
+
+            //find file.cio
+            string cioFile = _modelfolder + @"\file.cio";
+            if (!System.IO.File.Exists(cioFile))
+                throw new Exception("Couldn't find " + cioFile);
+
+            //modify file.cio with given output interval, which is located in line 59
+            string cio = null;
+            using (System.IO.StreamReader reader = new StreamReader(cioFile))
+            {
+                cio = reader.ReadToEnd();
+            }
+            using (System.IO.StreamWriter writer = new StreamWriter(cioFile))
+            {
+                using (System.IO.StringReader reader = new StringReader(cio))
+                {
+                    string oneline = reader.ReadLine();
+                    while (oneline != null)
+                    {
+                        if (oneline.Contains("IPRINT"))
+                            oneline = string.Format("{0}    | IPRINT: print code (month, day, year)",Convert.ToInt32(interval).ToString().PadLeft(16));
+                        writer.WriteLine(oneline);
+                        oneline = reader.ReadLine();
+                    }
+                }
+            }
+        }        
     }
 }

@@ -27,11 +27,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         private static string[] EXE_NAMES = new string[] { EXE_NAME_SWAT_488, EXE_NAME_SWAT_445, EXE_NAME_SWAT_622, EXE_NAME_SWAT_627, EXE_NAME_CANSWAT};
 
-        private static string DATABASE_NAME_NORMAL_445 = "result_445.db3";
-        private static string DATABASE_NAME_NORMAL_488 = "result_488.db3";
-        private static string DATABASE_NAME_NORMAL_622 = "result_622.db3";
-        private static string DATABASE_NAME_NORMAL_627 = "result_627.db3";
-        private static string DATABASE_NAME_CANSWAT = "result_canswat.db3";
+        private static string DATABASE_NAME_EXT = ".db3";
+        private static string DATABASE_NAME_NORMAL_445 = "result_445";
+        private static string DATABASE_NAME_NORMAL_488 = "result_488";
+        private static string DATABASE_NAME_NORMAL_622 = "result_622";
+        private static string DATABASE_NAME_NORMAL_627 = "result_627";
+        private static string DATABASE_NAME_CANSWAT = "result_canswat";
 
         private static string[] DATABASE_NAMES = new string[] { DATABASE_NAME_NORMAL_488,DATABASE_NAME_NORMAL_445, DATABASE_NAME_NORMAL_622, DATABASE_NAME_NORMAL_627, DATABASE_NAME_CANSWAT };
 
@@ -126,11 +127,12 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         private Dictionary<string, StringCollection> _columns = new Dictionary<string, StringCollection>();
 
-        public static string getDatabaseName(SWATModelType modelType)
+        public static string getDatabaseName(SWATModelType modelType, SWATResultIntervalType interval)
         {
             int index = Convert.ToInt32(modelType);
             if (index >= 0 && index < DATABASE_NAMES.Length)
-                return DATABASE_NAMES[index];
+                return DATABASE_NAMES[index] + "_" + interval.ToString().ToLower() + DATABASE_NAME_EXT;
+
             return "";
         }
 

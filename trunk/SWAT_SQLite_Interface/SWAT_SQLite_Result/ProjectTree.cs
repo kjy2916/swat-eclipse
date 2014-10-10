@@ -161,21 +161,32 @@ namespace SWAT_SQLite_Result
                     }
                 }
 
-                ArcSWAT.ScenarioResult result = scenario.getModelResult(modelType);
-                if (result == null) return;
-                if (result.Status != ArcSWAT.ScenarioResultStatus.NORMAL) return;
+                TreeNode modelTypeNode = null;
+                for (int j = Convert.ToInt32(ArcSWAT.SWATResultIntervalType.MONTHLY); j <= Convert.ToInt32(ArcSWAT.SWATResultIntervalType.YEARLY); j++)
+                {
+                    ArcSWAT.SWATResultIntervalType interval = (ArcSWAT.SWATResultIntervalType)j;
 
-                TreeNode resultNode = scenNode.Nodes.Add(modelType.ToString());
-                resultNode.Tag = modelType;
+                    ArcSWAT.ScenarioResult result = scenario.getModelResult(modelType,interval);
+                    if (result == null) continue;
+                    if (result.Status != ArcSWAT.ScenarioResultStatus.NORMAL) continue;
 
-                resultNode.Nodes.Add("Watershed").Tag = result;
-                resultNode.Nodes.Add("HRU").Tag = result;
-                resultNode.Nodes.Add("Subbasin").Tag = result;
-                resultNode.Nodes.Add("Reach").Tag = result;
-                if (result.Reservoirs.Count > 0)
-                    resultNode.Nodes.Add("Reservoir").Tag = result;
-                resultNode.Nodes.Add("Difference").Tag = result;
-                resultNode.Nodes.Add("Performance").Tag = result;
+                    if (modelTypeNode == null)
+                    {
+                        modelTypeNode = scenNode.Nodes.Add(modelType.ToString());
+                        modelTypeNode.Tag = modelType;
+                    }
+
+                    TreeNode resultNode = modelTypeNode.Nodes.Add(interval.ToString());
+                    resultNode.Tag = modelType;
+                    resultNode.Nodes.Add("Watershed").Tag = result;
+                    resultNode.Nodes.Add("HRU").Tag = result;
+                    resultNode.Nodes.Add("Subbasin").Tag = result;
+                    resultNode.Nodes.Add("Reach").Tag = result;
+                    if (result.Reservoirs.Count > 0)
+                        resultNode.Nodes.Add("Reservoir").Tag = result;
+                    resultNode.Nodes.Add("Difference").Tag = result;
+                    resultNode.Nodes.Add("Performance").Tag = result;
+                }
 
                 scenNode.ExpandAll();
             }
