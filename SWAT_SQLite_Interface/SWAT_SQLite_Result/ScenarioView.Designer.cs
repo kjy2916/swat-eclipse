@@ -30,7 +30,7 @@
         {
             this.bOpenModelFolder = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bCopyto = new System.Windows.Forms.Button();
             this.cmbModelType = new System.Windows.Forms.ComboBox();
             this.bRunDaily = new System.Windows.Forms.Button();
             this.lblSimulationTime = new System.Windows.Forms.Label();
@@ -39,6 +39,7 @@
             this.bFileCIO = new System.Windows.Forms.Button();
             this.bBasinBsn = new System.Windows.Forms.Button();
             this.bFigFig = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // bOpenModelFolder
@@ -56,20 +57,22 @@
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.HideSelection = false;
             this.richTextBox1.Location = new System.Drawing.Point(7, 33);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(926, 363);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             // 
-            // button1
+            // bCopyto
             // 
-            this.button1.Location = new System.Drawing.Point(691, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Backup";
-            this.button1.UseVisualStyleBackColor = true;
+            this.bCopyto.Location = new System.Drawing.Point(691, 2);
+            this.bCopyto.Name = "bCopyto";
+            this.bCopyto.Size = new System.Drawing.Size(75, 23);
+            this.bCopyto.TabIndex = 5;
+            this.bCopyto.Text = "Copy to...";
+            this.bCopyto.UseVisualStyleBackColor = true;
+            this.bCopyto.Click += new System.EventHandler(this.bCopyto_Click);
             // 
             // cmbModelType
             // 
@@ -148,6 +151,10 @@
             this.bFigFig.UseVisualStyleBackColor = true;
             this.bFigFig.Click += new System.EventHandler(this.bFigFig_Click);
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            // 
             // ScenarioView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -160,7 +167,7 @@
             this.Controls.Add(this.lblSimulationTime);
             this.Controls.Add(this.bRunDaily);
             this.Controls.Add(this.cmbModelType);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bCopyto);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.bOpenModelFolder);
             this.Name = "ScenarioView";
@@ -175,7 +182,7 @@
 
         private System.Windows.Forms.Button bOpenModelFolder;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bCopyto;
         private System.Windows.Forms.ComboBox cmbModelType;
         private System.Windows.Forms.Button bRunDaily;
         private System.Windows.Forms.Label lblSimulationTime;
@@ -184,5 +191,6 @@
         private System.Windows.Forms.Button bFileCIO;
         private System.Windows.Forms.Button bBasinBsn;
         private System.Windows.Forms.Button bFigFig;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
