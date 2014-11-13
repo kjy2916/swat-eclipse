@@ -36,13 +36,16 @@
             this.lblSimulationTime = new System.Windows.Forms.Label();
             this.bRunMonthly = new System.Windows.Forms.Button();
             this.bRunYearly = new System.Windows.Forms.Button();
+            this.bFileCIO = new System.Windows.Forms.Button();
+            this.bBasinBsn = new System.Windows.Forms.Button();
+            this.bFigFig = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // bOpenModelFolder
             // 
             this.bOpenModelFolder.Location = new System.Drawing.Point(389, 3);
             this.bOpenModelFolder.Name = "bOpenModelFolder";
-            this.bOpenModelFolder.Size = new System.Drawing.Size(130, 23);
+            this.bOpenModelFolder.Size = new System.Drawing.Size(110, 23);
             this.bOpenModelFolder.TabIndex = 2;
             this.bOpenModelFolder.Text = "Open Model Folder";
             this.bOpenModelFolder.UseVisualStyleBackColor = true;
@@ -61,7 +64,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(525, 3);
+            this.button1.Location = new System.Drawing.Point(691, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
@@ -89,7 +92,7 @@
             // lblSimulationTime
             // 
             this.lblSimulationTime.AutoSize = true;
-            this.lblSimulationTime.Location = new System.Drawing.Point(606, 8);
+            this.lblSimulationTime.Location = new System.Drawing.Point(772, 7);
             this.lblSimulationTime.Name = "lblSimulationTime";
             this.lblSimulationTime.Size = new System.Drawing.Size(35, 13);
             this.lblSimulationTime.TabIndex = 8;
@@ -115,10 +118,43 @@
             this.bRunYearly.UseVisualStyleBackColor = true;
             this.bRunYearly.Click += new System.EventHandler(this.bRunYearly_Click);
             // 
+            // bFileCIO
+            // 
+            this.bFileCIO.Location = new System.Drawing.Point(502, 3);
+            this.bFileCIO.Name = "bFileCIO";
+            this.bFileCIO.Size = new System.Drawing.Size(49, 23);
+            this.bFileCIO.TabIndex = 11;
+            this.bFileCIO.Text = "file.cio";
+            this.bFileCIO.UseVisualStyleBackColor = true;
+            this.bFileCIO.Click += new System.EventHandler(this.bFileCIO_Click);
+            // 
+            // bBasinBsn
+            // 
+            this.bBasinBsn.Location = new System.Drawing.Point(557, 3);
+            this.bBasinBsn.Name = "bBasinBsn";
+            this.bBasinBsn.Size = new System.Drawing.Size(66, 23);
+            this.bBasinBsn.TabIndex = 12;
+            this.bBasinBsn.Text = "basin.bsn";
+            this.bBasinBsn.UseVisualStyleBackColor = true;
+            this.bBasinBsn.Click += new System.EventHandler(this.bBasinBsn_Click);
+            // 
+            // bFigFig
+            // 
+            this.bFigFig.Location = new System.Drawing.Point(629, 2);
+            this.bFigFig.Name = "bFigFig";
+            this.bFigFig.Size = new System.Drawing.Size(57, 23);
+            this.bFigFig.TabIndex = 13;
+            this.bFigFig.Text = "fig.fig";
+            this.bFigFig.UseVisualStyleBackColor = true;
+            this.bFigFig.Click += new System.EventHandler(this.bFigFig_Click);
+            // 
             // ScenarioView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.bFigFig);
+            this.Controls.Add(this.bBasinBsn);
+            this.Controls.Add(this.bFileCIO);
             this.Controls.Add(this.bRunYearly);
             this.Controls.Add(this.bRunMonthly);
             this.Controls.Add(this.lblSimulationTime);
@@ -145,5 +181,8 @@
         private System.Windows.Forms.Label lblSimulationTime;
         private System.Windows.Forms.Button bRunMonthly;
         private System.Windows.Forms.Button bRunYearly;
+        private System.Windows.Forms.Button bFileCIO;
+        private System.Windows.Forms.Button bBasinBsn;
+        private System.Windows.Forms.Button bFigFig;
     }
 }
