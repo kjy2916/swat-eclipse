@@ -176,5 +176,34 @@ namespace SWAT_SQLite_Result
         {
             RunSWAT(ModelType, ArcSWAT.SWATResultIntervalType.YEARLY);
         }
+
+        private void bFileCIO_Click(object sender, EventArgs e)
+        {
+            openModelFile("file.cio");
+        }
+
+        private void bBasinBsn_Click(object sender, EventArgs e)
+        {
+            openModelFile("basins.bsn");
+        }
+
+        private void bFigFig_Click(object sender, EventArgs e)
+        {
+            openModelFile("fig.fig");
+        }
+
+        private void openModelFile(string fileName)
+        {
+            string filePath = _scenario.ModelFolder + @"\" + fileName;
+            if (!System.IO.File.Exists(filePath))
+            {
+                SWAT_SQLite.showInformationWindow(filePath + " doesn't exist!");
+                return;
+            }
+
+            string notePad = System.Environment.SystemDirectory + @"\notepad.exe";
+            if (System.IO.File.Exists(notePad))
+                System.Diagnostics.Process.Start(notePad, filePath);
+        }
     }
 }
