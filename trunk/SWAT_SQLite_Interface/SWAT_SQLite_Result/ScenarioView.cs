@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace SWAT_SQLite_Result
 {
@@ -149,6 +150,9 @@ namespace SWAT_SQLite_Result
                     cmbModelType.Items.Add(modelType);
             }
             cmbModelType.SelectedIndex = 0;
+
+            backgroundWorker1.DoWork += (ss, ee) => { copyModel(ee.Argument.ToString()); };
+            backgroundWorker1.ProgressChanged += (ss, ee) => {updateMessage(ee.UserState.ToString());};
         }
 
         private ArcSWAT.SWATModelType _modelType = ArcSWAT.SWATModelType.UNKNOWN;
@@ -204,6 +208,54 @@ namespace SWAT_SQLite_Result
             string notePad = System.Environment.SystemDirectory + @"\notepad.exe";
             if (System.IO.File.Exists(notePad))
                 System.Diagnostics.Process.Start(notePad, filePath);
+        }
+
+
+        private void copyModel(string path)
+        {
+            string swat_cup = path;
+            string backup = System.IO.Path.Combine(swat_cup, "backup");
+            if (!System.IO.Directory.Exists(backup))
+            {
+                SWAT_SQLite.showInformationWindow(backup + " doesn't exist!");
+                return;
+            }
+
+            //start to copy
+            try
+            {
+                updateMessage("Copy all model files from " + _scenario.ModelFolder + " to " + backup);
+                updateMessage(DateTime.Now.ToString());
+                DirectoryInfo modelInfo = new DirectoryInfo(_scenario.ModelFolder);
+                var modelFiles = modelInfo.EnumerateFiles().Where(
+                    f => !(f.Extension.ToLower().Equals(".db3")) && !(f.Name.ToLower().Contains("output"))); //remove db3 files and output files
+                foreach (FileInfo f in modelFiles)
+                {
+                    backgroundWorker1.ReportProgress(0, f.Name);
+                    File.Copy(f.FullName, f.FullName.Replace(_scenario.ModelFolder, backup), true); //copy and overwrite
+                }
+                updateMessage("Copying finished! " + DateTime.Now.ToString());
+                SWAT_SQLite.showInformationWindow("DONE!");
+                
+            }
+            catch (Exception ee)
+            {
+                SWAT_SQLite.showInformationWindow("Failed!" + ee.Message);
+            }
+        }
+
+        /// <summary>
+        /// Copy all model files to SWAT_CUP backup folder except output and db3 files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bCopyto_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                backgroundWorker1.RunWorkerAsync(dlg.SelectedPath);
+            }            
         }
     }
 }
