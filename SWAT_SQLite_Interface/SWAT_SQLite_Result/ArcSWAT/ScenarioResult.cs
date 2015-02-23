@@ -298,7 +298,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
                     {
                         DataRow r = dt.NewRow();
                         r[0] = id;
-                        r[1] = oneUnitResult.Compare(compareScenario).Statistics.R2("");
+                        r[1] = oneUnitResult.Compare(compareScenario).Statistics.Statistic("", StatisticCompareType.R2);
                         dt.Rows.Add(r);
                     }
                     catch (System.Exception e)
@@ -315,9 +315,9 @@ namespace SWAT_SQLite_Result.ArcSWAT
 
         #region Performance Table
        
-        private Dictionary<int, DataTable> _performanceTables = new Dictionary<int, DataTable>();
+        private Dictionary<string, DataTable> _performanceTables = new Dictionary<string, DataTable>();
 
-        private void getPerformanceTableForType(int splitYear, bool withSplitYear, DataTable dt, SWATUnitType type)
+        private void getPerformanceTableForType(int splitYear, bool withSplitYear, DataTable dt, SWATUnitType type, StatisticCompareType statisticType)
         {
             Dictionary<int, SWATUnit> units = null;
             if (type == SWATUnitType.RCH)
@@ -347,13 +347,13 @@ namespace SWAT_SQLite_Result.ArcSWAT
                         r[1] = unitResult.Unit.ID;
                         r[2] = ObservationData.getObservationColumnFromSWAT(col);
 
-                        double total = oneResult.CompareWithObserved.Statistics.NSE("");
+                        double total = oneResult.CompareWithObserved.Statistics.Statistic("",statisticType);
                         r[3] = Math.Round(total, 4);
                         if (withSplitYear)
                         {
                             double before = ScenarioResultStructure.EMPTY_VALUE;
                             double after = ScenarioResultStructure.EMPTY_VALUE;
-                            oneResult.CompareWithObserved.Statistics.NSE(splitYear, out before, out after);
+                            oneResult.CompareWithObserved.Statistics.Statistic(splitYear,statisticType, out before, out after);
 
                             r[4] = Math.Round(before, 4);
                             r[5] = Math.Round(after, 4);
@@ -364,40 +364,55 @@ namespace SWAT_SQLite_Result.ArcSWAT
             }
         }
 
-        public DataTable getPerformanceTable(int splitYear)
+        public DataTable getPerformanceTable(int splitYear, StatisticCompareType statisticType)
         {
-            if (!_performanceTables.ContainsKey(splitYear))
+            string tableName = string.Format("performance_{0}_{1}_{2}_{3}",
+                this.Scenario.Name, this.ModelType, splitYear, statisticType);
+            if (!_performanceTables.ContainsKey(tableName))
             {
                 bool withSplitYear = false;
-                DataTable dt = createPerformanceTable(splitYear,out withSplitYear);
+                DataTable dt = createPerformanceTable(splitYear,statisticType,out withSplitYear);
 
-                getPerformanceTableForType(splitYear, withSplitYear, dt, SWATUnitType.RCH);
-                getPerformanceTableForType(splitYear, withSplitYear, dt, SWATUnitType.RES);
+                getPerformanceTableForType(splitYear, withSplitYear, dt, SWATUnitType.RCH, statisticType);
+                getPerformanceTableForType(splitYear, withSplitYear, dt, SWATUnitType.RES, statisticType);
 
-                _performanceTables.Add(splitYear, dt);
+                _performanceTables.Add(tableName, dt);
             }
-            return _performanceTables[splitYear];
+            return _performanceTables[tableName];
         }
 
-        private DataTable createPerformanceTable(int splitYear,out bool withSplitYear)
+        private DataTable createPerformanceTable(int splitYear, StatisticCompareType statisticType, out bool withSplitYear)
         {
             withSplitYear = false;
 
-            DataTable dt = new DataTable("performance_" + this.Scenario.Name + "_" + this.ModelType.ToString());
+            string tableName = string.Format("performance_{0}_{1}_{2}_{3}",
+                this.Scenario.Name, this.ModelType, splitYear,statisticType);
+            DataTable dt = new DataTable(tableName);
             dt.Columns.Add("TYPE", typeof(string));
             dt.Columns.Add("ID", typeof(int));
             dt.Columns.Add("VAR", typeof(string));
-            dt.Columns.Add(string.Format("NSE({0}-{1})",StartYear,EndYear), typeof(double));
+            dt.Columns.Add(string.Format("{2}({0}-{1})", StartYear, EndYear, statisticType), typeof(double));
             if (splitYear > StartYear && splitYear <= EndYear)
             {
                 withSplitYear = true;
-                dt.Columns.Add(string.Format("NSE({0}-{1})",StartYear,splitYear-1), typeof(double));
-                dt.Columns.Add(string.Format("NSE({0}-{1})",splitYear,EndYear), typeof(double));
+                dt.Columns.Add(string.Format("{2}({0}-{1})",StartYear,splitYear-1,statisticType), typeof(double));
+                dt.Columns.Add(string.Format("{2}({0}-{1})",splitYear,EndYear,statisticType), typeof(double));
             }
             return dt;
         }
 
         #endregion
+
+        /// <summary>
+        /// Unique ID for the result
+        /// </summary>
+        public string ID
+        {
+            get
+            {
+                return string.Format("{0}_{1}", Scenario.Name,ModelType);
+            }
+        }
 
         public override string ToString()
         {

@@ -15,7 +15,7 @@ namespace SWAT_SQLite_Result.ArcSWAT
         public SWATUnitColumnYearResult(string col, int year, SWATUnitResult result) : base(col,year)
         {            
             _result = result;
-            _colCompare = string.Format("{0}_{1}", _col, _result.Unit.Scenario.ModelType);
+            _colCompare = string.Format("{0}_{1}", _col, _result.Unit.Scenario.ID);
         }
 
         public SWATUnitResult UnitResult { get { return _result; } }

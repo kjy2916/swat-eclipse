@@ -21,6 +21,7 @@ namespace SWAT_SQLite_Result
         private string _col = null;
 
         private int _year = -1;
+        private ArcSWAT.StatisticCompareType _statisticType = ArcSWAT.StatisticCompareType.NSE;
 
         private DataTable _statisticTable = null;
         private DataTable _comparedStatisticTable = null;
@@ -51,8 +52,8 @@ namespace SWAT_SQLite_Result
             {
                 _comparedSeasonTable = new DataTable();
                 _comparedSeasonTable.Columns.Add("Year", typeof(Int32));
-                _comparedSeasonTable.Columns.Add(_result.ModelType.ToString(), typeof(double));
-                _comparedSeasonTable.Columns.Add(compareCtrl1.CompareResult.ModelType.ToString(), typeof(double));
+                _comparedSeasonTable.Columns.Add(_result.ID, typeof(double));
+                _comparedSeasonTable.Columns.Add(compareCtrl1.CompareResult.ID, typeof(double));
             }
             _comparedSeasonTable.Rows.Clear();
 
@@ -75,15 +76,7 @@ namespace SWAT_SQLite_Result
             this.Resize += (s, e) => { this.splitContainer1.SplitterDistance = this.Height - 250; }; //always set the height of chart as 250
 
             cmbSplitYear.SelectedIndexChanged += (s, e) => {
-                if (_result == null) return;
-                int year = Convert.ToInt32(cmbSplitYear.SelectedItem.ToString());
-                DataTable dt = _result.getPerformanceTable(year);
-                if (!_warningHasShown && dt.Rows.Count == 0)
-                {
-                    SWAT_SQLite.showInformationWindow("No performance data. Please make sure the observed data has been uploaded and the simulation results exists!");
-                    _warningHasShown = true;
-                }
-                this.dataGridView1.DataSource = dt;
+                updatePerformanceTable();
             };
 
             this.dataGridView1.ReadOnly = true;
@@ -112,7 +105,7 @@ namespace SWAT_SQLite_Result
                     _currentResult = getResult(_result);
 
                     //get statistic info for each hydrological year
-                    _statisticTable = _currentResult.UnitResult.getYearlyPerformanceTable(_col);
+                    _statisticTable = _currentResult.UnitResult.getYearlyPerformanceTable(_col,_statisticType);
                     this.dataGridView2.DataSource = _statisticTable;
                 }
                 catch { }
@@ -153,7 +146,7 @@ namespace SWAT_SQLite_Result
                     ArcSWAT.SWATUnitColumnYearResult r = getResult(compareCtrl1.CompareResult);
                     if(r == null) return;
 
-                    _comparedStatisticTable = r.UnitResult.getYearlyPerformanceTable(_col);
+                    _comparedStatisticTable = r.UnitResult.getYearlyPerformanceTable(_col,_statisticType);
 
                     updateComparedTable();
                 };
@@ -171,6 +164,30 @@ namespace SWAT_SQLite_Result
                     }
                     catch { }
                 };
+
+            this.cmbStatisticTypes.SelectedIndexChanged += (s, e) =>
+                {
+                    if (cmbStatisticTypes.SelectedIndex == -1) return;
+                    ArcSWAT.StatisticCompareType type = (ArcSWAT.StatisticCompareType)(cmbStatisticTypes.SelectedIndex);
+                    if (type == _statisticType) return;
+                    _statisticType = type;
+
+                    updatePerformanceTable();
+                };
+        }
+
+        private void updatePerformanceTable()
+        {
+            if (_result == null) return;
+            int year = Convert.ToInt32(cmbSplitYear.SelectedItem.ToString());
+            DataTable dt = _result.getPerformanceTable(year, _statisticType);
+            if (!_warningHasShown && dt.Rows.Count == 0)
+            {
+                SWAT_SQLite.showInformationWindow("No performance data. Please make sure the observed data has been uploaded and the simulation results exists!");
+                _warningHasShown = true;
+            }
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.DataSource = dt;
         }
 
         private ArcSWAT.ScenarioResult _result = null;

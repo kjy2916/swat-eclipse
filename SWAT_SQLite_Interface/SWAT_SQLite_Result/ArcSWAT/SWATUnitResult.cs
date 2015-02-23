@@ -145,12 +145,13 @@ namespace SWAT_SQLite_Result.ArcSWAT
         /// </summary>
         /// <param name="col"></param>
         /// <returns></returns>
-        public DataTable getYearlyPerformanceTable(string col)
+        public DataTable getYearlyPerformanceTable(string col,ArcSWAT.StatisticCompareType statisticType)
         {
-            if (!_performanceTableYearly.ContainsKey(col))
+            string tableName = string.Format("performance_{0}_{1}", col, statisticType);
+            if (!_performanceTableYearly.ContainsKey(tableName))
             {
                 //create the table
-                DataTable dt = new DataTable("performance_" + col);
+                DataTable dt = new DataTable(tableName);
                 dt.Columns.Add("Year", typeof(Int32));
                 for (int j = (int)(SeasonType.WholeYear); j <= (int)(SeasonType.HydrologicalYear); j++)
                     dt.Columns.Add(((SeasonType)j).ToString(), typeof(double));
@@ -164,13 +165,14 @@ namespace SWAT_SQLite_Result.ArcSWAT
                         newRow[0] = i;
 
                         for(int j=(int)(SeasonType.WholeYear);j<=(int)(SeasonType.HydrologicalYear);j++)
-                            newRow[j] = Math.Round(r.CompareWithObserved.SeasonStatistics((SeasonType)j).NSE(""),4);
+                            newRow[j] = Math.Round(r.CompareWithObserved.SeasonStatistics((SeasonType)j).Statistic
+                                ("",statisticType),4);
                         dt.Rows.Add(newRow);
                     }
                 }
-                _performanceTableYearly[col] = dt;                
+                _performanceTableYearly[tableName] = dt;                
             }
-            return _performanceTableYearly[col];
+            return _performanceTableYearly[tableName];
         }
 
         
